@@ -260,7 +260,7 @@
                                 Margin="10"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Text="头像有 AvatarBorder 属性，可以自己设定标记信息。"
+                                Text="头像有 Badge 属性，可以自己设定标记信息。"
                                 TextWrapping="Wrap" />
                             <WrapPanel>
                                 <nu:N_Avatar
