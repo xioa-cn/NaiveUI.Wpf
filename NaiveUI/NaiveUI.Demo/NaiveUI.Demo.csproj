@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UseWPF>true</UseWPF>
+        <ApplicationIcon>5xrn1-dv6v5-001.ico</ApplicationIcon>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Remove="Assets\Header.jpg" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="5xrn1-dv6v5-001.ico" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\NaiveUI.NControls\NaiveUI.NControls.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="XPrism.Core.wpf" Version="1.1.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="Assets\Header.jpg" />
+    </ItemGroup>
+
+</Project>

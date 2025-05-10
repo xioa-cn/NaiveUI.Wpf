@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/NPaths/PathResources.xaml" />
+        <ResourceDictionary Source="./ControlsExample/ButtonStyles/ButtonThemes.xaml" />
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Card/CardElementDic.xaml" />
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/AvatarStyles/AvatarThemes.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

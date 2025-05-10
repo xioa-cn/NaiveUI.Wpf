@@ -1,0 +1,159 @@
+﻿<UserControl
+    x:Class="NaiveUI.Demo.Views.Components.N_Card.NaiveCard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:NaiveUI.Demo.Views.Components.N_Card"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <ScrollViewer>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <!--  基础用法  -->
+                <nu:CardElement Margin="20" BoderColor="Red">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="基础用法" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel Margin="10">
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                TextWrapping="Wrap">
+                                基础卡片使用 CardElement本体 HeaderElement插槽 ContentElement插槽
+                                点击边框会变色哦~ BoderColor控制边框颜色 变色会变成主题主颜色 Main.Color
+                            </TextBlock>
+                            <nu:CardElement Margin="10">
+                                <nu:CardElement.HeaderElement>
+                                    <Border Margin="20,10">
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"
+                                            Text="基础卡片" />
+                                    </Border>
+                                </nu:CardElement.HeaderElement>
+                                <nu:CardElement.ContentElement>
+                                    <StackPanel Margin="10">
+                                        <TextBlock>基础卡片</TextBlock>
+                                    </StackPanel>
+                                </nu:CardElement.ContentElement>
+                            </nu:CardElement>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <!--  封面  -->
+                <nu:CardElement Margin="20" BoderColor="DeepSkyBlue">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="封面" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel Margin="10">
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                TextWrapping="Wrap">
+                                HeaderElement 添加封面图
+                            </TextBlock>
+                            <nu:CardElement
+                                Width="220"
+                                Margin="10"
+                                HorizontalAlignment="Left">
+                                <nu:CardElement.HeaderElement>
+                                    <StackPanel Margin="20,10">
+                                        <Image
+                                            Width="200"
+                                            Height="200"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Top"
+                                            Source="https://c-ssl.duitang.com/uploads/blog/202212/18/20221218144515_64111.jpg" />
+                                        <Border Margin="0,10">
+                                            <TextBlock
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                FontSize="20"
+                                                Text="封面图" />
+                                        </Border>
+                                    </StackPanel>
+                                </nu:CardElement.HeaderElement>
+                                <nu:CardElement.ContentElement>
+                                    <StackPanel Margin="20">
+                                        <TextBlock>卡片内容</TextBlock>
+                                    </StackPanel>
+                                </nu:CardElement.ContentElement>
+                            </nu:CardElement>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <!--  Footer  -->
+                <nu:CardElement Margin="20" BoderColor="Red">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="Footer" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel Margin="10">
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                TextWrapping="Wrap">
+                                Footer 插槽 FooterBackgroundBrush可控制Footer背景
+                            </TextBlock>
+                            <nu:CardElement Margin="10" FooterBackgroundBrush="#FAFAFC">
+                                <nu:CardElement.HeaderElement>
+                                    <Border Margin="20,10">
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"
+                                            Text="#Header" />
+                                    </Border>
+                                </nu:CardElement.HeaderElement>
+                                <nu:CardElement.ContentElement>
+                                    <StackPanel Margin="10">
+                                        <TextBlock>#Content</TextBlock>
+                                    </StackPanel>
+                                </nu:CardElement.ContentElement>
+                                <nu:CardElement.FooterElement>
+                                    <Border Margin="10">
+                                        <TextBlock FontWeight="Bold">#Footer</TextBlock>
+                                    </Border>
+                                </nu:CardElement.FooterElement>
+                            </nu:CardElement>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+            </StackPanel>
+            <StackPanel Grid.Column="1" />
+        </Grid>
+    </ScrollViewer>
+</UserControl>

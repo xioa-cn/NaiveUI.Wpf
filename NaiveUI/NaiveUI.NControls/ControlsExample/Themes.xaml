@@ -1,0 +1,50 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  主色  -->
+    <Color x:Key="Main.Color">#5FBC21</Color>
+    <SolidColorBrush x:Key="Main.Brush" Color="{StaticResource Main.Color}" />
+
+    <!--  背景色  -->
+    <Color x:Key="Main.Background.Color">#FFFFFF</Color>
+    <SolidColorBrush x:Key="Main.Background.Brush" Color="{StaticResource Main.Background.Color}" />
+    <!--  前景色  -->
+    <Color x:Key="Main.Frontground.Color">#262626</Color>
+    <SolidColorBrush x:Key="Main.Frontground.Brush" Color="{StaticResource Main.Frontground.Color}" />
+
+    <!--  主要文字色  -->
+    <Color x:Key="Main.Font.Color">#1F2225</Color>
+    <SolidColorBrush x:Key="Main.Font.Brush" Color="{StaticResource Main.Font.Color}" />
+
+
+    <!--  Primary色  -->
+    <Color x:Key="Primary.First.Color">#5FBC21</Color>
+    <SolidColorBrush x:Key="Primary.First.Brush" Color="{StaticResource Primary.First.Color}" />
+
+    <Color x:Key="Primary.Second.Color">#36AD6A</Color>
+    <SolidColorBrush x:Key="Primary.Second.Brush" Color="{StaticResource Primary.Second.Color}" />
+
+    <!--  Info色  -->
+    <Color x:Key="Info.First.Color">#2080F0</Color>
+    <SolidColorBrush x:Key="Info.First.Brush" Color="{StaticResource Info.First.Color}" />
+
+    <Color x:Key="Info.Second.Color">#4098FC</Color>
+    <SolidColorBrush x:Key="Info.Second.Brush" Color="{StaticResource Info.Second.Color}" />
+
+    <!--  Warning色  -->
+    <Color x:Key="Warning.First.Color">#F0A020</Color>
+    <SolidColorBrush x:Key="Warning.First.Brush" Color="{StaticResource Warning.First.Color}" />
+
+    <Color x:Key="Warning.Second.Color">#FCB040</Color>
+    <SolidColorBrush x:Key="Warning.Second.Brush" Color="{StaticResource Warning.Second.Color}" />
+
+    <!--  Error色  -->
+    <Color x:Key="Error.First.Color">#D03050</Color>
+    <SolidColorBrush x:Key="Error.First.Brush" Color="{StaticResource Error.First.Color}" />
+
+    <Color x:Key="Error.Second.Color">#DE576D</Color>
+    <SolidColorBrush x:Key="Error.Second.Brush" Color="{StaticResource Error.Second.Color}" />
+
+    <!--  边框  -->
+    <Color x:Key="Brush.Color">#666666</Color>
+    <SolidColorBrush x:Key="Brush.Brush" Color="{StaticResource Brush.Color}" />
+
+</ResourceDictionary>

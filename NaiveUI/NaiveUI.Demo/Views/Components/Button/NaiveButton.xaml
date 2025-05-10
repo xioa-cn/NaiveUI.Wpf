@@ -1,0 +1,1272 @@
+﻿<UserControl
+    x:Class="NaiveUI.Demo.Views.Components.Button.NaiveButton"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:attach="clr-namespace:NaiveUI.NControls.Attach;assembly=NaiveUI.NControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:NaiveUI.Demo.Views.Components.Button"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    mc:Ignorable="d">
+    <ScrollViewer>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <!--  基础  -->
+                <nu:CardElement Name="基础" Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="基础" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="按钮的基础样式 分别为 tertiary primary info success warning 和 error"
+                                TextWrapping="Wrap" />
+                            <WrapPanel
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center">
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5">
+                                    Default
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource Tertiary}">
+                                    Tertiary
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource Primary}">
+                                    Primary
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource Info}">
+                                    Info
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource Success}">
+                                    Success
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource Warning}">
+                                    Warning
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource Error}">
+                                    Error
+                                </Button>
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+                <!--  次次  -->
+                <nu:CardElement Name="次次" Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="次次要按钮" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <WrapPanel
+                            Margin="10"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center">
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Style="{StaticResource TertiaryDefault}">
+                                Default
+                            </Button>
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Style="{StaticResource TertiaryTertiary}">
+                                Tertiary
+                            </Button>
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Style="{StaticResource TertiaryPrimary}">
+                                Primary
+                            </Button>
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Style="{StaticResource TertiaryInfo}">
+                                Info
+                            </Button>
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Style="{StaticResource TertiarySuccess}">
+                                Success
+                            </Button>
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Style="{StaticResource TertiaryWarning}">
+                                Warning
+                            </Button>
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Style="{StaticResource TertiaryError}">
+                                <attach:IconAttach.Icon>
+                                    <Path
+                                        Height="20"
+                                        Margin="5"
+                                        Data="{StaticResource Naive}"
+                                        Fill="{DynamicResource Error.First.Brush}"
+                                        Stretch="Uniform" />
+                                </attach:IconAttach.Icon>
+                                Error
+                            </Button>
+                        </WrapPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+                <!--  虚线按钮  -->
+                <nu:CardElement Name="虚线按钮" Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="虚线按钮" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                TextWrapping="Wrap">
+                                使用Dashed来使用虚线按钮
+                            </TextBlock>
+
+                            <WrapPanel
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center">
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource DashedDefault}">
+                                    <attach:IconAttach.Icon>
+                                        <Path
+                                            Height="20"
+                                            Margin="5"
+                                            Data="{StaticResource Naive}"
+                                            Fill="{DynamicResource Main.Brush}"
+                                            Stretch="Uniform" />
+                                    </attach:IconAttach.Icon>
+                                    Default
+                                </Button>
+
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource DashedPrimary}">
+                                    Primary
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource DashedInfo}">
+                                    Info
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource DashedSuccess}">
+                                    Success
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource DashedWarning}">
+                                    <attach:IconAttach.Icon>
+                                        <Path
+                                            Height="20"
+                                            Margin="5"
+                                            Data="{StaticResource Naive}"
+                                            Fill="{DynamicResource Warning.First.Brush}"
+                                            Stretch="Uniform" />
+                                    </attach:IconAttach.Icon>
+                                    Warning
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource DashedError}">
+                                    Error
+                                </Button>
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+                <!--  文本按钮  -->
+                <nu:CardElement Name="文本按钮" Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="文本按钮" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                TextWrapping="Wrap">
+                                长的像文本一样， 使用Text控制
+                            </TextBlock>
+                            <WrapPanel
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center">
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    attach:MouseOverForegroundAttach.MouseOverForeground="Red"
+                                    Style="{StaticResource Text}">
+                                    就像文本一样
+                                </Button>
+
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    attach:MouseOverForegroundAttach.MouseOverForeground="Green"
+                                    Style="{StaticResource Text}">
+                                    <attach:IconAttach.Icon>
+                                        <Path
+                                            Height="20"
+                                            Margin="5"
+                                            Data="{StaticResource Naive}"
+                                            Fill="#FF81C0"
+                                            Stretch="Uniform" />
+                                    </attach:IconAttach.Icon>
+                                    改变颜色
+                                </Button>
+
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+                <!--  禁用状态  -->
+                <nu:CardElement Name="禁用状态" Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="禁用按钮" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="使用IsEnabled禁用按钮状态"
+                                TextWrapping="Wrap" />
+                            <WrapPanel
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center">
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    IsEnabled="False">
+                                    禁用状态
+                                </Button>
+
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    IsEnabled="False"
+                                    Style="{StaticResource DashedWarning}">
+                                    <attach:IconAttach.Icon>
+                                        <Path
+                                            Height="20"
+                                            Margin="5"
+                                            Data="{StaticResource Naive}"
+                                            Fill="{DynamicResource Warning.First.Brush}"
+                                            Stretch="Uniform" />
+                                    </attach:IconAttach.Icon>
+                                    禁用状态
+                                </Button>
+
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    IsEnabled="False"
+                                    Style="{StaticResource Text}">
+                                    文本按钮禁用状态
+                                </Button>
+
+                                <Button
+                                    Width="120"
+                                    Height="40"
+                                    Margin="5"
+                                    HorizontalAlignment="Left"
+                                    attach:ButtonTypeAttach.ButtonType="_a"
+                                    attach:ButtonTypeAttach.Href="https://www.baidu.com/"
+                                    attach:ButtonTypeAttach.StutNormalClick="False"
+                                    IsEnabled="False">
+                                    标签按钮禁用状态
+                                </Button>
+
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+                <!--  事件  -->
+                <nu:CardElement Name="事件" Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="事件" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <WrapPanel
+                            Margin="10"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center">
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Click="ClickEventExample"
+                                Style="{StaticResource SecondaryWarning}">
+                                Click Me
+                            </Button>
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Click="ClickEventExampleError"
+                                Style="{StaticResource SecondaryError}">
+                                Click Me
+                            </Button>
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Click="ClickEventExampleSuccess"
+                                Style="{StaticResource SecondarySuccess}">
+                                Click Me
+                            </Button>
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Click="ClickEventExampleInfo"
+                                Style="{StaticResource SecondaryInfo}">
+                                Click Me
+                            </Button>
+
+
+
+                        </WrapPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+                <!--  透明按钮  -->
+                <nu:CardElement Name="透明按钮" Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="透明按钮" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                TextWrapping="Wrap">
+                                Ghost 按钮有透明的背景
+                            </TextBlock>
+
+                            <WrapPanel
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center">
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource GhostDefault}">
+                                    Default
+                                </Button>
+
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource GhostPrimary}">
+                                    Primary
+                                    <attach:IconAttach.Icon>
+                                        <Path
+                                            Height="20"
+                                            Margin="5"
+                                            Data="{StaticResource Naive}"
+                                            Fill="{DynamicResource Primary.First.Brush}"
+                                            Stretch="Uniform" />
+                                    </attach:IconAttach.Icon>
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource GhostInfo}">
+                                    Info
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource GhostSuccess}">
+                                    Success
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource GhostWarning}">
+                                    Warning
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource GhostError}">
+                                    Error
+                                    <attach:IconAttach.Icon>
+                                        <Path
+                                            Height="20"
+                                            Margin="5"
+                                            Data="{StaticResource Naive}"
+                                            Fill="{DynamicResource Error.First.Brush}"
+                                            Stretch="Uniform" />
+                                    </attach:IconAttach.Icon>
+                                </Button>
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+                <!--  自定义颜色按钮  -->
+                <nu:CardElement Name="自定义颜色按钮" Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="自定义颜色按钮" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                TextWrapping="Wrap">
+                                使用Default来实现自定义
+                            </TextBlock>
+                            <WrapPanel
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center">
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Background="#9D4DE7"
+                                    BorderBrush="#9D4DE7"
+                                    Foreground="#FFF"
+                                    Style="{StaticResource DefaultButton}">
+                                    <attach:IconAttach.Icon>
+                                        <Path
+                                            Height="20"
+                                            Margin="5"
+                                            Data="{StaticResource Naive}"
+                                            Fill="#FFF"
+                                            Stretch="Uniform" />
+                                    </attach:IconAttach.Icon>
+                                    Default
+                                </Button>
+
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Background="Transparent"
+                                    BorderBrush="#9D4DE7"
+                                    Foreground="#9D4DE7"
+                                    Style="{StaticResource DefaultButton}">
+                                    <attach:IconAttach.Icon>
+                                        <Path
+                                            Height="20"
+                                            Margin="5"
+                                            Data="{StaticResource Naive}"
+                                            Fill="#9D4DE7"
+                                            Stretch="Uniform" />
+                                    </attach:IconAttach.Icon>
+                                    Default
+                                </Button>
+
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    Foreground="#9D4DE7"
+                                    Style="{StaticResource DefaultButton}">
+                                    <attach:IconAttach.Icon>
+                                        <Path
+                                            Height="20"
+                                            Margin="5"
+                                            Data="{StaticResource Naive}"
+                                            Fill="#9D4DE7"
+                                            Stretch="Uniform" />
+                                    </attach:IconAttach.Icon>
+                                    Default
+                                </Button>
+
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Background="#FF81C0"
+                                    BorderBrush="#FF81C0"
+                                    Foreground="#FFF"
+                                    Style="{StaticResource DefaultButton}">
+                                    <attach:IconAttach.Icon>
+                                        <Path
+                                            Height="20"
+                                            Margin="5"
+                                            Data="{StaticResource Naive}"
+                                            Fill="#FFF"
+                                            Stretch="Uniform" />
+                                    </attach:IconAttach.Icon>
+                                    Default
+                                </Button>
+
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Background="Transparent"
+                                    BorderBrush="#FF81C0"
+                                    Foreground="#FF81C0"
+                                    Style="{StaticResource DefaultButton}">
+                                    <attach:IconAttach.Icon>
+                                        <Path
+                                            Height="20"
+                                            Margin="5"
+                                            Data="{StaticResource Naive}"
+                                            Fill="#FF81C0"
+                                            Stretch="Uniform" />
+                                    </attach:IconAttach.Icon>
+                                    Default
+                                </Button>
+
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    Foreground="#FF81C0"
+                                    Style="{StaticResource DefaultButton}">
+                                    <attach:IconAttach.Icon>
+                                        <Path
+                                            Height="20"
+                                            Margin="5"
+                                            Data="{StaticResource Naive}"
+                                            Fill="#FF81C0"
+                                            Stretch="Uniform" />
+                                    </attach:IconAttach.Icon>
+                                    Default
+                                </Button>
+
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+                <!--  使用图标做按钮  -->
+                <nu:CardElement Name="使用图标做按钮" Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="使用图标做按钮" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                TextWrapping="Wrap">
+                                使用PathGeometry来实现
+                            </TextBlock>
+                            <WrapPanel
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center">
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource PathButton}">
+                                    <PathGeometry>
+                                        M554.666667 469.333333l-42.666667-85.333333h-42.666667v256h213.333334v-170.666667h-128z m-128-42.666666V341.333333h119.466666l38.4 85.333334H725.333333v256h-298.666666v-256z m106.666666 469.333333C332.8 896 170.666667 733.866667 170.666667 533.333333S332.8 170.666667 533.333333 170.666667 896 332.8 896 533.333333 733.866667 896 533.333333 896z m0-42.666667c174.933333 0 320-145.066667 320-320S708.266667 213.333333 533.333333 213.333333 213.333333 358.4 213.333333 533.333333 358.4 853.333333 533.333333 853.333333zM341.333333 426.666667h42.666667v256H341.333333v-256z
+                                    </PathGeometry>
+                                </Button>
+
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource PathButton}">
+                                    <PathGeometry>
+                                        M640 426.666667h-170.666667v256h42.666667l42.666667-85.333334h128v-170.666666h-42.666667z m-55.466667 213.333333l-38.4 85.333333H426.666667V384h298.666666v256h-140.8z m-51.2 256C332.8 896 170.666667 733.866667 170.666667 533.333333S332.8 170.666667 533.333333 170.666667 896 332.8 896 533.333333 733.866667 896 533.333333 896z m0-42.666667c174.933333 0 320-145.066667 320-320S708.266667 213.333333 533.333333 213.333333 213.333333 358.4 213.333333 533.333333 358.4 853.333333 533.333333 853.333333zM341.333333 640V384h42.666667v256H341.333333z
+                                    </PathGeometry>
+                                    <attach:N_Tooltip.Content>
+                                        点赞
+                                    </attach:N_Tooltip.Content>
+                                </Button>
+
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1">
+                <!--  次  -->
+                <nu:CardElement Name="次" Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="次要按钮" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <WrapPanel
+                            Margin="10"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center">
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Style="{StaticResource SecondaryDefault}">
+                                Default
+                            </Button>
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Style="{StaticResource SecondaryTertiary}">
+                                Tertiary
+                            </Button>
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Style="{StaticResource SecondaryPrimary}">
+                                Primary
+                            </Button>
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Style="{StaticResource SecondaryInfo}">
+                                <attach:IconAttach.Icon>
+                                    <Path
+                                        Height="20"
+                                        Margin="5"
+                                        Data="{StaticResource Naive}"
+                                        Fill="{DynamicResource Info.First.Brush}"
+                                        Stretch="Uniform" />
+                                </attach:IconAttach.Icon>
+                                Info
+                            </Button>
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Style="{StaticResource SecondarySuccess}">
+                                Success
+                            </Button>
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Style="{StaticResource SecondaryWarning}">
+                                Warning
+                            </Button>
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Style="{StaticResource SecondaryError}">
+                                Error
+                            </Button>
+                        </WrapPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <!--  次次次  -->
+                <nu:CardElement Name="次次次" Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="次次次要按钮" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <WrapPanel
+                            Margin="10"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center">
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Style="{StaticResource QuaternaryDefault}">
+                                Default
+                            </Button>
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Style="{StaticResource QuaternaryTertiary}">
+                                Tertiary
+                            </Button>
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Style="{StaticResource QuaternaryPrimary}">
+                                Primary
+                            </Button>
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Style="{StaticResource QuaternaryInfo}">
+                                Info
+                            </Button>
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Style="{StaticResource QuaternarySuccess}">
+                                Success
+                            </Button>
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Style="{StaticResource QuaternaryWarning}">
+                                Warning
+                            </Button>
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                Style="{StaticResource QuaternaryError}">
+                                Error
+                            </Button>
+                        </WrapPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <!--  尺寸  -->
+                <nu:CardElement Name="尺寸" Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="尺寸" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                TextWrapping="Wrap">
+                                有 tiny small medium 和 large 尺寸
+                            </TextBlock>
+
+                            <WrapPanel
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center">
+                                <Button
+                                    Margin="5"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Bottom"
+                                    attach:PaddingSizeAttach.PaddingSize="Tiny"
+                                    Style="{StaticResource SecondaryDefault}">
+                                    小小
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Bottom"
+                                    attach:PaddingSizeAttach.PaddingSize="Small"
+                                    Style="{StaticResource SecondaryDefault}">
+                                    小
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Bottom"
+                                    attach:PaddingSizeAttach.PaddingSize="Medium"
+                                    Style="{StaticResource SecondaryDefault}">
+                                    不小
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Bottom"
+                                    attach:PaddingSizeAttach.PaddingSize="Large"
+                                    Style="{StaticResource SecondaryDefault}">
+                                    不不小
+                                </Button>
+
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <!--  标签  -->
+                <nu:CardElement Name="标签" Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="标签" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel
+                            Margin="10"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center">
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="你可以把按钮渲染成标签，比如 a。"
+                                TextWrapping="Wrap" />
+                            <Button
+                                Width="100"
+                                Height="40"
+                                Margin="5"
+                                HorizontalAlignment="Left"
+                                attach:ButtonTypeAttach.ButtonType="_a"
+                                attach:ButtonTypeAttach.Href="https://www.baidu.com/"
+                                attach:ButtonTypeAttach.StutNormalClick="False">
+                                Default-Link
+                            </Button>
+
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <!--  图标  -->
+                <nu:CardElement Name="带图标按钮" Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="带图标按钮" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                TextWrapping="Wrap">
+                                使用IconAttach.Icon插入图标
+                            </TextBlock>
+                            <WrapPanel
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center">
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5">
+                                    <Button.Content>
+                                        Default
+                                    </Button.Content>
+                                    <attach:IconAttach.Icon>
+                                        <Path
+                                            Height="20"
+                                            Margin="5"
+                                            Data="{StaticResource Naive}"
+                                            Fill="{DynamicResource Main.Brush}"
+                                            Stretch="Uniform" />
+                                    </attach:IconAttach.Icon>
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource Tertiary}">
+                                    Tertiary
+                                    <attach:IconAttach.Icon>
+                                        <Path
+                                            Height="20"
+                                            Margin="5"
+                                            Data="{StaticResource Naive}"
+                                            Fill="#E0E0E6"
+                                            Stretch="Uniform" />
+                                    </attach:IconAttach.Icon>
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource Primary}">
+                                    <attach:IconAttach.Icon>
+                                        <Path
+                                            Height="20"
+                                            Margin="5"
+                                            Data="{StaticResource Naive}"
+                                            Fill="{DynamicResource Info.First.Brush}"
+                                            Stretch="Uniform" />
+                                    </attach:IconAttach.Icon>
+                                    Primary
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource Info}">
+                                    <attach:IconAttach.Icon>
+                                        <Path
+                                            Height="20"
+                                            Margin="5"
+                                            Data="{StaticResource Naive}"
+                                            Fill="{DynamicResource Error.First.Brush}"
+                                            Stretch="Uniform" />
+                                    </attach:IconAttach.Icon>
+                                    Info
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource Success}">
+                                    <attach:IconAttach.Icon>
+                                        <Path
+                                            Height="20"
+                                            Margin="5"
+                                            Data="{StaticResource Naive}"
+                                            Fill="{DynamicResource Warning.First.Brush}"
+                                            Stretch="Uniform" />
+                                    </attach:IconAttach.Icon>
+                                    Success
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource Warning}">
+                                    <attach:IconAttach.Icon>
+                                        <Path
+                                            Height="20"
+                                            Margin="5"
+                                            Data="{StaticResource Naive}"
+                                            Fill="{DynamicResource Primary.First.Brush}"
+                                            Stretch="Uniform" />
+                                    </attach:IconAttach.Icon>
+                                    Warning
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource Error}">
+                                    <attach:IconAttach.Icon>
+                                        <Path
+                                            Height="20"
+                                            Margin="5"
+                                            Data="{StaticResource Naive}"
+                                            Fill="{DynamicResource Primary.First.Brush}"
+                                            Stretch="Uniform" />
+                                    </attach:IconAttach.Icon>
+                                    Error
+                                </Button>
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+                <!--  加载中  -->
+                <nu:CardElement Name="加载中" Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="加载中" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                TextWrapping="Wrap">
+                                使用ButtonLoadingAttach.Loading控制加载动画
+                                使用ButtonLoadingAttach.LoadingBrush控制颜色
+                            </TextBlock>
+                            <WrapPanel
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center">
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    attach:ButtonLoadingAttach.Loading="False"
+                                    attach:ButtonLoadingAttach.LoadingBrush="Red"
+                                    Click="DefaultLoading">
+                                    Default
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    attach:ButtonLoadingAttach.Loading="False"
+                                    attach:ButtonLoadingAttach.LoadingBrush="Green"
+                                    Click="DefaultLoading"
+                                    Style="{StaticResource Tertiary}">
+                                    Tertiary
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    attach:ButtonLoadingAttach.Loading="False"
+                                    attach:ButtonLoadingAttach.LoadingBrush="Red"
+                                    Click="DefaultLoading"
+                                    Style="{StaticResource SecondaryPrimary}">
+                                    Primary
+                                </Button>
+
+                                <Button
+                                    x:Name="Button"
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    attach:ButtonLoadingAttach.Loading="False"
+                                    attach:ButtonLoadingAttach.LoadingBrush="{StaticResource Warning.First.Brush}"
+                                    IsHitTestVisible="False"
+                                    Style="{StaticResource GhostWarning}">
+                                    <Button.Content>
+                                        Loading
+                                    </Button.Content>
+                                </Button>
+
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <!--  配合Popover  -->
+                <nu:CardElement Name="配合Popover" Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="配合Popover" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                TextWrapping="Wrap">
+                                使用N_Tooltip插入Popover
+                            </TextBlock>
+                            <WrapPanel
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center">
+                                <Button
+                                    Width="140"
+                                    Height="40"
+                                    Margin="5">
+                                    <attach:N_Tooltip.Content>
+                                        工作遇到困难，齐心协力一起解决
+                                    </attach:N_Tooltip.Content>
+                                    两天加班换一天调休
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource DashedInfo}">
+                                    <attach:IconAttach.Icon>
+                                        <Path
+                                            Height="20"
+                                            Margin="5"
+                                            Data="{StaticResource Naive}"
+                                            Fill="{DynamicResource Info.Second.Brush}"
+                                            Stretch="Uniform" />
+                                    </attach:IconAttach.Icon>
+                                    <attach:N_Tooltip.Content>
+                                        你必然一身才华，才会被这么多人惦记
+                                    </attach:N_Tooltip.Content>
+                                    突破
+                                </Button>
+
+                                <Button
+                                    Width="140"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource Primary}">
+                                    <attach:N_Tooltip.Content>
+                                        工作遇到困难，齐心协力一起解决
+                                    </attach:N_Tooltip.Content>
+                                    两天加班换一天调休
+                                </Button>
+                                <Button
+                                    Width="100"
+                                    Height="40"
+                                    Margin="5"
+                                    Style="{StaticResource GhostWarning}">
+                                    <attach:IconAttach.Icon>
+                                        <Path
+                                            Height="20"
+                                            Margin="5"
+                                            Data="{StaticResource Naive}"
+                                            Fill="{DynamicResource Warning.Second.Brush}"
+                                            Stretch="Uniform" />
+                                    </attach:IconAttach.Icon>
+                                    <attach:N_Tooltip.Content>
+                                        你必然一身才华，才会被这么多人惦记
+                                    </attach:N_Tooltip.Content>
+                                    突破
+                                </Button>
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+
+
+</UserControl>

@@ -1,0 +1,369 @@
+﻿<UserControl
+    x:Class="NaiveUI.Demo.Views.Components.Avatar.NaiveAvatar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:NaiveUI.Demo.Views.Components.Avatar"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <ScrollViewer>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <!--  尺寸  -->
+                <nu:CardElement Name="尺寸" Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="尺寸" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="头像有 size 属性，可以自己设定尺寸。"
+                                TextWrapping="Wrap" />
+                            <WrapPanel>
+                                <nu:N_Avatar
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    Size="40">
+                                    <nu:N_Avatar.Content>
+                                        <Image Source="/Assets/Header.jpg" Stretch="Fill" />
+                                    </nu:N_Avatar.Content>
+                                </nu:N_Avatar>
+                                <nu:N_Avatar
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    Size="60">
+                                    <nu:N_Avatar.Content>
+                                        <Image Source="/Assets/Header.jpg" Stretch="Fill" />
+                                    </nu:N_Avatar.Content>
+                                </nu:N_Avatar>
+                                <nu:N_Avatar
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    Size="80">
+                                    <nu:N_Avatar.Content>
+                                        <Image Source="/Assets/Header.jpg" Stretch="Fill" />
+                                    </nu:N_Avatar.Content>
+                                </nu:N_Avatar>
+                                <nu:N_Avatar
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    Size="30">
+                                    <nu:N_Avatar.Content>
+                                        <Image Source="/Assets/Header.jpg" Stretch="Fill" />
+                                    </nu:N_Avatar.Content>
+                                </nu:N_Avatar>
+                                <nu:N_Avatar
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    Size="40">
+                                    <nu:N_Avatar.Content>
+                                        <Image Source="/Assets/Header.jpg" Stretch="Fill" />
+                                    </nu:N_Avatar.Content>
+                                </nu:N_Avatar>
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <!--  图标  -->
+                <nu:CardElement Name="图标" Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="图标" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="默认为Path图像 直接在Content导入即可。"
+                                TextWrapping="Wrap" />
+                            <WrapPanel>
+                                <nu:N_Avatar
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    AvatarBorder="Round"
+                                    Size="40" />
+                                <nu:N_Avatar
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    Size="60" />
+                                <nu:N_Avatar
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    AvatarBorder="Round"
+                                    Size="80" />
+                                <nu:N_Avatar
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    Size="30" />
+                                <nu:N_Avatar
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    AvatarBorder="Round"
+                                    Size="40" />
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <!--  加载失败  -->
+                <nu:CardElement Name="加载失败" Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="加载失败" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="加载失败。可以显示Avatar Error"
+                                TextWrapping="Wrap" />
+                            <WrapPanel>
+                                <nu:N_Avatar
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    Size="60">
+                                    <nu:N_Avatar.Content>
+                                        <Image Source="https://pic2.zhimg.com/v2-ffdbbeea7a8063dd40a1e80a7c023b71_b.jpg" />
+                                    </nu:N_Avatar.Content>
+                                </nu:N_Avatar>
+                                <nu:N_Avatar
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    BorderBrush="Gray"
+                                    Size="60">
+                                    <nu:N_Avatar.Content>
+                                        <Path
+                                            Margin="10"
+                                            Data="{StaticResource Avatar_Error}"
+                                            Fill="Gray"
+                                            Stretch="Uniform" />
+                                    </nu:N_Avatar.Content>
+                                </nu:N_Avatar>
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <!--  形状  -->
+                <nu:CardElement Name="形状" Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="形状" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="头像有 AvatarBorder 属性，可以自己设定形状。"
+                                TextWrapping="Wrap" />
+                            <WrapPanel>
+                                <nu:N_Avatar
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    Size="40">
+                                    <nu:N_Avatar.Content>
+                                        <Image Source="/Assets/Header.jpg" Stretch="Fill" />
+                                    </nu:N_Avatar.Content>
+                                </nu:N_Avatar>
+                                <nu:N_Avatar
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    AvatarBorder="Round"
+                                    Size="160">
+                                    <nu:N_Avatar.Content>
+                                        <Image Source="/Assets/Header.jpg" Stretch="Fill" />
+                                    </nu:N_Avatar.Content>
+                                </nu:N_Avatar>
+                                <nu:N_Avatar
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    Size="80">
+                                    <nu:N_Avatar.Content>
+                                        <Image Source="/Assets/Header.jpg" Stretch="Fill" />
+                                    </nu:N_Avatar.Content>
+                                </nu:N_Avatar>
+                                <nu:N_Avatar
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    AvatarBorder="Round"
+                                    Size="50">
+                                    <nu:N_Avatar.Content>
+                                        <Image Source="/Assets/Header.jpg" Stretch="Fill" />
+                                    </nu:N_Avatar.Content>
+                                </nu:N_Avatar>
+                                <nu:N_Avatar
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    Size="40">
+                                    <nu:N_Avatar.Content>
+                                        <Image Source="/Assets/Header.jpg" Stretch="Fill" />
+                                    </nu:N_Avatar.Content>
+                                </nu:N_Avatar>
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <!--  标记  -->
+                <nu:CardElement Name="标记" Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="标记" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="头像有 AvatarBorder 属性，可以自己设定标记信息。"
+                                TextWrapping="Wrap" />
+                            <WrapPanel>
+                                <nu:N_Avatar
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    Badge="999+"
+                                    Size="100">
+                                    <nu:N_Avatar.Content>
+                                        <Image Source="/Assets/Header.jpg" Stretch="Fill" />
+                                    </nu:N_Avatar.Content>
+                                </nu:N_Avatar>
+
+                                <nu:N_Avatar
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    Badge="99+"
+                                    FontSize="8"
+                                    Size="60" />
+
+                                <nu:N_Avatar
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    AvatarBorder="Round"
+                                    Badge="999+"
+                                    Size="100">
+                                    <nu:N_Avatar.Content>
+                                        <Image Source="/Assets/Header.jpg" Stretch="Fill" />
+                                    </nu:N_Avatar.Content>
+                                </nu:N_Avatar>
+
+                                <nu:N_Avatar
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    AvatarBorder="Round"
+                                    Badge="99+"
+                                    FontSize="8"
+                                    Size="60" />
+
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <!--  头像组  -->
+                <nu:CardElement Name="头像组" Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="头像组" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="头像组，人多不一定是好事。"
+                                TextWrapping="Wrap" />
+                            <WrapPanel>
+                                <ItemsControl Margin="20">
+                                    <ItemsControl.ItemsSource>
+                                        <x:Array xmlns:sys="clr-namespace:System;assembly=mscorlib" Type="sys:String">
+                                            <sys:String>https://c-ssl.duitang.com/uploads/blog/202204/08/20220408205533_7d1cc.jpg</sys:String>
+                                            <sys:String>https://c-ssl.duitang.com/uploads/blog/202305/11/XxSy5BDMFQdOpd8.jpeg</sys:String>
+                                            <sys:String>https://c-ssl.dtstatic.com/uploads/blog/202105/19/20210519233434_9b138.thumb.1000_0.jpg</sys:String>
+                                            <sys:String>https://c-ssl.duitang.com/uploads/blog/202212/18/20221218144515_64111.jpg</sys:String>
+                                        </x:Array>
+                                    </ItemsControl.ItemsSource>
+
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <nu:N_Avatar
+                                                Margin="-15"
+                                                VerticalAlignment="Bottom"
+                                                AvatarBorder="Round"
+                                                Size="60">
+                                                <nu:N_Avatar.Content>
+                                                    <Image Source="{Binding}" Stretch="Fill" />
+                                                </nu:N_Avatar.Content>
+                                                <nu:N_Avatar.ToolTip>
+                                                    <TextBlock Text="{Binding}" />
+                                                </nu:N_Avatar.ToolTip>
+                                            </nu:N_Avatar>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+            </StackPanel>
+
+        </Grid>
+    </ScrollViewer>
+</UserControl>

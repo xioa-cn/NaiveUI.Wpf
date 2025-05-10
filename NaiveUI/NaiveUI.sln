@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NaiveUI.Demo", "NaiveUI.Demo\NaiveUI.Demo.csproj", "{F74A14FF-FEFD-4C3A-89D1-6C9858CD18BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NaiveUI.NControls", "NaiveUI.NControls\NaiveUI.NControls.csproj", "{A3A34ECA-D912-4B4C-9875-F3E4474F4E57}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F74A14FF-FEFD-4C3A-89D1-6C9858CD18BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F74A14FF-FEFD-4C3A-89D1-6C9858CD18BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F74A14FF-FEFD-4C3A-89D1-6C9858CD18BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F74A14FF-FEFD-4C3A-89D1-6C9858CD18BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3A34ECA-D912-4B4C-9875-F3E4474F4E57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3A34ECA-D912-4B4C-9875-F3E4474F4E57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3A34ECA-D912-4B4C-9875-F3E4474F4E57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3A34ECA-D912-4B4C-9875-F3E4474F4E57}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

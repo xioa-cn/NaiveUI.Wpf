@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/ButtonStyles/ButtonLink.xaml" />
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/ButtonStyles/ButtonBase.xaml" />
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/ButtonStyles/ButtonSecondary.xaml" />
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/ButtonStyles/ButtonTertiary.xaml" />
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/ButtonStyles/ButtonQuaternary.xaml" />
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/ButtonStyles/ButtonDashed.xaml" />
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/ButtonStyles/ButtonText.xaml" />
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/ButtonStyles/ButtonGhost.xaml" />
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/ButtonStyles/ButtonPath.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

@@ -1,0 +1,72 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:card="clr-namespace:NaiveUI.NControls.ControlsExample"
+    xmlns:converter="clr-namespace:NaiveUI.NControls.Converters">
+    <converter:NullToVisibilityConverter x:Key="NullToVisibility" />
+    <Style TargetType="{x:Type card:CardElement}">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FooterBackgroundBrush" Value="#FAFAFC" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type card:CardElement}">
+                    <StackPanel MinHeight="20">
+                        <Border
+                            Name="cardBorder"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="3">
+                            <Border.BorderBrush>
+                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BoderColor}" />
+                            </Border.BorderBrush>
+                            <Border.Triggers>
+                                <EventTrigger RoutedEvent="MouseDown">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                AutoReverse="True"
+                                                Storyboard.TargetName="cardBorder"
+                                                Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
+                                                From="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BoderColor}"
+                                                To="{DynamicResource Main.Color}"
+                                                Duration="0:0:1" />
+                                            <ColorAnimation
+                                                AutoReverse="True"
+                                                Storyboard.TargetName="cardSeparator"
+                                                Storyboard.TargetProperty="(Separator.Background).(SolidColorBrush.Color)"
+                                                From="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BoderColor}"
+                                                To="{DynamicResource Main.Color}"
+                                                Duration="0:0:1" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Border.Triggers>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+
+                                <ContentPresenter Grid.Row="0" Content="{TemplateBinding HeaderElement}" />
+                                <Separator
+                                    Name="cardSeparator"
+                                    Grid.Row="0"
+                                    Height="0.5"
+                                    Margin="0,0"
+                                    VerticalAlignment="Bottom">
+                                    <Separator.Background>
+                                        <SolidColorBrush Color="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BoderColor}" />
+                                    </Separator.Background>
+                                </Separator>
+                                <ContentPresenter Grid.Row="1" Content="{TemplateBinding ContentElement}" />
+                                <Grid Grid.Row="2" Background="{TemplateBinding FooterBackgroundBrush}">
+                                    <ContentPresenter Content="{TemplateBinding FooterElement}" Visibility="{TemplateBinding FooterElement, Converter={StaticResource NullToVisibility}}" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
