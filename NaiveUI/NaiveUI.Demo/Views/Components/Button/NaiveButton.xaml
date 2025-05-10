@@ -429,8 +429,30 @@
                                 Style="{StaticResource SecondaryInfo}">
                                 Click Me
                             </Button>
+                            <x:Code>
+                                <![CDATA[
+                             void ClickEventExample(object sender, RoutedEventArgs e)
+                            {
+                            ElMessage.Wpf.Utils.ElMessage.Warning("Warning Message ~~~");
+                            }
 
+                             void ClickEventExampleInfo(object sender, RoutedEventArgs e)
+                            {
+                            ElMessage.Wpf.Utils.ElMessage.Info("Warning Message ~~~");
+                            }
 
+                             void ClickEventExampleSuccess(object sender, RoutedEventArgs e)
+                            {
+                            ElMessage.Wpf.Utils.ElMessage.Success("Warning Message ~~~");
+                            }
+
+                             void ClickEventExampleError(object sender, RoutedEventArgs e)
+                            {
+                            ElMessage.Wpf.Utils.ElMessage.Error("Warning Message ~~~");
+                            }
+                            
+]]>
+                            </x:Code>
 
                         </WrapPanel>
                     </nu:CardElement.ContentElement>
@@ -1173,6 +1195,26 @@
                                         Loading
                                     </Button.Content>
                                 </Button>
+                                <x:Code>
+                                    <![CDATA[
+                                    void DefaultLoading(object sender, RoutedEventArgs e)
+                                    {
+                                    var btn = sender as System.Windows.Controls.Button;
+                                    btn.SetValue(ButtonLoadingAttach.LoadingProperty,true);
+
+
+                                    Task.Run(async () =>
+                                    {
+                                    await Task.Delay(2000);
+                                    Dispatcher.BeginInvoke(() =>
+                                    {
+                                    btn.SetValue(ButtonLoadingAttach.LoadingProperty, false);
+                                    });
+                                    });
+
+                                    }
+                                    ]]>
+                                </x:Code>
 
                             </WrapPanel>
                         </StackPanel>
