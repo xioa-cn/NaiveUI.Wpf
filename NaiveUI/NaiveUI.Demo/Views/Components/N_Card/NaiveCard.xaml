@@ -58,7 +58,7 @@
                 </nu:CardElement>
 
                 <!--  封面  -->
-                <nu:CardElement Margin="20" BoderColor="DeepSkyBlue">
+                <nu:CardElement Margin="20" BoderColor="Red">
                     <nu:CardElement.HeaderElement>
                         <Border Margin="20,10">
                             <TextBlock
@@ -152,8 +152,176 @@
                         </StackPanel>
                     </nu:CardElement.ContentElement>
                 </nu:CardElement>
+
+                <!--  没有标题  -->
+                <nu:CardElement Margin="20" BoderColor="Red">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="没有标题" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel Margin="10">
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                TextWrapping="Wrap">
+                                谁说卡片一定要有标题呢。
+                            </TextBlock>
+                            <nu:CardElement Margin="10" FooterBackgroundBrush="#FAFAFC">
+                                <nu:CardElement.ContentElement>
+                                    <StackPanel Margin="10">
+                                        <TextBlock>#Content</TextBlock>
+                                    </StackPanel>
+                                </nu:CardElement.ContentElement>
+
+                            </nu:CardElement>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
             </StackPanel>
-            <StackPanel Grid.Column="1" />
+            <StackPanel Grid.Column="1">
+                <!--  无边框  -->
+                <nu:CardElement Margin="20" BoderColor="Red">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="无边框" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel Margin="10">
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                TextWrapping="Wrap">
+                                无边框卡片使用 OpenBordered 属性
+                            </TextBlock>
+                            <nu:CardElement Margin="10" OpenBordered="False">
+                                <nu:CardElement.HeaderElement>
+                                    <Border Margin="20,10">
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"
+                                            Text="基础卡片无边框" />
+                                    </Border>
+                                </nu:CardElement.HeaderElement>
+                                <nu:CardElement.ContentElement>
+                                    <StackPanel Margin="10">
+                                        <TextBlock>基础卡片无边框</TextBlock>
+                                    </StackPanel>
+                                </nu:CardElement.ContentElement>
+                            </nu:CardElement>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <!--  可悬浮  -->
+                <nu:CardElement Margin="20" BoderColor="Red">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="可悬浮" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel Margin="10">
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                TextWrapping="Wrap">
+                                可悬浮卡片使用 Hoverable 属性 使用 HoverableBackground 属性设置悬浮颜色
+                            </TextBlock>
+                            <nu:CardElement
+                                Margin="10"
+                                Hoverable="True"
+                                HoverableBackground="Yellow"
+                                OpenBordered="True">
+                                <nu:CardElement.HeaderElement>
+                                    <Border Margin="20,10">
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"
+                                            Text="基础卡片可悬浮" />
+                                    </Border>
+                                </nu:CardElement.HeaderElement>
+                                <nu:CardElement.ContentElement>
+                                    <StackPanel Margin="10">
+                                        <TextBlock>基础卡片可悬浮</TextBlock>
+                                    </StackPanel>
+                                </nu:CardElement.ContentElement>
+                            </nu:CardElement>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+                <!--  加载中  -->
+                <nu:CardElement Margin="20" BoderColor="Red">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="加载中" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel Margin="10">
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                TextWrapping="Wrap">
+                                加载中卡片使用 Skeleton 属性来显示骨骼
+                            </TextBlock>
+                            <nu:N_Switch
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                Click="N_SwitchClick"
+                                GroupName="group1"
+                                IsChecked="True"
+                                RailHeight="30"
+                                RailWidth="70" />
+                            <TextBlock Margin="10" Text="{Binding ElementName=LoadingCardElement, Path=Skeleton}" />
+                            <nu:CardElement
+                                Name="LoadingCardElement"
+                                Margin="10"
+                                OpenBordered="True"
+                                Skeleton="Loading">
+                                <nu:CardElement.HeaderElement>
+                                    <Border Margin="20,10">
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"
+                                            Text="基础卡片加载中" />
+                                    </Border>
+                                </nu:CardElement.HeaderElement>
+                                <nu:CardElement.ContentElement>
+                                    <StackPanel Margin="10">
+                                        <TextBlock>基础卡片加载中</TextBlock>
+                                    </StackPanel>
+                                </nu:CardElement.ContentElement>
+                            </nu:CardElement>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+            </StackPanel>
         </Grid>
     </ScrollViewer>
 </UserControl>

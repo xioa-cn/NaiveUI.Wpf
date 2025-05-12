@@ -16,6 +16,12 @@ namespace NaiveUI.NControls.Tools
                 new PropertyMetadata(defaultValue));
         }
 
+        public static DependencyProperty Property<TThisType, TPropertyType>(string name, TPropertyType defaultValue,PropertyChangedCallback propertyChangedCallback)
+        {
+            return DependencyProperty.Register(name.Replace("Property", ""), typeof(TPropertyType), typeof(TThisType),
+                new PropertyMetadata(defaultValue, propertyChangedCallback));
+        }
+
 
         public static DependencyProperty Property<TThisType, TPropertyType>(string name)
         {

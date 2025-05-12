@@ -5,6 +5,7 @@
         <ResourceDictionary Source="./ControlsExample/ButtonStyles/ButtonThemes.xaml" />
         <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Card/CardElementDic.xaml" />
         <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/AvatarStyles/AvatarThemes.xaml" />
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/SwitchStyles/SwitchBase.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

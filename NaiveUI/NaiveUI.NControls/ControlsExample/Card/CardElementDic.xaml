@@ -4,9 +4,64 @@
     xmlns:card="clr-namespace:NaiveUI.NControls.ControlsExample"
     xmlns:converter="clr-namespace:NaiveUI.NControls.Converters">
     <converter:NullToVisibilityConverter x:Key="NullToVisibility" />
+
+    <Storyboard x:Key="EffectAniCardElement">
+        <DoubleAnimation
+            Storyboard.TargetName="shadowEffect"
+            Storyboard.TargetProperty="Opacity"
+            To="1"
+            Duration="0:0:0.2" />
+        <DoubleAnimation
+            Storyboard.TargetName="cardBorder"
+            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+            To="-2"
+            Duration="0:0:0.2" />
+    </Storyboard>
+    <Storyboard x:Key="DoubleAniCardElement">
+        <DoubleAnimation
+            Storyboard.TargetName="shadowEffect"
+            Storyboard.TargetProperty="Opacity"
+            To="0"
+            Duration="0:0:0.2" />
+        <DoubleAnimation
+            Storyboard.TargetName="cardBorder"
+            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+            To="0"
+            Duration="0:0:0.2" />
+    </Storyboard>
+    <!--  骨架屏动画  -->
+
+    <Storyboard x:Key="SkeletonAnimation" RepeatBehavior="Forever">
+        <DoubleAnimation
+            AutoReverse="True"
+            RepeatBehavior="Forever"
+            Storyboard.TargetName="headerSkeleton"
+            Storyboard.TargetProperty="Opacity"
+            From="0.3"
+            To="1"
+            Duration="0:0:1" />
+        <DoubleAnimation
+            AutoReverse="True"
+            RepeatBehavior="Forever"
+            Storyboard.TargetName="contentSkeleton"
+            Storyboard.TargetProperty="Opacity"
+            From="0.3"
+            To="1"
+            Duration="0:0:1" />
+        <DoubleAnimation
+            AutoReverse="True"
+            RepeatBehavior="Forever"
+            Storyboard.TargetName="footerSkeleton"
+            Storyboard.TargetProperty="Opacity"
+            From="0.3"
+            To="1"
+            Duration="0:0:1" />
+    </Storyboard>
+
     <Style TargetType="{x:Type card:CardElement}">
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="FooterBackgroundBrush" Value="#FAFAFC" />
+        <Setter Property="Skeleton" Value="Normal" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type card:CardElement}">
@@ -18,7 +73,17 @@
                             <Border.BorderBrush>
                                 <SolidColorBrush Color="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BoderColor}" />
                             </Border.BorderBrush>
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    x:Name="shadowEffect"
+                                    BlurRadius="10"
+                                    Direction="270"
+                                    Opacity="0"
+                                    ShadowDepth="2"
+                                    Color="#20000000" />
+                            </Border.Effect>
                             <Border.Triggers>
+
                                 <EventTrigger RoutedEvent="MouseDown">
                                     <BeginStoryboard>
                                         <Storyboard>
@@ -39,6 +104,8 @@
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </EventTrigger>
+
+
                             </Border.Triggers>
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -47,7 +114,13 @@
                                     <RowDefinition Height="auto" />
                                 </Grid.RowDefinitions>
 
-                                <ContentPresenter Grid.Row="0" Content="{TemplateBinding HeaderElement}" />
+                                <!--  正常内容  -->
+                                <ContentPresenter
+                                    x:Name="headerContent"
+                                    Grid.Row="0"
+                                    Content="{TemplateBinding HeaderElement}"
+                                    Visibility="{TemplateBinding HeaderElement,
+                                                                 Converter={StaticResource NullToVisibility}}" />
                                 <Separator
                                     Name="cardSeparator"
                                     Grid.Row="0"
@@ -58,13 +131,112 @@
                                         <SolidColorBrush Color="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BoderColor}" />
                                     </Separator.Background>
                                 </Separator>
-                                <ContentPresenter Grid.Row="1" Content="{TemplateBinding ContentElement}" />
-                                <Grid Grid.Row="2" Background="{TemplateBinding FooterBackgroundBrush}">
+                                <ContentPresenter
+                                    x:Name="mainContent"
+                                    Grid.Row="1"
+                                    Content="{TemplateBinding ContentElement}" />
+                                <Grid
+                                    x:Name="footerContent"
+                                    Grid.Row="2"
+                                    Background="{TemplateBinding FooterBackgroundBrush}">
                                     <ContentPresenter Content="{TemplateBinding FooterElement}" Visibility="{TemplateBinding FooterElement, Converter={StaticResource NullToVisibility}}" />
                                 </Grid>
+
+                                <!--  骨架屏内容  -->
+                                <Border
+                                    x:Name="headerSkeleton"
+                                    Grid.Row="0"
+                                    Height="30"
+                                    Margin="10,10,10,15"
+                                    Background="#EEEEEE"
+                                    Visibility="Collapsed">
+                                    <Border.Effect>
+                                        <BlurEffect Radius="2" />
+                                    </Border.Effect>
+                                </Border>
+
+                                <StackPanel
+                                    x:Name="contentSkeleton"
+                                    Grid.Row="1"
+                                    Margin="10"
+                                    Visibility="Collapsed">
+                                    <Border
+                                        Height="20"
+                                        Margin="0,5"
+                                        Background="#EEEEEE">
+                                        <Border.Effect>
+                                            <BlurEffect Radius="2" />
+                                        </Border.Effect>
+                                    </Border>
+
+                                    <Border
+                                        Height="20"
+                                        Margin="0,5"
+                                        Background="#EEEEEE">
+                                        <Border.Effect>
+                                            <BlurEffect Radius="2" />
+                                        </Border.Effect>
+                                    </Border>
+                                    <Border
+                                        Width="200"
+                                        Height="20"
+                                        Margin="0,5"
+                                        HorizontalAlignment="Left"
+                                        Background="#EEEEEE">
+                                        <Border.Effect>
+                                            <BlurEffect Radius="2" />
+                                        </Border.Effect>
+                                    </Border>
+                                </StackPanel>
+
+                                <Border
+                                    x:Name="footerSkeleton"
+                                    Grid.Row="2"
+                                    Height="40"
+                                    Margin="10"
+                                    Background="#EEEEEE"
+                                    CornerRadius="4"
+                                    Visibility="Collapsed">
+                                    <Border.Effect>
+                                        <BlurEffect Radius="2" />
+                                    </Border.Effect>
+                                </Border>
+
+
                             </Grid>
                         </Border>
                     </StackPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="OpenBordered" Value="False">
+                            <Setter Property="BoderColor" Value="Transparent" />
+                            <Setter TargetName="cardBorder" Property="BorderBrush" Value="Transparent" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Hoverable" Value="True" />
+                                <Condition Property="IsMouseOver" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="cardBorder" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HoverableBackground}" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+
+                        <!--  骨架屏触发器  -->
+                        <Trigger Property="Skeleton" Value="Loading">
+                            <Setter TargetName="headerContent" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="mainContent" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="footerContent" Property="Visibility" Value="Collapsed" />
+
+
+                            <Setter TargetName="headerSkeleton" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="contentSkeleton" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="footerSkeleton" Property="Visibility" Value="Visible" />
+
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource SkeletonAnimation}" />
+                            </Trigger.EnterActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
