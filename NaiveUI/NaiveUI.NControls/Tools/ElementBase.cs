@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using System.Windows.Input;
 using System.Windows;
 
@@ -16,9 +12,21 @@ namespace NaiveUI.NControls.Tools
                 new PropertyMetadata(defaultValue));
         }
 
-        public static DependencyProperty Property<TThisType, TPropertyType>(string name, TPropertyType defaultValue,PropertyChangedCallback propertyChangedCallback)
+        public static DependencyProperty Property<TThisType, TPropertyType>(string name, TPropertyType defaultValue, PropertyChangedCallback propertyChangedCallback)
         {
             return DependencyProperty.Register(name.Replace("Property", ""), typeof(TPropertyType), typeof(TThisType),
+                new PropertyMetadata(defaultValue, propertyChangedCallback));
+        }
+
+        public static DependencyProperty PropertyAttach<TThisType, TProperty>(string name, TProperty defaultValue)
+        {
+            return DependencyProperty.RegisterAttached(name.Replace("Property", ""), typeof(TProperty), typeof(TThisType),
+                new PropertyMetadata(defaultValue));
+        }
+
+        public static DependencyProperty PropertyAttach<TThisType, TProperty>(string name, TProperty defaultValue, PropertyChangedCallback propertyChangedCallback)
+        {
+            return DependencyProperty.RegisterAttached(name.Replace("Property", ""), typeof(TProperty), typeof(TThisType),
                 new PropertyMetadata(defaultValue, propertyChangedCallback));
         }
 

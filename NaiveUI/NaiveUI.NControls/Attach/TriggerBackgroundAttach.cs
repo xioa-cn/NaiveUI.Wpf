@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using NaiveUI.NControls.Tools;
+using System.Windows;
 using System.Windows.Media;
 
 namespace NaiveUI.NControls.Attach
@@ -18,9 +19,8 @@ namespace NaiveUI.NControls.Attach
         }
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TriggerBackgroundProperty =
-            DependencyProperty.RegisterAttached("TriggerBackground", 
-                typeof(Brush), typeof(TriggerBackgroundAttach), new PropertyMetadata(default(Brush)));
+        public static readonly DependencyProperty TriggerBackgroundProperty =    
+            ElementBase.PropertyAttach<TriggerBackgroundAttach, Brush?>(nameof(TriggerBackgroundProperty), default(Brush));
 
 
     }

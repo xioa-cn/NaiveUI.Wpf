@@ -1,8 +1,9 @@
-﻿using System.Windows;
+﻿using NaiveUI.NControls.Tools;
+using System.Windows;
 
 namespace NaiveUI.NControls.Attach
 {
-    public  class EffectSizeAttach
+    public class EffectSizeAttach
     {
         public static double GetEffectSize(DependencyObject obj)
         {
@@ -16,7 +17,7 @@ namespace NaiveUI.NControls.Attach
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty EffectSizeProperty =
-            DependencyProperty.RegisterAttached("EffectSize", typeof(double), typeof(EffectSizeAttach), new PropertyMetadata(0.8));
+            ElementBase.PropertyAttach<EffectSizeAttach, double>(nameof(EffectSizeProperty), 0.8);
 
 
     }

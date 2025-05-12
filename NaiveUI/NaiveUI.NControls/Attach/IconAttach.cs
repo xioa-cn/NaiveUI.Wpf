@@ -1,11 +1,12 @@
-﻿using System.Windows;
+﻿using NaiveUI.NControls.Tools;
+using System.Windows;
 using System.Windows.Shapes;
 
 namespace NaiveUI.NControls.Attach
 {
     public class IconAttach
     {
-        public static Path GetIcon(DependencyObject obj)
+        public static Path? GetIcon(DependencyObject obj)
         {
             return (Path)obj.GetValue(IconProperty);
         }
@@ -16,8 +17,8 @@ namespace NaiveUI.NControls.Attach
         }
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IconProperty =
-            DependencyProperty.RegisterAttached("Icon", typeof(Path), typeof(IconAttach), new PropertyMetadata(default(Path)));
+        public static readonly DependencyProperty IconProperty =  
+            ElementBase.PropertyAttach<IconAttach, Path?>(nameof(IconProperty), default(Path));
 
 
     }

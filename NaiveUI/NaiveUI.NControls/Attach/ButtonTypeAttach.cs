@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using NaiveUI.NControls.Tools;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -23,8 +24,7 @@ namespace NaiveUI.NControls.Attach
 
         // Using a DependencyProperty as the backing store for ButtonType.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ButtonTypeProperty =
-            DependencyProperty.RegisterAttached("ButtonType", typeof(ButtonNType), typeof(ButtonTypeAttach),
-                new PropertyMetadata(default(ButtonNType), PropertyBtnChangeType));
+            ElementBase.PropertyAttach<ButtonTypeAttach, ButtonNType>(nameof(ButtonTypeProperty), default(ButtonNType), PropertyBtnChangeType);
 
         private static void PropertyBtnChangeType(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -49,7 +49,7 @@ namespace NaiveUI.NControls.Attach
 
 
 
-        public static string GetHref(DependencyObject obj)
+        public static string? GetHref(DependencyObject obj)
         {
             return (string)obj.GetValue(HrefProperty);
         }
@@ -61,8 +61,7 @@ namespace NaiveUI.NControls.Attach
 
         // Using a DependencyProperty as the backing store for Href.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HrefProperty =
-            DependencyProperty.RegisterAttached("Href", typeof(string), typeof(ButtonTypeAttach), new PropertyMetadata(""));
-
+            ElementBase.PropertyAttach<ButtonTypeAttach, string?>(nameof(HrefProperty), default(string));
         public static bool GetStutNormalClick(DependencyObject obj)
         {
             return (bool)obj.GetValue(StutNormalClickProperty);
@@ -75,7 +74,7 @@ namespace NaiveUI.NControls.Attach
 
         // Using a DependencyProperty as the backing store for StutNormalClick.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty StutNormalClickProperty =
-            DependencyProperty.RegisterAttached("StutNormalClick", typeof(bool), typeof(ButtonTypeAttach), new PropertyMetadata(false, ShutChanged));
+            ElementBase.PropertyAttach<ButtonTypeAttach, bool?>(nameof(StutNormalClickProperty), default(bool), ShutChanged);
 
         private static void ShutChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -90,7 +89,7 @@ namespace NaiveUI.NControls.Attach
                     catch (Exception)
                     {
 
-                        
+
                     }
 
                 }

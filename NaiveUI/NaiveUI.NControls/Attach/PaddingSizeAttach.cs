@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using NaiveUI.NControls.Tools;
+using System.Windows;
 using System.Windows.Controls;
 
 
@@ -37,9 +38,8 @@ namespace NaiveUI.NControls.Attach
         }
 
         // Using a DependencyProperty as the backing store for PaddingSize.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty PaddingSizeProperty =
-            DependencyProperty.RegisterAttached("PaddingSize", typeof(PSize), typeof(PaddingSizeAttach),
-                new PropertyMetadata(default(PSize), OnPropertyValueChange));
+        public static readonly DependencyProperty PaddingSizeProperty =       
+            ElementBase.PropertyAttach<PaddingSizeAttach, PSize?>(nameof(PaddingSizeProperty), default(PSize),OnPropertyValueChange);
 
         private static void OnPropertyValueChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

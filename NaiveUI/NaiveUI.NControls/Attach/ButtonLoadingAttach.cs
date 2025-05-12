@@ -1,4 +1,5 @@
 ﻿using NaiveUI.NControls.ControlsExample.Loading;
+using NaiveUI.NControls.Tools;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -19,7 +20,7 @@ namespace NaiveUI.NControls.Attach
 
         // Using a DependencyProperty as the backing store for Loading.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty LoadingProperty =
-            DependencyProperty.RegisterAttached("Loading", typeof(bool), typeof(ButtonLoadingAttach), new PropertyMetadata(false, LoadingMethod));
+            ElementBase.PropertyAttach<ButtonLoadingAttach, bool>(nameof(LoadingProperty), false, LoadingMethod);
 
         private static void LoadingMethod(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -61,19 +62,19 @@ namespace NaiveUI.NControls.Attach
                             grid.Children.Add(accessText);
                             Grid.SetColumn(accessText, 1);
                         }
-                        else if(yContent is not null)
+                        else if (yContent is not null)
                         {
                             var element = yContent as UIElement;
                             if (element is null)
                             {
-                               
+
                             }
                             else
                             {
                                 grid.Children.Add(element);
                                 Grid.SetColumn(element, 1);
                             }
-                               
+
 
                         }
                         btn.Content = grid;
@@ -119,8 +120,7 @@ namespace NaiveUI.NControls.Attach
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty LoadingBrushProperty =
-            DependencyProperty.RegisterAttached("LoadingBrush", typeof(Brush), typeof(ButtonLoadingAttach), new PropertyMetadata(null));
-
+            ElementBase.PropertyAttach<ButtonLoadingAttach, Brush?>(nameof(LoadingBrushProperty), null);
 
     }
 }

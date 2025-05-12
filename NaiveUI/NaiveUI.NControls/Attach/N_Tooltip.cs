@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using NaiveUI.NControls.Tools;
+using System.Windows;
 
 namespace NaiveUI.NControls.Attach
 {
@@ -15,7 +16,7 @@ namespace NaiveUI.NControls.Attach
         }
 
         // Using a DependencyProperty as the backing store for Content.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ContentProperty =
-            DependencyProperty.RegisterAttached("Content", typeof(object), typeof(N_Tooltip), new PropertyMetadata(null));
+        public static readonly DependencyProperty ContentProperty =         
+            ElementBase.PropertyAttach<N_Tooltip, object?>(nameof(ContentProperty), default(object));
     }
 }

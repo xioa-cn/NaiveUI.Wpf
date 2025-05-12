@@ -1,11 +1,18 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
+        <!-- 图标 -->
         <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/NPaths/PathResources.xaml" />
-        <ResourceDictionary Source="./ControlsExample/ButtonStyles/ButtonThemes.xaml" />
+        <!-- 按钮 -->
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/ButtonStyles/ButtonThemes.xaml" />
+        <!-- 卡片 -->
         <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Card/CardElementDic.xaml" />
+        <!-- 头像 -->
         <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/AvatarStyles/AvatarThemes.xaml" />
+        <!-- 滑块 -->
         <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/SwitchStyles/SwitchBase.xaml" />
+        <!-- 渐变文字 -->
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/GradientText/GradientText.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
