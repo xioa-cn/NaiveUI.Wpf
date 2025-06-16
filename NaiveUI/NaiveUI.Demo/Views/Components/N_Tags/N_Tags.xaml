@@ -1,0 +1,79 @@
+﻿<UserControl
+    x:Class="NaiveUI.Demo.Views.Components.N_Tags.N_Tags"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:NaiveUI.Demo.Views.Components.N_Tags"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <ScrollViewer>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <!--  默认  -->
+                <nu:CardElement Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="基础" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="它有不同的类型"
+                                TextWrapping="Wrap" />
+                            <WrapPanel>
+                                <nu:N_Tag
+                                    Margin="2"
+                                    FontSize="15"
+                                    Text="爱在西元前" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    FontSize="15"
+                                    Grade="Primary"
+                                    Text="不该" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    FontSize="15"
+                                    Grade="Success"
+                                    Text="超人不会飞" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    FontSize="15"
+                                    Grade="Warning"
+                                    Text="手写的从前" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    FontSize="15"
+                                    Grade="Info"
+                                    Text="哪里都是你" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    FontSize="15"
+                                    Grade="Error"
+                                    Text="是你的心里有鬼" />
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+
+            </StackPanel>
+            <StackPanel Grid.Column="1" />
+
+        </Grid>
+    </ScrollViewer>
+</UserControl>

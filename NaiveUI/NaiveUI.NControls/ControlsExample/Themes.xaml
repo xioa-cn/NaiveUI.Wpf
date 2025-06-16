@@ -22,6 +22,13 @@
     <Color x:Key="Primary.Second.Color">#36AD6A</Color>
     <SolidColorBrush x:Key="Primary.Second.Brush" Color="{StaticResource Primary.Second.Color}" />
 
+    <!--  Success色  -->
+    <Color x:Key="Success.First.Color">#5FBC21</Color>
+    <SolidColorBrush x:Key="Success.First.Brush" Color="{StaticResource Primary.First.Color}" />
+
+    <Color x:Key="Success.Second.Color">#36AD6A</Color>
+    <SolidColorBrush x:Key="Success.Second.Brush" Color="{StaticResource Primary.Second.Color}" />
+
     <!--  Info色  -->
     <Color x:Key="Info.First.Color">#2080F0</Color>
     <SolidColorBrush x:Key="Info.First.Brush" Color="{StaticResource Info.First.Color}" />

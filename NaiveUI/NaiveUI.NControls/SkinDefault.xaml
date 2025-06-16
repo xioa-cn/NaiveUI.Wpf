@@ -13,6 +13,8 @@
         <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/SwitchStyles/SwitchBase.xaml" />
         <!-- 渐变文字 -->
         <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/GradientText/GradientText.xaml"/>
+        <!-- 标签 -->
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Tag/TagThemes.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
