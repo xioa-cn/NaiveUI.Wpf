@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:NaiveUI.Demo.Views.Components.N_Tags"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:vm="clr-namespace:NaiveUI.Demo.ViewModels"
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
@@ -70,10 +71,214 @@
                     </nu:CardElement.ContentElement>
                 </nu:CardElement>
 
-
+                <!--  可关闭  -->
+                <nu:CardElement Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="可关闭" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="可关闭 Closeable实现"
+                                TextWrapping="Wrap" />
+                            <WrapPanel>
+                                <nu:N_Tag
+                                    Margin="2"
+                                    CloseClick="N_Tag_Click"
+                                    CloseCommand="{Binding Source={x:Static vm:CommandViewModel.Instance}, Path=TestCommand}"
+                                    CloseCommandParameter="TEST"
+                                    Closeable="True"
+                                    FontSize="15"
+                                    Text="爱在西元前" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    CloseClick="N_Tag_Click"
+                                    Closeable="True"
+                                    FontSize="15"
+                                    Grade="Primary"
+                                    Text="不该" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    CloseClick="N_Tag_Click"
+                                    Closeable="True"
+                                    FontSize="15"
+                                    Grade="Success"
+                                    Text="超人不会飞" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    CloseClick="N_Tag_Click"
+                                    Closeable="True"
+                                    FontSize="15"
+                                    Grade="Warning"
+                                    Text="手写的从前" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    CloseClick="N_Tag_Click"
+                                    Closeable="True"
+                                    FontSize="15"
+                                    Grade="Info"
+                                    Text="哪里都是你" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    CloseClick="N_Tag_Click"
+                                    Closeable="True"
+                                    FontSize="15"
+                                    Grade="Error"
+                                    Text="是你的心里有鬼" />
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
             </StackPanel>
-            <StackPanel Grid.Column="1" />
+            <StackPanel Grid.Column="1">
+                <!--  无边框  -->
+                <nu:CardElement Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="无边框" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="无边框使用 BorderedProperty实现"
+                                TextWrapping="Wrap" />
+                            <WrapPanel>
+                                <nu:N_Tag
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="False"
+                                    FontSize="15"
+                                    Text="爱在西元前" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="False"
+                                    FontSize="15"
+                                    Grade="Primary"
+                                    Text="不该" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="False"
+                                    FontSize="15"
+                                    Grade="Success"
+                                    Text="超人不会飞" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="False"
+                                    FontSize="15"
+                                    Grade="Warning"
+                                    Text="手写的从前" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="False"
+                                    FontSize="15"
+                                    Grade="Info"
+                                    Text="哪里都是你" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="False"
+                                    FontSize="15"
+                                    Grade="Error"
+                                    Text="是你的心里有鬼" />
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
 
+                <!--  禁用  -->
+                <nu:CardElement Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="禁用" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="禁用 IsEnabled实现"
+                                TextWrapping="Wrap" />
+                            <WrapPanel>
+                                <nu:N_Tag
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="False"
+                                    Closeable="True"
+                                    FontSize="15"
+                                    IsEnabled="False"
+                                    Text="爱在西元前" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="False"
+                                    FontSize="15"
+                                    Grade="Primary"
+                                    IsEnabled="False"
+                                    Text="不该" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="False"
+                                    FontSize="15"
+                                    Grade="Success"
+                                    IsEnabled="False"
+                                    Text="超人不会飞" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="False"
+                                    FontSize="15"
+                                    Grade="Warning"
+                                    IsEnabled="False"
+                                    Text="手写的从前" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="False"
+                                    FontSize="15"
+                                    Grade="Info"
+                                    IsEnabled="False"
+                                    Text="哪里都是你" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="False"
+                                    FontSize="15"
+                                    Grade="Error"
+                                    IsEnabled="False"
+                                    Text="是你的心里有鬼" />
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+            </StackPanel>
         </Grid>
     </ScrollViewer>
 </UserControl>

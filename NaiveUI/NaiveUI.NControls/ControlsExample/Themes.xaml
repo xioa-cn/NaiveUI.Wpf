@@ -14,6 +14,11 @@
     <Color x:Key="Main.Font.Color">#1F2225</Color>
     <SolidColorBrush x:Key="Main.Font.Brush" Color="{StaticResource Main.Font.Color}" />
 
+    <Color x:Key="Second.Font.Color">#D4D4D5</Color>
+    <SolidColorBrush x:Key="Second.Font.Brush" Color="{StaticResource Second.Font.Color}" />
+
+    <Color x:Key="Third.Font.Color">#DBDBDB</Color>
+    <SolidColorBrush x:Key="Third.Font.Brush" Color="{StaticResource Second.Font.Color}" />
 
     <!--  Primary色  -->
     <Color x:Key="Primary.First.Color">#5FBC21</Color>
@@ -22,12 +27,18 @@
     <Color x:Key="Primary.Second.Color">#36AD6A</Color>
     <SolidColorBrush x:Key="Primary.Second.Brush" Color="{StaticResource Primary.Second.Color}" />
 
+    <Color x:Key="Primary.Third.Color">#DAF0E4</Color>
+    <SolidColorBrush x:Key="Primary.Third.Brush" Color="{StaticResource Primary.Third.Color}" />
+
     <!--  Success色  -->
     <Color x:Key="Success.First.Color">#5FBC21</Color>
     <SolidColorBrush x:Key="Success.First.Brush" Color="{StaticResource Primary.First.Color}" />
 
     <Color x:Key="Success.Second.Color">#36AD6A</Color>
     <SolidColorBrush x:Key="Success.Second.Brush" Color="{StaticResource Primary.Second.Color}" />
+
+    <Color x:Key="Success.Third.Color">#DAF0E4</Color>
+    <SolidColorBrush x:Key="Success.Third.Brush" Color="{StaticResource Success.Third.Color}" />
 
     <!--  Info色  -->
     <Color x:Key="Info.First.Color">#2080F0</Color>
@@ -36,6 +47,9 @@
     <Color x:Key="Info.Second.Color">#4098FC</Color>
     <SolidColorBrush x:Key="Info.Second.Brush" Color="{StaticResource Info.Second.Color}" />
 
+    <Color x:Key="Info.Third.Color">#DBEBFD</Color>
+    <SolidColorBrush x:Key="Info.Third.Brush" Color="{StaticResource Info.Third.Color}" />
+
     <!--  Warning色  -->
     <Color x:Key="Warning.First.Color">#F0A020</Color>
     <SolidColorBrush x:Key="Warning.First.Brush" Color="{StaticResource Warning.First.Color}" />
@@ -43,12 +57,18 @@
     <Color x:Key="Warning.Second.Color">#FCB040</Color>
     <SolidColorBrush x:Key="Warning.Second.Brush" Color="{StaticResource Warning.Second.Color}" />
 
+    <Color x:Key="Warning.Third.Color">#FDF0DB</Color>
+    <SolidColorBrush x:Key="Warning.Third.Brush" Color="{StaticResource Warning.Third.Color}" />
+
     <!--  Error色  -->
     <Color x:Key="Error.First.Color">#D03050</Color>
     <SolidColorBrush x:Key="Error.First.Brush" Color="{StaticResource Error.First.Color}" />
 
     <Color x:Key="Error.Second.Color">#DE576D</Color>
     <SolidColorBrush x:Key="Error.Second.Brush" Color="{StaticResource Error.Second.Color}" />
+
+    <Color x:Key="Error.Third.Color">#F7DEE3</Color>
+    <SolidColorBrush x:Key="Error.Third.Brush" Color="{StaticResource Error.Third.Color}" />
 
     <!--  边框  -->
     <Color x:Key="Brush.Color">#666666</Color>

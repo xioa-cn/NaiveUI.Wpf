@@ -1,11 +1,20 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:NaiveUI.NControls.Converters"
     xmlns:tag="clr-namespace:NaiveUI.NControls.ControlsExample">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/NPaths/PathResources.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+
     <Style TargetType="{x:Type tag:N_Tag}">
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Grade" Value="Default" />
+        <Setter Property="Bordered" Value="True" />
         <Setter Property="CornerRadius" Value="2" />
+        <Setter Property="CloseSize" Value="10" />
         <Setter Property="Padding" Value="3" />
         <Setter Property="Template">
             <Setter.Value>
@@ -16,9 +25,48 @@
                         Padding="{TemplateBinding Padding}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}">
-                        <TextBlock x:Name="contentText" Text="{TemplateBinding Text}" />
+                        <Grid>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock x:Name="contentText" Text="{TemplateBinding Text}" />
+                                <Button
+                                    x:Name="canClose"
+                                    Height="{TemplateBinding CloseSize}"
+                                    Margin="5"
+                                    Padding="0"
+                                    BorderThickness="0"
+                                    Style="{DynamicResource QuaternaryPrimary}"
+                                    Visibility="{TemplateBinding Closeable,
+                                                                 Converter={StaticResource BoolToVisibilityConverter}}">
+                                    <Path
+                                        Margin="0"
+                                        Data="{StaticResource Close}"
+                                        Fill="{Binding ElementName=contentText, Path=Foreground}"
+                                        Stretch="Uniform"
+                                        Stroke="{Binding ElementName=contentText, Path=Foreground}" />
+                                </Button>
+                            </StackPanel>
+                            <Path
+                                Name="IsEnabledPath"
+                                Height="{TemplateBinding CloseSize}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Fill="Red"
+                                Stretch="Uniform"
+                                Stroke="{DynamicResource Error.First.Brush}"
+                                Visibility="Hidden">
+                                <Path.Data>
+                                    <PathGeometry>
+                                        M512 0a512 512 0 1 0 512 512A512.568889 512.568889 0 0 0 512 0z m434.915556 512a432.924444 432.924444 0 0 1-100.693334 277.902222L234.097778 177.777778A434.688 434.688 0 0 1 946.915556 512z m-869.831112 0a432.924444 432.924444 0 0 1 100.693334-277.902222l612.124444 612.124444A434.688 434.688 0 0 1 77.084444 512z
+                                    </PathGeometry>
+                                </Path.Data>
+                            </Path>
+                        </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.8" />
+                            <Setter TargetName="IsEnabledPath" Property="Visibility" Value="Visible" />
+                        </Trigger>
                         <Trigger Property="Grade" Value="Default">
                             <Setter TargetName="contentBorder" Property="BorderBrush" Value="{DynamicResource Main.Frontground.Brush}" />
                             <Setter TargetName="contentText" Property="Foreground" Value="{DynamicResource Main.Frontground.Brush}" />
@@ -43,6 +91,63 @@
                             <Setter TargetName="contentBorder" Property="BorderBrush" Value="{DynamicResource Error.First.Brush}" />
                             <Setter TargetName="contentText" Property="Foreground" Value="{DynamicResource Error.First.Brush}" />
                         </Trigger>
+                        <Trigger Property="Bordered" Value="False">
+                            <Setter TargetName="contentBorder" Property="BorderThickness" Value="0" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Bordered" Value="False" />
+                                <Condition Property="Grade" Value="Default" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="contentBorder" Property="Background" Value="{DynamicResource Third.Font.Brush}" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Bordered" Value="False" />
+                                <Condition Property="Grade" Value="Primary" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="contentBorder" Property="Background" Value="{DynamicResource Primary.Third.Brush}" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Bordered" Value="False" />
+                                <Condition Property="Grade" Value="Info" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="contentBorder" Property="Background" Value="{DynamicResource Info.Third.Brush}" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Bordered" Value="False" />
+                                <Condition Property="Grade" Value="Success" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="contentBorder" Property="Background" Value="{DynamicResource Success.Third.Brush}" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Bordered" Value="False" />
+                                <Condition Property="Grade" Value="Warning" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="contentBorder" Property="Background" Value="{DynamicResource Warning.Third.Brush}" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Bordered" Value="False" />
+                                <Condition Property="Grade" Value="Error" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="contentBorder" Property="Background" Value="{DynamicResource Error.Third.Brush}" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
