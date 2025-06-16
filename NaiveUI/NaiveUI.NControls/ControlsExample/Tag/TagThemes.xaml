@@ -168,7 +168,6 @@
                                 <Setter TargetName="contentText" Property="Foreground" Value="{DynamicResource Third.Font.Brush}" />
                             </MultiTrigger.Setters>
                         </MultiTrigger>
-
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="OpenChecked" Value="True" />
@@ -180,7 +179,6 @@
                                 <Setter TargetName="contentText" Property="Foreground" Value="{DynamicResource Primary.Third.Brush}" />
                             </MultiTrigger.Setters>
                         </MultiTrigger>
-
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="OpenChecked" Value="True" />
@@ -192,7 +190,6 @@
                                 <Setter TargetName="contentText" Property="Foreground" Value="{DynamicResource Success.Third.Brush}" />
                             </MultiTrigger.Setters>
                         </MultiTrigger>
-
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="OpenChecked" Value="True" />
@@ -204,7 +201,6 @@
                                 <Setter TargetName="contentText" Property="Foreground" Value="{DynamicResource Info.Third.Brush}" />
                             </MultiTrigger.Setters>
                         </MultiTrigger>
-
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="OpenChecked" Value="True" />
@@ -216,7 +212,6 @@
                                 <Setter TargetName="contentText" Property="Foreground" Value="{DynamicResource Warning.Third.Brush}" />
                             </MultiTrigger.Setters>
                         </MultiTrigger>
-
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="OpenChecked" Value="True" />
@@ -228,8 +223,6 @@
                                 <Setter TargetName="contentText" Property="Foreground" Value="{DynamicResource Error.Third.Brush}" />
                             </MultiTrigger.Setters>
                         </MultiTrigger>
-
-
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
