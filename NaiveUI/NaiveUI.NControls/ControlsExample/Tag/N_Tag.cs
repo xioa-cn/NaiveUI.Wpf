@@ -48,6 +48,7 @@ public class N_Tag : System.Windows.Controls.Control
         if (this.OpenChecked is not null && (bool)this.OpenChecked)
         {
             this.Checked = !this.Checked;
+            e.Handled = true;
         }
           
     }
