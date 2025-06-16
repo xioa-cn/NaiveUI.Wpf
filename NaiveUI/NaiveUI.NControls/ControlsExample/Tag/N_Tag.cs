@@ -39,6 +39,17 @@ public class N_Tag : System.Windows.Controls.Control
         {
             _closeButton.Click += CloseButton_Click;
         }
+
+        this.PreviewMouseDown += N_Tag_PreviewMouseDown;
+    }
+
+    private void N_Tag_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+    {
+        if (this.OpenChecked is not null && (bool)this.OpenChecked)
+        {
+            this.Checked = !this.Checked;
+        }
+          
     }
 
     private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -61,9 +72,7 @@ public class N_Tag : System.Windows.Controls.Control
         if (_closeButton.Command is null && this.CloseCommand is not null)
         {
             _closeButton.Command = this.CloseCommand;
-
         }
-
 
 
         //_closeButton.Command?.Execute(this.CloseCommandParameter);
@@ -146,4 +155,30 @@ public class N_Tag : System.Windows.Controls.Control
         get => GetValue(CloseCommandParameterProperty);
         set => SetValue(CloseCommandParameterProperty, value);
     }
+
+    public bool? Checked
+    {
+        get { return (bool?)GetValue(CheckedProperty); }
+        set { SetValue(CheckedProperty, value); }
+    }
+
+    public static readonly DependencyProperty CheckedProperty = ElementBase.Property<N_Tag, bool?>(
+        nameof(CheckedProperty), null);
+
+    public bool? OpenChecked
+    {
+        get { return (bool?)GetValue(OpenCheckedProperty); }
+        set { SetValue(OpenCheckedProperty, value); }
+    }
+
+    public static readonly DependencyProperty OpenCheckedProperty = ElementBase.Property<N_Tag, bool?>(
+        nameof(OpenCheckedProperty), null);
+
+    public bool Round {
+        get { return (bool)GetValue(RoundProperty); }
+        set{ SetValue(RoundProperty,value);}
+    }
+
+    public static readonly DependencyProperty RoundProperty =
+        ElementBase.Property<N_Tag, bool>(nameof(RoundProperty), false);
 }

@@ -2,6 +2,7 @@
     x:Class="NaiveUI.Demo.Views.Components.N_Tags.N_Tags"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:attach="clr-namespace:NaiveUI.NControls.Attach;assembly=NaiveUI.NControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:NaiveUI.Demo.Views.Components.N_Tags"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -133,6 +134,116 @@
                                     Closeable="True"
                                     FontSize="15"
                                     Grade="Error"
+                                    Text="是你的心里有鬼" />
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <!--  尺寸  -->
+                <nu:CardElement Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="尺寸" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="尺寸 attach:PaddingSizeAttach.PaddingSize实现"
+                                TextWrapping="Wrap" />
+                            <WrapPanel>
+                                <nu:N_Tag
+                                    Margin="2"
+                                    VerticalAlignment="Bottom"
+                                    attach:PaddingSizeAttach.PaddingSize="Tiny"
+                                    Bordered="False"
+                                    Grade="Warning"
+                                    Text="手写的从前" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    VerticalAlignment="Bottom"
+                                    attach:PaddingSizeAttach.PaddingSize="Small"
+                                    Bordered="False"
+                                    Grade="Primary"
+                                    Text="手写的从前" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    VerticalAlignment="Bottom"
+                                    attach:PaddingSizeAttach.PaddingSize="Medium"
+                                    Bordered="False"
+                                    Grade="Info"
+                                    Text="哪里都是你" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    VerticalAlignment="Bottom"
+                                    attach:PaddingSizeAttach.PaddingSize="Large"
+                                    Bordered="False"
+                                    Grade="Error"
+                                    Text="是你的心里有鬼" />
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <!--  形状  -->
+                <nu:CardElement Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="形状" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="形状 Round实现"
+                                TextWrapping="Wrap" />
+                            <WrapPanel>
+                                <nu:N_Tag
+                                    Margin="2"
+                                    VerticalAlignment="Bottom"
+                                    attach:PaddingSizeAttach.PaddingSize="Medium"
+                                    Bordered="False"
+                                    Grade="Warning"
+                                    Round="True"
+                                    Text="手写的从前" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    VerticalAlignment="Bottom"
+                                    attach:PaddingSizeAttach.PaddingSize="Medium"
+                                    Bordered="False"
+                                    Grade="Primary"
+                                    Round="True"
+                                    Text="手写的从前" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    VerticalAlignment="Bottom"
+                                    attach:PaddingSizeAttach.PaddingSize="Medium"
+                                    Bordered="False"
+                                    Grade="Info"
+                                    Round="True"
+                                    Text="哪里都是你" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    VerticalAlignment="Bottom"
+                                    attach:PaddingSizeAttach.PaddingSize="Medium"
+                                    Bordered="False"
+                                    Grade="Error"
+                                    Round="True"
                                     Text="是你的心里有鬼" />
                             </WrapPanel>
                         </StackPanel>
@@ -273,6 +384,85 @@
                                     FontSize="15"
                                     Grade="Error"
                                     IsEnabled="False"
+                                    Text="是你的心里有鬼" />
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <!--  可选择  -->
+                <nu:CardElement Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="可选择" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="可选择 OpenChecked Checked实现"
+                                TextWrapping="Wrap" />
+                            <WrapPanel>
+                                <nu:N_Tag
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="False"
+                                    Checked="True"
+                                    FontSize="15"
+                                    Grade="Default"
+                                    OpenChecked="True"
+                                    Text="爱在西元前" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="False"
+                                    Checked="True"
+                                    FontSize="15"
+                                    Grade="Primary"
+                                    OpenChecked="True"
+                                    Text="不该" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="False"
+                                    Checked="True"
+                                    FontSize="15"
+                                    Grade="Success"
+                                    OpenChecked="True"
+                                    Text="超人不会飞" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="False"
+                                    Checked="True"
+                                    FontSize="15"
+                                    Grade="Warning"
+                                    OpenChecked="True"
+                                    Text="手写的从前" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="False"
+                                    Checked="True"
+                                    FontSize="15"
+                                    Grade="Info"
+                                    OpenChecked="True"
+                                    Text="哪里都是你" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="False"
+                                    Checked="True"
+                                    FontSize="15"
+                                    Grade="Error"
+                                    OpenChecked="True"
                                     Text="是你的心里有鬼" />
                             </WrapPanel>
                         </StackPanel>

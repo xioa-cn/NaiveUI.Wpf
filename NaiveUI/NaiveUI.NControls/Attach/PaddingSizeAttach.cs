@@ -1,4 +1,5 @@
-﻿using NaiveUI.NControls.Tools;
+﻿using NaiveUI.NControls.ControlsExample;
+using NaiveUI.NControls.Tools;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -57,6 +58,19 @@ namespace NaiveUI.NControls.Attach
                 btn.Padding = new Thickness(size, size / 2, size, size / 2);
                 btn.Width = double.NaN;
                 btn.Height = double.NaN;
+            }
+            if(d is N_Tag nTag && e.NewValue is PSize pTag)
+            {
+                var size = pTag switch
+                {
+                    PSize.Tiny => 3,
+                    PSize.Small => 10,
+                    PSize.Medium => 20,
+                    PSize.Large => 40,
+                };
+                nTag.Padding = new Thickness(size, size / 2, size, size / 2);
+                nTag.Width = double.NaN;
+                nTag.Height = double.NaN;
             }
         }
     }
