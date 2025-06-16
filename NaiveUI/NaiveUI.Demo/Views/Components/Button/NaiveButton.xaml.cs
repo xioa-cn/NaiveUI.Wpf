@@ -21,9 +21,5 @@ namespace NaiveUI.Demo.Views.Components.Button
         {
             Button.SetValue(ButtonLoadingAttach.LoadingProperty, true);
         }
-
-        
-
-       
     }
 }
