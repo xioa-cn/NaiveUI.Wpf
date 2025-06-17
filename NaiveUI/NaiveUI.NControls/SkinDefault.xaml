@@ -15,6 +15,8 @@
         <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/GradientText/GradientText.xaml"/>
         <!-- 标签 -->
         <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Tag/TagThemes.xaml"/>
+        <!-- 日历 -->
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Calendar/N_CalendarThemes.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

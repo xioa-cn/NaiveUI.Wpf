@@ -8,6 +8,9 @@
     <Compile Update="Views\Components\Button\NaiveButton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Components\N_Cale\N_CalendarView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Components\N_Card\NaiveCard.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
