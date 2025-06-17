@@ -18,6 +18,7 @@ public static class LunarCalendarConverter {
         // 判断是否为闰月（注意：闰月的表示方式为月份后加“闰”字）
         bool isLeapMonth = lunarCalendar.IsLeapMonth(lunarYear, lunarMonth,
             lunarCalendar.GetEra(solarDate));
+     
         string monthStr = isLeapMonth ? "闰" + GetLunarMonthName(lunarMonth) : GetLunarMonthName(lunarMonth);
         string dayStr = GetLunarDayName(lunarDay);
 
@@ -43,6 +44,7 @@ public static class LunarCalendarConverter {
             10 => "十",
             11 => "冬",
             12 => "腊",
+            13 => "一",
             _ => "未知"
         };
         return hMonth + "月";
