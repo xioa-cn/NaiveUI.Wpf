@@ -11,6 +11,9 @@
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <local:BoolToColor x:Key="boolConverter" />
+    </UserControl.Resources>
     <ScrollViewer>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -249,6 +252,50 @@
                         </StackPanel>
                     </nu:CardElement.ContentElement>
                 </nu:CardElement>
+
+                <!--  自定义  -->
+                <nu:CardElement Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="自定义" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="自定义 Round实现"
+                                TextWrapping="Wrap" />
+                            <WrapPanel>
+                                <nu:N_Tag
+                                    Margin="2"
+                                    VerticalAlignment="Bottom"
+                                    attach:PaddingSizeAttach.PaddingSize="Medium"
+                                    Background="Red"
+                                    Bordered="False"
+                                    Foreground="#FFF"
+                                    Grade="Customize"
+                                    Round="True"
+                                    Text="哪里都是你" />
+                                <nu:N_Tag
+                                    Margin="2"
+                                    VerticalAlignment="Bottom"
+                                    attach:PaddingSizeAttach.PaddingSize="Medium"
+                                    Background="Purple"
+                                    Bordered="False"
+                                    Foreground="PeachPuff"
+                                    Grade="Customize"
+                                    Text="是你的心里有鬼" />
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
             </StackPanel>
             <StackPanel Grid.Column="1">
                 <!--  无边框  -->
@@ -464,6 +511,117 @@
                                     Grade="Error"
                                     OpenChecked="True"
                                     Text="是你的心里有鬼" />
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <!--  图标  -->
+                <nu:CardElement Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="图标" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="在标签中使用图标 OpenIcon Icon实现"
+                                TextWrapping="Wrap" />
+                            <WrapPanel>
+                                <nu:N_Tag
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="True"
+                                    FontSize="15"
+                                    Grade="Default"
+                                    OpenIcon="True"
+                                    Text="爱在西元前">
+                                    <nu:N_Tag.Icon>
+                                        <Path
+                                            Margin="5,0"
+                                            Data="{StaticResource CheckmarkCircle}"
+                                            Fill="{StaticResource Main.Frontground.Brush}"
+                                            Stretch="Uniform" />
+                                    </nu:N_Tag.Icon>
+                                </nu:N_Tag>
+                                <nu:N_Tag
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="True"
+                                    FontSize="15"
+                                    Grade="Success"
+                                    OpenIcon="True"
+                                    Text="爱在西元前">
+                                    <nu:N_Tag.Icon>
+                                        <Path
+                                            Margin="5,0"
+                                            Data="{StaticResource CheckmarkCircle}"
+                                            Fill="{StaticResource Success.First.Brush}"
+                                            Stretch="Uniform" />
+                                    </nu:N_Tag.Icon>
+                                </nu:N_Tag>
+                                <nu:N_Tag
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="False"
+                                    FontSize="15"
+                                    Grade="Success"
+                                    OpenIcon="True"
+                                    Round="True"
+                                    Text="爱在西元前">
+                                    <nu:N_Tag.Icon>
+                                        <Path
+                                            Margin="5,0"
+                                            Data="{StaticResource CheckmarkCircle}"
+                                            Fill="{StaticResource Success.First.Brush}"
+                                            Stretch="Uniform" />
+                                    </nu:N_Tag.Icon>
+                                </nu:N_Tag>
+                                <nu:N_Tag
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="False"
+                                    FontSize="15"
+                                    Grade="Error"
+                                    OpenIcon="True"
+                                    Round="True"
+                                    Text="是你的心里有鬼">
+                                    <nu:N_Tag.Icon>
+                                        <Path
+                                            Margin="5,0"
+                                            Data="{StaticResource CheckmarkCircle}"
+                                            Fill="{StaticResource Error.First.Brush}"
+                                            Stretch="Uniform" />
+                                    </nu:N_Tag.Icon>
+                                </nu:N_Tag>
+                                <nu:N_Tag
+                                    Name="NTag"
+                                    Margin="2"
+                                    Padding="5"
+                                    Bordered="False"
+                                    Checked="True"
+                                    FontSize="15"
+                                    Grade="Error"
+                                    OpenChecked="True"
+                                    OpenIcon="True"
+                                    Round="True"
+                                    Text="是你的心里有鬼">
+                                    <nu:N_Tag.Icon>
+                                        <Path
+                                            Margin="5,0"
+                                            Data="{StaticResource CheckmarkCircle}"
+                                            Fill="{Binding ElementName=NTag, Path=Checked, Converter={StaticResource boolConverter}}"
+                                            Stretch="Uniform" />
+                                    </nu:N_Tag.Icon>
+                                </nu:N_Tag>
                             </WrapPanel>
                         </StackPanel>
                     </nu:CardElement.ContentElement>

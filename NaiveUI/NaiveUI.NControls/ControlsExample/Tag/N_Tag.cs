@@ -6,16 +6,13 @@ using NaiveUI.NControls.Tools;
 namespace NaiveUI.NControls.ControlsExample;
 
 [TemplatePart(Name = "canClose", Type = typeof(Button))]
-public class N_Tag : System.Windows.Controls.Control
-{
-    static N_Tag()
-    {
+public class N_Tag : System.Windows.Controls.Control {
+    static N_Tag() {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(N_Tag),
             new FrameworkPropertyMetadata(typeof(N_Tag)));
     }
 
-    public double CloseSize
-    {
+    public double CloseSize {
         get { return (double)GetValue(CloseSizeProperty); }
         set { SetValue(CloseSizeProperty, value); }
     }
@@ -25,8 +22,7 @@ public class N_Tag : System.Windows.Controls.Control
 
     private Button? _closeButton;
 
-    public override void OnApplyTemplate()
-    {
+    public override void OnApplyTemplate() {
         base.OnApplyTemplate();
         if (_closeButton != null)
         {
@@ -43,18 +39,15 @@ public class N_Tag : System.Windows.Controls.Control
         this.PreviewMouseDown += N_Tag_PreviewMouseDown;
     }
 
-    private void N_Tag_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-    {
+    private void N_Tag_PreviewMouseDown(object sender, MouseButtonEventArgs e) {
         if (this.OpenChecked is not null && (bool)this.OpenChecked)
         {
             this.Checked = !this.Checked;
             e.Handled = true;
         }
-          
     }
 
-    private void CloseButton_Click(object sender, RoutedEventArgs e)
-    {
+    private void CloseButton_Click(object sender, RoutedEventArgs e) {
         if (this._closeButton is null)
         {
             throw new Exception();
@@ -88,14 +81,12 @@ public class N_Tag : System.Windows.Controls.Control
     public static readonly RoutedEvent CloseClickEvent =
         ElementBase.RoutedEvent<N_Tag, RoutedEventHandler>(nameof(CloseClickEvent));
 
-    public event RoutedEventHandler CloseClick
-    {
+    public event RoutedEventHandler CloseClick {
         add { AddHandler(CloseClickEvent, value); }
         remove { RemoveHandler(CloseClickEvent, value); }
     }
 
-    public bool Closeable
-    {
+    public bool Closeable {
         get { return (bool)GetValue(CloseableProperty); }
         set { SetValue(CloseableProperty, value); }
     }
@@ -103,8 +94,7 @@ public class N_Tag : System.Windows.Controls.Control
     public static readonly DependencyProperty CloseableProperty =
         ElementBase.Property<N_Tag, bool>(nameof(CloseableProperty), false);
 
-    public bool Bordered
-    {
+    public bool Bordered {
         get { return (bool)GetValue(BorderedProperty); }
         set { SetValue(BorderedProperty, value); }
     }
@@ -112,8 +102,7 @@ public class N_Tag : System.Windows.Controls.Control
     public static readonly DependencyProperty BorderedProperty =
         ElementBase.Property<N_Tag, bool>(nameof(BorderedProperty), true);
 
-    public CornerRadius CornerRadius
-    {
+    public CornerRadius CornerRadius {
         get { return (CornerRadius)GetValue(CornerRadiusProperty); }
         set { SetValue(CornerRadiusProperty, value); }
     }
@@ -121,8 +110,7 @@ public class N_Tag : System.Windows.Controls.Control
     public static readonly DependencyProperty CornerRadiusProperty =
         ElementBase.Property<N_Tag, CornerRadius>(nameof(CornerRadiusProperty), new CornerRadius(1));
 
-    public Grade Grade
-    {
+    public Grade Grade {
         get { return (Grade)GetValue(GradeProperty); }
         set { SetValue(GradeProperty, value); }
     }
@@ -130,8 +118,7 @@ public class N_Tag : System.Windows.Controls.Control
     public static readonly DependencyProperty GradeProperty =
         ElementBase.Property<N_Tag, Grade>(nameof(GradeProperty), Grade.Default);
 
-    public string Text
-    {
+    public string Text {
         get { return (string)GetValue(TextProperty); }
         set { SetValue(TextProperty, value); }
     }
@@ -145,20 +132,17 @@ public class N_Tag : System.Windows.Controls.Control
     public static readonly DependencyProperty CloseCommandParameterProperty =
         ElementBase.Property<N_Tag, object?>(nameof(CloseCommandParameterProperty), null);
 
-    public ICommand? CloseCommand
-    {
+    public ICommand? CloseCommand {
         get => (ICommand?)GetValue(CloseCommandProperty);
         set => SetValue(CloseCommandProperty, value);
     }
 
-    public object CloseCommandParameter
-    {
+    public object CloseCommandParameter {
         get => GetValue(CloseCommandParameterProperty);
         set => SetValue(CloseCommandParameterProperty, value);
     }
 
-    public bool? Checked
-    {
+    public bool? Checked {
         get { return (bool?)GetValue(CheckedProperty); }
         set { SetValue(CheckedProperty, value); }
     }
@@ -166,8 +150,7 @@ public class N_Tag : System.Windows.Controls.Control
     public static readonly DependencyProperty CheckedProperty = ElementBase.Property<N_Tag, bool?>(
         nameof(CheckedProperty), null);
 
-    public bool? OpenChecked
-    {
+    public bool? OpenChecked {
         get { return (bool?)GetValue(OpenCheckedProperty); }
         set { SetValue(OpenCheckedProperty, value); }
     }
@@ -177,9 +160,25 @@ public class N_Tag : System.Windows.Controls.Control
 
     public bool Round {
         get { return (bool)GetValue(RoundProperty); }
-        set{ SetValue(RoundProperty,value);}
+        set { SetValue(RoundProperty, value); }
     }
 
     public static readonly DependencyProperty RoundProperty =
         ElementBase.Property<N_Tag, bool>(nameof(RoundProperty), false);
+
+    public object Icon {
+        get { return GetValue(IconProperty); }
+        set { SetValue(IconProperty, value); }
+    }
+
+    public static readonly DependencyProperty IconProperty =
+        ElementBase.Property<N_Tag, object?>(nameof(IconProperty), null);
+
+    public bool OpenIcon {
+        set { SetValue(OpenIconProperty, value); }
+        get { return (bool)GetValue(OpenIconProperty); }
+    }
+
+    public static readonly DependencyProperty OpenIconProperty =
+        ElementBase.Property<N_Tag, bool>(nameof(OpenIconProperty), false);
 }

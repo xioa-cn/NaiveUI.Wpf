@@ -7,4 +7,5 @@ public enum Grade {
     Success,
     Warning,
     Error,
+    Customize,
 }
