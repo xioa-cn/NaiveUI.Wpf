@@ -182,7 +182,10 @@
                                                             HorizontalAlignment="Right"
                                                             Text="{Binding Weekday}" />
                                                     </Grid>
-                                                    <TextBlock x:Name="LunarDate" Text="{Binding LunarDate}" />
+                                                    <TextBlock
+                                                        x:Name="LunarDate"
+                                                        Text="{Binding LunarDate}"
+                                                        Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type calendar:N_Calendar}}, Path=ShowLunarCalendarTime, Converter={StaticResource BoolToVisibilityConverter}}" />
 
                                                 </StackPanel>
                                             </Viewbox>

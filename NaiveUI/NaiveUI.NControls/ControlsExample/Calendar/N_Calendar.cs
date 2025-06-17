@@ -10,8 +10,7 @@ namespace NaiveUI.NControls.ControlsExample;
 [TemplatePart(Name = "afterbtn", Type = typeof(Button))]
 [TemplatePart(Name = "nowbtn", Type = typeof(Button))]
 [TemplatePart(Name = "beforebtn", Type = typeof(Button))]
-public class N_Calendar : Control
-{
+public class N_Calendar : Control {
     private Button? afterBtn;
     private Button? nowBtn;
     private Button? beforeBtn;
@@ -24,18 +23,16 @@ public class N_Calendar : Control
 
         this.Command?.Execute(this.CommandParameter);
     }
-    
+
     public static readonly RoutedEvent ClickEvent =
         ElementBase.RoutedEvent<N_Calendar, RoutedEventHandler>(nameof(ClickEvent));
 
-    public event RoutedEventHandler Click
-    {
+    public event RoutedEventHandler Click {
         add { AddHandler(ClickEvent, value); }
         remove { RemoveHandler(ClickEvent, value); }
     }
 
-    public override void OnApplyTemplate()
-    {
+    public override void OnApplyTemplate() {
         base.OnApplyTemplate();
 
         if (afterBtn is not null)
@@ -44,57 +41,49 @@ public class N_Calendar : Control
             nowBtn.Click -= NowBtnOnClick;
         if (beforeBtn is not null)
             beforeBtn.Click -= BeforeBtnOnClick;
-        
+
         afterBtn = GetTemplateChild("afterbtn") as Button;
         nowBtn = GetTemplateChild("nowbtn") as Button;
         beforeBtn = GetTemplateChild("beforebtn") as Button;
-        
+
         if (afterBtn is not null)
             afterBtn.Click += AfterBtnOnClick;
         if (nowBtn is not null)
             nowBtn.Click += NowBtnOnClick;
         if (beforeBtn is not null)
             beforeBtn.Click += BeforeBtnOnClick;
-    }   
+    }
 
-    private void BeforeBtnOnClick(object sender, RoutedEventArgs e)
-    {
+    private void BeforeBtnOnClick(object sender, RoutedEventArgs e) {
         BeforeMonth();
     }
 
-    private void NowBtnOnClick(object sender, RoutedEventArgs e)
-    {
+    private void NowBtnOnClick(object sender, RoutedEventArgs e) {
         NowDay();
     }
 
-    public void NowDay()
-    {
+    public void NowDay() {
         this.Time = DateTime.Now;
     }
 
-    private void AfterBtnOnClick(object sender, RoutedEventArgs e)
-    {
+    private void AfterBtnOnClick(object sender, RoutedEventArgs e) {
         AfterMonth();
     }
 
-    public void AfterMonth()
-    {
+    public void AfterMonth() {
         this.Time = this.Time.AddMonths(1);
     }
 
-    public void BeforeMonth()
-    {
+    public void BeforeMonth() {
         this.Time = this.Time.AddMonths(-1);
     }
 
-    static N_Calendar()
-    {
+    static N_Calendar() {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(N_Calendar),
             new FrameworkPropertyMetadata(typeof(N_Calendar)));
     }
 
-    public DateTime Time
-    {
+    public DateTime Time {
         get { return (DateTime)GetValue(TimeProperty); }
         set { SetValue(TimeProperty, value); }
     }
@@ -102,8 +91,7 @@ public class N_Calendar : Control
     public static readonly DependencyProperty TimeProperty =
         ElementBase.Property<N_Calendar, DateTime>(nameof(TimeProperty), DateTime.Now, setTimeCallBack);
 
-    private static void setTimeCallBack(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
+    private static void setTimeCallBack(DependencyObject d, DependencyPropertyChangedEventArgs e) {
         if (d is not N_Calendar calendar) return;
         if (e.NewValue is DateTime newTime)
         {
@@ -112,8 +100,7 @@ public class N_Calendar : Control
         }
     }
 
-    public int Year
-    {
+    public int Year {
         get { return (int)GetValue(YearProperty); }
         set { SetValue(YearProperty, value); }
     }
@@ -121,8 +108,7 @@ public class N_Calendar : Control
     public static readonly DependencyProperty YearProperty =
         ElementBase.Property<N_Calendar, int>(nameof(YearProperty), DateTime.Now.Year);
 
-    public int Month
-    {
+    public int Month {
         get { return (int)GetValue(MonthProperty); }
         set { SetValue(MonthProperty, value); }
     }
@@ -131,8 +117,7 @@ public class N_Calendar : Control
         ElementBase.Property<N_Calendar, int>(nameof(MonthProperty), DateTime.Now.Month);
 
 
-    public bool ShowMenu
-    {
+    public bool ShowMenu {
         get { return (bool)GetValue(ShowMenuProperty); }
         set { SetValue(ShowMenuProperty, value); }
     }
@@ -147,24 +132,29 @@ public class N_Calendar : Control
     public static readonly DependencyProperty CommandParameterProperty =
         ElementBase.Property<N_Calendar, object?>(nameof(CommandParameterProperty), null);
 
-    public ICommand? Command
-    {
+    public ICommand? Command {
         get => (ICommand?)GetValue(CommandProperty);
         set => SetValue(CommandProperty, value);
     }
 
-    public object CommandParameter
-    {
+    public object CommandParameter {
         get => GetValue(CommandParameterProperty);
         set => SetValue(CommandParameterProperty, value);
     }
 
-    public DateTime SelectedDate
-    {
+    public DateTime SelectedDate {
         get { return (DateTime)GetValue(SelectedDateProperty); }
         set { SetValue(SelectedDateProperty, value); }
     }
 
     public static readonly DependencyProperty SelectedDateProperty =
         ElementBase.Property<N_Calendar, DateTime>(nameof(SelectedDateProperty), DateTime.Now);
+
+    public bool ShowLunarCalendarTime {
+        get { return (bool)GetValue(ShowLunarCalendarTimeProperty); }
+        set { SetValue(ShowLunarCalendarTimeProperty, value); }
+    }
+
+    public static readonly DependencyProperty ShowLunarCalendarTimeProperty =
+        ElementBase.Property<N_Calendar, bool>(nameof(ShowLunarCalendarTimeProperty), true);
 }
