@@ -17,6 +17,8 @@
         <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Tag/TagThemes.xaml"/>
         <!-- 日历 -->
         <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Calendar/N_CalendarThemes.xaml"/>
+        <!-- 高亮文本 -->
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Highlight/Highlight.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
