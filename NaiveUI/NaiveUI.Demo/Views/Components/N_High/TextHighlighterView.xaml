@@ -53,7 +53,49 @@
                     </nu:CardElement.ContentElement>
                 </nu:CardElement>
             </StackPanel>
-            <StackPanel Grid.Column="1" />
+            <StackPanel Grid.Column="1">
+                <!--  默认  -->
+                <nu:CardElement Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="样式" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="样式"
+                                TextWrapping="Wrap" />
+                            <WrapPanel Margin="10">
+                                <nu:N_TextHighlighter
+                                    Name="ntext1"
+                                    FontSize="20"
+                                    HighlightBackground="{DynamicResource Main.Brush}"
+                                    HighlightFontWeight="Bold"
+                                    HighlightForeground="{DynamicResource Brush.Brush}"
+                                    HighlightWords="{Binding ElementName=ntext1, Path=Tag, Converter={StaticResource StringToWordsConverter}}"
+                                    SourceText="Naive UI 是一个 WPF 的组件库，它比较完整，主题可调，用 C# 写的，快。Naive UI 是一个 WPF 的组件库，它比较完整，主题可调，用 C# 写的，快。Naive UI 是一个 WPF 的组件库，它比较完整，主题可调，用 C# 写的，快。"
+                                    Tag="Naive，C#">
+                                    <nu:N_TextHighlighter.HighlightStyle>
+                                        <Style TargetType="{x:Type Run}">
+                                            <Setter Property="FontWeight" Value="Bold" />
+                                            <Setter Property="TextDecorations" Value="Underline" />
+                                            <Setter Property="FontStyle" Value="Oblique" />
+                                        </Style>
+                                    </nu:N_TextHighlighter.HighlightStyle>
+                                </nu:N_TextHighlighter>
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+            </StackPanel>
         </Grid>
     </ScrollViewer>
 </UserControl>

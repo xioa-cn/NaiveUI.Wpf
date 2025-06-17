@@ -50,11 +50,21 @@ public class N_TextHighlighter : Control {
     // 使用正则表达式匹配
     public static readonly DependencyProperty UseRegexProperty =
         ElementBase.Property<N_TextHighlighter, bool>(nameof(UseRegexProperty), false, OnVisualStylePropertyChanged);
-  
+    
+    // 高亮文本样式
+    public static readonly DependencyProperty HighlightStyleProperty =
+        ElementBase.Property<N_TextHighlighter, Style>(nameof(HighlightStyleProperty), null, OnVisualStylePropertyChanged);
+
 
     #endregion
 
     #region 属性访问器
+
+    public Style HighlightStyle
+    {
+        get { return (Style)GetValue(HighlightStyleProperty); }
+        set { SetValue(HighlightStyleProperty, value); }
+    }
 
     public string SourceText {
         get { return (string)GetValue(SourceTextProperty); }
@@ -182,14 +192,14 @@ public class N_TextHighlighter : Control {
             if (matchIndex == -1)
             {
                 // 没有更多匹配，添加剩余文本
-                _textBlock.Inlines.Add(new Run(text.Substring(startIndex)));
+                _textBlock.Inlines.Add(new AccessText(){Text = text.Substring(startIndex)});
                 break;
             }
 
             // 添加匹配前的文本
             if (matchIndex > startIndex)
             {
-                _textBlock.Inlines.Add(new Run(text.Substring(startIndex, matchIndex - startIndex)));
+                _textBlock.Inlines.Add(new AccessText(){Text = text.Substring(startIndex, matchIndex - startIndex)});
             }
 
             // 查找匹配的关键词
@@ -202,6 +212,19 @@ public class N_TextHighlighter : Control {
                     Background = HighlightBackground,
                     FontWeight = HighlightFontWeight
                 };
+                
+                if (HighlightStyle != null)
+                {
+                    highlightRun.Style = HighlightStyle;
+                }
+                else
+                {
+                    // 应用默认属性
+                    highlightRun.Foreground = HighlightForeground;
+                    highlightRun.Background = HighlightBackground;
+                    highlightRun.FontWeight = HighlightFontWeight;
+                }
+                
                 _textBlock.Inlines.Add(highlightRun);
 
                 // 移动到匹配词的末尾
