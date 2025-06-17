@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:calendar="clr-namespace:NaiveUI.NControls.ControlsExample" 
-    xmlns:markup="clr-namespace:NaiveUI.NControls.ControlsExample"
-    xmlns:converter="clr-namespace:NaiveUI.NControls.Converters">
+    xmlns:calendar="clr-namespace:NaiveUI.NControls.ControlsExample"
+    xmlns:converter="clr-namespace:NaiveUI.NControls.Converters"
+    xmlns:markup="clr-namespace:NaiveUI.NControls.ControlsExample">
     <calendar:CalendarConverter x:Key="CalendarConverter" />
     <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     <calendar:MonthToChineseConverter x:Key="MonthToChineseConverter" />
@@ -96,7 +96,7 @@
 
 
     <Style TargetType="{x:Type calendar:N_Calendar}">
-        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontSize" Value="12" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type calendar:N_Calendar}">
@@ -150,16 +150,22 @@
                                         <Border
                                             x:Name="mainBorder"
                                             Margin="1"
-                                            PreviewMouseDown="{markup:CalendarDateSelected}"
                                             BorderBrush="{DynamicResource Third.Font.Brush}"
                                             BorderThickness="1"
+                                            PreviewMouseDown="{markup:CalendarDateSelected}"
                                             Tag="{Binding}">
                                             <Viewbox HorizontalAlignment="Left" VerticalAlignment="Top">
-                                                <StackPanel Margin="10">
-                                                    <TextBlock
-                                                        x:Name="Day"
-                                                        FontSize="18"
-                                                        Text="{Binding Day}" />
+                                                <StackPanel Margin="5">
+                                                    <Grid Height="20">
+                                                        <TextBlock x:Name="Day" Text="{Binding Day}" />
+                                                        <TextBlock
+                                                            x:Name="IsWeekend"
+                                                            HorizontalAlignment="Right"
+                                                            FontSize="7"
+                                                            Text="休"
+                                                            Visibility="{Binding IsWeekend, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                                    </Grid>
+
                                                     <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition />
@@ -168,7 +174,7 @@
                                                         <TextBlock
                                                             x:Name="DateString"
                                                             Grid.Column="0"
-                                                            Margin="0,0,10,0"
+                                                            Margin="0,0,5,0"
                                                             Text="{Binding DateString}" />
                                                         <TextBlock
                                                             x:Name="Weekday"
@@ -176,18 +182,14 @@
                                                             HorizontalAlignment="Right"
                                                             Text="{Binding Weekday}" />
                                                     </Grid>
-                                                    <Grid Height="20">
-                                                        <TextBlock
-                                                            x:Name="IsWeekend"
-                                                            FontSize="15"
-                                                            Text="休"
-                                                            Visibility="{Binding IsWeekend, Converter={StaticResource BoolToVisibilityConverter}}" />
-                                                    </Grid>
+                                                    <TextBlock x:Name="LunarDate" Text="{Binding LunarDate}" />
+
                                                 </StackPanel>
                                             </Viewbox>
                                         </Border>
                                         <DataTemplate.Triggers>
                                             <DataTrigger Binding="{Binding Path=IsWeekend}" Value="True">
+                                                <Setter TargetName="LunarDate" Property="Foreground" Value="{DynamicResource CalendarWeakendBrush}" />
                                                 <Setter TargetName="Day" Property="Foreground" Value="{DynamicResource CalendarWeakendBrush}" />
                                                 <Setter TargetName="DateString" Property="Foreground" Value="{DynamicResource CalendarWeakendBrush}" />
                                                 <Setter TargetName="Weekday" Property="Foreground" Value="{DynamicResource CalendarWeakendBrush}" />
@@ -203,6 +205,7 @@
                                                 <Setter TargetName="IsWeekend" Property="IsEnabled" Value="False" />
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding Path=IsNowDay}" Value="True">
+                                                <Setter TargetName="LunarDate" Property="Foreground" Value="{DynamicResource Main.Brush}" />
                                                 <Setter TargetName="Day" Property="Foreground" Value="{DynamicResource Main.Brush}" />
                                                 <Setter TargetName="DateString" Property="Foreground" Value="{DynamicResource Main.Brush}" />
                                                 <Setter TargetName="Weekday" Property="Foreground" Value="{DynamicResource Main.Brush}" />
@@ -216,6 +219,7 @@
                                                 </MultiTrigger.Conditions>
                                                 <MultiTrigger.Setters>
                                                     <Setter TargetName="mainBorder" Property="Cursor" Value="Hand" />
+                                                    <Setter TargetName="LunarDate" Property="Foreground" Value="{DynamicResource CalendarSelectBrush}" />
                                                     <Setter TargetName="Day" Property="Foreground" Value="{DynamicResource CalendarSelectBrush}" />
                                                     <Setter TargetName="DateString" Property="Foreground" Value="{DynamicResource CalendarSelectBrush}" />
                                                     <Setter TargetName="Weekday" Property="Foreground" Value="{DynamicResource CalendarSelectBrush}" />
