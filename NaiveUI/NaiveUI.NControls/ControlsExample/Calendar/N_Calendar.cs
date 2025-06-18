@@ -79,8 +79,7 @@ public class N_Calendar : Control {
     }
 
     static N_Calendar() {
-        DefaultStyleKeyProperty.OverrideMetadata(typeof(N_Calendar),
-            new FrameworkPropertyMetadata(typeof(N_Calendar)));
+        ElementBase.DefaultStyle<N_Calendar>(DefaultStyleKeyProperty);
     }
 
     public DateTime Time {

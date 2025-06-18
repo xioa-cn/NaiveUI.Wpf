@@ -5,20 +5,19 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using NaiveUI.NControls.Tools;
 
-namespace NaiveUI.NControls.ControlsExample
-{
+namespace NaiveUI.NControls.ControlsExample {
     [TemplatePart(Name = "cardBorder", Type = typeof(Border))]
-    public partial class CardElement : System.Windows.Controls.Control
-    {
-        internal Border? Border;
-
-        public CardElement()
-        {
-
+    public partial class CardElement : System.Windows.Controls.Control {
+        static CardElement() {
+            ElementBase.DefaultStyle<CardElement>(DefaultStyleKeyProperty);
         }
 
-        public override void OnApplyTemplate()
-        {
+        internal Border? Border;
+
+        public CardElement() {
+        }
+
+        public override void OnApplyTemplate() {
             base.OnApplyTemplate();
             Border = GetTemplateChild("cardBorder") as Border;
             // 如果Hoverable属性已经是true，需要在这里初始化效果
@@ -28,13 +27,11 @@ namespace NaiveUI.NControls.ControlsExample
             }
         }
 
-        private void ApplyHoverableEffect()
-        {
+        private void ApplyHoverableEffect() {
             if (Border is null) return;
 
             // 创建阴影效果
-            var shadowEffect = new DropShadowEffect
-            {
+            var shadowEffect = new DropShadowEffect {
                 BlurRadius = 10,
                 Direction = 270,
                 ShadowDepth = 2,
@@ -50,35 +47,29 @@ namespace NaiveUI.NControls.ControlsExample
             // 创建鼠标进入事件处理
             Border.MouseEnter += (s, args) =>
             {
-                var opacityAnimation = new DoubleAnimation
-                {
+                var opacityAnimation = new DoubleAnimation {
                     To = 1,
                     Duration = TimeSpan.FromMilliseconds(200)
                 };
                 shadowEffect.BeginAnimation(DropShadowEffect.OpacityProperty, opacityAnimation);
 
-                var translateAnimation = new DoubleAnimation
-                {
+                var translateAnimation = new DoubleAnimation {
                     To = -2,
                     Duration = TimeSpan.FromMilliseconds(200)
                 };
                 transform.BeginAnimation(TranslateTransform.YProperty, translateAnimation);
-
-                
             };
-            
+
             // 创建鼠标离开事件处理
             Border.MouseLeave += (s, args) =>
             {
-                var opacityAnimation = new DoubleAnimation
-                {
+                var opacityAnimation = new DoubleAnimation {
                     To = 0,
                     Duration = TimeSpan.FromMilliseconds(200)
                 };
                 shadowEffect.BeginAnimation(DropShadowEffect.OpacityProperty, opacityAnimation);
 
-                var translateAnimation = new DoubleAnimation
-                {
+                var translateAnimation = new DoubleAnimation {
                     To = 0,
                     Duration = TimeSpan.FromMilliseconds(200)
                 };
@@ -86,10 +77,9 @@ namespace NaiveUI.NControls.ControlsExample
             };
         }
 
-        private void RemoveHoverableEffect()
-        {
+        private void RemoveHoverableEffect() {
             if (Border is null) return;
-            
+
             // 移除效果和事件处理
             Border.Effect = null;
             Border.RenderTransform = null;
@@ -97,8 +87,7 @@ namespace NaiveUI.NControls.ControlsExample
             Border.MouseLeave -= null;
         }
 
-        public object ContentElement
-        {
+        public object ContentElement {
             get { return (object)GetValue(ContentElementProperty); }
             set { SetValue(ContentElementProperty, value); }
         }
@@ -107,8 +96,7 @@ namespace NaiveUI.NControls.ControlsExample
             ElementBase.Property<CardElement, object>(nameof(ContentElementProperty), "Content");
 
 
-        public object HeaderElement
-        {
+        public object HeaderElement {
             get { return (object)GetValue(HeaderElementProperty); }
             set { SetValue(HeaderElementProperty, value); }
         }
@@ -117,8 +105,7 @@ namespace NaiveUI.NControls.ControlsExample
             ElementBase.Property<CardElement, object>(nameof(HeaderElementProperty), null);
 
 
-        public object? FooterElement
-        {
+        public object? FooterElement {
             get { return (object?)GetValue(FooterElementProperty); }
             set { SetValue(FooterElementProperty, value); }
         }
@@ -127,17 +114,16 @@ namespace NaiveUI.NControls.ControlsExample
             ElementBase.Property<CardElement, object?>(nameof(FooterElementProperty), null);
 
 
-        public System.Windows.Media.Color BoderColor
-        {
+        public System.Windows.Media.Color BoderColor {
             get { return (System.Windows.Media.Color)GetValue(BoderColorProperty); }
             set { SetValue(BoderColorProperty, value); }
         }
 
         public static readonly DependencyProperty BoderColorProperty =
-            ElementBase.Property<CardElement, System.Windows.Media.Color>(nameof(BoderColorProperty), System.Windows.Media.Colors.Gray);
+            ElementBase.Property<CardElement, System.Windows.Media.Color>(nameof(BoderColorProperty),
+                System.Windows.Media.Colors.Gray);
 
-        public Brush FooterBackgroundBrush
-        {
+        public Brush FooterBackgroundBrush {
             get { return (Brush)GetValue(FooterBackgroundBrushProperty); }
             set { SetValue(FooterBackgroundBrushProperty, value); }
         }
@@ -146,8 +132,7 @@ namespace NaiveUI.NControls.ControlsExample
             ElementBase.Property<CardElement, Brush>(nameof(FooterBackgroundBrushProperty), Brushes.Gray);
 
 
-        public bool OpenBordered
-        {
+        public bool OpenBordered {
             get { return (bool)GetValue(OpenBorderedProperty); }
             set { SetValue(OpenBorderedProperty, value); }
         }
@@ -155,8 +140,7 @@ namespace NaiveUI.NControls.ControlsExample
         public static readonly DependencyProperty OpenBorderedProperty =
             ElementBase.Property<CardElement, bool>(nameof(OpenBorderedProperty), true);
 
-        public bool Hoverable
-        {
+        public bool Hoverable {
             get { return (bool)GetValue(HoverableProperty); }
             set { SetValue(HoverableProperty, value); }
         }
@@ -165,17 +149,16 @@ namespace NaiveUI.NControls.ControlsExample
             ElementBase.Property<CardElement, bool>(nameof(HoverableProperty), false, HoverablePropertyChangedCallBack);
 
 
-        public Brush HoverableBackground
-        {
+        public Brush HoverableBackground {
             get { return (Brush)GetValue(HoverableBackgroundProperty); }
             set { SetValue(HoverableBackgroundProperty, value); }
         }
 
         public static readonly DependencyProperty HoverableBackgroundProperty =
-            ElementBase.Property<CardElement, Brush>(nameof(HoverableBackgroundProperty), new SolidColorBrush(System.Windows.Media.Color.FromRgb(250, 250, 252)));
+            ElementBase.Property<CardElement, Brush>(nameof(HoverableBackgroundProperty),
+                new SolidColorBrush(System.Windows.Media.Color.FromRgb(250, 250, 252)));
 
-        private static void HoverablePropertyChangedCallBack(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
+        private static void HoverablePropertyChangedCallBack(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             if (e.NewValue == e.OldValue) return;
             if (d is CardElement card)
             {
@@ -191,8 +174,7 @@ namespace NaiveUI.NControls.ControlsExample
             }
         }
 
-        public N_Skeleton Skeleton
-        {
+        public N_Skeleton Skeleton {
             get { return (N_Skeleton)GetValue(SkeletonProperty); }
             set { SetValue(SkeletonProperty, value); }
         }
@@ -201,8 +183,7 @@ namespace NaiveUI.NControls.ControlsExample
             ElementBase.Property<CardElement, N_Skeleton>(nameof(SkeletonProperty), N_Skeleton.Normal);
     }
 
-    public enum N_Skeleton
-    {
+    public enum N_Skeleton {
         Normal,
         Loading
     }

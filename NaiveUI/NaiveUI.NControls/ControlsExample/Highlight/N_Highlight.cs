@@ -117,8 +117,7 @@ public class N_TextHighlighter : Control {
     #region 构造函数
 
     static N_TextHighlighter() {
-        DefaultStyleKeyProperty.OverrideMetadata(typeof(N_TextHighlighter),
-            new FrameworkPropertyMetadata(typeof(N_TextHighlighter)));
+        ElementBase.DefaultStyle<N_TextHighlighter>(DefaultStyleKeyProperty); 
     }
 
     public N_TextHighlighter() {

@@ -12,6 +12,11 @@ namespace NaiveUI.NControls.ControlsExample
 
     public class N_Avatar : Control
     {
+        static N_Avatar() {
+            ElementBase.DefaultStyle<N_Avatar>(DefaultStyleKeyProperty);
+        }
+        
+        
         public double Size
         {
             get { return (double)GetValue(SizeProperty); }

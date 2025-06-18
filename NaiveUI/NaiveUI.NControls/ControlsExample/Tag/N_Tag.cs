@@ -8,8 +8,7 @@ namespace NaiveUI.NControls.ControlsExample;
 [TemplatePart(Name = "canClose", Type = typeof(Button))]
 public class N_Tag : System.Windows.Controls.Control {
     static N_Tag() {
-        DefaultStyleKeyProperty.OverrideMetadata(typeof(N_Tag),
-            new FrameworkPropertyMetadata(typeof(N_Tag)));
+        ElementBase.DefaultStyle<N_Tag>(DefaultStyleKeyProperty);
     }
 
     public double CloseSize {
