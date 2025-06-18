@@ -1,0 +1,185 @@
+﻿<UserControl
+    x:Class="NaiveUI.Demo.Views.Components.N_Space.SpaceView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:NaiveUI.Demo.Views.Components.N_Space"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <ScrollViewer>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <!--  基础  -->
+                <nu:CardElement Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="基础" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="基础 通过Space设置间距"
+                                TextWrapping="Wrap" />
+                            <WrapPanel Margin="10">
+                                <nu:N_Space Orientation="Horizontal" Space="20">
+                                    <Button Content="按钮1" />
+                                    <Button Content="按钮2" />
+                                    <Button Content="按钮3" />
+                                </nu:N_Space>
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <!--  从尾部  -->
+                <nu:CardElement Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="从尾部" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="通过HorizontalAlignment设置位置"
+                                TextWrapping="Wrap" />
+                            <Grid Margin="10">
+                                <nu:N_Space
+                                    HorizontalAlignment="Right"
+                                    Orientation="Horizontal"
+                                    Space="20">
+                                    <Button Content="按钮1" />
+                                    <Button Content="按钮2" />
+                                    <Button Content="按钮3" />
+                                </nu:N_Space>
+                            </Grid>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <!--  复杂布局示例  -->
+                <nu:CardElement Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="复杂布局示例" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <Grid Margin="10">
+                                <!--  复杂布局示例  -->
+                                <nu:N_Space
+                                    Margin="20"
+                                    Orientation="Horizontal"
+                                    Space="20">
+                                    <Button Width="100" Content="左侧按钮" />
+
+                                    <nu:N_Space Orientation="Vertical" Space="10">
+                                        <TextBlock
+                                            FontSize="16"
+                                            FontWeight="Bold"
+                                            Text="标题文本" />
+                                        <TextBlock Text="这是一段描述文本，用于展示嵌套间距容器的效果。" TextWrapping="Wrap" />
+                                    </nu:N_Space>
+
+                                    <Button Width="100" Content="右侧按钮" />
+                                </nu:N_Space>
+                            </Grid>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <!--  垂直  -->
+                <nu:CardElement Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="垂直" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="垂直 通过Orientation设置方向"
+                                TextWrapping="Wrap" />
+                            <WrapPanel Margin="10">
+                                <nu:N_Space Orientation="Vertical" Space="20">
+                                    <Button Content="按钮1" />
+                                    <Button Content="按钮2" />
+                                    <Button Content="按钮3" />
+                                </nu:N_Space>
+                            </WrapPanel>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <!--  从中间  -->
+                <nu:CardElement Margin="10">
+                    <nu:CardElement.HeaderElement>
+                        <Border Margin="20,10">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="从中间" />
+                        </Border>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="通过HorizontalAlignment设置位置"
+                                TextWrapping="Wrap" />
+                            <Grid Margin="10">
+                                <nu:N_Space
+                                    HorizontalAlignment="Center"
+                                    Orientation="Horizontal"
+                                    Space="20">
+                                    <Button Content="按钮1" />
+                                    <Button Content="按钮2" />
+                                    <Button Content="按钮3" />
+                                </nu:N_Space>
+                            </Grid>
+                        </StackPanel>
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>
