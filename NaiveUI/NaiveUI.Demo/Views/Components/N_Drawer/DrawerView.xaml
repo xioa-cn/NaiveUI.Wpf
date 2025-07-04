@@ -25,7 +25,7 @@
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     FontSize="20"
-                                    Text="基础" />
+                                    Text="案例" />
                             </Border>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
@@ -38,9 +38,17 @@
                                     TextWrapping="Wrap" />
                                 <WrapPanel Margin="10">
                                     <Button
+                                        Margin="10"
                                         Padding="5"
                                         Click="OpenDrawerButton_Click"
-                                        Content="打开抽屉"
+                                        Content="正常打开"
+                                        FontSize="20"
+                                        Style="{StaticResource DashedSuccess}" />
+                                    <Button
+                                        Margin="10"
+                                        Padding="5"
+                                        Click="OpenDrawerButton1_Click"
+                                        Content="点击外部区域可自动关闭"
                                         FontSize="20"
                                         Style="{StaticResource DashedSuccess}" />
                                 </WrapPanel>
