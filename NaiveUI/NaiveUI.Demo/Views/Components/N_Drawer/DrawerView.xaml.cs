@@ -1,16 +1,22 @@
-﻿using NaiveUI.NControls.ControlsExample;
-using System.Windows;
+﻿using NaiveUI.Demo.Dialog;
+using NaiveUI.NControls.ControlsExample;
 using System.Windows.Controls;
 
 namespace NaiveUI.Demo.Views.Components.N_Drawer;
 
-public partial class DrawerView : UserControl {
-    public DrawerView() {
+public partial class DrawerView : UserControl
+{
+    public DrawerView()
+    {
+        N_Dialog.Register("DrawerView", this);
         InitializeComponent();
     }
 
-    private void OpenDrawerButton_Click(object sender, System.Windows.RoutedEventArgs e)
+    private async void OpenDrawerButton_Click(object sender, System.Windows.RoutedEventArgs e)
     {
-        drawer.IsOpen = !drawer.IsOpen;
+        var result = await NaiveUI.NControls.ControlsExample.N_Drawer.ShowAsync("DrawerView", new DrawDialog());
+        await result.GetResultAsync();
     }
+
+
 }

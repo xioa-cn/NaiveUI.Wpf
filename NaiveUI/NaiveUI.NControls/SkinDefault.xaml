@@ -1,25 +1,26 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
-        <!-- 图标 -->
+        <!--  图标  -->
         <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/NPaths/PathResources.xaml" />
-        <!-- 按钮 -->
+        <!--  按钮  -->
         <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/ButtonStyles/ButtonThemes.xaml" />
-        <!-- 卡片 -->
+        <!--  卡片  -->
         <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Card/CardElementDic.xaml" />
-        <!-- 头像 -->
+        <!--  头像  -->
         <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/AvatarStyles/AvatarThemes.xaml" />
-        <!-- 滑块 -->
+        <!--  滑块  -->
         <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/SwitchStyles/SwitchBase.xaml" />
-        <!-- 渐变文字 -->
-        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/GradientText/GradientText.xaml"/>
-        <!-- 标签 -->
-        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Tag/TagThemes.xaml"/>
-        <!-- 日历 -->
-        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Calendar/N_CalendarThemes.xaml"/>
-        <!-- 高亮文本 -->
-        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Highlight/Highlight.xaml"/>
-        
+        <!--  渐变文字  -->
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/GradientText/GradientText.xaml" />
+        <!--  标签  -->
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Tag/TagThemes.xaml" />
+        <!--  日历  -->
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Calendar/N_CalendarThemes.xaml" />
+        <!--  高亮文本  -->
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Highlight/Highlight.xaml" />
+        <!--  对话框  -->
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Dialog/Dialog.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
