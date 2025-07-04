@@ -8,13 +8,13 @@ namespace NaiveUI.NControls.ControlsExample;
 
 public partial class N_Dialog : ContentControl
 {
-    public static void Register(string token, FrameworkElement control)
+    public static void Register(string token, FrameworkElement? control)
     {
         if (string.IsNullOrEmpty(token) || control == null) return;
         ContainerDict[token] = control;
     }
 
-    public static void Unregister(string token, FrameworkElement element)
+    public static void Unregister(string token, FrameworkElement? element)
     {
         if (string.IsNullOrEmpty(token) || element == null) return;
 
