@@ -27,7 +27,7 @@ public partial class N_Dialog : ContentControl
         }
     }
 
-    public static void Unregister(FrameworkElement element)
+    public static void Unregister(FrameworkElement? element)
     {
         if (element == null) return;
         var first = ContainerDict.FirstOrDefault(item => ReferenceEquals(element, item.Value));
@@ -79,11 +79,11 @@ public partial class N_Dialog : ContentControl
                 {
                     Child = drawer
                 };
-                drawer.overlayAdorner = new OverlayAdorner(layer);
+                drawer._overlayAdorner = new OverlayAdorner(layer);
 
                 if (clickClose)
                 {
-                    drawer.overlayAdorner.MouseLeftAction += () =>
+                    drawer._overlayAdorner.MouseLeftAction += () =>
                     {
                         N_Dialog.Close(token);
                     };
@@ -91,7 +91,7 @@ public partial class N_Dialog : ContentControl
 
                 drawer._container = container;
                 drawer.IsClosed = false;
-                layer.Add(drawer.overlayAdorner);
+                layer.Add(drawer._overlayAdorner);
                 layer.Add(container);
             }
         }
@@ -99,14 +99,9 @@ public partial class N_Dialog : ContentControl
         return Task.FromResult(drawer);
 
     }
-    private OverlayAdorner? overlayAdorner;
-    private static DependencyObject? GetDialogControl(string token)
-    {
-        if (ContainerDict.TryGetValue(token, out var element))
-        {
-            return element;
-        }
-        return null;
+    private OverlayAdorner? _overlayAdorner;
+    private static DependencyObject? GetDialogControl(string token) {
+        return ContainerDict.GetValueOrDefault(token);
     }
 
 
@@ -160,23 +155,18 @@ public partial class N_Dialog : ContentControl
         });
     }
 
-    private void Close(DependencyObject? element)
-    {
-        if (element != null && _container != null)
+    private void Close(DependencyObject? element) {
+        if (element == null || _container == null) return;
+        var decorator = VisualHelper.GetChild<AdornerDecorator>(element);
+        if (decorator == null) return;
+        if (decorator.Child != null)
         {
-            var decorator = VisualHelper.GetChild<AdornerDecorator>(element);
-            if (decorator != null)
-            {
-                if (decorator.Child != null)
-                {
-                    decorator.Child.IsEnabled = true;
-                }
-                var layer = decorator.AdornerLayer;
-                layer?.Remove(_container);
-                layer?.Remove(overlayAdorner);
-                IsClosed = true;
-            }
+            decorator.Child.IsEnabled = true;
         }
+        var layer = decorator.AdornerLayer;
+        layer?.Remove(_container);
+        if (_overlayAdorner != null) layer?.Remove(_overlayAdorner);
+        IsClosed = true;
     }
 
 }
