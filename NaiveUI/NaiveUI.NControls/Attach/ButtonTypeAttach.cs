@@ -114,7 +114,7 @@ namespace NaiveUI.NControls.Attach
             {
                 var url = cbtn.GetValue(HrefProperty);
                 WebBrowser wBrowser = new WebBrowser();
-
+                
                 Window win = new Window();
                 win.Content = wBrowser;
                 wBrowser.Navigate(url.ToString());

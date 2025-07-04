@@ -984,7 +984,7 @@
                                 Margin="5"
                                 HorizontalAlignment="Left"
                                 attach:ButtonTypeAttach.ButtonType="_a"
-                                attach:ButtonTypeAttach.Href="https://www.baidu.com/"
+                                attach:ButtonTypeAttach.Href="https://github.com/xioa-cn/NaiveUI.Wpf/tree/main?tab=readme-ov-file#naiveuiwpf"
                                 attach:ButtonTypeAttach.StutNormalClick="False">
                                 Default-Link
                             </Button>
