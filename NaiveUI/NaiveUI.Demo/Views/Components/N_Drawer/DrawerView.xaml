@@ -6,8 +6,6 @@
     xmlns:local="clr-namespace:NaiveUI.Demo.Views.Components.N_Drawer"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
-    d:DesignHeight="300"
-    d:DesignWidth="300"
     mc:Ignorable="d">
     <nu:DialogContainer>
         <ScrollViewer>
