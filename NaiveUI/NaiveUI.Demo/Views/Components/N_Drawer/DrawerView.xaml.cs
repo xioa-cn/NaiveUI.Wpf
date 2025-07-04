@@ -1,6 +1,5 @@
 ﻿using NaiveUI.Demo.Dialog;
 using NaiveUI.NControls.ControlsExample;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace NaiveUI.Demo.Views.Components.N_Drawer;
