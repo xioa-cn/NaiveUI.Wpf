@@ -50,6 +50,13 @@
                                     Margin="10"
                                     VerticalAlignment="Center"
                                     attach:GradientTextAttach.GradientTextFontSize="20">
+                                    <attach:GradientTextAttach.GradientTextBrush>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                            <GradientStop Offset="0.0" Color="#FF00BFFF" />
+                                            <GradientStop Offset="0.5" Color="#FF0BEF" />
+                                            <GradientStop Offset="1.0" Color="#FF1E90FF" />
+                                        </LinearGradientBrush>
+                                    </attach:GradientTextAttach.GradientTextBrush>
                                     AccessText
                                 </AccessText>
                                 <TextBox
