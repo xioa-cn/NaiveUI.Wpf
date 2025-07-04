@@ -1,0 +1,77 @@
+﻿<UserControl
+    x:Class="NaiveUI.Demo.Views.Components.N_Cale.N_CalendarView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:NaiveUI.Demo.Views.Components.N_Cale"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nui="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:vm="clr-namespace:NaiveUI.Demo.ViewModels"
+    mc:Ignorable="d">
+    <Grid>
+        <nui:CardElement Margin="10" FooterBackgroundBrush="#FAFAFC">
+            <nui:CardElement.HeaderElement>
+                <Border Margin="20,10">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        Text="日历" />
+                </Border>
+            </nui:CardElement.HeaderElement>
+            <nui:CardElement.ContentElement>
+                <StackPanel Margin="10">
+                    <TextBlock
+                        Margin="10"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        TextWrapping="Wrap">
+                        一个普通的日历。
+                    </TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Margin="10"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            TextWrapping="Wrap">
+                            按钮组切换：
+                        </TextBlock>
+                        <nui:N_Switch
+                            x:Name="switch"
+                            Margin="0"
+                            HorizontalAlignment="Left"
+                            GroupName="group1"
+                            IsChecked="True"
+                            RailHeight="20"
+                            RailWidth="40" />
+                        <TextBlock
+                            Margin="10"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            TextWrapping="Wrap">
+                            农历日期显示切换：
+                        </TextBlock>
+                        <nui:N_Switch
+                            x:Name="switch1"
+                            Margin="0"
+                            HorizontalAlignment="Left"
+                            GroupName="group1"
+                            IsChecked="True"
+                            RailHeight="20"
+                            RailWidth="40" />
+                    </StackPanel>
+                    <StackPanel Margin="10">
+                        <nui:N_Calendar
+                            Name="Calendar"
+                            Margin="10"
+                            Click="N_Calendar_Click"
+                            Command="{Binding Source={x:Static vm:CalendarViewModel.Instance}, Path=CalendarCommand}"
+                            CommandParameter="{Binding ElementName=Calendar, Path=SelectedDate}"
+                            ShowLunarCalendarTime="{Binding ElementName=switch1, Path=IsChecked}"
+                            ShowMenu="{Binding ElementName=switch, Path=IsChecked}" />
+                    </StackPanel>
+                </StackPanel>
+            </nui:CardElement.ContentElement>
+        </nui:CardElement>
+    </Grid>
+</UserControl>
