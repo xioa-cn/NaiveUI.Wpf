@@ -1,4 +1,5 @@
 ﻿using NaiveUI.NControls.Tools;
+using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -113,21 +114,17 @@ namespace NaiveUI.NControls.Attach
             if (sender is Button cbtn)
             {
                 var url = cbtn.GetValue(HrefProperty);
-                WebBrowser wBrowser = new WebBrowser();
+                // 创建ProcessStartInfo对象
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    FileName = url.ToString(),
+                    UseShellExecute = true  // 使用系统shell执行，会打开默认浏览器
+                };
+
+                // 启动进程
+                Process.Start(startInfo);
+
                 
-                Window win = new Window();
-                win.Content = wBrowser;
-                wBrowser.Navigate(url.ToString());
-                win.Title = url.ToString();
-                FieldInfo fiComWebBrowser = typeof(WebBrowser).GetField("_axIWebBrowser2", BindingFlags.Instance | BindingFlags.NonPublic);
-                if (fiComWebBrowser == null) return;
-
-                object objComWebBrowser = fiComWebBrowser.GetValue(wBrowser);
-                if (objComWebBrowser == null) return;
-
-                objComWebBrowser.GetType().InvokeMember("Silent", BindingFlags.SetProperty, null, objComWebBrowser, new object[] { true });
-
-                win.ShowDialog();
 
             }
         }
