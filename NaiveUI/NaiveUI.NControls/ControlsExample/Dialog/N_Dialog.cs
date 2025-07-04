@@ -51,7 +51,7 @@ public partial class N_Dialog : ContentControl
     private string _token;
     private static readonly Dictionary<string, FrameworkElement> ContainerDict = new();
     private static readonly Dictionary<string, N_Drawer> DialogDict = new();
-    public static async Task<N_Drawer> ShowAsync(string token, object contorl)
+    public static Task<N_Drawer> ShowAsync(string token, object contorl, bool clickClose = false)
     {
         var drawer = new N_Drawer
         {
@@ -61,7 +61,7 @@ public partial class N_Dialog : ContentControl
 
         var content = N_Dialog.GetDialogControl(token);
 
-        if (content is null) return drawer;
+        if (content is null) return Task.FromResult(drawer);
 
         var decorator = VisualHelper.GetChild<DialogContainer>(content);
 
@@ -80,6 +80,15 @@ public partial class N_Dialog : ContentControl
                     Child = drawer
                 };
                 drawer.overlayAdorner = new OverlayAdorner(layer);
+
+                if (clickClose)
+                {
+                    drawer.overlayAdorner.MouseLeftAction += () =>
+                    {
+                        N_Dialog.Close(token);
+                    };
+                }
+
                 drawer._container = container;
                 drawer.IsClosed = false;
                 layer.Add(drawer.overlayAdorner);
@@ -87,7 +96,7 @@ public partial class N_Dialog : ContentControl
             }
         }
         DialogDict[token] = drawer;
-        return drawer;
+        return Task.FromResult(drawer);
 
     }
     private OverlayAdorner? overlayAdorner;
@@ -100,8 +109,11 @@ public partial class N_Dialog : ContentControl
         return null;
     }
 
-    public static readonly DependencyProperty IsClosedProperty = DependencyProperty.Register(
-      nameof(IsClosed), typeof(bool), typeof(N_Drawer), new PropertyMetadata(ValueBoxes.FalseBox));
+
+
+
+    public static readonly DependencyProperty IsClosedProperty =
+        ElementBase.Property<N_Dialog, bool>(nameof(IsClosedProperty), false);
 
     public bool IsClosed
     {

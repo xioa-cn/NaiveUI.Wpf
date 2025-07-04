@@ -14,11 +14,21 @@ public class OverlayAdorner : Adorner
         _overlayRect = new Rectangle
         {
             Fill = new SolidColorBrush(Color.FromArgb(128, 128, 128, 128)),
-            IsHitTestVisible = false
+            IsHitTestVisible = true
         };
         this.AddVisualChild(_overlayRect);
         this.AddLogicalChild(_overlayRect);
+        _overlayRect.MouseLeftButtonDown += OverlayAdorner_MouseLeftButtonDown;
     }
+
+    private void OverlayAdorner_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        MouseLeftAction?.Invoke();
+        e.Handled = true;
+    }
+
+    public Action? MouseLeftAction { get; set; }
+
     protected override Size MeasureOverride(Size constraint)
     {
         _overlayRect.Measure(constraint);
