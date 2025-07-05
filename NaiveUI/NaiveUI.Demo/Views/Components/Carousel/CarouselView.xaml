@@ -1,0 +1,273 @@
+﻿<UserControl
+    x:Class="NaiveUI.Demo.Views.Components.Carousel.CarouselView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:NaiveUI.Demo.Views.Components.Carousel"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <nu:DialogContainer>
+        <ScrollViewer>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <!--  基础  -->
+                    <nu:CardElement Margin="10">
+                        <nu:CardElement.HeaderElement>
+                            <Border Margin="20,10">
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="20"
+                                    Text="基础" />
+                            </Border>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="10"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Text="基础"
+                                    TextWrapping="Wrap" />
+                                <WrapPanel Height="400" Margin="10">
+                                    <nu:Carousel
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        AutoPlay="False"
+                                        ShowIndicators="False"
+                                        ShowNavigationButtons="False">
+                                        <!--  添加轮播内容  -->
+                                        <nu:Carousel.Items>
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel1.jpeg" Stretch="Fill" />
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel2.jpeg" Stretch="Fill" />
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel3.jpeg" Stretch="Fill" />
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel4.jpeg" Stretch="Fill" />
+                                        </nu:Carousel.Items>
+                                    </nu:Carousel>
+                                </WrapPanel>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+                    <!--  自动播放  -->
+                    <nu:CardElement Margin="10">
+                        <nu:CardElement.HeaderElement>
+                            <Border Margin="20,10">
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="20"
+                                    Text="自动播放" />
+                            </Border>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="10"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Text="基础 通过AutoPlay设置自动播放"
+                                    TextWrapping="Wrap" />
+                                <WrapPanel Height="400" Margin="10">
+                                    <nu:Carousel
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        AutoPlay="True"
+                                        ShowIndicators="False"
+                                        ShowNavigationButtons="False">
+                                        <!--  添加轮播内容  -->
+                                        <nu:Carousel.Items>
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel1.jpeg" Stretch="Fill" />
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel2.jpeg" Stretch="Fill" />
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel3.jpeg" Stretch="Fill" />
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel4.jpeg" Stretch="Fill" />
+                                        </nu:Carousel.Items>
+                                    </nu:Carousel>
+                                </WrapPanel>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+                    <!--  动画  -->
+                    <nu:CardElement Margin="10">
+                        <nu:CardElement.HeaderElement>
+                            <Border Margin="20,10">
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="20"
+                                    Text="动画fade quadraticease" />
+                            </Border>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="10"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Text="基础 通过EasingFunction设置缓动函数 quadraticease cubicease quarticease elastic bounce"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    Margin="10"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Text="基础 通过AnimationType设置动画类型 fade slidefromright slidefromleft slideup slidedown zoom"
+                                    TextWrapping="Wrap" />
+                                <WrapPanel Height="400" Margin="10">
+                                    <nu:Carousel
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        AnimationType="fade"
+                                        AutoPlay="True"
+                                        EasingFunction="quadraticease"
+                                        ShowIndicators="False"
+                                        ShowNavigationButtons="False">
+                                        <!--  添加轮播内容  -->
+                                        <nu:Carousel.Items>
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel1.jpeg" Stretch="Fill" />
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel2.jpeg" Stretch="Fill" />
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel3.jpeg" Stretch="Fill" />
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel4.jpeg" Stretch="Fill" />
+                                        </nu:Carousel.Items>
+                                    </nu:Carousel>
+                                </WrapPanel>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <!--  显示箭头  -->
+                    <nu:CardElement Margin="10">
+                        <nu:CardElement.HeaderElement>
+                            <Border Margin="20,10">
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="20"
+                                    Text="显示箭头" />
+                            </Border>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="10"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Text="基础 通过ShowNavigationButtons设置显示箭头"
+                                    TextWrapping="Wrap" />
+                                <WrapPanel Height="400" Margin="10">
+                                    <nu:Carousel
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        AutoPlay="False"
+                                        ShowIndicators="False"
+                                        ShowNavigationButtons="True">
+                                        <!--  添加轮播内容  -->
+                                        <nu:Carousel.Items>
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel1.jpeg" Stretch="Fill" />
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel2.jpeg" Stretch="Fill" />
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel3.jpeg" Stretch="Fill" />
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel4.jpeg" Stretch="Fill" />
+                                        </nu:Carousel.Items>
+                                    </nu:Carousel>
+                                </WrapPanel>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+                    <!--  显示指示点  -->
+                    <nu:CardElement Margin="10">
+                        <nu:CardElement.HeaderElement>
+                            <Border Margin="20,10">
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="20"
+                                    Text="显示指示点" />
+                            </Border>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="10"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Text="基础 通过ShowIndicators设置显示指示点"
+                                    TextWrapping="Wrap" />
+                                <WrapPanel Height="400" Margin="10">
+                                    <nu:Carousel
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        AutoPlay="True"
+                                        ShowIndicators="True"
+                                        ShowNavigationButtons="False">
+                                        <!--  添加轮播内容  -->
+                                        <nu:Carousel.Items>
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel1.jpeg" Stretch="Fill" />
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel2.jpeg" Stretch="Fill" />
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel3.jpeg" Stretch="Fill" />
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel4.jpeg" Stretch="Fill" />
+                                            <Image Source="https://imgxz.bizhi3.com/20241015/241015102451756.jpg" Stretch="Fill" />
+                                        </nu:Carousel.Items>
+                                    </nu:Carousel>
+                                </WrapPanel>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+                    <!--  动画  -->
+                    <nu:CardElement Margin="10">
+                        <nu:CardElement.HeaderElement>
+                            <Border Margin="20,10">
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="20"
+                                    Text="动画zoom elastic" />
+                            </Border>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="10"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Text="基础 通过EasingFunction设置缓动函数 quadraticease cubicease quarticease elastic bounce"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    Margin="10"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Text="基础 通过AnimationType设置动画类型 fade slidefromright slidefromleft slideup slidedown zoom"
+                                    TextWrapping="Wrap" />
+                                <WrapPanel Height="400" Margin="10">
+                                    <nu:Carousel
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        AnimationType="zoom"
+                                        AutoPlay="True"
+                                        EasingFunction="elastic"
+                                        ShowIndicators="False"
+                                        ShowNavigationButtons="False">
+                                        <!--  添加轮播内容  -->
+                                        <nu:Carousel.Items>
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel1.jpeg" Stretch="Fill" />
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel2.jpeg" Stretch="Fill" />
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel3.jpeg" Stretch="Fill" />
+                                            <Image Source="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel4.jpeg" Stretch="Fill" />
+                                            <Image Source="https://imgxz.bizhi3.com/20241015/241015102451756.jpg" Stretch="Fill" />
+                                        </nu:Carousel.Items>
+                                    </nu:Carousel>
+                                </WrapPanel>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </nu:DialogContainer>
+
+</UserControl>

@@ -1,4 +1,5 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
         <!--  图标  -->
@@ -21,6 +22,8 @@
         <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Highlight/Highlight.xaml" />
         <!--  对话框  -->
         <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Dialog/Dialog.xaml" />
+        <!--  轮播  -->
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Carousel/N_Carousel.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
