@@ -1,0 +1,55 @@
+﻿<UserControl
+    x:Class="NaiveUI.Demo.Views.Components.Collapse.CollapseView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:NaiveUI.Demo.Views.Components.Collapse"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    mc:Ignorable="d">
+    <nu:DialogContainer>
+        <ScrollViewer>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <!--  基础  -->
+                    <nu:CardElement Margin="10">
+                        <nu:CardElement.HeaderElement>
+                            <Border Margin="20,10">
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="20"
+                                    Text="基础" />
+                            </Border>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="10"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Text="基础"
+                                    TextWrapping="Wrap" />
+                                <Border>
+                                    <WrapPanel Margin="10">
+                                        <nu:Collapse Header="青铜">
+                                            <nu:Collapse.Content>
+                                                <TextBlock Height="50">这里是内容</TextBlock>
+                                            </nu:Collapse.Content>
+                                        </nu:Collapse>
+                                    </WrapPanel>
+                                </Border>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                </StackPanel>
+                <StackPanel Grid.Column="1" />
+            </Grid>
+        </ScrollViewer>
+    </nu:DialogContainer>
+</UserControl>

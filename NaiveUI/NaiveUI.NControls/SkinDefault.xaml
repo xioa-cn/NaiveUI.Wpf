@@ -23,7 +23,9 @@
         <!--  对话框  -->
         <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Dialog/Dialog.xaml" />
         <!--  轮播  -->
-        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Carousel/N_Carousel.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Carousel/N_Carousel.xaml" />
+        <!--  折叠  -->
+        <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Collapse/Collapse.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
