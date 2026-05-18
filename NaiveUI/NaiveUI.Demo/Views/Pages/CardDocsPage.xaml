@@ -1,0 +1,446 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Pages.CardDocsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+        <Style
+            x:Key="SectionCardHeaderTitleStyle"
+            BasedOn="{StaticResource DocSectionTitleStyle}"
+            TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+        <Style x:Key="CardHeaderExtraButtonStyle" TargetType="{x:Type nc:NButton}">
+            <Setter Property="Kind" Value="Text" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
+
+        <Style x:Key="CardActionTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Secondary.Brush}" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="340" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Border
+                Background="{DynamicResource Theme.Surface.0.Brush}"
+                BorderBrush="{DynamicResource Theme.Border.Brush}"
+                BorderThickness="0,0,1,0">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl Margin="10,18,10,18" ItemsSource="{Binding SidebarCategories}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,0,0,18">
+                                    <TextBlock Style="{StaticResource SidebarCategoryHeaderTextStyle}" Text="{Binding HeaderText}" />
+                                    <ItemsControl ItemsSource="{Binding Items}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Button Click="HandleSidebarItemClick" Style="{StaticResource SidebarNavButtonStyle}">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Style="{StaticResource SidebarNavTitleTextStyle}" Text="{Binding Title}" />
+                                                            <TextBlock Style="{StaticResource SidebarNavSubtitleTextStyle}" Text="{Binding Subtitle}" />
+                                                        </StackPanel>
+                                                        <Border
+                                                            Grid.Column="1"
+                                                            Margin="10,0,0,0"
+                                                            Padding="7,1"
+                                                            VerticalAlignment="Center"
+                                                            Background="#E6F9F0"
+                                                            CornerRadius="11"
+                                                            Visibility="{Binding HasBadge, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                            <TextBlock
+                                                                FontSize="12"
+                                                                Foreground="#18A058"
+                                                                Text="{Binding BadgeText}" />
+                                                        </Border>
+                                                    </Grid>
+                                                </Button>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+
+            <Button
+                Width="32"
+                Height="32"
+                Margin="0,300,-16,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Content="&#xE76B;"
+                Style="{StaticResource SidebarCollapseButtonStyle}" />
+        </Grid>
+
+        <ScrollViewer
+            x:Name="DocumentScrollViewer"
+            Grid.Column="1"
+            VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="68,34,18,34">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="48"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                        Text="卡片 Card" />
+                </StackPanel>
+
+                <TextBlock
+                    Margin="0,26,0,0"
+                    FontSize="18"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="将信息聚合在独立容器中，支持标题、额外操作、封面、分段底部和加载状态。" />
+
+                <TextBlock
+                    Margin="0,52,0,28"
+                    FontSize="36"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="演示" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="基础" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="最基础的卡片用法，适合展示成组的静态信息。" />
+                                    <nc:NCard Width="360" Title="默认卡片">
+                                        <StackPanel>
+                                            <TextBlock Margin="0,0,0,8" Foreground="{DynamicResource Theme.Text.Primary.Brush}" Text="这是一张基础卡片。" />
+                                            <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}" Text="内容区域会自动处理内边距和分隔。" TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </nc:NCard>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionHeaderExtra" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="标题与额外操作" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="Naive UI 常见的卡片头部由标题和右侧操作组成。" />
+                                    <nc:NCard Width="360" Title="项目概览">
+                                        <nc:NCard.HeaderExtra>
+                                            <nc:NButton Style="{StaticResource CardHeaderExtraButtonStyle}">更多</nc:NButton>
+                                        </nc:NCard.HeaderExtra>
+                                        <StackPanel>
+                                            <TextBlock Margin="0,0,0,8" Foreground="{DynamicResource Theme.Text.Primary.Brush}" Text="本周访问量 12,480" />
+                                            <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}" Text="同比增长 18.2%" />
+                                        </StackPanel>
+                                    </nc:NCard>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionCover" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="封面" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <nc:NCard Width="360" Title="数据看板">
+                                        <nc:NCard.Cover>
+                                            <Border Height="180" Background="{DynamicResource Theme.Hero.Background.Brush}">
+                                                <Grid>
+                                                    <Ellipse
+                                                        Width="180"
+                                                        Height="180"
+                                                        Margin="-30,-40,0,0"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Top"
+                                                        Fill="{DynamicResource Theme.Hero.Glow.Brush}"
+                                                        Opacity="0.45" />
+                                                    <TextBlock
+                                                        Margin="24"
+                                                        VerticalAlignment="Bottom"
+                                                        FontSize="28"
+                                                        FontWeight="Bold"
+                                                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                        Text="Dashboard" />
+                                                </Grid>
+                                            </Border>
+                                        </nc:NCard.Cover>
+                                        <StackPanel>
+                                            <TextBlock Margin="0,0,0,8" Foreground="{DynamicResource Theme.Text.Primary.Brush}" Text="适合图文混排、商品卡和专题卡片。" />
+                                            <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}" Text="Cover 会自动放在头部与正文之间。" TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </nc:NCard>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionSegmented" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="分段底部" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <nc:NCard Width="360" Segmented="True" Title="任务卡片">
+                                        <StackPanel>
+                                            <TextBlock Margin="0,0,0,8" Foreground="{DynamicResource Theme.Text.Primary.Brush}" Text="当前还有 3 个待处理事项。" />
+                                            <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}" Text="适合仪表板、待办列表和概览模块。" TextWrapping="Wrap" />
+                                        </StackPanel>
+                                        <nc:NCard.Action>
+                                            <UniformGrid Columns="3">
+                                                <TextBlock HorizontalAlignment="Center" Style="{StaticResource CardActionTextStyle}" Text="分享" />
+                                                <TextBlock HorizontalAlignment="Center" Style="{StaticResource CardActionTextStyle}" Text="收藏" />
+                                                <TextBlock HorizontalAlignment="Center" Style="{StaticResource CardActionTextStyle}" Text="查看" />
+                                            </UniformGrid>
+                                        </nc:NCard.Action>
+                                    </nc:NCard>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <nu:CardElement x:Name="SectionHoverable" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="悬浮效果" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <nc:NCard Width="360" Hoverable="True" Title="Hoverable Card">
+                                        <StackPanel>
+                                            <TextBlock Margin="0,0,0,8" Foreground="{DynamicResource Theme.Text.Primary.Brush}" Text="悬浮时会轻微上浮并增强阴影。" />
+                                            <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}" Text="用于需要强调点击感或可交互性的场景。" TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </nc:NCard>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionEmbedded" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="内嵌样式" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <nc:NCard Width="360" Embedded="True" Title="Embedded Card">
+                                        <StackPanel>
+                                            <TextBlock Margin="0,0,0,8" Foreground="{DynamicResource Theme.Text.Primary.Brush}" Text="嵌入式卡片会使用更柔和的背景。" />
+                                            <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}" Text="适合表单区块、设置项容器等页面内二级模块。" TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </nc:NCard>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionSizes" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="尺寸" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <StackPanel Margin="0,0,0,16">
+                                        <nc:NCard Title="Small Card" Size="Small">
+                                            <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}" Text="Small 尺寸更紧凑。" />
+                                        </nc:NCard>
+                                    </StackPanel>
+                                    <StackPanel Margin="0,0,0,16">
+                                        <nc:NCard Title="Medium Card" Size="Medium">
+                                            <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}" Text="Medium 是默认尺寸。" />
+                                        </nc:NCard>
+                                    </StackPanel>
+                                    <nc:NCard Title="Large Card" Size="Large">
+                                        <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}" Text="Large 适合更强调的信息块。" />
+                                    </nc:NCard>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionLoading" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="加载中" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <nc:NCard Width="360" IsLoading="True" Title="Loading Card">
+                                        <TextBlock Text="这段内容在 loading 时不会显示。" />
+                                    </nc:NCard>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+                    </StackPanel>
+                </Grid>
+
+                <nu:CardElement x:Name="SectionApi" Margin="0,20,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="API" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <TextBlock
+                            Margin="30,24,30,24"
+                            Style="{StaticResource DocBodyTextStyle}"
+                            Text="下面的 API 表按当前 WPF NCard 实现整理，覆盖已经支持的属性和插槽。" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <nu:CardElement x:Name="SectionCardProps" Margin="0,0,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Card Props" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding CardPropsRows}" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <nu:CardElement x:Name="SectionCardSlots" Margin="0,0,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Card Slots" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding CardSlotsRows}" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="2" Background="{DynamicResource Theme.Surface.0.Brush}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="20,36,20,20">
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="基础"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionBasic" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="标题与额外操作"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionHeaderExtra" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="封面"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionCover" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="分段底部"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionSegmented" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="悬浮效果"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionHoverable" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="内嵌样式"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionEmbedded" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="尺寸"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionSizes" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="加载中"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionLoading" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="API"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionApi" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="Card Props"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionCardProps" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="Card Slots"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionCardSlots" />
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

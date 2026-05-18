@@ -1,0 +1,558 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Pages.AvatarDocsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+        <Style
+            x:Key="SectionCardHeaderTitleStyle"
+            BasedOn="{StaticResource DocSectionTitleStyle}"
+            TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+        <Style x:Key="AvatarDemoWrapPanelStyle" TargetType="WrapPanel">
+            <Setter Property="ItemHeight" Value="Auto" />
+            <Setter Property="Margin" Value="0" />
+        </Style>
+
+        <Geometry x:Key="AvatarUserPlusGeometry">M12 6.75A2.75 2.75 0 1 1 12 12.25A2.75 2.75 0 0 1 12 6.75ZM12 14C9.23858 14 7 16.2386 7 19C7 19.5523 7.44772 20 8 20C8.55228 20 9 19.5523 9 19C9 17.3431 10.3431 16 12 16C13.6569 16 15 17.3431 15 19C15 19.5523 15.4477 20 16 20C16.5523 20 17 19.5523 17 19C17 16.2386 14.7614 14 12 14ZM19 9C19.5523 9 20 9.44772 20 10V12H22C22.5523 12 23 12.4477 23 13C23 13.5523 22.5523 14 22 14H20V16C20 16.5523 19.5523 17 19 17C18.4477 17 18 16.5523 18 16V14H16C15.4477 14 15 13.5523 15 13C15 12.4477 15.4477 12 16 12H18V10C18 9.44772 18.4477 9 19 9Z</Geometry>
+        <Geometry x:Key="AvatarStarGeometry">M12 2.75L14.7812 8.38585L21 9.29007L16.5 13.6776L17.5623 19.875L12 16.95L6.43769 19.875L7.5 13.6776L3 9.29007L9.21885 8.38585L12 2.75Z</Geometry>
+        <Style x:Key="AvatarIconPathStyle" TargetType="Path">
+            <Setter Property="Width" Value="18" />
+            <Setter Property="Height" Value="18" />
+            <Setter Property="Stretch" Value="Uniform" />
+            <Setter Property="Fill" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="340" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Border
+                Background="{DynamicResource Theme.Surface.0.Brush}"
+                BorderBrush="{DynamicResource Theme.Border.Brush}"
+                BorderThickness="0,0,1,0">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl Margin="10,18,10,18" ItemsSource="{Binding SidebarCategories}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,0,0,18">
+                                    <TextBlock Style="{StaticResource SidebarCategoryHeaderTextStyle}" Text="{Binding HeaderText}" />
+                                    <ItemsControl ItemsSource="{Binding Items}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Button Click="HandleSidebarItemClick" Style="{StaticResource SidebarNavButtonStyle}">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Style="{StaticResource SidebarNavTitleTextStyle}" Text="{Binding Title}" />
+                                                            <TextBlock Style="{StaticResource SidebarNavSubtitleTextStyle}" Text="{Binding Subtitle}" />
+                                                        </StackPanel>
+                                                        <Border
+                                                            Grid.Column="1"
+                                                            Margin="10,0,0,0"
+                                                            Padding="7,1"
+                                                            VerticalAlignment="Center"
+                                                            Background="#E6F9F0"
+                                                            CornerRadius="11"
+                                                            Visibility="{Binding HasBadge, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                            <TextBlock
+                                                                FontSize="12"
+                                                                Foreground="#18A058"
+                                                                Text="{Binding BadgeText}" />
+                                                        </Border>
+                                                    </Grid>
+                                                </Button>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+
+            <Button
+                Width="32"
+                Height="32"
+                Margin="0,300,-16,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Content="&#xE76B;"
+                Style="{StaticResource SidebarCollapseButtonStyle}" />
+        </Grid>
+
+        <ScrollViewer
+            x:Name="DocumentScrollViewer"
+            Grid.Column="1"
+            VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="68,34,18,34">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="48"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                        Text="头像 Avatar" />
+                </StackPanel>
+
+                <TextBlock
+                    Margin="0,26,0,0"
+                    FontSize="18"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="用来展示用户头像，支持图片、文字、图标以及图片失败后的回退内容。" />
+
+                <TextBlock
+                    Margin="0,52,0,28"
+                    FontSize="36"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="演示" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="基础" />
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE76C;" />
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE71B;" />
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE8A7;" />
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE8C8;" />
+                                        <TextBlock
+                                            Margin="0,0,6,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                            Text="&lt;/&gt;" />
+                                    </StackPanel>
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="头像默认支持图片、文字和任意可视内容。没有内容时会显示占位图标。" />
+                                    <WrapPanel>
+                                        <nc:NAvatar Margin="0,0,16,16" Content="U" />
+                                        <nc:NAvatar
+                                            Margin="0,0,16,16"
+                                            Background="{DynamicResource Primary.Third.Brush}"
+                                            Content="AB"
+                                            Foreground="{DynamicResource Primary.First.Brush}" />
+                                        <nc:NAvatar Margin="0,0,16,16">
+                                            <Path Data="{StaticResource AvatarStarGeometry}" Style="{StaticResource AvatarIconPathStyle}" />
+                                        </nc:NAvatar>
+                                        <nc:NAvatar Margin="0,0,16,16" />
+                                    </WrapPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionShape" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="形状" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="支持圆角方形和圆形两种形状，默认是更贴近 Naive UI 的圆角方形。" />
+                                    <WrapPanel>
+                                        <nc:NAvatar
+                                            Margin="0,0,16,16"
+                                            Content="N"
+                                            Shape="Square" />
+                                        <nc:NAvatar
+                                            Margin="0,0,16,16"
+                                            Content="UI"
+                                            Shape="Round" />
+                                        <nc:NAvatar
+                                            Margin="0,0,16,16"
+                                            Background="{DynamicResource Info.Third.Brush}"
+                                            Content="A"
+                                            Foreground="{DynamicResource Info.First.Brush}"
+                                            Shape="Square" />
+                                        <nc:NAvatar
+                                            Margin="0,0,16,16"
+                                            Background="{DynamicResource Warning.Third.Brush}"
+                                            Content="B"
+                                            Foreground="{DynamicResource Warning.First.Brush}"
+                                            Shape="Round" />
+                                    </WrapPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionSize" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="尺寸" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="通过 Size 统一控制头像尺寸，文字和标记会随尺寸自动调整。" />
+                                    <WrapPanel VerticalAlignment="Bottom">
+                                        <nc:NAvatar
+                                            Margin="0,0,16,16"
+                                            Content="N"
+                                            Size="24" />
+                                        <nc:NAvatar
+                                            Margin="0,0,16,16"
+                                            Content="Na"
+                                            Size="32" />
+                                        <nc:NAvatar
+                                            Margin="0,0,16,16"
+                                            Content="UI"
+                                            Size="40" />
+                                        <nc:NAvatar
+                                            Margin="0,0,16,16"
+                                            Content="WPF"
+                                            Size="56" />
+                                        <nc:NAvatar
+                                            Margin="0,0,16,16"
+                                            Content="Avatar"
+                                            Size="72" />
+                                    </WrapPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionImage" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="图片" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="图片模式下，Src 会优先显示；可搭配 FallbackSrc 与 FallbackContent 提供失败回退。" />
+                                    <WrapPanel>
+                                        <nc:NAvatar
+                                            Margin="0,0,16,16"
+                                            Shape="Round"
+                                            Size="48"
+                                            Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        <nc:NAvatar
+                                            Margin="0,0,16,16"
+                                            Shape="Square"
+                                            Size="56"
+                                            Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        <nc:NAvatar
+                                            x:Name="BrokenAvatarWithFallback"
+                                            Margin="0,0,16,16"
+                                            FallbackSrc="/NaiveUI.Demo;component/Assets/Header.jpg"
+                                            Shape="Round"
+                                            Size="48" />
+                                        <nc:NAvatar
+                                            x:Name="BrokenAvatarWithTextFallback"
+                                            Margin="0,0,16,16"
+                                            Background="{DynamicResource Error.Third.Brush}"
+                                            FallbackContent="NF"
+                                            Foreground="{DynamicResource Error.First.Brush}"
+                                            Shape="Round"
+                                            Size="48" />
+                                        <nc:NAvatar
+                                            x:Name="BrokenAvatarWithPlaceholder"
+                                            Margin="0,0,16,16"
+                                            Shape="Round"
+                                            Size="48" />
+                                    </WrapPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <nu:CardElement x:Name="SectionBadge" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="徽标" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="右上角徽标用于提醒消息数量或状态，大小会随头像尺寸变化。" />
+                                    <WrapPanel>
+                                        <nc:NAvatar
+                                            Margin="0,0,16,16"
+                                            Badge="1"
+                                            Content="N"
+                                            Shape="Round" />
+                                        <nc:NAvatar
+                                            Margin="0,0,16,16"
+                                            Badge="99+"
+                                            BadgeCornerRadius="10"
+                                            Content="UI"
+                                            Shape="Round"
+                                            Size="40" />
+                                        <nc:NAvatar
+                                            Margin="0,0,16,16"
+                                            Background="{DynamicResource Success.Third.Brush}"
+                                            Badge="NEW"
+                                            BadgeCornerRadius="12"
+                                            BadgeForeground="Black"
+                                            Content="A"
+                                            Foreground="{DynamicResource Success.First.Brush}"
+                                            Shape="Square"
+                                            Size="48" />
+                                        <nc:NAvatar
+                                            Margin="0,0,16,16"
+                                            Badge="!"
+                                            BadgeBackground="{DynamicResource Warning.First.Brush}"
+                                            Content="B"
+                                            Shape="Round"
+                                            Size="56" />
+                                    </WrapPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionFallback" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="回退策略" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="渲染优先级为：Src/FallbackSrc 图片，其次是 Content/FallbackContent，最后是占位图标。" />
+                                    <WrapPanel>
+                                        <nc:NAvatar
+                                            Margin="0,0,16,16"
+                                            Background="{DynamicResource Info.Third.Brush}"
+                                            Content="IMG"
+                                            FallbackContent="TXT"
+                                            Foreground="{DynamicResource Info.First.Brush}"
+                                            Shape="Round"
+                                            Size="52"
+                                            Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        <nc:NAvatar
+                                            Margin="0,0,16,16"
+                                            Background="{DynamicResource Info.Third.Brush}"
+                                            FallbackContent="TXT"
+                                            Foreground="{DynamicResource Info.First.Brush}"
+                                            Shape="Round"
+                                            Size="52" />
+                                        <nc:NAvatar
+                                            Margin="0,0,16,16"
+                                            Background="{DynamicResource Primary.Third.Brush}"
+                                            FallbackContent="{x:Null}"
+                                            Foreground="{DynamicResource Primary.First.Brush}"
+                                            Shape="Square"
+                                            Size="52">
+                                            <Path Data="{StaticResource AvatarUserPlusGeometry}" Style="{StaticResource AvatarIconPathStyle}" />
+                                        </nc:NAvatar>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionGroup" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="组合展示" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="通过 BorderBrush 和负边距可以搭出 Naive UI 常见的头像组效果。" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <nc:NAvatar
+                                            Margin="0,0,-10,0"
+                                            BorderBrush="{DynamicResource Theme.Surface.0.Brush}"
+                                            BorderThickness="2"
+                                            Content="A"
+                                            Shape="Round"
+                                            Size="44" />
+                                        <nc:NAvatar
+                                            Margin="0,0,-10,0"
+                                            BorderBrush="{DynamicResource Theme.Surface.0.Brush}"
+                                            BorderThickness="2"
+                                            Content="B"
+                                            Shape="Round"
+                                            Size="44" />
+                                        <nc:NAvatar
+                                            Margin="0,0,-10,0"
+                                            BorderBrush="{DynamicResource Theme.Surface.0.Brush}"
+                                            BorderThickness="2"
+                                            Shape="Round"
+                                            Size="44"
+                                            Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        <nc:NAvatar
+                                            BorderBrush="{DynamicResource Theme.Surface.0.Brush}"
+                                            BorderThickness="2"
+                                            Content="+6"
+                                            Shape="Round"
+                                            Size="44" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                    </StackPanel>
+                </Grid>
+
+                <nu:CardElement x:Name="SectionApi" Margin="0,20,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="API" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <TextBlock
+                            Margin="30,24,30,24"
+                            Style="{StaticResource DocBodyTextStyle}"
+                            Text="下面的 API 表按当前 WPF Avatar 实现整理，覆盖已经支持的属性和内容插槽。" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <nu:CardElement x:Name="SectionAvatarProps" Margin="0,0,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Avatar Props" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding AvatarPropsRows}" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <nu:CardElement x:Name="SectionAvatarSlots" Margin="0,0,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Avatar Slots" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding AvatarSlotsRows}" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="2" Background="{DynamicResource Theme.Surface.0.Brush}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="20,36,20,20">
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="基础"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionBasic" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="形状"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionShape" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="尺寸"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionSize" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="图片"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionImage" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="徽标"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionBadge" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="回退策略"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionFallback" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="组合展示"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionGroup" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="API"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionApi" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="Avatar Props"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionAvatarProps" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="Avatar Slots"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionAvatarSlots" />
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

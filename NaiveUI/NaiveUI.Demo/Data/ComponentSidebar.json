@@ -1,0 +1,147 @@
+{
+  "categories": [
+    {
+      "title": "通用组件",
+      "count": 15,
+      "items": [
+        { "key": "avatar", "title": "头像", "subtitle": "Avatar" },
+        { "key": "button", "title": "按钮", "subtitle": "Button", "isSelected": true },
+        { "key": "card", "title": "卡片", "subtitle": "Card" },
+        { "key": "carousel", "title": "轮播图", "subtitle": "Carousel" },
+        { "key": "collapse", "title": "折叠面板", "subtitle": "Collapse" },
+        { "key": "divider", "title": "分割线", "subtitle": "Divider" },
+        { "key": "dropdown", "title": "下拉菜单", "subtitle": "Dropdown" },
+        { "key": "ellipsis", "title": "文本省略", "subtitle": "Ellipsis" },
+        { "key": "gradient-text", "title": "渐变文字", "subtitle": "Gradient Text" },
+        { "key": "icon", "title": "图标", "subtitle": "Icon" },
+        { "key": "page-header", "title": "页头", "subtitle": "PageHeader" },
+        { "key": "tag", "title": "标签", "subtitle": "Tag" },
+        { "key": "typography", "title": "排印", "subtitle": "Typography" },
+        { "key": "watermark", "title": "水印", "subtitle": "Watermark" },
+        { "key": "float-button", "title": "浮动按钮", "subtitle": "Float Button", "badgeText": "新" }
+      ]
+    },
+    {
+      "title": "数据录入组件",
+      "count": 21,
+      "items": [
+        { "key": "auto-complete", "title": "自动填充", "subtitle": "Auto Complete" },
+        { "key": "cascader", "title": "级联选择", "subtitle": "Cascader" },
+        { "key": "color-picker", "title": "颜色选择器", "subtitle": "Color Picker" },
+        { "key": "checkbox", "title": "复选框", "subtitle": "Checkbox" },
+        { "key": "date-picker", "title": "日期选择器", "subtitle": "Date Picker" },
+        { "key": "dynamic-input", "title": "动态录入", "subtitle": "Dynamic Input" },
+        { "key": "dynamic-tags", "title": "动态标签", "subtitle": "Dynamic Tags" },
+        { "key": "form", "title": "表单", "subtitle": "Form" },
+        { "key": "input", "title": "文本输入", "subtitle": "Input" },
+        { "key": "input-number", "title": "数字输入", "subtitle": "Input Number" },
+        { "key": "input-otp", "title": "验证码", "subtitle": "Input OTP", "badgeText": "新" },
+        { "key": "mention", "title": "提及", "subtitle": "Mention" },
+        { "key": "radio", "title": "单选", "subtitle": "Radio" },
+        { "key": "rate", "title": "评分", "subtitle": "Rate" },
+        { "key": "select", "title": "选择器", "subtitle": "Select" },
+        { "key": "slider", "title": "滑动选择", "subtitle": "Slider" },
+        { "key": "switch", "title": "开关", "subtitle": "Switch" },
+        { "key": "time-picker", "title": "时间选择器", "subtitle": "Time Picker" },
+        { "key": "transfer", "title": "穿梭框", "subtitle": "Transfer" },
+        { "key": "tree-select", "title": "树型选择", "subtitle": "Tree Select" },
+        { "key": "upload", "title": "上传", "subtitle": "Upload" }
+      ]
+    },
+    {
+      "title": "数据展示组件",
+      "count": 21,
+      "items": [
+        { "key": "calendar", "title": "日历", "subtitle": "Calendar" },
+        { "key": "countdown", "title": "倒计时", "subtitle": "Countdown" },
+        { "key": "code", "title": "代码", "subtitle": "Code" },
+        { "key": "data-table", "title": "数据表格", "subtitle": "Data Table" },
+        { "key": "descriptions", "title": "描述", "subtitle": "Descriptions" },
+        { "key": "empty", "title": "无内容", "subtitle": "Empty" },
+        { "key": "equation", "title": "公式", "subtitle": "Equation" },
+        { "key": "image", "title": "图像", "subtitle": "Image" },
+        { "key": "list", "title": "列表", "subtitle": "List" },
+        { "key": "log", "title": "日志", "subtitle": "Log" },
+        { "key": "number-animation", "title": "数值动画", "subtitle": "Number Animation" },
+        { "key": "qr-code", "title": "二维码", "subtitle": "QR Code", "badgeText": "新" },
+        { "key": "statistic", "title": "统计数据", "subtitle": "Statistic" },
+        { "key": "table", "title": "表格", "subtitle": "Table" },
+        { "key": "thing", "title": "东西", "subtitle": "Thing" },
+        { "key": "time", "title": "时间", "subtitle": "Time" },
+        { "key": "timeline", "title": "时间线", "subtitle": "Timeline" },
+        { "key": "tree", "title": "树", "subtitle": "Tree" },
+        { "key": "infinite-scroll", "title": "无限滚动", "subtitle": "Infinite Scroll", "badgeText": "新" },
+        { "key": "highlight", "title": "高亮文本", "subtitle": "Highlight", "badgeText": "新" },
+        { "key": "heatmap", "title": "热力图", "subtitle": "Heatmap", "badgeText": "新" }
+      ]
+    },
+    {
+      "title": "导航组件",
+      "count": 9,
+      "items": [
+        { "key": "affix", "title": "固钉", "subtitle": "Affix" },
+        { "key": "anchor", "title": "侧边导航", "subtitle": "Anchor" },
+        { "key": "back-top", "title": "回到顶部", "subtitle": "Back Top" },
+        { "key": "breadcrumb", "title": "面包屑", "subtitle": "Breadcrumb" },
+        { "key": "loading-bar", "title": "加载条", "subtitle": "Loading Bar" },
+        { "key": "menu", "title": "菜单", "subtitle": "Menu" },
+        { "key": "pagination", "title": "分页", "subtitle": "Pagination" },
+        { "key": "steps", "title": "步骤", "subtitle": "Steps" },
+        { "key": "tabs", "title": "标签页", "subtitle": "Tabs" }
+      ]
+    },
+    {
+      "title": "反馈组件",
+      "count": 16,
+      "items": [
+        { "key": "alert", "title": "警告信息", "subtitle": "Alert" },
+        { "key": "badge", "title": "标记", "subtitle": "Badge" },
+        { "key": "dialog", "title": "对话框", "subtitle": "Dialog" },
+        { "key": "drawer", "title": "抽屉", "subtitle": "Drawer" },
+        { "key": "marquee", "title": "跑马灯", "subtitle": "Marquee", "badgeText": "新" },
+        { "key": "message", "title": "信息", "subtitle": "Message" },
+        { "key": "modal", "title": "模态框", "subtitle": "Modal" },
+        { "key": "notification", "title": "通知", "subtitle": "Notification" },
+        { "key": "popconfirm", "title": "弹出确认", "subtitle": "Popconfirm" },
+        { "key": "popover", "title": "弹出信息", "subtitle": "Popover" },
+        { "key": "popselect", "title": "弹出选择", "subtitle": "Popselect" },
+        { "key": "progress", "title": "进度", "subtitle": "Progress" },
+        { "key": "result", "title": "结果页", "subtitle": "Result" },
+        { "key": "skeleton", "title": "骨架屏", "subtitle": "Skeleton" },
+        { "key": "spin", "title": "加载", "subtitle": "Spin" },
+        { "key": "tooltip", "title": "弹出提示", "subtitle": "Tooltip" }
+      ]
+    },
+    {
+      "title": "布局组件",
+      "count": 6,
+      "items": [
+        { "key": "flex", "title": "弹性布局", "subtitle": "Flex", "badgeText": "新" },
+        { "key": "layout", "title": "布局", "subtitle": "Layout" },
+        { "key": "legacy-grid", "title": "旧版栅格", "subtitle": "Legacy Grid" },
+        { "key": "grid", "title": "栅格", "subtitle": "Grid" },
+        { "key": "space", "title": "间距", "subtitle": "Space" },
+        { "key": "split", "title": "面板分割", "subtitle": "Split", "badgeText": "新" }
+      ]
+    },
+    {
+      "title": "工具组件",
+      "count": 4,
+      "items": [
+        { "key": "collapse-transition", "title": "折叠渐变", "subtitle": "Collapse Transition" },
+        { "key": "discrete-api", "title": "独立 API", "subtitle": "Discrete API" },
+        { "key": "scrollbar", "title": "滚动条", "subtitle": "Scrollbar" },
+        { "key": "virtual-list", "title": "虚拟列表", "subtitle": "Virtual List", "badgeText": "新" }
+      ]
+    },
+    {
+      "title": "配置组件",
+      "count": 3,
+      "items": [
+        { "key": "config-provider", "title": "全局化配置", "subtitle": "Config Provider" },
+        { "key": "element", "title": "元素", "subtitle": "Element" },
+        { "key": "global-style", "title": "全局样式", "subtitle": "Global Style" }
+      ]
+    }
+  ]
+}

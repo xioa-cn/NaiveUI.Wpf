@@ -7,6 +7,11 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
         <ApplicationIcon>5xrn1-dv6v5-001.ico</ApplicationIcon>
+
+
+
+
+
     </PropertyGroup>
 
     <ItemGroup>
@@ -27,6 +32,12 @@
 
     <ItemGroup>
       <Resource Include="Assets\Header.jpg" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="Data\ComponentSidebar.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>

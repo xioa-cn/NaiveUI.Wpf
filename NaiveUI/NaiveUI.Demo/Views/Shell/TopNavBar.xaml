@@ -1,0 +1,136 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Shell.TopNavBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/PathResources.xaml" />
+    </UserControl.Resources>
+    <Border
+        Background="{DynamicResource Theme.Surface.0.Brush}"
+        BorderBrush="{DynamicResource Theme.Border.Brush}"
+        BorderThickness="0,0,0,1"
+        MouseLeftButtonDown="HandleDragRegionMouseLeftButtonDown">
+        <Grid Margin="18,0,18,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                <Path
+                    Width="36"
+                    Height="36"
+                    Data="{StaticResource Naive}"
+                    Fill="#63C132"
+                    Stretch="Uniform" />
+                <TextBlock
+                    Margin="16,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="22"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="NaiveUI WPF" />
+            </StackPanel>
+
+            <StackPanel
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Button Click="HandleHomeClick" Content="首页">
+                    <Button.Style>
+                        <Style BasedOn="{StaticResource TopNavButtonStyle}" TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsHomeSelected, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="True">
+                                    <Setter Property="Foreground" Value="#18A058" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button
+                    Margin="26,0,0,0"
+                    Content="文档"
+                    Style="{StaticResource TopNavButtonStyle}" />
+                <Button
+                    Margin="26,0,0,0"
+                    Click="HandleComponentsClick"
+                    Content="组件">
+                    <Button.Style>
+                        <Style BasedOn="{StaticResource TopNavButtonStyle}" TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsComponentsSelected, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="True">
+                                    <Setter Property="Foreground" Value="#18A058" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Border
+                    Width="270"
+                    Height="42"
+                    Margin="32,0,0,0"
+                    Padding="16,0"
+                    VerticalAlignment="Center"
+                    Background="{DynamicResource Theme.Surface.0.Brush}"
+                    BorderBrush="{DynamicResource Theme.Border.Brush}"
+                    BorderThickness="1"
+                    CornerRadius="3">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontSize="15"
+                        Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
+                        Text="搜索" />
+                </Border>
+            </StackPanel>
+
+            <StackPanel
+                Grid.Column="2"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Button Content="English" Style="{StaticResource TopNavButtonStyle}" />
+                <Button
+                    Margin="18,0,0,0"
+                    Click="HandleThemeToggleClick"
+                    Content="{Binding ThemeToggleText, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                    Style="{StaticResource TopNavButtonStyle}" />
+                <Button
+                    Margin="18,0,0,0"
+                    Content="GitHub"
+                    Style="{StaticResource TopNavButtonStyle}" />
+                <TextBlock
+                    Margin="18,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="{Binding VersionText, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+            </StackPanel>
+
+            <StackPanel
+                Grid.Column="3"
+                Margin="14,0,0,0"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Button
+                    Click="HandleMinimizeClick"
+                    Content="&#xE921;"
+                    FontFamily="Segoe MDL2 Assets"
+                    Style="{StaticResource WindowCaptionButtonStyle}" />
+                <Button
+                    Click="HandleMaximizeRestoreClick"
+                    Content="{Binding MaximizeGlyph, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                    FontFamily="Segoe MDL2 Assets"
+                    Style="{StaticResource WindowCaptionButtonStyle}" />
+                <Button
+                    Click="HandleCloseClick"
+                    Content="&#xE8BB;"
+                    FontFamily="Segoe MDL2 Assets"
+                    Style="{StaticResource WindowCaptionButtonStyle}" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

@@ -7,8 +7,11 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/NaiveUI.NControls;component/ControlsExample/Themes.xaml" />
-                <ResourceDictionary Source="/NaiveUI.NControls;component/SkinDefault.xaml" />
+                <ResourceDictionary Source="/NaiveUI.Demo;component/Styles/DemoShellStyles.xaml" />
+                <!--<ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Themes.xaml" />-->
+                <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/ThemeResources.xaml" />
+                <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/LightTheme.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -1,0 +1,1224 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Pages.ButtonDocsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    xmlns:tag="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <Style
+            x:Key="SectionCardHeaderTitleStyle"
+            BasedOn="{StaticResource DocSectionTitleStyle}"
+            TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+        <Style x:Key="ApiNameTextStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Consolas" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        </Style>
+        <Style x:Key="ApiDescTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Secondary.Brush}" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+        <Style x:Key="ButtonGroupItemStyle" TargetType="{x:Type nc:NButton}">
+            <Setter Property="Margin" Value="-1,0,0,0" />
+            <Setter Property="MinWidth" Value="88" />
+        </Style>
+
+        <Geometry x:Key="ButtonIconAddGeometry">M11 4C11.5523 4 12 4.44772 12 5V10H17C17.5523 10 18 10.4477 18 11C18 11.5523 17.5523 12 17 12H12V17C12 17.5523 11.5523 18 11 18C10.4477 18 10 17.5523 10 17V12H5C4.44772 12 4 11.5523 4 11C4 10.4477 4.44772 10 5 10H10V5C10 4.44772 10.4477 4 11 4Z</Geometry>
+        <Geometry x:Key="ButtonIconFavoriteGeometry">M12 20.4L10.55 19.08C5.4 14.42 2 11.36 2 7.6C2 4.54 4.42 2 7.5 2C9.24 2 10.91 2.81 12 4.09C13.09 2.81 14.76 2 16.5 2C19.58 2 22 4.54 22 7.6C22 11.36 18.6 14.42 13.45 19.09L12 20.4Z</Geometry>
+        <Geometry x:Key="ButtonIconDownloadGeometry">M12 3C12.5523 3 13 3.44772 13 4V12.5858L15.2929 10.2929C15.6834 9.90237 16.3166 9.90237 16.7071 10.2929C17.0976 10.6834 17.0976 11.3166 16.7071 11.7071L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L7.29289 11.7071C6.90237 11.3166 6.90237 10.6834 7.29289 10.2929C7.68342 9.90237 8.31658 9.90237 8.70711 10.2929L11 12.5858V4C11 3.44772 11.4477 3 12 3ZM5 18C5 17.4477 5.44772 17 6 17H18C18.5523 17 19 17.4477 19 18C19 18.5523 18.5523 19 18 19H6C5.44772 19 5 18.5523 5 18Z</Geometry>
+        <Geometry x:Key="ButtonIconCheckGeometry">M9.54996 15.6L4.59996 10.65C4.20814 10.2582 4.20814 9.62293 4.59996 9.23111C4.99179 8.83929 5.62704 8.83929 6.01887 9.23111L9.54996 12.7622L17.9811 4.33111C18.3729 3.93929 19.0081 3.93929 19.4 4.33111C19.7918 4.72293 19.7918 5.35818 19.4 5.75L9.54996 15.6Z</Geometry>
+        <Geometry x:Key="ButtonIconMoreGeometry">M5 10C6.10457 10 7 10.8954 7 12C7 13.1046 6.10457 14 5 14C3.89543 14 3 13.1046 3 12C3 10.8954 3.89543 10 5 10ZM12 10C13.1046 10 14 10.8954 14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10ZM19 10C20.1046 10 21 10.8954 21 12C21 13.1046 20.1046 14 19 14C17.8954 14 17 13.1046 17 12C17 10.8954 17.8954 10 19 10Z</Geometry>
+        <Style x:Key="ButtonIconPathStyle" TargetType="Path">
+            <Setter Property="Width" Value="16" />
+            <Setter Property="Height" Value="16" />
+            <Setter Property="Stretch" Value="Uniform" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Fill" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type nc:NButton}}}" />
+        </Style>
+        <Style
+            x:Key="ButtonIconOnlyPathStyle"
+            BasedOn="{StaticResource ButtonIconPathStyle}"
+            TargetType="Path">
+            <Setter Property="Width" Value="18" />
+            <Setter Property="Height" Value="18" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="340" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Border
+                Background="{DynamicResource Theme.Surface.0.Brush}"
+                BorderBrush="{DynamicResource Theme.Border.Brush}"
+                BorderThickness="0,0,1,0">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl Margin="10,18,10,18" ItemsSource="{Binding SidebarCategories}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,0,0,18">
+                                    <TextBlock Style="{StaticResource SidebarCategoryHeaderTextStyle}" Text="{Binding HeaderText}" />
+                                    <ItemsControl ItemsSource="{Binding Items}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Button Click="HandleSidebarItemClick" Style="{StaticResource SidebarNavButtonStyle}">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Style="{StaticResource SidebarNavTitleTextStyle}" Text="{Binding Title}" />
+                                                            <TextBlock Style="{StaticResource SidebarNavSubtitleTextStyle}" Text="{Binding Subtitle}" />
+                                                        </StackPanel>
+                                                        <Border
+                                                            Grid.Column="1"
+                                                            Margin="10,0,0,0"
+                                                            Padding="7,1"
+                                                            VerticalAlignment="Center"
+                                                            Background="#E6F9F0"
+                                                            CornerRadius="11"
+                                                            Visibility="{Binding HasBadge, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                            <TextBlock
+                                                                FontSize="12"
+                                                                Foreground="#18A058"
+                                                                Text="{Binding BadgeText}" />
+                                                        </Border>
+                                                    </Grid>
+                                                </Button>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+
+            <Button
+                Width="32"
+                Height="32"
+                Margin="0,300,-16,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Content="&#xE76B;"
+                Style="{StaticResource SidebarCollapseButtonStyle}" />
+        </Grid>
+
+        <ScrollViewer
+            x:Name="DocumentScrollViewer"
+            Grid.Column="1"
+            VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="68,34,18,34">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="48"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                        Text="按钮 Button" />
+
+                </StackPanel>
+                <TextBlock
+                    Margin="0,26,0,0"
+                    FontSize="18"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="按钮用来触发一些操作。" />
+
+                <TextBlock
+                    Margin="0,52,0,28"
+                    FontSize="36"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="演示" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="基础" />
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE76C;" />
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE71B;" />
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE8A7;" />
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE8C8;" />
+                                        <TextBlock
+                                            Margin="0,0,6,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                            Text="&lt;/&gt;" />
+                                    </StackPanel>
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="按钮的 type 分别为 default、tertiary、primary、info、success、warning 和 error。" />
+                                    <WrapPanel>
+                                        <nc:NButton Margin="0,0,14,14">Default</nc:NButton>
+                                        <nc:NButton Margin="0,0,14,14" Kind="Tertiary">Tertiary</nc:NButton>
+                                        <nc:NButton Margin="0,0,14,14" Grade="Primary">Primary</nc:NButton>
+                                        <nc:NButton Margin="0,0,14,14" Grade="Info">Info</nc:NButton>
+                                        <nc:NButton Margin="0,0,14,14" Grade="Success">Success</nc:NButton>
+                                        <nc:NButton Margin="0,0,14,14" Grade="Warning">Warning</nc:NButton>
+                                        <nc:NButton Margin="0,0,14,14" Grade="Error">Error</nc:NButton>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionSecondary" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="次要按钮" />
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE76C;" />
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE71B;" />
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE8A7;" />
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE8C8;" />
+                                        <TextBlock
+                                            Margin="0,0,6,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                            Text="&lt;/&gt;" />
+                                    </StackPanel>
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <WrapPanel>
+                                        <nc:NButton Margin="0,0,14,14" Kind="Secondary">Default</nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Primary"
+                                            Kind="Secondary">
+                                            Primary
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Info"
+                                            Kind="Secondary">
+                                            Info
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Success"
+                                            Kind="Secondary">
+                                            Success
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Warning"
+                                            Kind="Secondary">
+                                            Warning
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Error"
+                                            Kind="Secondary">
+                                            Error
+                                        </nc:NButton>
+                                    </WrapPanel>
+                                    <WrapPanel>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            CornerRadius="20"
+                                            Grade="Primary"
+                                            Kind="Secondary"
+                                            Round="True">
+                                            Primary
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            CornerRadius="20"
+                                            Grade="Info"
+                                            Kind="Secondary"
+                                            Round="True">
+                                            Info
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            CornerRadius="20"
+                                            Grade="Success"
+                                            Kind="Secondary"
+                                            Round="True">
+                                            Success
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            CornerRadius="20"
+                                            Grade="Warning"
+                                            Kind="Secondary"
+                                            Round="True">
+                                            Warning
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            CornerRadius="20"
+                                            Grade="Error"
+                                            Kind="Secondary"
+                                            Round="True">
+                                            Error
+                                        </nc:NButton>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionQuaternary" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="次次次要按钮" />
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE76C;" />
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE71B;" />
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE8A7;" />
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE8C8;" />
+                                        <TextBlock
+                                            Margin="0,0,6,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                            Text="&lt;/&gt;" />
+                                    </StackPanel>
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="更轻的透明按钮，适合弱强调操作。" />
+                                    <WrapPanel>
+                                        <nc:NButton Margin="0,0,14,14" Kind="Quaternary">Default</nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Primary"
+                                            Kind="Quaternary">
+                                            Primary
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Info"
+                                            Kind="Quaternary">
+                                            Info
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Success"
+                                            Kind="Quaternary">
+                                            Success
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Warning"
+                                            Kind="Quaternary">
+                                            Warning
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Error"
+                                            Kind="Quaternary">
+                                            Error
+                                        </nc:NButton>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionDashed" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="虚线按钮" />
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE76C;" />
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE71B;" />
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE8A7;" />
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE8C8;" />
+                                        <TextBlock
+                                            Margin="0,0,6,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                            Text="&lt;/&gt;" />
+                                    </StackPanel>
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="使用 dashed 来展示轻量边界操作。" />
+                                    <WrapPanel>
+                                        <nc:NButton Margin="0,0,14,14" Kind="Dashed">Default</nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Primary"
+                                            Kind="Dashed">
+                                            Primary
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Info"
+                                            Kind="Dashed">
+                                            Info
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Success"
+                                            Kind="Dashed">
+                                            Success
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Warning"
+                                            Kind="Dashed">
+                                            Warning
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Error"
+                                            Kind="Dashed">
+                                            Error
+                                        </nc:NButton>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionText" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="文本按钮" />
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE76C;" />
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE71B;" />
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE8A7;" />
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE8C8;" />
+                                        <TextBlock
+                                            Margin="0,0,6,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                            Text="&lt;/&gt;" />
+                                    </StackPanel>
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="适合嵌入文本上下文中。" />
+                                    <WrapPanel>
+                                        <nc:NButton Margin="0,0,14,14" Kind="Text">Default</nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Primary"
+                                            Kind="Text">
+                                            Primary
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Info"
+                                            Kind="Text">
+                                            Info
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Success"
+                                            Kind="Text">
+                                            Success
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Warning"
+                                            Kind="Text">
+                                            Warning
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Error"
+                                            Kind="Text">
+                                            Error
+                                        </nc:NButton>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionTag" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="标签" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,18"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="WPF 没有 HTML tag，对应以语义标签和跳转用途展示。" />
+                                    <WrapPanel>
+                                        <nc:NButton Margin="0,0,14,14">button</nc:NButton>
+                                        <nc:NButton Margin="0,0,14,14" Kind="Text">a</nc:NButton>
+
+                                    </WrapPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionIcon" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="图标" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <WrapPanel Margin="30,24,30,24">
+                                    <nc:NButton Margin="0,0,14,14">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Path
+                                                Margin="0,0,8,0"
+                                                Data="{StaticResource ButtonIconAddGeometry}"
+                                                Style="{StaticResource ButtonIconPathStyle}" />
+                                            <TextBlock Text="创建" />
+                                        </StackPanel>
+                                    </nc:NButton>
+                                    <nc:NButton Margin="0,0,14,14" Grade="Primary">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Path
+                                                Margin="0,0,8,0"
+                                                Data="{StaticResource ButtonIconFavoriteGeometry}"
+                                                Style="{StaticResource ButtonIconPathStyle}" />
+                                            <TextBlock Text="收藏" />
+                                        </StackPanel>
+                                    </nc:NButton>
+                                    <nc:NButton
+                                        Margin="0,0,14,14"
+                                        Grade="Info"
+                                        Kind="Secondary">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Path
+                                                Margin="0,0,8,0"
+                                                Data="{StaticResource ButtonIconDownloadGeometry}"
+                                                Style="{StaticResource ButtonIconPathStyle}" />
+                                            <TextBlock Text="下载" />
+                                        </StackPanel>
+                                    </nc:NButton>
+                                </WrapPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionShape" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="形状" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <WrapPanel Margin="30,24,30,24">
+                                    <nc:NButton Margin="0,0,14,14">Default</nc:NButton>
+                                    <nc:NButton
+                                        Margin="0,0,14,14"
+                                        CornerRadius="20"
+                                        Round="True">
+                                        Round
+                                    </nc:NButton>
+                                    <nc:NButton
+                                        Margin="0,0,14,14"
+                                        CornerRadius="20"
+                                        Grade="Primary"
+                                        Round="True">
+                                        Pill
+                                    </nc:NButton>
+                                </WrapPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionGhost" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="透明背景" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <Border
+                                    Margin="30,24,30,24"
+                                    Padding="18"
+                                    Background="#1F2937"
+                                    CornerRadius="8">
+                                    <WrapPanel VerticalAlignment="Center">
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Foreground="White"
+                                            Kind="Ghost">
+                                            Default
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Primary"
+                                            Kind="Ghost">
+                                            Primary
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Info"
+                                            Kind="Ghost">
+                                            Info
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Warning"
+                                            Kind="Ghost">
+                                            Warning
+                                        </nc:NButton>
+                                    </WrapPanel>
+                                </Border>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+
+
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <nu:CardElement
+                            x:Name="SectionButtonSlotsColumn"
+                            Margin="0,0,0,20"
+                            Visibility="Collapsed">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Button Slots" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding ButtonSlotsRows}" />
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionTertiary" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="次次要按钮" />
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE76C;" />
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE71B;" />
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE8A7;" />
+                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE8C8;" />
+                                        <TextBlock
+                                            Margin="0,0,6,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="15"
+                                            Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                            Text="&lt;/&gt;" />
+                                    </StackPanel>
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <WrapPanel>
+                                        <nc:NButton Margin="0,0,14,14" Kind="Tertiary">Default</nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Primary"
+                                            Kind="Tertiary">
+                                            Primary
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Info"
+                                            Kind="Tertiary">
+                                            Info
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Success"
+                                            Kind="Tertiary">
+                                            Success
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Warning"
+                                            Kind="Tertiary">
+                                            Warning
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Error"
+                                            Kind="Tertiary">
+                                            Error
+                                        </nc:NButton>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionSize" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="尺寸" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="有 small、medium 和 large 尺寸。" />
+                                    <WrapPanel>
+                                        <nc:NButton Margin="0,0,14,14" Size="Small">小</nc:NButton>
+                                        <nc:NButton Margin="0,0,14,14" Size="Medium">不小</nc:NButton>
+                                        <nc:NButton Margin="0,0,14,14" Size="Large">不不小</nc:NButton>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionDisabled" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="禁用" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <WrapPanel Margin="30,24,30,24">
+                                    <nc:NButton Margin="0,0,14,14" IsEnabled="False">Default</nc:NButton>
+                                    <nc:NButton
+                                        Margin="0,0,14,14"
+                                        Grade="Primary"
+                                        IsEnabled="False">
+                                        Primary
+                                    </nc:NButton>
+                                    <nc:NButton
+                                        Margin="0,0,14,14"
+                                        Grade="Info"
+                                        IsEnabled="False"
+                                        Kind="Secondary">
+                                        Info
+                                    </nc:NButton>
+                                    <nc:NButton
+                                        Margin="0,0,14,14"
+                                        Grade="Warning"
+                                        IsEnabled="False"
+                                        Kind="Text">
+                                        Warning
+                                    </nc:NButton>
+                                </WrapPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionEvent" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="事件" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,18"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="点击按钮时触发 Click / Command。" />
+                                    <WrapPanel>
+                                        <nc:NButton Margin="0,0,14,14" Click="HandleDemoButtonClick">默认事件</nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Click="HandleDemoButtonClick"
+                                            Grade="Primary">
+                                            成功提示
+                                        </nc:NButton>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionCustomColor" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="自定义颜色" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <WrapPanel Margin="30,24,30,24">
+                                    <nc:NButton
+                                        Margin="0,0,14,14"
+                                        CustomBackgroundBrush="#1D4ED8"
+                                        CustomBorderBrush="#1D4ED8"
+                                        CustomForegroundBrush="White"
+                                        CustomHoverBackgroundBrush="#2563EB"
+                                        CustomHoverBorderBrush="#2563EB"
+                                        CustomHoverForegroundBrush="White"
+                                        CustomPressedBackgroundBrush="#1E40AF"
+                                        CustomPressedBorderBrush="#1E40AF"
+                                        CustomPressedForegroundBrush="White">
+                                        Ocean
+                                    </nc:NButton>
+                                    <nc:NButton
+                                        Margin="0,0,14,14"
+                                        CustomBackgroundBrush="#FCE7F3"
+                                        CustomBorderBrush="#FCE7F3"
+                                        CustomForegroundBrush="#BE185D"
+                                        CustomHoverBackgroundBrush="#FBCFE8"
+                                        CustomHoverBorderBrush="#FBCFE8"
+                                        CustomHoverForegroundBrush="#9D174D"
+                                        CustomPressedBackgroundBrush="#F9A8D4"
+                                        CustomPressedBorderBrush="#F9A8D4"
+                                        CustomPressedForegroundBrush="#831843"
+                                        Kind="Secondary">
+                                        Rose
+                                    </nc:NButton>
+                                </WrapPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionIconOnly" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="使用图标作为按钮" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <WrapPanel Margin="30,24,30,24">
+                                    <nc:NButton Margin="5">
+                                        <Viewbox Width="18" Height="18">
+                                            <Path
+                                                Data="{StaticResource ButtonIconAddGeometry}"
+                                                Fill="SteelBlue"
+                                                Style="{StaticResource ButtonIconOnlyPathStyle}" />
+                                        </Viewbox>
+                                    </nc:NButton>
+                                    <nc:NButton Margin="5" Grade="Primary">
+                                        <Viewbox Width="18" Height="18">
+                                            <Path Data="{StaticResource ButtonIconFavoriteGeometry}" Style="{StaticResource ButtonIconOnlyPathStyle}" />
+                                        </Viewbox>
+                                    </nc:NButton>
+                                    <nc:NButton
+                                        Margin="5"
+                                        Grade="Success"
+                                        Kind="Secondary">
+                                        <Viewbox Width="18" Height="18">
+                                            <Path Data="{StaticResource ButtonIconCheckGeometry}" Style="{StaticResource ButtonIconOnlyPathStyle}" />
+                                        </Viewbox>
+                                    </nc:NButton>
+                                    <nc:NButton
+                                        Margin="5"
+                                        Grade="Warning"
+                                        Kind="Quaternary">
+                                        <Viewbox Width="18" Height="18">
+                                            <Path Data="{StaticResource ButtonIconDownloadGeometry}" Style="{StaticResource ButtonIconOnlyPathStyle}" />
+                                        </Viewbox>
+                                    </nc:NButton>
+                                </WrapPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+
+                        <nu:CardElement x:Name="SectionLoading" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="加载中" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <WrapPanel Margin="30,24,30,24">
+                                    <nc:NButton Margin="0,0,14,14" IsLoading="True">Default</nc:NButton>
+                                    <nc:NButton
+                                        Margin="0,0,14,14"
+                                        Grade="Primary"
+                                        IsLoading="True"
+                                        LoadingBrush="White">
+                                        Primary
+                                    </nc:NButton>
+                                    <nc:NButton
+                                        Margin="0,0,14,14"
+                                        Grade="Success"
+                                        IsLoading="True"
+                                        Kind="Secondary">
+                                        Success
+                                    </nc:NButton>
+                                    <nc:NButton
+                                        Margin="0,0,14,14"
+                                        Grade="Warning"
+                                        IsLoading="True"
+                                        Kind="Text">
+                                        Warning
+                                    </nc:NButton>
+                                </WrapPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionButtonGroup" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="按钮组" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <StackPanel Orientation="Horizontal">
+                                        <nc:NButton Style="{StaticResource ButtonGroupItemStyle}">Star</nc:NButton>
+                                        <nc:NButton Grade="Primary" Style="{StaticResource ButtonGroupItemStyle}">Like</nc:NButton>
+                                        <nc:NButton Style="{StaticResource ButtonGroupItemStyle}">Share</nc:NButton>
+                                    </StackPanel>
+                                    <StackPanel Margin="0,16,0,0" Orientation="Horizontal">
+                                        <nc:NButton Kind="Secondary" Style="{StaticResource ButtonGroupItemStyle}">A</nc:NButton>
+                                        <nc:NButton
+                                            Grade="Info"
+                                            Kind="Secondary"
+                                            Style="{StaticResource ButtonGroupItemStyle}">
+                                            B
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Grade="Success"
+                                            Kind="Secondary"
+                                            Style="{StaticResource ButtonGroupItemStyle}">
+                                            C
+                                        </nc:NButton>
+                                    </StackPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionPopover" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="配合 Popover 的特殊情况" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,18"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="在弹出层场景下，建议使用 text / quaternary 按钮减轻视觉重量。" />
+                                    <Border
+                                        Padding="18"
+                                        Background="{DynamicResource Theme.Surface.1.Brush}"
+                                        CornerRadius="10">
+                                        <StackPanel>
+                                            <TextBlock
+                                                Margin="0,0,0,12"
+                                                FontSize="14"
+                                                Foreground="{DynamicResource Theme.Text.Secondary.Brush}"
+                                                Text="Popover Header" />
+                                            <WrapPanel>
+                                                <nc:NButton
+                                                    Margin="0,0,12,0"
+                                                    Grade="Primary"
+                                                    Kind="Text">
+                                                    操作一
+                                                </nc:NButton>
+                                                <nc:NButton
+                                                    Margin="0,0,12,0"
+                                                    Grade="Info"
+                                                    Kind="Quaternary">
+                                                    操作二
+                                                </nc:NButton>
+                                                <nc:NButton Kind="Quaternary">
+                                                    <Path Data="{StaticResource ButtonIconMoreGeometry}" Style="{StaticResource ButtonIconOnlyPathStyle}" />
+                                                </nc:NButton>
+                                            </WrapPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+
+
+
+
+
+
+
+                    </StackPanel>
+                </Grid>
+
+                <nu:CardElement x:Name="SectionApi" Margin="0,20,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="API" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <TextBlock
+                            Margin="30,24,30,24"
+                            Style="{StaticResource DocBodyTextStyle}"
+                            Text="下面的 API 表格使用 Naive UI 官网同类文档的展示结构，但内容只描述当前 WPF NButton 实际支持的属性、事件和插槽。" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <nu:CardElement x:Name="SectionButtonProps" Margin="0,0,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Button Props" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding ButtonPropsRows}" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <nu:CardElement x:Name="SectionButtonGroupProps" Margin="0,0,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="ButtonGroup Props" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding ButtonGroupPropsRows}" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <nu:CardElement x:Name="SectionButtonSlots" Margin="0,0,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Button Slots" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding ButtonSlotsRows}" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <nu:CardElement x:Name="SectionButtonGroupSlots" Margin="0,0,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="ButtonGroup Slots" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding ButtonGroupSlotsRows}" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="2" Background="{DynamicResource Theme.Surface.0.Brush}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="20,36,20,20">
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="基础"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionBasic" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="次要按钮"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionSecondary" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="次次要按钮"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionTertiary" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="次次次要按钮"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionQuaternary" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="虚线按钮"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionDashed" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="尺寸"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionSize" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="文本按钮"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionText" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="标签"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionTag" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="禁用"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionDisabled" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="图标"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionIcon" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="事件"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionEvent" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="形状"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionShape" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="透明背景"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionGhost" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="加载中"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionLoading" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="自定义颜色"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionCustomColor" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="按钮组"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionButtonGroup" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="使用图标作为按钮"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionIconOnly" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="配合 Popover 的特殊情况"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionPopover" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="API"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionApi" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="Button Props"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionButtonProps" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="ButtonGroup Props"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionButtonGroupProps" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="Button Slots"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionButtonSlots" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="ButtonGroup Slots"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionButtonGroupSlots" />
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

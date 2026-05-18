@@ -1,0 +1,102 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Sections.ApiDocTable"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:NaiveUI.Demo.Models"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="ApiHeaderTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="ApiCellTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style
+            x:Key="ApiCodeTextStyle"
+            BasedOn="{StaticResource ApiCellTextStyle}"
+            TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Consolas" />
+            <Setter Property="LineHeight" Value="18" />
+        </Style>
+    </UserControl.Resources>
+
+    <Border
+        Background="{DynamicResource Theme.Surface.0.Brush}"
+        BorderBrush="{DynamicResource Theme.Border.Brush}"
+        BorderThickness="1"
+        CornerRadius="8">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Border
+                Grid.Row="0"
+                Background="{DynamicResource Theme.Surface.1.Brush}"
+                BorderBrush="{DynamicResource Theme.Border.Brush}"
+                BorderThickness="0,0,0,1"
+                CornerRadius="8,8,0,0">
+                <Grid Margin="14,14,14,14">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250" />
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="150" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Style="{StaticResource ApiHeaderTextStyle}">
+                        名称
+                    </TextBlock>
+                    <TextBlock Grid.Column="1" Style="{StaticResource ApiHeaderTextStyle}">
+                        类型
+                    </TextBlock>
+                    <TextBlock Grid.Column="2" Style="{StaticResource ApiHeaderTextStyle}">
+                        默认值
+                    </TextBlock>
+                    <TextBlock Grid.Column="3" Style="{StaticResource ApiHeaderTextStyle}">
+                        说明
+                    </TextBlock>
+                    <TextBlock Grid.Column="4" HorizontalAlignment="Right" Style="{StaticResource ApiHeaderTextStyle}">
+                        版本
+                    </TextBlock>
+                </Grid>
+            </Border>
+
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:ApiDocRow}">
+                        <Border BorderBrush="{DynamicResource Theme.Border.Brush}" BorderThickness="0,0,0,1">
+                            <Grid Margin="14,12,14,12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="250" />
+                                    <ColumnDefinition Width="130" />
+                                    <ColumnDefinition Width="130" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="150" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Style="{StaticResource ApiCodeTextStyle}" Text="{Binding Name}" />
+                                <TextBlock Grid.Column="1" Style="{StaticResource ApiCodeTextStyle}" Text="{Binding Type}" />
+                                <TextBlock Grid.Column="2" Style="{StaticResource ApiCodeTextStyle}" Text="{Binding DefaultValue}" />
+                                <TextBlock Grid.Column="3" Style="{StaticResource ApiCellTextStyle}" Text="{Binding Description}" />
+                                <TextBlock Grid.Column="4" HorizontalAlignment="Right" Style="{StaticResource ApiCellTextStyle}" Text="{Binding Version}" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </Border>
+</UserControl>

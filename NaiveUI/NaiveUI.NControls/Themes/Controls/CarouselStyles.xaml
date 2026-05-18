@@ -1,0 +1,172 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:NaiveUI.NControls.Controls">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/ThemeTokens.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+    <Style x:Key="Naive.Carousel.ArrowButtonStyle" TargetType="Button">
+        <Setter Property="Width" Value="28" />
+        <Setter Property="Height" Value="28" />
+        <Setter Property="Background" Value="#66FFFFFF" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Foreground" Value="#111827" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="RootBorder"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="14">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="RootBorder" Property="Background" Value="#E6FFFFFF" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="RootBorder" Property="Background" Value="#FFFFFFFF" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.35" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Naive.Carousel.DotButtonStyle" TargetType="Button">
+        <Setter Property="Width" Value="16" />
+        <Setter Property="Height" Value="12" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Naive.Carousel.LineDotStyle" TargetType="Border">
+        <Setter Property="Width" Value="16" />
+        <Setter Property="Height" Value="4" />
+        <Setter Property="CornerRadius" Value="2" />
+        <Setter Property="Background" Value="#66FFFFFF" />
+    </Style>
+
+    <Style x:Key="Naive.Carousel.RoundDotStyle" TargetType="Border">
+        <Setter Property="Width" Value="8" />
+        <Setter Property="Height" Value="8" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="Background" Value="#66FFFFFF" />
+    </Style>
+
+    <Style TargetType="{x:Type controls:NCarousel}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Background" Value="{DynamicResource Theme.Surface.1.Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Inverse.Brush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:NCarousel}">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        SnapsToDevicePixels="True">
+                        <Grid ClipToBounds="True">
+                            <ContentPresenter
+                                x:Name="PART_CurrentPresenter"
+                                ContentTemplate="{TemplateBinding ItemTemplate}"
+                                ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" />
+                            <ContentPresenter
+                                x:Name="PART_StandbyPresenter"
+                                ContentTemplate="{TemplateBinding ItemTemplate}"
+                                ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                Opacity="0"
+                                Visibility="Collapsed" />
+
+                            <Grid
+                                Margin="12,0"
+                                VerticalAlignment="Center"
+                                Visibility="{Binding ShowArrow, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Button
+                                    Grid.Column="1"
+                                    Command="{Binding PreviousCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                    Content="&#xE76B;"
+                                    Style="{StaticResource Naive.Carousel.ArrowButtonStyle}" />
+                                <Button
+                                    Grid.Column="3"
+                                    Command="{Binding NextCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                    Content="&#xE76C;"
+                                    Style="{StaticResource Naive.Carousel.ArrowButtonStyle}" />
+                            </Grid>
+
+                            <ItemsControl
+                                Margin="0,0,0,14"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                ItemsSource="{TemplateBinding IndicatorItems}"
+                                Visibility="{Binding ShowDots, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button
+                                            Margin="3,0"
+                                            Command="{Binding SelectIndexCommand, RelativeSource={RelativeSource AncestorType={x:Type controls:NCarousel}}}"
+                                            CommandParameter="{Binding Index}"
+                                            Style="{StaticResource Naive.Carousel.DotButtonStyle}">
+                                            <Grid>
+                                                <Border
+                                                    x:Name="LineDot"
+                                                    Style="{StaticResource Naive.Carousel.LineDotStyle}" />
+                                                <Border
+                                                    x:Name="RoundDot"
+                                                    Style="{StaticResource Naive.Carousel.RoundDotStyle}"
+                                                    Visibility="Collapsed" />
+                                            </Grid>
+                                        </Button>
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding DotType, RelativeSource={RelativeSource AncestorType={x:Type controls:NCarousel}}}" Value="Dot">
+                                                <Setter TargetName="LineDot" Property="Visibility" Value="Collapsed" />
+                                                <Setter TargetName="RoundDot" Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsActive}" Value="True">
+                                                <Setter TargetName="LineDot" Property="Background" Value="White" />
+                                                <Setter TargetName="RoundDot" Property="Background" Value="White" />
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

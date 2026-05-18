@@ -1,0 +1,326 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Pages.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    mc:Ignorable="d">
+    <Grid Background="{DynamicResource Theme.Surface.0.Brush}" ClipToBounds="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.25*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="1.25*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid
+            Grid.Column="0"
+            Margin="-120,0,0,0"
+            VerticalAlignment="Center">
+            <StackPanel VerticalAlignment="Center">
+                <Border
+                    Width="520"
+                    Height="170"
+                    HorizontalAlignment="Left"
+                    Background="#35AD67"
+                    CornerRadius="0,85,85,0">
+                    <Border.Effect>
+                        <DropShadowEffect
+                            BlurRadius="24"
+                            Opacity="0.35"
+                            ShadowDepth="8"
+                            Color="#15000000" />
+                    </Border.Effect>
+                </Border>
+                <Border
+                    Width="700"
+                    Height="170"
+                    Margin="0,-32,0,0"
+                    HorizontalAlignment="Left"
+                    Background="#FDB22B"
+                    CornerRadius="0,85,85,0">
+                    <Border.Effect>
+                        <DropShadowEffect
+                            BlurRadius="24"
+                            Opacity="0.35"
+                            ShadowDepth="8"
+                            Color="#15000000" />
+                    </Border.Effect>
+                </Border>
+                <Border
+                    Width="850"
+                    Height="266"
+                    Margin="0,-32,0,0"
+                    HorizontalAlignment="Left"
+                    Background="#4085DE"
+                    CornerRadius="0,133,133,0">
+                    <Border.Effect>
+                        <DropShadowEffect
+                            BlurRadius="26"
+                            Opacity="0.35"
+                            ShadowDepth="8"
+                            Color="#15000000" />
+                    </Border.Effect>
+                </Border>
+                <Border
+                    Width="500"
+                    Height="246"
+                    Margin="0,-118,0,0"
+                    HorizontalAlignment="Left"
+                    Background="#D64563"
+                    CornerRadius="0,123,123,0">
+                    <Border.Effect>
+                        <DropShadowEffect
+                            BlurRadius="26"
+                            Opacity="0.35"
+                            ShadowDepth="8"
+                            Color="#15000000" />
+                    </Border.Effect>
+                </Border>
+                <Border
+                    Width="240"
+                    Height="116"
+                    Margin="0,-76,0,0"
+                    HorizontalAlignment="Left"
+                    Background="#FDB22B"
+                    CornerRadius="0,58,58,0">
+                    <Border.Effect>
+                        <DropShadowEffect
+                            BlurRadius="24"
+                            Opacity="0.35"
+                            ShadowDepth="8"
+                            Color="#15000000" />
+                    </Border.Effect>
+                </Border>
+            </StackPanel>
+
+            <Border
+                Width="140"
+                Height="40"
+                Margin="455,-120,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Background="#D64563"
+                CornerRadius="20">
+                <Border.Effect>
+                    <DropShadowEffect
+                        BlurRadius="18"
+                        Opacity="0.35"
+                        ShadowDepth="8"
+                        Color="#19000000" />
+                </Border.Effect>
+            </Border>
+            <Ellipse
+                Width="68"
+                Height="68"
+                Margin="632,-110,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Fill="#4085DE">
+                <Ellipse.Effect>
+                    <DropShadowEffect
+                        BlurRadius="18"
+                        Opacity="0.35"
+                        ShadowDepth="8"
+                        Color="#19000000" />
+                </Ellipse.Effect>
+            </Ellipse>
+            <Border
+                Width="188"
+                Height="40"
+                Margin="348,362,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Background="#35AD67"
+                CornerRadius="20">
+                <Border.Effect>
+                    <DropShadowEffect
+                        BlurRadius="18"
+                        Opacity="0.35"
+                        ShadowDepth="8"
+                        Color="#19000000" />
+                </Border.Effect>
+            </Border>
+        </Grid>
+
+
+        <Grid
+            Grid.Column="2"
+            Margin="0,0,-140,0"
+            VerticalAlignment="Center"
+            Background="Transparent">
+            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Border
+                    Width="520"
+                    Height="170"
+                    HorizontalAlignment="Right"
+                    Background="#FDB22B"
+                    CornerRadius="85,0,0,85">
+                    <Border.Effect>
+                        <DropShadowEffect
+                            BlurRadius="24"
+                            Opacity="0.35"
+                            ShadowDepth="8"
+                            Color="#15000000" />
+                    </Border.Effect>
+                </Border>
+                <Border
+                    Width="810"
+                    Height="270"
+                    Margin="0,-48,0,0"
+                    HorizontalAlignment="Right"
+                    Background="#35AD67"
+                    CornerRadius="135,0,0,135">
+                    <Border.Effect>
+                        <DropShadowEffect
+                            BlurRadius="26"
+                            Opacity="0.35"
+                            ShadowDepth="8"
+                            Color="#15000000" />
+                    </Border.Effect>
+                </Border>
+                <Border
+                    Width="620"
+                    Height="206"
+                    Margin="0,-120,0,0"
+                    HorizontalAlignment="Right"
+                    Background="#D64563"
+                    CornerRadius="103,0,0,103">
+                    <Border.Effect>
+                        <DropShadowEffect
+                            BlurRadius="26"
+                            Opacity="0.35"
+                            ShadowDepth="8"
+                            Color="#15000000" />
+                    </Border.Effect>
+                </Border>
+                <Border
+                    Width="370"
+                    Height="110"
+                    Margin="0,-48,0,0"
+                    HorizontalAlignment="Right"
+                    Background="#FDB22B"
+                    CornerRadius="55,0,0,55">
+                    <Border.Effect>
+                        <DropShadowEffect
+                            BlurRadius="24"
+                            Opacity="0.35"
+                            ShadowDepth="8"
+                            Color="#15000000" />
+                    </Border.Effect>
+                </Border>
+                <Border
+                    Width="315"
+                    Height="108"
+                    Margin="0,-18,0,0"
+                    HorizontalAlignment="Right"
+                    Background="#4085DE"
+                    CornerRadius="54,0,0,54">
+                    <Border.Effect>
+                        <DropShadowEffect
+                            BlurRadius="24"
+                            Opacity="0.35"
+                            ShadowDepth="8"
+                            Color="#15000000" />
+                    </Border.Effect>
+                </Border>
+            </StackPanel>
+
+            <Border
+                Width="140"
+                Height="40"
+                Margin="0,-94,330,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Background="#D64563"
+                CornerRadius="20">
+                <Border.Effect>
+                    <DropShadowEffect
+                        BlurRadius="18"
+                        Opacity="0.35"
+                        ShadowDepth="8"
+                        Color="#19000000" />
+                </Border.Effect>
+            </Border>
+            <Ellipse
+                Width="68"
+                Height="68"
+                Margin="0,338,438,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Fill="#4085DE">
+                <Ellipse.Effect>
+                    <DropShadowEffect
+                        BlurRadius="18"
+                        Opacity="0.35"
+                        ShadowDepth="8"
+                        Color="#19000000" />
+                </Ellipse.Effect>
+            </Ellipse>
+            <Border
+                Width="140"
+                Height="36"
+                Margin="0,430,234,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Background="#35AD67"
+                CornerRadius="18">
+                <Border.Effect>
+                    <DropShadowEffect
+                        BlurRadius="18"
+                        Opacity="0.35"
+                        ShadowDepth="8"
+                        Color="#19000000" />
+                </Border.Effect>
+            </Border>
+        </Grid>
+
+
+        <StackPanel
+            Grid.ColumnSpan="3"
+            Width="520"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            <TextBlock
+                HorizontalAlignment="Center"
+                FontSize="52"
+                FontWeight="Bold"
+                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                Text="Naive UI" />
+            <TextBlock
+                Margin="0,22,0,0"
+                HorizontalAlignment="Center"
+                Background="Transparent"
+                FontSize="18"
+                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                Text="一个 WPF 组件库" />
+            <TextBlock
+                Margin="0,10,0,0"
+                HorizontalAlignment="Center"
+                FontSize="18"
+                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                Text="比较完整，主题可调，使用 c#，快" />
+            <TextBlock
+                Margin="0,6,0,0"
+                HorizontalAlignment="Center"
+                FontSize="18"
+                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                Text="有点意思" />
+            <StackPanel
+                Margin="0,28,0,0"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <nc:NButton
+                    Margin="0,0,14,0"
+                    Click="HandleThemeClick"
+                    Content="换个主题" />
+                <nc:NButton
+                    Click="HandleGetStartedClick"
+                    Content="开始使用"
+                    Grade="Primary" />
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</UserControl>
