@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using NaiveUI.Demo.Services;
 using NaiveUI.Demo.Views.Pages;
@@ -7,7 +6,7 @@ using NaiveUI.NControls.Themes;
 
 namespace NaiveUI.Demo.ViewModels;
 
-public sealed class DemoShellViewModel : INotifyPropertyChanged
+public sealed class DemoShellViewModel : ViewModelBase
 {
     private readonly Dictionary<string, Func<object>> componentPageFactories;
     private readonly Dictionary<string, object> componentPageCache = new(StringComparer.OrdinalIgnoreCase);
@@ -39,8 +38,11 @@ public sealed class DemoShellViewModel : INotifyPropertyChanged
         }
     }
 
-    public event PropertyChangedEventHandler? PropertyChanged;
-
+    private enum DemoPage
+    {
+        Home,
+        Components
+    }
     public object CurrentPageView
     {
         get => currentPageView;
@@ -126,27 +128,5 @@ public sealed class DemoShellViewModel : INotifyPropertyChanged
     {
         OnPropertyChanged(nameof(IsHomeSelected));
         OnPropertyChanged(nameof(IsComponentsSelected));
-    }
-
-    private void SetProperty<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
-    {
-        if (EqualityComparer<T>.Default.Equals(field, value))
-        {
-            return;
-        }
-
-        field = value;
-        OnPropertyChanged(propertyName);
-    }
-
-    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    private enum DemoPage
-    {
-        Home,
-        Components
     }
 }

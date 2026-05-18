@@ -3,12 +3,10 @@ using System.Runtime.CompilerServices;
 
 namespace NaiveUI.Demo.ViewModels;
 
-public sealed class ComponentSidebarItemViewModel : INotifyPropertyChanged
+public sealed class ComponentSidebarItemViewModel : ViewModelBase
 {
     private bool isSelected;
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
+    
     public string Key { get; init; } = string.Empty;
 
     public string Title { get; init; } = string.Empty;
@@ -30,7 +28,7 @@ public sealed class ComponentSidebarItemViewModel : INotifyPropertyChanged
             }
 
             isSelected = value;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsSelected)));
+            OnPropertyChanged(nameof(IsSelected));
         }
     }
 }

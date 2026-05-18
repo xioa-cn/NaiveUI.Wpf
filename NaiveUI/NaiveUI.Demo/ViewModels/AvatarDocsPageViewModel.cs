@@ -6,7 +6,7 @@ using NaiveUI.Demo.Services;
 
 namespace NaiveUI.Demo.ViewModels;
 
-public sealed class AvatarDocsPageViewModel
+public sealed class AvatarDocsPageViewModel: ViewModelBase
 {
     public AvatarDocsPageViewModel(string selectedKey = "avatar")
     {

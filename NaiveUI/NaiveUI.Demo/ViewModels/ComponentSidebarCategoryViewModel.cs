@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 
 namespace NaiveUI.Demo.ViewModels;
 
-public sealed class ComponentSidebarCategoryViewModel
+public sealed class ComponentSidebarCategoryViewModel: ViewModelBase
 {
     public string Title { get; init; } = string.Empty;
 

@@ -6,7 +6,7 @@ using NaiveUI.Demo.Services;
 
 namespace NaiveUI.Demo.ViewModels;
 
-public sealed class ButtonDocsPageViewModel
+public sealed class ButtonDocsPageViewModel: ViewModelBase
 {
     public ButtonDocsPageViewModel(string selectedKey = "button")
     {

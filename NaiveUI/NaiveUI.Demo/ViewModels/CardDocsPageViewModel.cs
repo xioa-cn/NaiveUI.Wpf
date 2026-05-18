@@ -6,7 +6,7 @@ using NaiveUI.Demo.Services;
 
 namespace NaiveUI.Demo.ViewModels;
 
-public sealed class CardDocsPageViewModel
+public sealed class CardDocsPageViewModel: ViewModelBase
 {
     public CardDocsPageViewModel(string selectedKey = "card")
     {

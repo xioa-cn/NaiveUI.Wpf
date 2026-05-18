@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace NaiveUI.Demo.ViewModels.Showcase;
 
-internal class ShowcaseViewModel : INotifyPropertyChanged
+internal class ShowcaseViewModel : ViewModelBase
 {
     private string searchText = "naive ui for wpf";
     private string email = "hello@naiveui.wpf";
@@ -23,8 +23,7 @@ internal class ShowcaseViewModel : INotifyPropertyChanged
         };
     }
 
-    public event PropertyChangedEventHandler? PropertyChanged;
-
+   
     public ObservableCollection<string> AvatarSources { get; }
 
     public string SearchText
@@ -56,15 +55,5 @@ internal class ShowcaseViewModel : INotifyPropertyChanged
         get => animationEnabled;
         set => SetProperty(ref animationEnabled, value);
     }
-
-    private void SetProperty<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
-    {
-        if (EqualityComparer<T>.Default.Equals(field, value))
-        {
-            return;
-        }
-
-        field = value;
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+    
 }
