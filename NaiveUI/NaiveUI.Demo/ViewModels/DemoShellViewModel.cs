@@ -23,7 +23,8 @@ public sealed class DemoShellViewModel : ViewModelBase
         {
             ["button"] = static () => new ButtonDocsPage(),
             ["avatar"] = static () => new AvatarDocsPage(),
-            ["card"] = static () => new CardDocsPage()
+            ["card"] = static () => new CardDocsPage(),
+            ["carousel"] = static () => new CarouselDocsPage()
         };
 
         currentPageView = homePage;

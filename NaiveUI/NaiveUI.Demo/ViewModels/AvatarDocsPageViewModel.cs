@@ -15,7 +15,7 @@ public sealed class AvatarDocsPageViewModel: ViewModelBase
         AvatarPropsRows =
         [
             new ApiDocRow { Name = "Size", Type = "double", DefaultValue = "34", Description = "设置头像宽高尺寸，单位为像素。" },
-            new ApiDocRow { Name = "Shape", Type = "NAvatarShape", DefaultValue = "Square", Description = "设置头像形状。Square 为圆角方形，Round 为圆形。" },
+            new ApiDocRow { Name = "Shape", Type = "NAvatarShape", DefaultValue = "Square", Description = "设置头像形状。\nSquare 为圆角方形，\nRound 为圆形。" },
             new ApiDocRow { Name = "Src", Type = "ImageSource", DefaultValue = "null", Description = "设置头像主图片源。存在时优先显示图片。" },
             new ApiDocRow { Name = "FallbackSrc", Type = "ImageSource", DefaultValue = "null", Description = "主图片加载失败时使用的后备图片源。" },
             new ApiDocRow { Name = "FallbackContent", Type = "object", DefaultValue = "null", Description = "图片不可用且没有主内容时使用的后备内容，可传字符串、图标或任意视觉元素。" },

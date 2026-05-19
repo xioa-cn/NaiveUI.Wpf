@@ -1,4 +1,4 @@
-{
+﻿{
   "categories": [
     {
       "title": "通用组件",
@@ -7,7 +7,11 @@
         { "key": "avatar", "title": "头像", "subtitle": "Avatar" },
         { "key": "button", "title": "按钮", "subtitle": "Button", "isSelected": true },
         { "key": "card", "title": "卡片", "subtitle": "Card" },
-        { "key": "carousel", "title": "轮播图", "subtitle": "Carousel" },
+        {
+          "key": "carousel",
+          "title": "轮播图",
+          "subtitle": "Carousel"
+        },
         { "key": "collapse", "title": "折叠面板", "subtitle": "Collapse" },
         { "key": "divider", "title": "分割线", "subtitle": "Divider" },
         { "key": "dropdown", "title": "下拉菜单", "subtitle": "Dropdown" },
@@ -145,3 +149,5 @@
     }
   ]
 }
+
+

@@ -1,0 +1,571 @@
+﻿<UserControl
+    x:Class="NaiveUI.Demo.Views.Pages.CarouselDocsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+        <Style
+            x:Key="SectionCardHeaderTitleStyle"
+            BasedOn="{StaticResource DocSectionTitleStyle}"
+            TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+        <Style x:Key="CarouselHeroTitleStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="28" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+
+        <Style x:Key="CarouselHeroBodyStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Foreground" Value="#EAF2FF" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+
+        <LinearGradientBrush x:Key="CarouselGradientOne" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Offset="0" Color="#1D4ED8" />
+            <GradientStop Offset="1" Color="#4338CA" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="CarouselGradientTwo" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Offset="0" Color="#0F766E" />
+            <GradientStop Offset="1" Color="#14B8A6" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="CarouselGradientThree" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Offset="0" Color="#BE185D" />
+            <GradientStop Offset="1" Color="#F97316" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="CarouselGradientFour" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Offset="0" Color="#334155" />
+            <GradientStop Offset="1" Color="#0F172A" />
+        </LinearGradientBrush>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="340" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Border
+                Background="{DynamicResource Theme.Surface.0.Brush}"
+                BorderBrush="{DynamicResource Theme.Border.Brush}"
+                BorderThickness="0,0,1,0">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl Margin="10,18,10,18" ItemsSource="{Binding SidebarCategories}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,0,0,18">
+                                    <TextBlock Style="{StaticResource SidebarCategoryHeaderTextStyle}" Text="{Binding HeaderText}" />
+                                    <ItemsControl ItemsSource="{Binding Items}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Button Click="HandleSidebarItemClick" Style="{StaticResource SidebarNavButtonStyle}">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Style="{StaticResource SidebarNavTitleTextStyle}" Text="{Binding Title}" />
+                                                            <TextBlock Style="{StaticResource SidebarNavSubtitleTextStyle}" Text="{Binding Subtitle}" />
+                                                        </StackPanel>
+                                                        <Border
+                                                            Grid.Column="1"
+                                                            Margin="10,0,0,0"
+                                                            Padding="7,1"
+                                                            VerticalAlignment="Center"
+                                                            Background="#E6F9F0"
+                                                            CornerRadius="11"
+                                                            Visibility="{Binding HasBadge, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                            <TextBlock
+                                                                FontSize="12"
+                                                                Foreground="#18A058"
+                                                                Text="{Binding BadgeText}" />
+                                                        </Border>
+                                                    </Grid>
+                                                </Button>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+
+            <Button
+                Width="32"
+                Height="32"
+                Margin="0,300,-16,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Content="&#xE76B;"
+                Style="{StaticResource SidebarCollapseButtonStyle}" />
+        </Grid>
+
+        <ScrollViewer
+            x:Name="DocumentScrollViewer"
+            Grid.Column="1"
+            VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="68,34,18,34">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="48"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                        Text="轮播图" />
+                </StackPanel>
+
+                <TextBlock
+                    Margin="0,26,0,0"
+                    FontSize="18"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="在单个视口中轮换展示多块内容，支持滑动、淡入淡出和卡片式切换效果。" />
+
+                <TextBlock
+                    Margin="0,52,0,28"
+                    FontSize="36"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="演示" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="基础用法" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="默认轮播使用滑动过渡，并支持左右箭头和指示器手动切换。" />
+                                    <nc:NCarousel
+                                        Height="250"
+                                        CornerRadius="20"
+                                        ShowArrow="True">
+                                        <Border Padding="28" Background="{StaticResource CarouselGradientOne}">
+                                            <Grid>
+                                                <StackPanel VerticalAlignment="Bottom">
+                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="设计令牌" />
+                                                    <TextBlock
+                                                        Margin="0,10,0,0"
+                                                        Style="{StaticResource CarouselHeroBodyStyle}"
+                                                        Text="将间距、圆角和颜色变量统一收敛到稳定的桌面资源体系中。" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                        <Border Padding="28" Background="{StaticResource CarouselGradientTwo}">
+                                            <Grid>
+                                                <StackPanel VerticalAlignment="Bottom">
+                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="可组合模板" />
+                                                    <TextBlock
+                                                        Margin="0,10,0,0"
+                                                        Style="{StaticResource CarouselHeroBodyStyle}"
+                                                        Text="优先使用控件模板和依赖属性扩展能力，而不是写死页面级技巧。" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                        <Border Padding="28" Background="{StaticResource CarouselGradientThree}">
+                                            <Grid>
+                                                <StackPanel VerticalAlignment="Bottom">
+                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="交互展示" />
+                                                    <TextBlock
+                                                        Margin="0,10,0,0"
+                                                        Style="{StaticResource CarouselHeroBodyStyle}"
+                                                        Text="文档页风格的轮播适合首页横幅、功能导览和新手引导。" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </nc:NCarousel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionAutoplay" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="自动播放" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="自动播放会按间隔切换内容，并在鼠标悬停于轮播图上方时暂停。" />
+                                    <nc:NCarousel
+                                        Height="220"
+                                        Autoplay="True"
+                                        CornerRadius="18"
+                                        Interval="2200"
+                                        PauseOnHover="True"
+                                        ShowArrow="True">
+                                        <Border Padding="26" Background="{StaticResource CarouselGradientFour}">
+                                            <StackPanel VerticalAlignment="Bottom">
+                                                <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="版本动态" />
+                                                <TextBlock
+                                                    Margin="0,10,0,0"
+                                                    Style="{StaticResource CarouselHeroBodyStyle}"
+                                                    Text="自动播放适合公告轮播、首页焦点位等需要持续曝光的内容。" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Padding="26" Background="{StaticResource CarouselGradientTwo}">
+                                            <StackPanel VerticalAlignment="Bottom">
+                                                <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="功能发现" />
+                                                <TextBlock
+                                                    Margin="0,10,0,0"
+                                                    Style="{StaticResource CarouselHeroBodyStyle}"
+                                                    Text="切换间隔应足够长，保证用户在下一张出现前能读完当前内容。" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Padding="26" Background="{StaticResource CarouselGradientOne}">
+                                            <StackPanel VerticalAlignment="Bottom">
+                                                <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="悬停暂停" />
+                                                <TextBlock
+                                                    Margin="0,10,0,0"
+                                                    Style="{StaticResource CarouselHeroBodyStyle}"
+                                                    Text="默认的悬停暂停能避免用户阅读时被轮播自动打断。" />
+                                            </StackPanel>
+                                        </Border>
+                                    </nc:NCarousel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionFade" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="淡入淡出" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="当每一屏更像内容状态而不是翻页动作时，淡入淡出会更柔和。" />
+                                    <nc:NCarousel
+                                        Height="220"
+                                        CornerRadius="18"
+                                        DotType="Line"
+                                        Effect="Fade"
+                                        ShowArrow="True"
+                                        TransitionDuration="420">
+                                        <Border Padding="26" Background="{StaticResource CarouselGradientOne}">
+                                            <StackPanel VerticalAlignment="Bottom">
+                                                <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="柔和过渡" />
+                                                <TextBlock
+                                                    Margin="0,10,0,0"
+                                                    Style="{StaticResource CarouselHeroBodyStyle}"
+                                                    Text="淡入淡出减少方向性运动，更适合内容密度较高的轮播项。" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Padding="26" Background="{StaticResource CarouselGradientOne}">
+                                            <StackPanel VerticalAlignment="Bottom">
+                                                <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="柔和过渡" />
+                                                <TextBlock
+                                                    Margin="0,10,0,0"
+                                                    Style="{StaticResource CarouselHeroBodyStyle}"
+                                                    Text="淡入淡出减少方向性运动，更适合内容密度较高的轮播项。" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Padding="26" Background="{StaticResource CarouselGradientThree}">
+                                            <StackPanel VerticalAlignment="Bottom">
+                                                <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="降低机械感" />
+                                                <TextBlock
+                                                    Margin="0,10,0,0"
+                                                    Style="{StaticResource CarouselHeroBodyStyle}"
+                                                    Text="当单屏信息较多时，水平位移容易分散注意力。" />
+                                            </StackPanel>
+                                        </Border>
+                                    </nc:NCarousel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <nu:CardElement x:Name="SectionCardEffect" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="卡片效果" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="卡片模式会叠加缩放和透明度变化，让切换更有层次感。" />
+                                    <nc:NCarousel
+                                        Height="250"
+                                        CornerRadius="20"
+                                        Effect="Card"
+                                        ShowArrow="True"
+                                        TransitionDuration="360">
+                                        <Border Padding="26" Background="{StaticResource CarouselGradientFour}">
+                                            <StackPanel VerticalAlignment="Bottom">
+                                                <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="层次动效" />
+                                                <TextBlock
+                                                    Margin="0,10,0,0"
+                                                    Style="{StaticResource CarouselHeroBodyStyle}"
+                                                    Text="当你希望比普通滑动更有景深感时，可以使用卡片模式。" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Padding="26" Background="{StaticResource CarouselGradientOne}">
+                                            <StackPanel VerticalAlignment="Bottom">
+                                                <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="视觉重心" />
+                                                <TextBlock
+                                                    Margin="0,10,0,0"
+                                                    Style="{StaticResource CarouselHeroBodyStyle}"
+                                                    Text="这种效果更适合图片主导或偏展示型的内容块。" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Padding="26" Background="{StaticResource CarouselGradientThree}">
+                                            <StackPanel VerticalAlignment="Bottom">
+                                                <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="聚焦当前项" />
+                                                <TextBlock
+                                                    Margin="0,10,0,0"
+                                                    Style="{StaticResource CarouselHeroBodyStyle}"
+                                                    Text="激活项保持最强视觉权重，离场项则自然退后。" />
+                                            </StackPanel>
+                                        </Border>
+                                    </nc:NCarousel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionPlacement" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="指示器位置" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="指示器可以移动到视口边缘，也可以切换为更紧凑的线条样式。" />
+                                    <nc:NCarousel
+                                        Height="220"
+                                        CornerRadius="18"
+                                        DotPlacement="Right"
+                                        DotType="Line">
+                                        <Border Padding="26" Background="{StaticResource CarouselGradientTwo}">
+                                            <StackPanel VerticalAlignment="Bottom">
+                                                <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="右侧指示器" />
+                                                <TextBlock
+                                                    Margin="0,10,0,0"
+                                                    Style="{StaticResource CarouselHeroBodyStyle}"
+                                                    Text="当轮播位于较高的仪表盘卡片内时，纵向指示器会更合适。" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Padding="26" Background="{StaticResource CarouselGradientOne}">
+                                            <StackPanel VerticalAlignment="Bottom">
+                                                <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="线条样式" />
+                                                <TextBlock
+                                                    Margin="0,10,0,0"
+                                                    Style="{StaticResource CarouselHeroBodyStyle}"
+                                                    Text="线条样式比圆点更紧凑，适合强调节奏和进度感的内容轮播。" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Padding="26" Background="{StaticResource CarouselGradientFour}">
+                                            <StackPanel VerticalAlignment="Bottom">
+                                                <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="位置选项" />
+                                                <TextBlock
+                                                    Margin="0,10,0,0"
+                                                    Style="{StaticResource CarouselHeroBodyStyle}"
+                                                    Text="控件支持上、下、左、右四个方向的指示器布局。" />
+                                            </StackPanel>
+                                        </Border>
+                                    </nc:NCarousel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionTrigger" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="触发方式" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="指示器默认通过点击切换，也可以改为悬停预览。" />
+                                    <nc:NCarousel
+                                        Height="220"
+                                        CornerRadius="18"
+                                        DotPlacement="Top"
+                                        DotType="Line"
+                                        ShowArrow="True"
+                                        Trigger="Hover">
+                                        <Border Padding="26" Background="{StaticResource CarouselGradientThree}">
+                                            <StackPanel VerticalAlignment="Bottom">
+                                                <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="悬停切换" />
+                                                <TextBlock
+                                                    Margin="0,10,0,0"
+                                                    Style="{StaticResource CarouselHeroBodyStyle}"
+                                                    Text="将鼠标移过指示器即可预览对应内容，无需点击。" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Padding="26" Background="{StaticResource CarouselGradientFour}">
+                                            <StackPanel VerticalAlignment="Bottom">
+                                                <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="快速对比" />
+                                                <TextBlock
+                                                    Margin="0,10,0,0"
+                                                    Style="{StaticResource CarouselHeroBodyStyle}"
+                                                    Text="当每一屏只是简短摘要而非长文阅读时，悬停触发更高效。" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Padding="26" Background="{StaticResource CarouselGradientOne}">
+                                            <StackPanel VerticalAlignment="Bottom">
+                                                <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="键盘友好" />
+                                                <TextBlock
+                                                    Margin="0,10,0,0"
+                                                    Style="{StaticResource CarouselHeroBodyStyle}"
+                                                    Text="控件获得焦点后，仍然支持使用左右方向键切换。" />
+                                            </StackPanel>
+                                        </Border>
+                                    </nc:NCarousel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+                    </StackPanel>
+                </Grid>
+
+                <nu:CardElement x:Name="SectionApi" Margin="0,20,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="API" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <TextBlock
+                            Margin="30,24,30,24"
+                            Style="{StaticResource DocBodyTextStyle}"
+                            Text="下面的表格列出了当前轮播图控件已实现的专属选项。" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <nu:CardElement x:Name="SectionCarouselProps" Margin="0,0,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Carousel Props" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding CarouselPropsRows}" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <nu:CardElement x:Name="SectionCarouselSlots" Margin="0,0,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Carousel Slots" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding CarouselSlotsRows}" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="2" Background="{DynamicResource Theme.Surface.0.Brush}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="20,36,20,20">
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="基础用法"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionBasic" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="自动播放"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionAutoplay" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="淡入淡出"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionFade" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="卡片效果"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionCardEffect" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="指示器位置"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionPlacement" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="触发方式"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionTrigger" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="接口说明"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionApi" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="轮播属性"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionCarouselProps" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="轮播插槽"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionCarouselSlots" />
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>
+
+
