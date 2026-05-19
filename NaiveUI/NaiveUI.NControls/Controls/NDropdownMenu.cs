@@ -19,7 +19,7 @@ public class NDropdownMenu : ItemsControl
 
     internal double ResolvedPrefixWidth { get; private set; } = 14d;
 
-    internal double ResolvedSuffixWidth { get; private set; } = 10d;
+    internal double ResolvedSuffixWidth { get; private set; } = 14d;
 
     protected override bool IsItemItsOwnContainerOverride(object item)
     {
@@ -55,7 +55,6 @@ public class NDropdownMenu : ItemsControl
     {
         if (element is NDropdownItem dropdownItem)
         {
-            dropdownItem.CloseSubmenuRecursive();
             dropdownItem.ParentMenu = null;
             dropdownItem.OwnerDropdown = null;
             dropdownItem.Entry = null;
@@ -84,39 +83,15 @@ public class NDropdownMenu : ItemsControl
         ItemsSource = entries;
     }
 
-    internal void HandleItemHover(NDropdownItem current)
-    {
-        CloseSubmenusExcept(current);
-    }
-
-    internal void CloseSubmenusExcept(NDropdownItem? current)
+    internal void RefreshSelectionStates()
     {
         foreach (var item in registeredItems)
         {
-            if (!ReferenceEquals(item, current))
-            {
-                item.CloseSubmenuRecursive();
-            }
+            item.RefreshSelectionState();
         }
     }
 
-    internal void CloseAllSubmenusRecursive()
-    {
-        foreach (var item in registeredItems)
-        {
-            item.CloseSubmenuRecursive();
-        }
-    }
-
-    internal void RefreshSelectionStatesRecursive()
-    {
-        foreach (var item in registeredItems)
-        {
-            item.RefreshSelectionStateRecursive();
-        }
-    }
-
-    internal double UpdateRequiredWidthRecursive()
+    internal double UpdateRequiredWidth()
     {
         UpdateLayout();
 
@@ -126,7 +101,6 @@ public class NDropdownMenu : ItemsControl
         foreach (var item in registeredItems)
         {
             requiredWidth = Math.Max(requiredWidth, item.MeasureRequiredWidth());
-            item.UpdateSubmenuWidthRecursive();
         }
 
         if (Math.Abs(MinWidth - requiredWidth) > 0.5d)
@@ -142,10 +116,9 @@ public class NDropdownMenu : ItemsControl
     {
         var size = OwnerDropdown?.Size ?? NDropdownSize.Medium;
         var hasIcons = ContainsIcons(currentEntries);
-        var hasSubmenu = ContainsSubmenus(currentEntries);
 
         ResolvedPrefixWidth = GetPrefixWidth(size, hasIcons);
-        ResolvedSuffixWidth = GetSuffixWidth(size, hasSubmenu, MeasureMaxSuffixWidth(currentEntries));
+        ResolvedSuffixWidth = GetSuffixWidth(size, MeasureMaxSuffixWidth(currentEntries));
 
         foreach (var item in registeredItems)
         {
@@ -158,19 +131,6 @@ public class NDropdownMenu : ItemsControl
         foreach (var entry in entries)
         {
             if (entry.Icon is not null)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private static bool ContainsSubmenus(IReadOnlyList<DropdownEntry> entries)
-    {
-        foreach (var entry in entries)
-        {
-            if (entry.Kind == NDropdownEntryKind.Option && entry.HasChildren)
             {
                 return true;
             }
@@ -223,11 +183,9 @@ public class NDropdownMenu : ItemsControl
         return size is NDropdownSize.Large or NDropdownSize.Huge ? 40d : 36d;
     }
 
-    private static double GetSuffixWidth(NDropdownSize size, bool hasSubmenu, double maxSuffixContentWidth)
+    private static double GetSuffixWidth(NDropdownSize size, double maxSuffixContentWidth)
     {
-        var baseWidth = hasSubmenu
-            ? size is NDropdownSize.Large or NDropdownSize.Huge ? 36d : 32d
-            : 14d;
+        var baseWidth = size is NDropdownSize.Large or NDropdownSize.Huge ? 16d : 14d;
 
         if (maxSuffixContentWidth <= 0d)
         {

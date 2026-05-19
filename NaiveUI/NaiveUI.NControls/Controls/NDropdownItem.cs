@@ -1,33 +1,16 @@
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Threading;
 using NaiveUI.NControls.Tools;
 
 namespace NaiveUI.NControls.Controls;
 
 public class NDropdownItem : Control
 {
-    private const double SubmenuGap = 4d;
-    private readonly DispatcherTimer submenuCloseTimer;
-    private Popup? submenuPopup;
-    private NDropdownMenu? submenuMenu;
-    private bool synchronizingSubmenuPopup;
-
     static NDropdownItem()
     {
         ElementBase.DefaultStyle<NDropdownItem>(DefaultStyleKeyProperty);
-    }
-
-    public NDropdownItem()
-    {
-        submenuCloseTimer = new DispatcherTimer(DispatcherPriority.Background)
-        {
-            Interval = TimeSpan.FromMilliseconds(120)
-        };
-        submenuCloseTimer.Tick += HandleSubmenuCloseTimerTick;
     }
 
     internal DropdownEntry? Entry { get; set; }
@@ -44,15 +27,6 @@ public class NDropdownItem : Control
 
     public static readonly DependencyProperty EntryKindProperty =
         ElementBase.Property<NDropdownItem, NDropdownEntryKind>(nameof(EntryKindProperty), NDropdownEntryKind.Option);
-
-    public bool HasSubmenu
-    {
-        get => (bool)GetValue(HasSubmenuProperty);
-        private set => SetValue(HasSubmenuProperty, value);
-    }
-
-    public static readonly DependencyProperty HasSubmenuProperty =
-        ElementBase.Property<NDropdownItem, bool>(nameof(HasSubmenuProperty), false);
 
     public bool HasSuffix
     {
@@ -89,24 +63,6 @@ public class NDropdownItem : Control
 
     public static readonly DependencyProperty IsSelectedProperty =
         ElementBase.Property<NDropdownItem, bool>(nameof(IsSelectedProperty), false);
-
-    public bool IsChildSelected
-    {
-        get => (bool)GetValue(IsChildSelectedProperty);
-        private set => SetValue(IsChildSelectedProperty, value);
-    }
-
-    public static readonly DependencyProperty IsChildSelectedProperty =
-        ElementBase.Property<NDropdownItem, bool>(nameof(IsChildSelectedProperty), false);
-
-    public bool IsSubmenuOpen
-    {
-        get => (bool)GetValue(IsSubmenuOpenProperty);
-        private set => SetValue(IsSubmenuOpenProperty, value);
-    }
-
-    public static readonly DependencyProperty IsSubmenuOpenProperty =
-        ElementBase.Property<NDropdownItem, bool>(nameof(IsSubmenuOpenProperty), false, OnIsSubmenuOpenChanged);
 
     public object? LabelContent
     {
@@ -191,33 +147,8 @@ public class NDropdownItem : Control
 
     public override void OnApplyTemplate()
     {
-        if (submenuPopup is not null)
-        {
-            submenuPopup.Opened -= HandleSubmenuPopupOpened;
-            submenuPopup.Closed -= HandleSubmenuPopupClosed;
-        }
-
         base.OnApplyTemplate();
-
-        submenuPopup = GetTemplateChild("PART_SubmenuPopup") as Popup;
-        submenuMenu = GetTemplateChild("PART_SubmenuMenu") as NDropdownMenu;
-
-        if (submenuMenu is not null)
-        {
-            submenuMenu.OwnerDropdown = OwnerDropdown;
-        }
-
-        if (submenuPopup is not null)
-        {
-            submenuPopup.AllowsTransparency = true;
-            submenuPopup.StaysOpen = true;
-            submenuPopup.CustomPopupPlacementCallback = HandleSubmenuPlacement;
-            submenuPopup.Opened += HandleSubmenuPopupOpened;
-            submenuPopup.Closed += HandleSubmenuPopupClosed;
-        }
-
         RefreshFromEntry();
-        SyncSubmenuPopupState();
     }
 
     protected override void OnMouseEnter(MouseEventArgs e)
@@ -231,24 +162,13 @@ public class NDropdownItem : Control
             return;
         }
 
-        ParentMenu?.HandleItemHover(this);
         IsHighlighted = true;
-
-        if (HasSubmenu)
-        {
-            OpenSubmenu();
-        }
     }
 
     protected override void OnMouseLeave(MouseEventArgs e)
     {
         base.OnMouseLeave(e);
         IsHighlighted = false;
-
-        if (HasSubmenu)
-        {
-            StartSubmenuCloseTimer();
-        }
     }
 
     protected override void OnPreviewMouseLeftButtonUp(MouseButtonEventArgs e)
@@ -257,14 +177,6 @@ public class NDropdownItem : Control
 
         if (EntryKind != NDropdownEntryKind.Option || IsDisabled || Entry is null)
         {
-            return;
-        }
-
-        if (HasSubmenu)
-        {
-            OpenSubmenu();
-            OwnerDropdown?.HandleEntryInvoked(Entry, updateSelection: false, closeAfterInvoke: false);
-            e.Handled = true;
             return;
         }
 
@@ -278,9 +190,10 @@ public class NDropdownItem : Control
         if (entry is null)
         {
             EntryKind = NDropdownEntryKind.Option;
-            HasSubmenu = false;
             HasSuffix = false;
             IsDisabled = false;
+            IsHighlighted = false;
+            IsSelected = false;
             LabelContent = null;
             IconContent = null;
             SuffixContent = null;
@@ -300,7 +213,6 @@ public class NDropdownItem : Control
         var menuSuffixWidth = ParentMenu?.ResolvedSuffixWidth ?? GetCompactSuffixWidth(size);
 
         EntryKind = entry.Kind;
-        HasSubmenu = entry.Kind == NDropdownEntryKind.Option && entry.HasChildren;
         HasSuffix = entry.Kind == NDropdownEntryKind.Option && entry.Suffix is not null;
         IsDisabled = entry.Kind == NDropdownEntryKind.Option && entry.Disabled;
         LabelContent = entry.Label;
@@ -315,29 +227,18 @@ public class NDropdownItem : Control
         Cursor = entry.Kind == NDropdownEntryKind.Option && !entry.Disabled ? Cursors.Hand : Cursors.Arrow;
         ApplyIconPresentation(IconContent);
         ApplyIconPresentation(SuffixContent);
+        RefreshSelectionState();
+    }
 
-        if (submenuMenu is not null)
+    internal void RefreshSelectionState()
+    {
+        if (EntryKind != NDropdownEntryKind.Option || Entry is null || OwnerDropdown is null)
         {
-            submenuMenu.OwnerDropdown = OwnerDropdown;
-            submenuMenu.MaxHeight = OwnerDropdown?.MaxMenuHeight ?? 320d;
-            submenuMenu.SetEntries(entry.Children);
+            IsSelected = false;
+            return;
         }
 
-        RefreshSelectionStateRecursive();
-        SyncSubmenuPopupState();
-    }
-
-    internal void RefreshSelectionStateRecursive()
-    {
-        RefreshSelectionState();
-        submenuMenu?.RefreshSelectionStatesRecursive();
-    }
-
-    internal void CloseSubmenuRecursive()
-    {
-        submenuCloseTimer.Stop();
-        submenuMenu?.CloseAllSubmenusRecursive();
-        IsSubmenuOpen = false;
+        IsSelected = Entry.Key is not null && OwnerDropdown.IsSelectedKey(Entry.Key);
     }
 
     internal double MeasureRequiredWidth()
@@ -345,109 +246,6 @@ public class NDropdownItem : Control
         InvalidateMeasure();
         Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
         return DesiredSize.Width;
-    }
-
-    internal void UpdateSubmenuWidthRecursive()
-    {
-        submenuMenu?.UpdateRequiredWidthRecursive();
-    }
-
-    private static void OnIsSubmenuOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        if (d is not NDropdownItem item)
-        {
-            return;
-        }
-
-        item.SyncSubmenuPopupState();
-        item.OwnerDropdown?.RefreshSelectionStates();
-    }
-
-    private void RefreshSelectionState()
-    {
-        if (EntryKind != NDropdownEntryKind.Option || Entry is null || OwnerDropdown is null)
-        {
-            IsSelected = false;
-            IsChildSelected = false;
-            return;
-        }
-
-        IsSelected = Entry.Key is not null && OwnerDropdown.IsSelectedKey(Entry.Key);
-        IsChildSelected = !IsSelected && Entry.HasChildren && OwnerDropdown.ContainsSelectedDescendant(Entry);
-    }
-
-    private void OpenSubmenu()
-    {
-        if (!HasSubmenu || Entry is null || Entry.Children.Count == 0)
-        {
-            return;
-        }
-
-        submenuCloseTimer.Stop();
-        IsSubmenuOpen = true;
-    }
-
-    private void StartSubmenuCloseTimer()
-    {
-        if (!HasSubmenu || !IsSubmenuOpen)
-        {
-            return;
-        }
-
-        submenuCloseTimer.Stop();
-        submenuCloseTimer.Start();
-    }
-
-    private void HandleSubmenuCloseTimerTick(object? sender, EventArgs e)
-    {
-        submenuCloseTimer.Stop();
-
-        if (IsMouseOver || submenuMenu?.IsMouseOver == true)
-        {
-            return;
-        }
-
-        CloseSubmenuRecursive();
-    }
-
-    private void SyncSubmenuPopupState()
-    {
-        if (submenuPopup is null)
-        {
-            return;
-        }
-
-        synchronizingSubmenuPopup = true;
-        submenuPopup.IsOpen = IsSubmenuOpen && HasSubmenu && Entry is not null && Entry.Children.Count > 0;
-        synchronizingSubmenuPopup = false;
-    }
-
-    private void HandleSubmenuPopupOpened(object? sender, EventArgs e)
-    {
-        submenuCloseTimer.Stop();
-        OwnerDropdown?.CancelHoverCloseTimer();
-        submenuMenu?.RefreshSelectionStatesRecursive();
-    }
-
-    private void HandleSubmenuPopupClosed(object? sender, EventArgs e)
-    {
-        submenuMenu?.CloseAllSubmenusRecursive();
-
-        if (synchronizingSubmenuPopup)
-        {
-            return;
-        }
-
-        IsSubmenuOpen = false;
-    }
-
-    private CustomPopupPlacement[] HandleSubmenuPlacement(Size popupSize, Size targetSize, Point offset)
-    {
-        return
-        [
-            new CustomPopupPlacement(new Point(targetSize.Width + SubmenuGap, -4d), PopupPrimaryAxis.Horizontal),
-            new CustomPopupPlacement(new Point(-popupSize.Width - SubmenuGap, -4d), PopupPrimaryAxis.Horizontal)
-        ];
     }
 
     private static double GetOptionHeight(NDropdownSize size)

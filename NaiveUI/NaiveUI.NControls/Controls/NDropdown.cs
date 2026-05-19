@@ -270,30 +270,12 @@ public class NDropdown : ContentControl
 
     internal void RefreshSelectionStates()
     {
-        menu?.RefreshSelectionStatesRecursive();
+        menu?.RefreshSelectionStates();
     }
 
     internal bool IsSelectedKey(object key)
     {
         return Value is not null && Equals(Value, key);
-    }
-
-    internal bool ContainsSelectedDescendant(DropdownEntry entry)
-    {
-        if (Value is null)
-        {
-            return false;
-        }
-
-        foreach (var child in entry.Children)
-        {
-            if (child.ContainsKey(Value))
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     internal bool InvokeEntryAction(DropdownEntry entry)
@@ -434,7 +416,7 @@ public class NDropdown : ContentControl
 
         menu.OwnerDropdown = this;
         menu.SetEntries(BuildEntries(Options));
-        menu.RefreshSelectionStatesRecursive();
+        menu.RefreshSelectionStates();
         UpdateRequiredMenuWidth();
     }
 
@@ -455,11 +437,22 @@ public class NDropdown : ContentControl
                     results.Add(new DropdownEntry(NDropdownEntryKind.Divider, dividerOption.Key));
                     break;
                 case NDropdownGroupOption groupOption:
-                    results.Add(new DropdownEntry(NDropdownEntryKind.GroupHeader, groupOption.Key, groupOption.Label, groupOption.Icon));
-                    foreach (var child in BuildEntries(groupOption.Children))
+                    var groupEntries = BuildEntries(groupOption.Options);
+                    if (groupEntries.Count == 0)
+                    {
+                        break;
+                    }
+
+                    if (groupOption.Label is not null || groupOption.Icon is not null)
+                    {
+                        results.Add(new DropdownEntry(NDropdownEntryKind.GroupHeader, groupOption.Key, groupOption.Label, groupOption.Icon));
+                    }
+
+                    foreach (var child in groupEntries)
                     {
                         results.Add(child);
                     }
+
                     break;
                 case NDropdownRenderOption renderOption:
                     results.Add(new DropdownEntry(NDropdownEntryKind.Render, renderOption.Key, content: renderOption.Content));
@@ -473,8 +466,7 @@ public class NDropdown : ContentControl
                             dropdownOption.Icon,
                             dropdownOption.Suffix,
                             disabled: dropdownOption.Disabled,
-                            sourceOption: dropdownOption,
-                            children: BuildEntries(dropdownOption.Children)));
+                            sourceOption: dropdownOption));
                     break;
             }
         }
@@ -489,7 +481,7 @@ public class NDropdown : ContentControl
         CancelHoverCloseTimer();
         UpdateRequiredMenuWidth();
         UpdatePopupChromeLayout();
-        menu?.RefreshSelectionStatesRecursive();
+        menu?.RefreshSelectionStates();
     }
 
     private void HandlePopupClosed(object? sender, EventArgs e)
@@ -497,7 +489,6 @@ public class NDropdown : ContentControl
         CancelHoverCloseTimer();
         DetachOwnerWindowHandlers();
         menuPointerDepth = 0;
-        menu?.CloseAllSubmenusRecursive();
 
         if (Show)
         {
@@ -714,7 +705,7 @@ public class NDropdown : ContentControl
             return;
         }
 
-        menu.UpdateRequiredWidthRecursive();
+        menu.UpdateRequiredWidth();
     }
 
     private static double Clamp(double value, double min, double max)
@@ -742,7 +733,11 @@ public class NDropdown : ContentControl
         DependencyObject? current = source;
         while (current is not null)
         {
-            if (ReferenceEquals(current, menu) || ReferenceEquals(current, popupRoot) || ReferenceEquals(current, arrowElement))
+            if (ReferenceEquals(current, menu)
+                || ReferenceEquals(current, popupRoot)
+                || ReferenceEquals(current, arrowElement)
+                || current is NDropdownMenu { OwnerDropdown: not null } currentMenu && ReferenceEquals(currentMenu.OwnerDropdown, this)
+                || current is NDropdownItem { OwnerDropdown: not null } currentItem && ReferenceEquals(currentItem.OwnerDropdown, this))
             {
                 return true;
             }

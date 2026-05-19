@@ -56,7 +56,6 @@ public abstract class NDropdownOptionBase : DependencyObject
     public bool Show { get; set; } = true;
 }
 
-[ContentProperty(nameof(Children))]
 public class NDropdownOption : NDropdownOptionBase
 {
     public object? Label { get; set; }
@@ -87,31 +86,41 @@ public class NDropdownOption : NDropdownOptionBase
 
     public event EventHandler<NDropdownOptionClickEventArgs>? Click;
 
-    [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-    public ObservableCollection<NDropdownOptionBase> Children { get; } = [];
-
     internal bool TryInvoke(NDropdown dropdown)
     {
+        if (Disabled)
+        {
+            return false;
+        }
+
         var args = new NDropdownOptionClickEventArgs(dropdown, Key, this);
         var command = ResolveCommand(dropdown);
         var hasExplicitCommandParameter = ReadLocalValue(CommandParameterProperty) != DependencyProperty.UnsetValue;
 
         Click?.Invoke(this, args);
 
-        if (command is not null)
+        if (command is null)
         {
-            if (hasExplicitCommandParameter)
-            {
-                TryExecuteCommand(command, ResolveCommandParameter(dropdown));
-            }
-            else
-            {
-
-                TryExecuteCommand(command, null);
-
-            }
+            return true;
         }
 
+        if (hasExplicitCommandParameter)
+        {
+            TryExecuteCommand(command, ResolveCommandParameter(dropdown));
+            return true;
+        }
+
+        if (TryExecuteCommand(command, args))
+        {
+            return true;
+        }
+
+        if (TryExecuteCommand(command, Key))
+        {
+            return true;
+        }
+
+        TryExecuteCommand(command, null);
         return true;
     }
 
@@ -272,7 +281,7 @@ public class NDropdownOption : NDropdownOptionBase
     }
 }
 
-[ContentProperty(nameof(Children))]
+[ContentProperty(nameof(Options))]
 public class NDropdownGroupOption : NDropdownOptionBase
 {
     public object? Label { get; set; }
@@ -280,7 +289,7 @@ public class NDropdownGroupOption : NDropdownOptionBase
     public object? Icon { get; set; }
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-    public ObservableCollection<NDropdownOptionBase> Children { get; } = [];
+    public ObservableCollection<NDropdownOptionBase> Options { get; } = [];
 }
 
 public sealed class NDropdownDividerOption : NDropdownOptionBase
@@ -332,8 +341,7 @@ internal sealed class DropdownEntry
         object? suffix = null,
         object? content = null,
         bool disabled = false,
-        NDropdownOption? sourceOption = null,
-        IReadOnlyList<DropdownEntry>? children = null)
+        NDropdownOption? sourceOption = null)
     {
         Kind = kind;
         Key = key;
@@ -343,7 +351,6 @@ internal sealed class DropdownEntry
         Content = content;
         Disabled = disabled;
         SourceOption = sourceOption;
-        Children = children ?? [];
     }
 
     public NDropdownEntryKind Kind { get; }
@@ -361,31 +368,4 @@ internal sealed class DropdownEntry
     public bool Disabled { get; }
 
     public NDropdownOption? SourceOption { get; }
-
-    public IReadOnlyList<DropdownEntry> Children { get; }
-
-    public bool HasChildren => Children.Count > 0;
-
-    public bool ContainsKey(object? value)
-    {
-        if (value is null)
-        {
-            return false;
-        }
-
-        if (Key is not null && Equals(Key, value))
-        {
-            return true;
-        }
-
-        foreach (var child in Children)
-        {
-            if (child.ContainsKey(value))
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
 }
