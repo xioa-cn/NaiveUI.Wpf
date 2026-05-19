@@ -7,5 +7,6 @@
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/CardStyles.xaml" />
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/AvatarStyles.xaml" />
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/CarouselStyles.xaml" />
+        <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/CollapseStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

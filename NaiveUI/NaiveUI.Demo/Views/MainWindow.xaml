@@ -15,6 +15,7 @@
     Background="{DynamicResource Theme.Surface.0.Brush}"
     ResizeMode="CanResize"
     WindowStartupLocation="CenterScreen"
+    WindowState="Maximized"
     WindowStyle="None"
     mc:Ignorable="d">
     <Window.DataContext>
