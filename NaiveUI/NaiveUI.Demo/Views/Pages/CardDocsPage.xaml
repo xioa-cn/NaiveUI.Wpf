@@ -142,10 +142,16 @@
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="最基础的卡片用法，适合展示成组的静态信息。" />
-                                    <nc:NCard Width="360" Title="默认卡片">
+                                    <nc:NCard Title="默认卡片" Width="360">
                                         <StackPanel>
-                                            <TextBlock Margin="0,0,0,8" Foreground="{DynamicResource Theme.Text.Primary.Brush}" Text="这是一张基础卡片。" />
-                                            <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}" Text="内容区域会自动处理内边距和分隔。" TextWrapping="Wrap" />
+                                            <TextBlock
+                                                Margin="0,0,0,8"
+                                                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                Text="这是一张基础卡片。" />
+                                            <TextBlock
+                                                Foreground="{DynamicResource Theme.Text.Secondary.Brush}"
+                                                Text="内容区域会自动处理内边距和分隔。"
+                                                TextWrapping="Wrap" />
                                         </StackPanel>
                                     </nc:NCard>
                                 </StackPanel>
@@ -164,12 +170,15 @@
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="Naive UI 常见的卡片头部由标题和右侧操作组成。" />
-                                    <nc:NCard Width="360" Title="项目概览">
+                                    <nc:NCard Title="项目概览" Width="360">
                                         <nc:NCard.HeaderExtra>
                                             <nc:NButton Style="{StaticResource CardHeaderExtraButtonStyle}">更多</nc:NButton>
                                         </nc:NCard.HeaderExtra>
                                         <StackPanel>
-                                            <TextBlock Margin="0,0,0,8" Foreground="{DynamicResource Theme.Text.Primary.Brush}" Text="本周访问量 12,480" />
+                                            <TextBlock
+                                                Margin="0,0,0,8"
+                                                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                Text="本周访问量 12,480" />
                                             <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}" Text="同比增长 18.2%" />
                                         </StackPanel>
                                     </nc:NCard>
@@ -185,7 +194,7 @@
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
                                 <StackPanel Margin="30,24,30,24">
-                                    <nc:NCard Width="360" Title="数据看板">
+                                    <nc:NCard Title="数据看板" Width="360">
                                         <nc:NCard.Cover>
                                             <Border Height="180" Background="{DynamicResource Theme.Hero.Background.Brush}">
                                                 <Grid>
@@ -208,8 +217,14 @@
                                             </Border>
                                         </nc:NCard.Cover>
                                         <StackPanel>
-                                            <TextBlock Margin="0,0,0,8" Foreground="{DynamicResource Theme.Text.Primary.Brush}" Text="适合图文混排、商品卡和专题卡片。" />
-                                            <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}" Text="Cover 会自动放在头部与正文之间。" TextWrapping="Wrap" />
+                                            <TextBlock
+                                                Margin="0,0,0,8"
+                                                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                Text="适合图文混排、商品卡和专题卡片。" />
+                                            <TextBlock
+                                                Foreground="{DynamicResource Theme.Text.Secondary.Brush}"
+                                                Text="Cover 会自动放在头部与正文之间。"
+                                                TextWrapping="Wrap" />
                                         </StackPanel>
                                     </nc:NCard>
                                 </StackPanel>
@@ -224,16 +239,34 @@
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
                                 <StackPanel Margin="30,24,30,24">
-                                    <nc:NCard Width="360" Segmented="True" Title="任务卡片">
+                                    <nc:NCard
+                                        Title="任务卡片"
+                                        Width="360"
+                                        Segmented="True">
                                         <StackPanel>
-                                            <TextBlock Margin="0,0,0,8" Foreground="{DynamicResource Theme.Text.Primary.Brush}" Text="当前还有 3 个待处理事项。" />
-                                            <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}" Text="适合仪表板、待办列表和概览模块。" TextWrapping="Wrap" />
+                                            <TextBlock
+                                                Margin="0,0,0,8"
+                                                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                Text="当前还有 3 个待处理事项。" />
+                                            <TextBlock
+                                                Foreground="{DynamicResource Theme.Text.Secondary.Brush}"
+                                                Text="适合仪表板、待办列表和概览模块。"
+                                                TextWrapping="Wrap" />
                                         </StackPanel>
                                         <nc:NCard.Action>
                                             <UniformGrid Columns="3">
-                                                <TextBlock HorizontalAlignment="Center" Style="{StaticResource CardActionTextStyle}" Text="分享" />
-                                                <TextBlock HorizontalAlignment="Center" Style="{StaticResource CardActionTextStyle}" Text="收藏" />
-                                                <TextBlock HorizontalAlignment="Center" Style="{StaticResource CardActionTextStyle}" Text="查看" />
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    Style="{StaticResource CardActionTextStyle}"
+                                                    Text="分享" />
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    Style="{StaticResource CardActionTextStyle}"
+                                                    Text="收藏" />
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    Style="{StaticResource CardActionTextStyle}"
+                                                    Text="查看" />
                                             </UniformGrid>
                                         </nc:NCard.Action>
                                     </nc:NCard>
@@ -251,10 +284,19 @@
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
                                 <StackPanel Margin="30,24,30,24">
-                                    <nc:NCard Width="360" Hoverable="True" Title="Hoverable Card">
+                                    <nc:NCard
+                                        Title="Hoverable Card"
+                                        Width="360"
+                                        Hoverable="True">
                                         <StackPanel>
-                                            <TextBlock Margin="0,0,0,8" Foreground="{DynamicResource Theme.Text.Primary.Brush}" Text="悬浮时会轻微上浮并增强阴影。" />
-                                            <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}" Text="用于需要强调点击感或可交互性的场景。" TextWrapping="Wrap" />
+                                            <TextBlock
+                                                Margin="0,0,0,8"
+                                                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                Text="悬浮时会轻微上浮并增强阴影。" />
+                                            <TextBlock
+                                                Foreground="{DynamicResource Theme.Text.Secondary.Brush}"
+                                                Text="用于需要强调点击感或可交互性的场景。"
+                                                TextWrapping="Wrap" />
                                         </StackPanel>
                                     </nc:NCard>
                                 </StackPanel>
@@ -269,10 +311,19 @@
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
                                 <StackPanel Margin="30,24,30,24">
-                                    <nc:NCard Width="360" Embedded="True" Title="Embedded Card">
+                                    <nc:NCard
+                                        Title="Embedded Card"
+                                        Width="360"
+                                        Embedded="True">
                                         <StackPanel>
-                                            <TextBlock Margin="0,0,0,8" Foreground="{DynamicResource Theme.Text.Primary.Brush}" Text="嵌入式卡片会使用更柔和的背景。" />
-                                            <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}" Text="适合表单区块、设置项容器等页面内二级模块。" TextWrapping="Wrap" />
+                                            <TextBlock
+                                                Margin="0,0,0,8"
+                                                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                Text="嵌入式卡片会使用更柔和的背景。" />
+                                            <TextBlock
+                                                Foreground="{DynamicResource Theme.Text.Secondary.Brush}"
+                                                Text="适合表单区块、设置项容器等页面内二级模块。"
+                                                TextWrapping="Wrap" />
                                         </StackPanel>
                                     </nc:NCard>
                                 </StackPanel>
@@ -312,7 +363,10 @@
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
                                 <StackPanel Margin="30,24,30,24">
-                                    <nc:NCard Width="360" IsLoading="True" Title="Loading Card">
+                                    <nc:NCard
+                                        Title="Loading Card"
+                                        Width="360"
+                                        IsLoading="True">
                                         <TextBlock Text="这段内容在 loading 时不会显示。" />
                                     </nc:NCard>
                                 </StackPanel>

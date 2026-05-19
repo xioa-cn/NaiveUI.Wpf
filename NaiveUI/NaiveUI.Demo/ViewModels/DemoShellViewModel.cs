@@ -24,6 +24,7 @@ public sealed class DemoShellViewModel : ViewModelBase
             ["button"] = static () => new ButtonDocsPage(),
             ["avatar"] = static () => new AvatarDocsPage(),
             ["card"] = static () => new CardDocsPage(),
+            ["divider"] = static () => new DividerDocsPage(),
             ["carousel"] = static () => new CarouselDocsPage(),
             ["collapse"] = static () => new CollapseDocsPage()
         };

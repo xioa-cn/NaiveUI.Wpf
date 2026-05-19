@@ -5,6 +5,7 @@
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/ButtonStyles.xaml" />
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/InputStyles.xaml" />
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/CardStyles.xaml" />
+        <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/DividerStyles.xaml" />
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/AvatarStyles.xaml" />
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/CarouselStyles.xaml" />
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/CollapseStyles.xaml" />

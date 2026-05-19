@@ -86,12 +86,12 @@
                                     <Grid>
                                         <ContentPresenter
                                             x:Name="CustomHeaderPresenter"
+                                            VerticalAlignment="Center"
                                             Content="{TemplateBinding Header}"
                                             ContentStringFormat="{TemplateBinding HeaderStringFormat}"
                                             ContentTemplate="{TemplateBinding HeaderTemplate}"
                                             ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                                             TextElement.Foreground="{TemplateBinding Foreground}"
-                                            VerticalAlignment="Center"
                                             Visibility="Collapsed" />
                                         <TextBlock
                                             x:Name="TitlePresenter"
@@ -114,8 +114,8 @@
                                     Background="Transparent">
                                     <ContentPresenter
                                         x:Name="HeaderExtraPresenter"
-                                        Content="{TemplateBinding HeaderExtra}"
-                                        VerticalAlignment="Center" />
+                                        VerticalAlignment="Center"
+                                        Content="{TemplateBinding HeaderExtra}" />
                                 </Border>
 
                                 <Border

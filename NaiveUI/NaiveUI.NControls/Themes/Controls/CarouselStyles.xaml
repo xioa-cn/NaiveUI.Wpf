@@ -99,8 +99,8 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{TemplateBinding CornerRadius}"
                         ClipToBounds="True"
+                        CornerRadius="{TemplateBinding CornerRadius}"
                         SnapsToDevicePixels="True">
                         <Grid>
                             <Grid x:Name="Viewport" ClipToBounds="True">
@@ -108,9 +108,9 @@
                                     x:Name="PART_StandbyPresenter"
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Stretch"
+                                    ContentStringFormat="{TemplateBinding ItemStringFormat}"
                                     ContentTemplate="{TemplateBinding ItemTemplate}"
                                     ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                                    ContentStringFormat="{TemplateBinding ItemStringFormat}"
                                     Opacity="0"
                                     RenderTransformOrigin="0.5,0.5"
                                     Visibility="Collapsed" />
@@ -119,16 +119,16 @@
                                     x:Name="PART_CurrentPresenter"
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Stretch"
+                                    ContentStringFormat="{TemplateBinding ItemStringFormat}"
                                     ContentTemplate="{TemplateBinding ItemTemplate}"
                                     ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                                    ContentStringFormat="{TemplateBinding ItemStringFormat}"
                                     RenderTransformOrigin="0.5,0.5" />
                             </Grid>
 
                             <Grid
                                 x:Name="ArrowLayer"
-                                Panel.ZIndex="1"
                                 Margin="{Binding ArrowLayerMargin, RelativeSource={RelativeSource TemplatedParent}}"
+                                Panel.ZIndex="1"
                                 Visibility="{Binding ArrowVisibility, RelativeSource={RelativeSource TemplatedParent}}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
@@ -166,10 +166,10 @@
                             </Grid>
 
                             <ItemsControl
-                                Panel.ZIndex="2"
                                 Margin="{Binding DotContainerMargin, RelativeSource={RelativeSource TemplatedParent}}"
                                 HorizontalAlignment="{Binding DotHorizontalAlignment, RelativeSource={RelativeSource TemplatedParent}}"
                                 VerticalAlignment="{Binding DotVerticalAlignment, RelativeSource={RelativeSource TemplatedParent}}"
+                                Panel.ZIndex="2"
                                 ItemsSource="{Binding IndicatorItems, RelativeSource={RelativeSource TemplatedParent}}"
                                 Visibility="{Binding ShowDots, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisibilityConverter}}">
                                 <ItemsControl.ItemsPanel>

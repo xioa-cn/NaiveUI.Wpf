@@ -1,0 +1,433 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Pages.DividerDocsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+        <Style
+            x:Key="SectionCardHeaderTitleStyle"
+            BasedOn="{StaticResource DocSectionTitleStyle}"
+            TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+        <Style x:Key="DividerExampleTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Secondary.Brush}" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="LineHeight" Value="24" />
+        </Style>
+
+        <Style x:Key="DividerBadgeStyle" TargetType="Border">
+            <Setter Property="Padding" Value="8,2" />
+            <Setter Property="Margin" Value="8,0,0,0" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Background" Value="#E6F9F0" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="340" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Border
+                Background="{DynamicResource Theme.Surface.0.Brush}"
+                BorderBrush="{DynamicResource Theme.Border.Brush}"
+                BorderThickness="0,0,1,0">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl Margin="10,18,10,18" ItemsSource="{Binding SidebarCategories}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,0,0,18">
+                                    <TextBlock Style="{StaticResource SidebarCategoryHeaderTextStyle}" Text="{Binding HeaderText}" />
+                                    <ItemsControl ItemsSource="{Binding Items}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Button Click="HandleSidebarItemClick" Style="{StaticResource SidebarNavButtonStyle}">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Style="{StaticResource SidebarNavTitleTextStyle}" Text="{Binding Title}" />
+                                                            <TextBlock Style="{StaticResource SidebarNavSubtitleTextStyle}" Text="{Binding Subtitle}" />
+                                                        </StackPanel>
+                                                        <Border
+                                                            Grid.Column="1"
+                                                            Margin="10,0,0,0"
+                                                            Padding="7,1"
+                                                            VerticalAlignment="Center"
+                                                            Background="#E6F9F0"
+                                                            CornerRadius="11"
+                                                            Visibility="{Binding HasBadge, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                            <TextBlock
+                                                                FontSize="12"
+                                                                Foreground="#18A058"
+                                                                Text="{Binding BadgeText}" />
+                                                        </Border>
+                                                    </Grid>
+                                                </Button>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+
+            <Button
+                Width="32"
+                Height="32"
+                Margin="0,300,-16,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Content="&#xE76B;"
+                Style="{StaticResource SidebarCollapseButtonStyle}" />
+        </Grid>
+
+        <ScrollViewer
+            x:Name="DocumentScrollViewer"
+            Grid.Column="1"
+            VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="68,34,18,34">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="48"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                        Text="分割线 Divider" />
+                </StackPanel>
+
+                <TextBlock
+                    Margin="0,26,0,0"
+                    FontSize="18"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="分割一些内容，用最轻的视觉成本把信息层级切开。" />
+
+                <TextBlock
+                    Margin="0,52,0,28"
+                    FontSize="36"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="演示" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="基础" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="不带标题时，Divider 会像 Naive UI 一样直接用一条横线完成内容分段。" />
+                                    <StackPanel Width="420">
+                                        <TextBlock Style="{StaticResource DividerExampleTextStyle}" Text="准备阶段：先确认环境、依赖和运行方式。" />
+                                        <nc:NDivider />
+                                        <TextBlock Style="{StaticResource DividerExampleTextStyle}" Text="执行阶段：按顺序落实界面、交互和状态同步。" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionTitlePlacement" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="标题位置" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="标题默认居中，也可以像 Naive UI 一样切到左侧或右侧。" />
+                                    <StackPanel Width="420">
+                                        <nc:NDivider>居中标题</nc:NDivider>
+                                        <nc:NDivider TitlePlacement="Left">左侧标题</nc:NDivider>
+                                        <nc:NDivider TitlePlacement="Right">右侧标题</nc:NDivider>
+                                    </StackPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionVertical" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="垂直分割" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="垂直模式用于并列信息块之间的轻量分隔，表现与 Naive UI 保持一致。可通过 Height 直接控制垂直分割线高度。" />
+                                    <Border
+                                        Width="420"
+                                        Padding="18,16"
+                                        Background="{DynamicResource Theme.Surface.1.Brush}"
+                                        CornerRadius="12">
+                                        <WrapPanel VerticalAlignment="Center">
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                FontSize="50"
+                                                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                Text="概览" />
+                                            <nc:NDivider
+                                                Height="30"
+                                                BorderBrush="Green"
+                                                Vertical="True" />
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                Text="设置" />
+                                            <nc:NDivider Vertical="True" />
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                Text="日志" />
+                                            <nc:NDivider Vertical="True" />
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                Text="监控" />
+                                        </WrapPanel>
+                                    </Border>
+                                    <TextBlock
+                                        Margin="0,14,0,0"
+                                        Style="{StaticResource DividerExampleTextStyle}"
+                                        Text="示例：&lt;nc:NDivider Vertical=&quot;True&quot; Height=&quot;30&quot; /&gt;" />
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <nu:CardElement x:Name="SectionDashed" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="虚线" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="Dashed 只影响横向线段，适合弱化分隔感或表达阶段性内容。" />
+                                    <StackPanel Width="420">
+                                        <nc:NDivider Dashed="True">虚线标题</nc:NDivider>
+                                        <nc:NDivider Dashed="True" TitlePlacement="Left">左侧虚线</nc:NDivider>
+                                        <nc:NDivider Dashed="True" TitlePlacement="Right">右侧虚线</nc:NDivider>
+                                    </StackPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionCustomTitle" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="自定义标题内容" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="默认插槽可以放文本，也可以放自定义 UI 元素，用法和 Naive UI 的 default slot 一致。" />
+                                    <StackPanel Width="420">
+                                        <nc:NDivider TitlePlacement="Left">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock VerticalAlignment="Center" Text="发布状态" />
+                                                <Border Style="{StaticResource DividerBadgeStyle}">
+                                                    <TextBlock Foreground="#18A058" Text="稳定" />
+                                                </Border>
+                                            </StackPanel>
+                                        </nc:NDivider>
+                                        <TextBlock Style="{StaticResource DividerExampleTextStyle}" Text="当前版本已经通过基础验证，可以继续扩展交互和异常处理。" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionThickness" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="线条粗细" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="通过 LineThickness 可以直接控制线条粗细，横向和纵向都生效。" />
+                                    <StackPanel Width="420">
+                                        <nc:NDivider LineThickness="1">默认粗细</nc:NDivider>
+                                        <nc:NDivider LineThickness="2">加粗一档</nc:NDivider>
+                                        <nc:NDivider Dashed="True" LineThickness="3">加粗虚线</nc:NDivider>
+                                        <WrapPanel Margin="0,12,0,0" VerticalAlignment="Center">
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                Text="甲" />
+                                            <nc:NDivider
+                                                Height="28"
+                                                LineThickness="3"
+                                                Vertical="True" />
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                Text="乙" />
+                                            <nc:NDivider
+                                                Height="28"
+                                                LineThickness="5"
+                                                Vertical="True" />
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                Text="丙" />
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+                    </StackPanel>
+                </Grid>
+
+                <nu:CardElement x:Name="SectionApi" Margin="0,20,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="API" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <TextBlock
+                            Margin="30,24,30,24"
+                            Style="{StaticResource DocBodyTextStyle}"
+                            Text="下面的 API 表按当前 WPF Divider 实现整理，核心行为与 Naive UI 的 Divider 对齐。" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <nu:CardElement x:Name="SectionDividerProps" Margin="0,0,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Divider Props" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding DividerPropsRows}" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <nu:CardElement x:Name="SectionDividerSlots" Margin="0,0,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Divider Slots" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding DividerSlotsRows}" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="2" Background="{DynamicResource Theme.Surface.0.Brush}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="20,36,20,20">
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="基础"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionBasic" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="标题位置"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionTitlePlacement" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="虚线"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionDashed" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="垂直分割"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionVertical" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="线条粗细"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionThickness" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="自定义标题内容"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionCustomTitle" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="接口说明"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionApi" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="分割线属性"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionDividerProps" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="分割线插槽"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionDividerSlots" />
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

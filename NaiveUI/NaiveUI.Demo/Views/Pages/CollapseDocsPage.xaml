@@ -108,7 +108,7 @@
                         FontSize="48"
                         FontWeight="Bold"
                         Foreground="{DynamicResource Theme.Text.Primary.Brush}"
-                        Text="折叠面板" />
+                        Text="折叠面板 Collapse" />
                 </StackPanel>
 
                 <TextBlock

@@ -142,16 +142,7 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="基础" />
                                     <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE76C;" />
-                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE71B;" />
-                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE8A7;" />
-                                        <TextBlock Style="{StaticResource CardActionGlyphStyle}" Text="&#xE8C8;" />
-                                        <TextBlock
-                                            Margin="0,0,6,0"
-                                            VerticalAlignment="Center"
-                                            FontSize="15"
-                                            Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
-                                            Text="&lt;/&gt;" />
+                                      
                                     </StackPanel>
                                 </Grid>
                             </nu:CardElement.HeaderElement>

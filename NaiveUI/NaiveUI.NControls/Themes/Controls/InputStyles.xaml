@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:NaiveUI.NControls.Controls">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/ThemeTokens.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/ThemeTokens.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <Style TargetType="{x:Type controls:NInput}">
         <Setter Property="Padding" Value="16,11" />

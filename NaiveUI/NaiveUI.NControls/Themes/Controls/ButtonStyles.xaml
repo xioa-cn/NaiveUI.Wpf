@@ -77,14 +77,11 @@
                                     <Path
                                         Data="M 7,1 A 6,6 0 1 1 1,7"
                                         Stroke="{TemplateBinding ResolvedLoadingBrush}"
-                                        StrokeThickness="2"
+                                        StrokeEndLineCap="Round"
                                         StrokeStartLineCap="Round"
-                                        StrokeEndLineCap="Round">
+                                        StrokeThickness="2">
                                         <Path.RenderTransform>
-                                            <RotateTransform
-                                                x:Name="LoadingRotateTransform"
-                                                CenterX="7"
-                                                CenterY="7" />
+                                            <RotateTransform x:Name="LoadingRotateTransform" CenterX="7" CenterY="7" />
                                         </Path.RenderTransform>
                                     </Path>
                                 </Viewbox>
@@ -165,9 +162,9 @@
                                     <Storyboard RepeatBehavior="Forever">
                                         <DoubleAnimation
                                             By="360"
-                                            Duration="0:0:0.8"
                                             Storyboard.TargetName="LoadingRotateTransform"
-                                            Storyboard.TargetProperty="Angle" />
+                                            Storyboard.TargetProperty="Angle"
+                                            Duration="0:0:0.8" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>

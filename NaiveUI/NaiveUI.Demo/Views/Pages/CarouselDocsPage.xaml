@@ -124,7 +124,7 @@
                         FontSize="48"
                         FontWeight="Bold"
                         Foreground="{DynamicResource Theme.Text.Primary.Brush}"
-                        Text="轮播图" />
+                        Text="轮播图 Carousel" />
                 </StackPanel>
 
                 <TextBlock

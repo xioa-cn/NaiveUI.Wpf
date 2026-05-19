@@ -68,7 +68,10 @@
                     <TextBlock Grid.Column="3" Style="{StaticResource ApiHeaderTextStyle}">
                         说明
                     </TextBlock>
-                    <TextBlock Grid.Column="4" HorizontalAlignment="Right" Style="{StaticResource ApiHeaderTextStyle}">
+                    <TextBlock
+                        Grid.Column="4"
+                        HorizontalAlignment="Right"
+                        Style="{StaticResource ApiHeaderTextStyle}">
                         版本
                     </TextBlock>
                 </Grid>
@@ -88,10 +91,23 @@
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Style="{StaticResource ApiCodeTextStyle}" Text="{Binding Name}" />
-                                <TextBlock Grid.Column="1" Style="{StaticResource ApiCodeTextStyle}" Text="{Binding Type}" />
-                                <TextBlock Grid.Column="2" Style="{StaticResource ApiCodeTextStyle}" Text="{Binding DefaultValue}" />
-                                <TextBlock Grid.Column="3" Style="{StaticResource ApiCellTextStyle}" Text="{Binding Description}" />
-                                <TextBlock Grid.Column="4" HorizontalAlignment="Right" Style="{StaticResource ApiCellTextStyle}" Text="{Binding Version}" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Style="{StaticResource ApiCodeTextStyle}"
+                                    Text="{Binding Type}" />
+                                <TextBlock
+                                    Grid.Column="2"
+                                    Style="{StaticResource ApiCodeTextStyle}"
+                                    Text="{Binding DefaultValue}" />
+                                <TextBlock
+                                    Grid.Column="3"
+                                    Style="{StaticResource ApiCellTextStyle}"
+                                    Text="{Binding Description}" />
+                                <TextBlock
+                                    Grid.Column="4"
+                                    HorizontalAlignment="Right"
+                                    Style="{StaticResource ApiCellTextStyle}"
+                                    Text="{Binding Version}" />
                             </Grid>
                         </Border>
                     </DataTemplate>
