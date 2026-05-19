@@ -1,19 +1,26 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using NaiveUI.Demo.Models;
 using NaiveUI.Demo.Services;
+using NaiveUI.NControls.Controls;
+using NaiveUI.NControls.Tools;
 
 namespace NaiveUI.Demo.ViewModels;
 
-public sealed class DropdownDocsPageViewModel : ViewModelBase
+public partial class DropdownDocsPageViewModel : ObservableObject
 {
     private bool manualDropdownVisible;
     private string selectionText = "当前尚未选择菜单项。";
+    private string optionActionText = "最近一次菜单动作：尚未触发。";
 
     public DropdownDocsPageViewModel(string selectedKey = "dropdown")
     {
         SidebarCategories = ComponentSidebarViewModelFactory.Create(selectedKey);
+        OptionActionCommand = new RelayCommand<object>(HandleOptionActionCommand);
 
         DropdownPropsRows =
         [
@@ -36,6 +43,9 @@ public sealed class DropdownDocsPageViewModel : ViewModelBase
             new ApiDocRow { Name = "Label", Type = "object", DefaultValue = "null", Description = "菜单项显示内容，通常使用文本，也可以放自定义 UI 元素。" },
             new ApiDocRow { Name = "Icon", Type = "object", DefaultValue = "null", Description = "菜单项左侧图标内容。" },
             new ApiDocRow { Name = "Suffix", Type = "object", DefaultValue = "null", Description = "菜单项右侧附加内容。存在子菜单时会自动显示箭头。" },
+            new ApiDocRow { Name = "Command", Type = "ICommand", DefaultValue = "null", Description = "绑定当前菜单项命令，适合在 MVVM 中直接处理单项行为。" },
+            new ApiDocRow { Name = "CommandParameter", Type = "object", DefaultValue = "null", Description = "自定义传给 Command 的参数；未设置时默认传入当前项的 NDropdownOptionClickEventArgs。" },
+            new ApiDocRow { Name = "Click", Type = "event EventHandler<NDropdownOptionClickEventArgs>", DefaultValue = "null", Description = "当前菜单项的点击事件，适合在代码后置中直接处理；事件参数包含 Dropdown、Key 和 Option。" },
             new ApiDocRow { Name = "Disabled", Type = "bool", DefaultValue = "false", Description = "是否禁用当前菜单项。" },
             new ApiDocRow { Name = "Show", Type = "bool", DefaultValue = "true", Description = "是否显示当前菜单项。" },
             new ApiDocRow { Name = "Children", Type = "ObservableCollection<NDropdownOptionBase>", DefaultValue = "[]", Description = "子菜单项集合，用于构建多级下拉菜单。" }
@@ -76,6 +86,14 @@ public sealed class DropdownDocsPageViewModel : ViewModelBase
         set => SetProperty(ref selectionText, value);
     }
 
+    public string OptionActionText
+    {
+        get => optionActionText;
+        set => SetProperty(ref optionActionText, value);
+    }
+
+    public ICommand OptionActionCommand { get; }
+
     public void ToggleManualDropdown()
     {
         ManualDropdownVisible = !ManualDropdownVisible;
@@ -88,11 +106,27 @@ public sealed class DropdownDocsPageViewModel : ViewModelBase
             : $"当前选择：{key}";
     }
 
+    public void RecordOptionAction(string message)
+    {
+        OptionActionText = message;
+    }
+
     public void SelectSidebarItem(ComponentSidebarItemViewModel targetItem)
     {
         foreach (var item in SidebarCategories.SelectMany(category => category.Items))
         {
             item.IsSelected = item == targetItem;
         }
+    }
+
+    private void HandleOptionActionCommand(object? parameter)
+    {
+        NElMessage.Info(parameter?.ToString() ?? "命令已触发");
+        OptionActionText = parameter switch
+        {
+            NDropdownOptionClickEventArgs args => $"命令触发：{args.Key}",
+            string text when !string.IsNullOrWhiteSpace(text) => $"命令参数：{text}",
+            _ => "命令已触发。"
+        };
     }
 }

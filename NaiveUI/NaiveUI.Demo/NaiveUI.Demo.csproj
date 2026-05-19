@@ -27,10 +27,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="XPrism.Core.wpf" Version="1.1.4" />
-    </ItemGroup>
-
-    <ItemGroup>
       <Resource Include="Assets\Header.jpg" />
     </ItemGroup>
 
@@ -38,6 +34,10 @@
       <Content Include="Data\ComponentSidebar.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     </ItemGroup>
 
 </Project>

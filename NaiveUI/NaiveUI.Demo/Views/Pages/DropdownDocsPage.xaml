@@ -7,6 +7,7 @@
     xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
     xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
     xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    x:Name="Root"
     mc:Ignorable="d">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -245,6 +246,74 @@
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
+                        <!-- <nu:CardElement x:Name="SectionGroup" Margin="0,0,0,20"/> -->
+                        <nu:CardElement x:Name="SectionAction" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="单项交互" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="除了统一的 Select 事件外，也可以直接给单个 NDropdownOption 挂 Click 或 Command。Click 更适合代码后置，Command 更适合 MVVM。" />
+                                    <Border
+                                        Padding="14,12"
+                                        Background="{DynamicResource Theme.Surface.1.Brush}"
+                                        CornerRadius="10">
+                                        <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}" Text="{Binding OptionActionText}" />
+                                    </Border>
+                                    <WrapPanel Margin="0,18,0,0">
+                                        <nc:NDropdown
+                                            Margin="0,0,12,12"
+                                            Select="HandleDropdownSelect"
+                                            Trigger="Click">
+                                            <nc:NDropdown.Options>
+                                                <nc:NDropdownOption
+                                                    Key="复制链接"
+                                                    Click="HandleOptionClick"
+                                                    Label="复制链接" />
+                                                <nc:NDropdownOption
+                                                    Key="分享给同事"
+                                                    Click="HandleOptionClick"
+                                                    Label="分享给同事" />
+                                                <nc:NDropdownOption
+                                                    Key="固定到顶部"
+                                                    Click="HandleOptionClick"
+                                                    Label="固定到顶部" />
+                                            </nc:NDropdown.Options>
+                                            <nc:NButton>单项 Click</nc:NButton>
+                                        </nc:NDropdown>
+
+                                        <nc:NDropdown
+                                            Margin="0,0,12,12"
+                                            Select="HandleDropdownSelect"
+                                            Trigger="Click">
+                                            <nc:NDropdown.Options>
+                                                <nc:NDropdownOption
+                                                    Key="归档当前消息"
+                                                    Command="{Binding OptionActionCommand}"
+                                                    CommandParameter="Test CommandParameter"
+                                                    Label="归档当前消息" />
+                                                <nc:NDropdownOption
+                                                    Key="导出当前报表"
+                                                    Command="{Binding OptionActionCommand}"
+                                                    CommandParameter="执行批量导出任务"
+                                                    Label="导出当前报表" />
+                                                <nc:NDropdownOption
+                                                    Key="标记为稍后处理"
+                                                    Command="{Binding OptionActionCommand}"
+                                                    Label="标记为稍后处理" />
+                                            </nc:NDropdown.Options>
+                                            <nc:NButton Kind="Secondary">单项 Command</nc:NButton>
+                                        </nc:NDropdown>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
                         <nu:CardElement x:Name="SectionGroup" Margin="0,0,0,20">
                             <nu:CardElement.HeaderElement>
                                 <Grid Margin="30,28,30,0">
@@ -458,9 +527,15 @@
                                                 </nc:NDropdownOption.Icon>
                                             </nc:NDropdownOption>
                                             <nc:NDropdownDividerOption />
-                                            <nc:NDropdownOption Key="尼克·卡拉威" Label="尼克·卡拉威" />
+                                            <nc:NDropdownOption
+                                                Key="尼克·卡拉威"
+                                                Click="HandleOptionClick"
+                                                Label="尼克·卡拉威" />
                                             <nc:NDropdownOption Key="其他" Label="其他">
-                                                <nc:NDropdownOption Key="乔丹·贝克" Label="乔丹·贝克" />
+                                                <nc:NDropdownOption
+                                                    Key="乔丹·贝克"
+                                                    Click="HandleOptionClick"
+                                                    Label="乔丹·贝克" />
                                                 <nc:NDropdownOption Key="汤姆·布坎南" Label="汤姆·布坎南" />
                                                 <nc:NDropdownOption
                                                     Key="更多角色"
@@ -668,6 +743,13 @@
                         Kind="Tertiary"
                         Style="{StaticResource OutlineLinkButtonStyle}"
                         Tag="SectionTrigger" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="单项交互"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionAction" />
                     <nc:NButton
                         Margin="3"
                         Click="ScrollToSection"

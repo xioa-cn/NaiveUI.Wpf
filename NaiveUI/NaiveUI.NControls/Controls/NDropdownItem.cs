@@ -263,6 +263,7 @@ public class NDropdownItem : Control
         if (HasSubmenu)
         {
             OpenSubmenu();
+            OwnerDropdown?.HandleEntryInvoked(Entry, updateSelection: false, closeAfterInvoke: false);
             e.Handled = true;
             return;
         }

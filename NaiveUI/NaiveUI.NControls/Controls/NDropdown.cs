@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 using NaiveUI.NControls.Tools;
 
@@ -207,6 +208,11 @@ public class NDropdown : ContentControl
             return;
         }
 
+        if (IsSourceWithinPopup(e.OriginalSource as DependencyObject) || menu?.IsMouseOver == true || popupRoot?.IsMouseOver == true)
+        {
+            return;
+        }
+
         if (Show)
         {
             Close();
@@ -290,16 +296,33 @@ public class NDropdown : ContentControl
         return false;
     }
 
-    internal void HandleEntryInvoked(DropdownEntry entry)
+    internal bool InvokeEntryAction(DropdownEntry entry)
     {
         if (entry.SourceOption is null)
+        {
+            return false;
+        }
+
+        return entry.SourceOption.TryInvoke(this);
+    }
+
+    internal void HandleEntryInvoked(DropdownEntry entry, bool updateSelection = true, bool closeAfterInvoke = true)
+    {
+        if (!InvokeEntryAction(entry))
         {
             return;
         }
 
-        SetCurrentValue(ValueProperty, entry.Key);
-        Select?.Invoke(this, new NDropdownSelectEventArgs(entry.Key, entry.SourceOption));
-        Close();
+        if (updateSelection && entry.SourceOption is not null)
+        {
+            SetCurrentValue(ValueProperty, entry.Key);
+            Select?.Invoke(this, new NDropdownSelectEventArgs(entry.Key, entry.SourceOption));
+        }
+
+        if (closeAfterInvoke)
+        {
+            Close();
+        }
     }
 
     private static void OnShowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -533,7 +556,7 @@ public class NDropdown : ContentControl
 
     private void HandleOwnerWindowPreviewMouseDown(object sender, MouseButtonEventArgs e)
     {
-        if (!Show || IsMouseOver || menuPointerDepth > 0)
+        if (!Show || IsMouseOver || menuPointerDepth > 0 || menu?.IsMouseOver == true || popupRoot?.IsMouseOver == true || IsSourceWithinPopup(e.OriginalSource as DependencyObject))
         {
             return;
         }
@@ -707,5 +730,29 @@ public class NDropdown : ContentControl
         }
 
         return value;
+    }
+
+    private bool IsSourceWithinPopup(DependencyObject? source)
+    {
+        if (source is null)
+        {
+            return false;
+        }
+
+        DependencyObject? current = source;
+        while (current is not null)
+        {
+            if (ReferenceEquals(current, menu) || ReferenceEquals(current, popupRoot) || ReferenceEquals(current, arrowElement))
+            {
+                return true;
+            }
+
+            current = LogicalTreeHelper.GetParent(current)
+                      ?? (current is Visual or System.Windows.Media.Media3D.Visual3D
+                          ? VisualTreeHelper.GetParent(current)
+                          : null);
+        }
+
+        return false;
     }
 }

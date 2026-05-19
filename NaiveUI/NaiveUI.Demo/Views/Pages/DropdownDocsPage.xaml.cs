@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using NaiveUI.Demo.Services;
 using NaiveUI.Demo.ViewModels;
 using NaiveUI.NControls.Controls;
+using NaiveUI.NControls.Tools;
 
 namespace NaiveUI.Demo.Views.Pages;
 
@@ -41,6 +42,12 @@ public partial class DropdownDocsPage : UserControl
     private void HandleDropdownSelect(object sender, NDropdownSelectEventArgs e)
     {
         ViewModel.RecordSelection(e.Key);
+    }
+
+    private void HandleOptionClick(object sender, NDropdownOptionClickEventArgs e)
+    {
+        NElMessage.Info(e.Key?.ToString() ?? "未提供键值");
+        ViewModel.RecordOptionAction($"点击事件触发：{e.Key}");
     }
 
     private void HandleManualDropdownButtonClick(object sender, RoutedEventArgs e)
