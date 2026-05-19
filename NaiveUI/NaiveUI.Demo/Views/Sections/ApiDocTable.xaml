@@ -51,7 +51,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250" />
                         <ColumnDefinition Width="130" />
-                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition Width="140" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="150" />
                     </Grid.ColumnDefinitions>
@@ -62,7 +62,10 @@
                     <TextBlock Grid.Column="1" Style="{StaticResource ApiHeaderTextStyle}">
                         类型
                     </TextBlock>
-                    <TextBlock Grid.Column="2" Style="{StaticResource ApiHeaderTextStyle}">
+                    <TextBlock
+                        Grid.Column="2"
+                        Margin="10,0,0,0"
+                        Style="{StaticResource ApiHeaderTextStyle}">
                         默认值
                     </TextBlock>
                     <TextBlock Grid.Column="3" Style="{StaticResource ApiHeaderTextStyle}">
@@ -85,7 +88,7 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="250" />
                                     <ColumnDefinition Width="130" />
-                                    <ColumnDefinition Width="130" />
+                                    <ColumnDefinition Width="140" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="150" />
                                 </Grid.ColumnDefinitions>
@@ -97,6 +100,7 @@
                                     Text="{Binding Type}" />
                                 <TextBlock
                                     Grid.Column="2"
+                                    Margin="10,0,0,0"
                                     Style="{StaticResource ApiCodeTextStyle}"
                                     Text="{Binding DefaultValue}" />
                                 <TextBlock

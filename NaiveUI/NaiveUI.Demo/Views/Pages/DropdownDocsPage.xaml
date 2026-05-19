@@ -1,0 +1,752 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Pages.DropdownDocsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+        <Style
+            x:Key="SectionCardHeaderTitleStyle"
+            BasedOn="{StaticResource DocSectionTitleStyle}"
+            TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+        <Geometry x:Key="DropdownUserGeometry">M12 2.75C8.27208 2.75 5.25 5.77208 5.25 9.5C5.25 13.2279 8.27208 16.25 12 16.25C15.7279 16.25 18.75 13.2279 18.75 9.5C18.75 5.77208 15.7279 2.75 12 2.75ZM12 4.75C14.6234 4.75 16.75 6.87665 16.75 9.5C16.75 12.1234 14.6234 14.25 12 14.25C9.37665 14.25 7.25 12.1234 7.25 9.5C7.25 6.87665 9.37665 4.75 12 4.75ZM12 17.25C7.02944 17.25 3 21.2794 3 26.25C3 26.8023 3.44772 27.25 4 27.25C4.55228 27.25 5 26.8023 5 26.25C5 22.3848 8.13477 19.25 12 19.25C15.8652 19.25 19 22.3848 19 26.25C19 26.8023 19.4477 27.25 20 27.25C20.5523 27.25 21 26.8023 21 26.25C21 21.2794 16.9706 17.25 12 17.25Z</Geometry>
+        <Geometry x:Key="DropdownEditGeometry">M16.8622 3.48758C17.6428 2.70698 18.9081 2.70698 19.6887 3.48758L20.5124 4.31127C21.293 5.09187 21.293 6.3572 20.5124 7.1378L9.21599 18.4342C8.93474 18.7155 8.58242 18.915 8.19644 19.0119L4.74265 19.8795C4.41258 19.9624 4.06334 19.8656 3.8232 19.6254C3.58306 19.3853 3.48618 19.0361 3.56912 18.706L4.43667 15.2522C4.53359 14.8662 4.73303 14.5139 5.01428 14.2327L16.8622 3.48758ZM18.274 4.90179L18.2739 4.90172L6.42607 15.6469L5.94274 17.5711L7.86689 17.0878L19.0982 5.85654L18.274 4.90179Z</Geometry>
+        <Geometry x:Key="DropdownLogoutGeometry">M12 4C12.5523 4 13 4.44772 13 5C13 5.55228 12.5523 6 12 6H7C6.44772 6 6 6.44772 6 7V17C6 17.5523 6.44772 18 7 18H12C12.5523 18 13 18.4477 13 19C13 19.5523 12.5523 20 12 20H7C5.34315 20 4 18.6569 4 17V7C4 5.34315 5.34315 4 7 4H12ZM16.2929 7.29289C16.6834 6.90237 17.3166 6.90237 17.7071 7.29289L21.7071 11.2929C22.0976 11.6834 22.0976 12.3166 21.7071 12.7071L17.7071 16.7071C17.3166 17.0976 16.6834 17.0976 16.2929 16.7071C15.9024 16.3166 15.9024 15.6834 16.2929 15.2929L18.5858 13H10C9.44772 13 9 12.5523 9 12C9 11.4477 9.44772 11 10 11H18.5858L16.2929 8.70711C15.9024 8.31658 15.9024 7.68342 16.2929 7.29289Z</Geometry>
+
+        <Style x:Key="DropdownHintTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Secondary.Brush}" />
+            <Setter Property="LineHeight" Value="24" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="340" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Border
+                Background="{DynamicResource Theme.Surface.0.Brush}"
+                BorderBrush="{DynamicResource Theme.Border.Brush}"
+                BorderThickness="0,0,1,0">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl Margin="10,18,10,18" ItemsSource="{Binding SidebarCategories}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,0,0,18">
+                                    <TextBlock Style="{StaticResource SidebarCategoryHeaderTextStyle}" Text="{Binding HeaderText}" />
+                                    <ItemsControl ItemsSource="{Binding Items}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Button Click="HandleSidebarItemClick" Style="{StaticResource SidebarNavButtonStyle}">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Style="{StaticResource SidebarNavTitleTextStyle}" Text="{Binding Title}" />
+                                                            <TextBlock Style="{StaticResource SidebarNavSubtitleTextStyle}" Text="{Binding Subtitle}" />
+                                                        </StackPanel>
+                                                        <Border
+                                                            Grid.Column="1"
+                                                            Margin="10,0,0,0"
+                                                            Padding="7,1"
+                                                            VerticalAlignment="Center"
+                                                            Background="#E6F9F0"
+                                                            CornerRadius="11"
+                                                            Visibility="{Binding HasBadge, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                            <TextBlock
+                                                                FontSize="12"
+                                                                Foreground="#18A058"
+                                                                Text="{Binding BadgeText}" />
+                                                        </Border>
+                                                    </Grid>
+                                                </Button>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+
+            <Button
+                Width="32"
+                Height="32"
+                Margin="0,300,-16,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Content="&#xE76B;"
+                Style="{StaticResource SidebarCollapseButtonStyle}" />
+        </Grid>
+
+        <ScrollViewer
+            x:Name="DocumentScrollViewer"
+            Grid.Column="1"
+            VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="68,34,18,34">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="48"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                        Text="下拉菜单 Dropdown" />
+                </StackPanel>
+
+                <TextBlock
+                    Margin="0,26,0,0"
+                    FontSize="18"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="在一个紧凑的浮层里承载一组操作、导航或级联选项，交互和视觉尽量贴近 Naive UI。" />
+
+                <Border
+                    Margin="0,30,0,0"
+                    Padding="18,14"
+                    Background="{DynamicResource Theme.Surface.1.Brush}"
+                    CornerRadius="12">
+                    <TextBlock
+                        FontSize="14"
+                        Foreground="{DynamicResource Theme.Text.Secondary.Brush}"
+                        Text="{Binding SelectionText}" />
+                </Border>
+
+                <TextBlock
+                    Margin="0,52,0,28"
+                    FontSize="36"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="演示" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="基础" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="最基础的下拉菜单用法。默认使用悬浮触发，菜单项样式、阴影和圆角都按 Naive UI 的方向做了还原。" />
+                                    <nc:NDropdown Select="HandleDropdownSelect">
+                                        <nc:NDropdown.Options>
+                                            <nc:NDropdownOption
+                                                Key="滨海湾金沙，新加坡"
+                                                Disabled="True"
+                                                Label="滨海湾金沙，新加坡" />
+                                            <nc:NDropdownOption Key="布朗酒店，伦敦" Label="布朗酒店，伦敦" />
+                                            <nc:NDropdownOption Key="亚特兰蒂斯巴哈马，拿骚" Label="亚特兰蒂斯巴哈马，拿骚" />
+                                            <nc:NDropdownOption Key="比佛利山庄酒店，洛杉矶" Label="比佛利山庄酒店，洛杉矶" />
+                                        </nc:NDropdown.Options>
+                                        <nc:NButton>找个地方休息</nc:NButton>
+                                    </nc:NDropdown>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionTrigger" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="触发方式" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="支持悬浮、点击、手动控制和右键菜单四种常见触发方式。手动模式下，通过 Show 属性直接控制显示状态。" />
+                                    <WrapPanel ItemHeight="34" ItemWidth="118">
+                                        <nc:NDropdown Select="HandleDropdownSelect" Trigger="Hover">
+                                            <nc:NDropdown.Options>
+                                                <nc:NDropdownOption
+                                                    Key="滨海湾金沙，新加坡"
+                                                    Disabled="True"
+                                                    Label="滨海湾金沙，新加坡" />
+                                                <nc:NDropdownOption Key="布朗酒店，伦敦" Label="布朗酒店，伦敦" />
+                                                <nc:NDropdownOption Key="亚特兰蒂斯巴哈马，拿骚" Label="亚特兰蒂斯巴哈马，拿骚" />
+                                                <nc:NDropdownOption Key="比佛利山庄酒店，洛杉矶" Label="比佛利山庄酒店，洛杉矶" />
+                                            </nc:NDropdown.Options>
+                                            <nc:NButton>悬浮触发</nc:NButton>
+                                        </nc:NDropdown>
+
+                                        <nc:NDropdown Select="HandleDropdownSelect" Trigger="Click">
+                                            <nc:NDropdown.Options>
+                                                <nc:NDropdownOption
+                                                    Key="滨海湾金沙，新加坡"
+                                                    Disabled="True"
+                                                    Label="滨海湾金沙，新加坡" />
+                                                <nc:NDropdownOption Key="布朗酒店，伦敦" Label="布朗酒店，伦敦" />
+                                                <nc:NDropdownOption Key="亚特兰蒂斯巴哈马，拿骚" Label="亚特兰蒂斯巴哈马，拿骚" />
+                                                <nc:NDropdownOption Key="比佛利山庄酒店，洛杉矶" Label="比佛利山庄酒店，洛杉矶" />
+                                            </nc:NDropdown.Options>
+                                            <nc:NButton>点击触发</nc:NButton>
+                                        </nc:NDropdown>
+
+                                        <nc:NDropdown
+                                            Select="HandleDropdownSelect"
+                                            Show="{Binding ManualDropdownVisible}"
+                                            Trigger="Manual">
+                                            <nc:NDropdown.Options>
+                                                <nc:NDropdownOption
+                                                    Key="滨海湾金沙，新加坡"
+                                                    Disabled="True"
+                                                    Label="滨海湾金沙，新加坡" />
+                                                <nc:NDropdownOption Key="布朗酒店，伦敦" Label="布朗酒店，伦敦" />
+                                                <nc:NDropdownOption Key="亚特兰蒂斯巴哈马，拿骚" Label="亚特兰蒂斯巴哈马，拿骚" />
+                                                <nc:NDropdownOption Key="比佛利山庄酒店，洛杉矶" Label="比佛利山庄酒店，洛杉矶" />
+                                            </nc:NDropdown.Options>
+                                            <nc:NButton Click="HandleManualDropdownButtonClick">手动控制</nc:NButton>
+                                        </nc:NDropdown>
+                                    </WrapPanel>
+                                    <nc:NDropdown
+                                        Margin="0,18,0,0"
+                                        Select="HandleDropdownSelect"
+                                        Trigger="ContextMenu">
+                                        <nc:NDropdown.Options>
+                                            <nc:NDropdownOption Key="复制当前内容" Label="复制当前内容" />
+                                            <nc:NDropdownOption Key="另存为草稿" Label="另存为草稿" />
+                                            <nc:NDropdownDividerOption />
+                                            <nc:NDropdownOption Key="删除这条记录" Label="删除这条记录" />
+                                        </nc:NDropdown.Options>
+                                        <Border
+                                            Width="250"
+                                            Padding="14,12"
+                                            Background="{DynamicResource Theme.Surface.1.Brush}"
+                                            CornerRadius="10">
+                                            <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}" Text="在这里点右键，体验 ContextMenu 触发。" />
+                                        </Border>
+                                    </nc:NDropdown>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionGroup" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="分组与分割线" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="分组标题、分割线和右侧附加信息都可以组合使用，适合把一长串操作拆成更清晰的结构。" />
+                                    <nc:NDropdown
+                                        Placement="BottomStart"
+                                        Select="HandleDropdownSelect"
+                                        Trigger="Click">
+                                        <nc:NDropdown.Options>
+                                            <nc:NDropdownGroupOption Label="快速操作">
+                                                <nc:NDropdownOption Key="新建项目" Label="新建项目">
+                                                    <nc:NDropdownOption.Suffix>
+                                                        <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="Ctrl+N" />
+                                                    </nc:NDropdownOption.Suffix>
+                                                </nc:NDropdownOption>
+                                                <nc:NDropdownOption Key="导出配置" Label="导出配置" />
+                                            </nc:NDropdownGroupOption>
+                                            <nc:NDropdownDividerOption />
+                                            <nc:NDropdownGroupOption Label="系统设置">
+                                                <nc:NDropdownOption Key="权限中心" Label="权限中心" />
+                                                <nc:NDropdownOption Key="主题切换" Label="主题切换" />
+                                                <nc:NDropdownOption
+                                                    Key="高级实验室"
+                                                    Disabled="True"
+                                                    Label="高级实验室" />
+                                            </nc:NDropdownGroupOption>
+                                        </nc:NDropdown.Options>
+                                        <nc:NButton Kind="Tertiary">查看结构化菜单</nc:NButton>
+                                    </nc:NDropdown>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionPlacement" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="弹出位置" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="支持主方向和起止对齐变体。对于新手来说，可以简单理解成：BottomStart 是下方左对齐，TopEnd 是上方右对齐，RightStart 是右侧顶对齐。" />
+                                    <WrapPanel Width="420">
+                                        <nc:NDropdown
+                                            Placement="BottomStart"
+                                            Select="HandleDropdownSelect"
+                                            Trigger="Click">
+                                            <nc:NDropdown.Options>
+                                                <nc:NDropdownOption Key="滨海湾金沙，新加坡" Label="滨海湾金沙，新加坡" />
+                                                <nc:NDropdownOption Key="布朗酒店，伦敦" Label="布朗酒店，伦敦" />
+                                                <nc:NDropdownOption Key="亚特兰蒂斯巴哈马，拿骚" Label="亚特兰蒂斯巴哈马，拿骚" />
+                                            </nc:NDropdown.Options>
+                                            <nc:NButton Margin="0,0,12,12">下方左对齐</nc:NButton>
+                                        </nc:NDropdown>
+
+                                        <nc:NDropdown
+                                            Placement="BottomEnd"
+                                            Select="HandleDropdownSelect"
+                                            Trigger="Click">
+                                            <nc:NDropdown.Options>
+                                                <nc:NDropdownOption Key="滨海湾金沙，新加坡" Label="滨海湾金沙，新加坡" />
+                                                <nc:NDropdownOption Key="布朗酒店，伦敦" Label="布朗酒店，伦敦" />
+                                                <nc:NDropdownOption Key="亚特兰蒂斯巴哈马，拿骚" Label="亚特兰蒂斯巴哈马，拿骚" />
+                                            </nc:NDropdown.Options>
+                                            <nc:NButton Margin="0,0,12,12">下方右对齐</nc:NButton>
+                                        </nc:NDropdown>
+
+                                        <nc:NDropdown
+                                            Placement="TopStart"
+                                            Select="HandleDropdownSelect"
+                                            Trigger="Click">
+                                            <nc:NDropdown.Options>
+                                                <nc:NDropdownOption Key="滨海湾金沙，新加坡" Label="滨海湾金沙，新加坡" />
+                                                <nc:NDropdownOption Key="布朗酒店，伦敦" Label="布朗酒店，伦敦" />
+                                                <nc:NDropdownOption Key="亚特兰蒂斯巴哈马，拿骚" Label="亚特兰蒂斯巴哈马，拿骚" />
+                                            </nc:NDropdown.Options>
+                                            <nc:NButton Margin="0,0,12,12">上方左对齐</nc:NButton>
+                                        </nc:NDropdown>
+
+                                        <nc:NDropdown
+                                            Placement="RightStart"
+                                            Select="HandleDropdownSelect"
+                                            Trigger="Click">
+                                            <nc:NDropdown.Options>
+                                                <nc:NDropdownOption Key="滨海湾金沙，新加坡" Label="滨海湾金沙，新加坡" />
+                                                <nc:NDropdownOption Key="布朗酒店，伦敦" Label="布朗酒店，伦敦" />
+                                                <nc:NDropdownOption Key="亚特兰蒂斯巴哈马，拿骚" Label="亚特兰蒂斯巴哈马，拿骚" />
+                                            </nc:NDropdown.Options>
+                                            <nc:NButton Margin="0,0,12,12">右侧顶对齐</nc:NButton>
+                                        </nc:NDropdown>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionCustomContent" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="自定义内容" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="通过 NDropdownRenderOption 可以在菜单中插入一段完整的自定义内容，适合放说明卡片、推荐操作或快捷入口。" />
+                                    <nc:NDropdown
+                                        Placement="BottomStart"
+                                        Select="HandleDropdownSelect"
+                                        Trigger="Click">
+                                        <nc:NDropdown.Options>
+                                            <nc:NDropdownRenderOption>
+                                                <Border
+                                                    Margin="4,2"
+                                                    Padding="12,10"
+                                                    Background="{DynamicResource Theme.Surface.1.Brush}"
+                                                    CornerRadius="6">
+                                                    <StackPanel>
+                                                        <TextBlock
+                                                            FontWeight="SemiBold"
+                                                            Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                            Text="推荐操作" />
+                                                        <TextBlock
+                                                            Margin="0,6,0,0"
+                                                            Style="{StaticResource DropdownHintTextStyle}"
+                                                            Text="先处理权限、主题和通知，再继续进入高级设置。" />
+                                                    </StackPanel>
+                                                </Border>
+                                            </nc:NDropdownRenderOption>
+                                            <nc:NDropdownDividerOption />
+                                            <nc:NDropdownOption Key="进入权限中心" Label="进入权限中心" />
+                                            <nc:NDropdownOption Key="打开主题设置" Label="打开主题设置" />
+                                        </nc:NDropdown.Options>
+                                        <nc:NButton Kind="Secondary">打开推荐菜单</nc:NButton>
+                                    </nc:NDropdown>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <nu:CardElement x:Name="SectionIcon" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="图标" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="每个菜单项都可以在左侧附带图标，用来强化“资料”“编辑”“退出”这类语义。" />
+                                    <nc:NDropdown Select="HandleDropdownSelect" Trigger="Click">
+                                        <nc:NDropdown.Options>
+                                            <nc:NDropdownOption Key="用户资料" Label="用户资料">
+                                                <nc:NDropdownOption.Icon>
+                                                    <nc:NIcon Data="{StaticResource DropdownUserGeometry}" />
+                                                </nc:NDropdownOption.Icon>
+                                            </nc:NDropdownOption>
+                                            <nc:NDropdownOption Key="编辑资料" Label="编辑资料">
+                                                <nc:NDropdownOption.Icon>
+                                                    <nc:NIcon Data="{StaticResource DropdownEditGeometry}" />
+                                                </nc:NDropdownOption.Icon>
+                                            </nc:NDropdownOption>
+                                            <nc:NDropdownOption Key="退出登录" Label="退出登录">
+                                                <nc:NDropdownOption.Icon>
+                                                    <nc:NIcon Data="{StaticResource DropdownLogoutGeometry}" />
+                                                </nc:NDropdownOption.Icon>
+                                            </nc:NDropdownOption>
+                                        </nc:NDropdown.Options>
+                                        <nc:NButton>用户资料</nc:NButton>
+                                    </nc:NDropdown>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionCascade" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="多级菜单" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="和 Naive UI 一样支持多级级联。父项悬浮后会向右展开子菜单，当前层级会保留文字高亮。" />
+                                    <nc:NDropdown
+                                        Placement="BottomStart"
+                                        Select="HandleDropdownSelect"
+                                        Trigger="Click">
+                                        <nc:NDropdown.Options>
+                                            <nc:NDropdownOption Key="杰·盖茨比" Label="杰·盖茨比" />
+                                            <nc:NDropdownOption Key="黛西·布坎南" Label="黛西·布坎南">
+                                                <nc:NDropdownOption.Icon>
+                                                    <nc:NIcon Data="{StaticResource DropdownUserGeometry}" />
+                                                </nc:NDropdownOption.Icon>
+                                            </nc:NDropdownOption>
+                                            <nc:NDropdownDividerOption />
+                                            <nc:NDropdownOption Key="尼克·卡拉威" Label="尼克·卡拉威" />
+                                            <nc:NDropdownOption Key="其他" Label="其他">
+                                                <nc:NDropdownOption Key="乔丹·贝克" Label="乔丹·贝克" />
+                                                <nc:NDropdownOption Key="汤姆·布坎南" Label="汤姆·布坎南" />
+                                                <nc:NDropdownOption
+                                                    Key="更多角色"
+                                                    Disabled="True"
+                                                    Label="更多角色">
+                                                    <nc:NDropdownOption Key="鸡肉" Label="鸡肉" />
+                                                    <nc:NDropdownOption Key="牛肉" Label="牛肉" />
+                                                </nc:NDropdownOption>
+                                            </nc:NDropdownOption>
+                                        </nc:NDropdown.Options>
+                                        <nc:NButton>人物和食物</nc:NButton>
+                                    </nc:NDropdown>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionArrow" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="显示箭头" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="ShowArrow 会在浮层边缘加上一个指向触发源的小箭头，更接近 Naive UI 在 Popover 系列里的视觉表现。" />
+                                    <nc:NDropdown
+                                        Placement="BottomStart"
+                                        Select="HandleDropdownSelect"
+                                        ShowArrow="True"
+                                        Trigger="Click">
+                                        <nc:NDropdown.Options>
+                                            <nc:NDropdownOption
+                                                Key="滨海湾金沙，新加坡"
+                                                Disabled="True"
+                                                Label="滨海湾金沙，新加坡" />
+                                            <nc:NDropdownOption Key="布朗酒店，伦敦" Label="布朗酒店，伦敦" />
+                                            <nc:NDropdownOption Key="亚特兰蒂斯巴哈马，拿骚" Label="亚特兰蒂斯巴哈马，拿骚" />
+                                            <nc:NDropdownOption Key="比佛利山庄酒店，洛杉矶" Label="比佛利山庄酒店，洛杉矶" />
+                                        </nc:NDropdown.Options>
+                                        <nc:NButton>带箭头的菜单</nc:NButton>
+                                    </nc:NDropdown>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+
+                        <nu:CardElement x:Name="SectionSize" Margin="0,0,0,20">
+                            <nu:CardElement.HeaderElement>
+                                <Grid Margin="30,28,30,0">
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="菜单尺寸" />
+                                </Grid>
+                            </nu:CardElement.HeaderElement>
+                            <nu:CardElement.ContentElement>
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="Small、Medium、Large、Huge 会同步影响菜单项高度、字号以及前后缀宽度，适合匹配不同密度的界面。" />
+                                    <WrapPanel Width="420">
+                                        <nc:NDropdown
+                                            Placement="BottomStart"
+                                            Select="HandleDropdownSelect"
+                                            Size="Small"
+                                            Trigger="Click">
+                                            <nc:NDropdown.Options>
+                                                <nc:NDropdownOption Key="杰·盖茨比" Label="杰·盖茨比" />
+                                                <nc:NDropdownOption Key="黛西·布坎南" Label="黛西·布坎南" />
+                                                <nc:NDropdownDividerOption />
+                                                <nc:NDropdownOption Key="尼克·卡拉威" Label="尼克·卡拉威" />
+                                            </nc:NDropdown.Options>
+                                            <nc:NButton Margin="0,0,12,12">小号</nc:NButton>
+                                        </nc:NDropdown>
+
+                                        <nc:NDropdown
+                                            Placement="BottomStart"
+                                            Select="HandleDropdownSelect"
+                                            Size="Medium"
+                                            Trigger="Click">
+                                            <nc:NDropdown.Options>
+                                                <nc:NDropdownOption Key="杰·盖茨比" Label="杰·盖茨比" />
+                                                <nc:NDropdownOption Key="黛西·布坎南" Label="黛西·布坎南" />
+                                                <nc:NDropdownDividerOption />
+                                                <nc:NDropdownOption Key="尼克·卡拉威" Label="尼克·卡拉威" />
+                                            </nc:NDropdown.Options>
+                                            <nc:NButton Margin="0,0,12,12">中号</nc:NButton>
+                                        </nc:NDropdown>
+
+                                        <nc:NDropdown
+                                            Placement="BottomStart"
+                                            Select="HandleDropdownSelect"
+                                            Size="Large"
+                                            Trigger="Click">
+                                            <nc:NDropdown.Options>
+                                                <nc:NDropdownOption Key="杰·盖茨比" Label="杰·盖茨比" />
+                                                <nc:NDropdownOption Key="黛西·布坎南" Label="黛西·布坎南" />
+                                                <nc:NDropdownDividerOption />
+                                                <nc:NDropdownOption Key="尼克·卡拉威" Label="尼克·卡拉威" />
+                                            </nc:NDropdown.Options>
+                                            <nc:NButton Margin="0,0,12,12">大号</nc:NButton>
+                                        </nc:NDropdown>
+
+                                        <nc:NDropdown
+                                            Placement="BottomStart"
+                                            Select="HandleDropdownSelect"
+                                            Size="Huge"
+                                            Trigger="Click">
+                                            <nc:NDropdown.Options>
+                                                <nc:NDropdownOption Key="杰·盖茨比" Label="杰·盖茨比" />
+                                                <nc:NDropdownOption Key="黛西·布坎南" Label="黛西·布坎南" />
+                                                <nc:NDropdownDividerOption />
+                                                <nc:NDropdownOption Key="尼克·卡拉威" Label="尼克·卡拉威" />
+                                            </nc:NDropdown.Options>
+                                            <nc:NButton Margin="0,0,12,12">超大号</nc:NButton>
+                                        </nc:NDropdown>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </nu:CardElement.ContentElement>
+                        </nu:CardElement>
+                    </StackPanel>
+                </Grid>
+
+                <nu:CardElement x:Name="SectionApi" Margin="0,20,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="API" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <TextBlock
+                            Margin="30,24,30,24"
+                            Style="{StaticResource DocBodyTextStyle}"
+                            Text="下面的 API 表按当前 WPF Dropdown 实现整理，保留了 Naive UI 中最常用的触发、定位、尺寸和级联能力。" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <nu:CardElement x:Name="SectionDropdownProps" Margin="0,0,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Dropdown Props" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding DropdownPropsRows}" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <nu:CardElement x:Name="SectionDropdownOptionProps" Margin="0,0,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="DropdownOption Props" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding DropdownOptionRows}" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <nu:CardElement x:Name="SectionDropdownOtherTypes" Margin="0,0,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Other Type" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding DropdownOtherOptionRows}" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <nu:CardElement x:Name="SectionDropdownSlots" Margin="0,0,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Dropdown Slots" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding DropdownSlotsRows}" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="2" Background="{DynamicResource Theme.Surface.0.Brush}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="20,36,20,20">
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="基础"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionBasic" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="图标"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionIcon" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="触发方式"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionTrigger" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="多级菜单"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionCascade" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="分组与分割线"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionGroup" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="显示箭头"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionArrow" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="弹出位置"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionPlacement" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="菜单尺寸"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionSize" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="自定义内容"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionCustomContent" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="接口说明"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionApi" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="下拉菜单属性"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionDropdownProps" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="菜单项属性"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionDropdownOptionProps" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="其他类型"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionDropdownOtherTypes" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="触发插槽"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionDropdownSlots" />
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

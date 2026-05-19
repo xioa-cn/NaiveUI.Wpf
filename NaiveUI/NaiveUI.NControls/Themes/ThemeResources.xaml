@@ -9,5 +9,6 @@
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/AvatarStyles.xaml" />
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/CarouselStyles.xaml" />
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/CollapseStyles.xaml" />
+        <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/DropdownStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

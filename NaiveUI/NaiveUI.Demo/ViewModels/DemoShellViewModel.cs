@@ -26,7 +26,8 @@ public sealed class DemoShellViewModel : ViewModelBase
             ["card"] = static () => new CardDocsPage(),
             ["divider"] = static () => new DividerDocsPage(),
             ["carousel"] = static () => new CarouselDocsPage(),
-            ["collapse"] = static () => new CollapseDocsPage()
+            ["collapse"] = static () => new CollapseDocsPage(),
+            ["dropdown"] = static () => new DropdownDocsPage()
         };
 
         currentPageView = homePage;
