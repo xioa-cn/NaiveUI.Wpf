@@ -22,7 +22,8 @@ public sealed class DocsPageViewModel : ViewModelBase
             ["carousel"] = static () => new CarouselDocsPage(),
             ["collapse"] = static () => new CollapseDocsPage(),
             ["dropdown"] = static () => new DropdownDocsPage(),
-            ["ellipsis"] = static () => new EllipsisDocsPage()
+            ["ellipsis"] = static () => new EllipsisDocsPage(),
+            ["gradient-text"] = static () => new GradientTextDocsPage()
         };
 
         SidebarCategories = ComponentSidebarViewModelFactory.Create(initialComponentKey);
