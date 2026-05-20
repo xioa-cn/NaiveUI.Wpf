@@ -1,0 +1,189 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Pages.PageHeaderDocsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style
+            x:Key="SectionCardHeaderTitleStyle"
+            BasedOn="{StaticResource DocSectionTitleStyle}"
+            TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+        <Style x:Key="PageHeaderStatLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Secondary.Brush}" />
+            <Setter Property="Margin" Value="0,0,0,10" />
+        </Style>
+
+        <Style x:Key="PageHeaderStatValueStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="68,34,18,34">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="48"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                        Text="页头 PageHeader" />
+                </StackPanel>
+
+                <TextBlock
+                    Margin="0,26,0,0"
+                    FontSize="18"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="我感觉你很可能用不上这个组件，因为根据你拿到的设计稿很可能是重写一个简单。" />
+
+                <TextBlock
+                    Margin="0,52,0,28"
+                    FontSize="36"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="演示" />
+
+                <StackPanel>
+                    <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="基础用法" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+
+
+                                <nc:NPageHeader OnBack="{Binding BackCommand}" Subtitle="让你的听觉更懂视觉">
+                                    <nc:NPageHeader.TitleContent>
+                                        <TextBlock Text="Anyway.FM" />
+                                    </nc:NPageHeader.TitleContent>
+
+                                    <nc:NPageHeader.HeaderContent>
+                                        <nc:NBreadcrumb>
+                                            <nc:NBreadcrumbItem Click="BreadcrumbItemClick">播客</nc:NBreadcrumbItem>
+                                            <nc:NBreadcrumbItem Click="BreadcrumbItemClick">精选</nc:NBreadcrumbItem>
+                                            <nc:NBreadcrumbItem Click="BreadcrumbItemClick">超级精选</nc:NBreadcrumbItem>
+                                            <nc:NBreadcrumbItem Click="BreadcrumbItemClick">Anyway.FM</nc:NBreadcrumbItem>
+                                        </nc:NBreadcrumb>
+                                    </nc:NPageHeader.HeaderContent>
+
+                                    <nc:NPageHeader.AvatarContent>
+                                        <nc:NAvatar Size="40" Src="https://cdnimg103.lizhi.fm/user/2017/02/04/2583325032200238082_160x160.jpg" />
+                                    </nc:NPageHeader.AvatarContent>
+
+                                    <nc:NPageHeader.ExtraContent>
+                                        <StackPanel Orientation="Horizontal">
+                                            <nc:NButton Margin="0,0,12,0">催更</nc:NButton>
+                                            <nc:NDropdown
+                                                Placement="BottomStart"
+                                                Select="HandleExtraDropdownSelect"
+                                                Trigger="Click">
+                                                <nc:NDropdown.Options>
+                                                    <nc:NDropdownOption Key="1" Label="催更" />
+                                                    <nc:NDropdownOption Key="2" Label="催更" />
+                                                    <nc:NDropdownOption Key="3" Label="催更" />
+                                                </nc:NDropdown.Options>
+                                                <nc:NButton Kind="Quaternary">···</nc:NButton>
+                                            </nc:NDropdown>
+                                        </StackPanel>
+                                    </nc:NPageHeader.ExtraContent>
+
+                                    <nc:NPageHeader.FooterContent>
+                                        <TextBlock
+                                            FontSize="14"
+                                            Foreground="{DynamicResource Theme.Text.Secondary.Brush}"
+                                            Text="截止到 2021 年 4 月 3 日" />
+                                    </nc:NPageHeader.FooterContent>
+
+                                    <UniformGrid Columns="5">
+                                        <StackPanel>
+                                            <TextBlock Style="{StaticResource PageHeaderStatLabelStyle}" Text="正片" />
+                                            <TextBlock Style="{StaticResource PageHeaderStatValueStyle}" Text="125 集" />
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <TextBlock Style="{StaticResource PageHeaderStatLabelStyle}" Text="嘉宾" />
+                                            <TextBlock Style="{StaticResource PageHeaderStatValueStyle}" Text="22 位" />
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <TextBlock Style="{StaticResource PageHeaderStatLabelStyle}" Text="道歉" />
+                                            <TextBlock Style="{StaticResource PageHeaderStatValueStyle}" Text="36 次" />
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <TextBlock Style="{StaticResource PageHeaderStatLabelStyle}" Text="话题" />
+                                            <TextBlock Style="{StaticResource PageHeaderStatValueStyle}" Text="83 个" />
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <TextBlock Style="{StaticResource PageHeaderStatLabelStyle}" Text="参考链接" />
+                                            <TextBlock Style="{StaticResource PageHeaderStatValueStyle}" Text="2,346 个" />
+                                        </StackPanel>
+                                    </UniformGrid>
+                                </nc:NPageHeader>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionApi" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="API" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <TextBlock
+                                Margin="30,24,30,24"
+                                Style="{StaticResource DocBodyTextStyle}"
+                                Text="WPF 版本以 Naive UI 的 title、subtitle、extra、on-back 为主属性，同时把 header、avatar、extra、footer、title、subtitle、back 等插槽分别映射成对应的 Content 属性，方便在 XAML 里一对一组织结构。" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionPageHeaderProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="PageHeader Props" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding PageHeaderPropsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionPageHeaderSlots" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="PageHeader Slots" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding PageHeaderSlotsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="1" Background="{DynamicResource Theme.Surface.0.Brush}">
+            <nc:NMenu
+                Margin="20,36,20,20"
+                DisplayMemberPath="Label"
+                ItemInvoked="HandleOutlineItemInvoked"
+                ItemsSource="{Binding OutlineItems}"
+                SelectedValuePath="TargetName" />
+        </Border>
+    </Grid>
+</UserControl>

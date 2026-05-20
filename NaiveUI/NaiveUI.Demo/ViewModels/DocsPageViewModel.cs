@@ -17,6 +17,7 @@ public sealed class DocsPageViewModel : ViewModelBase
         {
             ["button"] = static () => new ButtonDocsPage(),
             ["avatar"] = static () => new AvatarDocsPage(),
+            ["breadcrumb"] = static () => new BreadcrumbDocsPage(),
             ["card"] = static () => new CardDocsPage(),
             ["divider"] = static () => new DividerDocsPage(),
             ["carousel"] = static () => new CarouselDocsPage(),
@@ -24,7 +25,8 @@ public sealed class DocsPageViewModel : ViewModelBase
             ["dropdown"] = static () => new DropdownDocsPage(),
             ["ellipsis"] = static () => new EllipsisDocsPage(),
             ["gradient-text"] = static () => new GradientTextDocsPage(),
-            ["icon"] = static () => new IconDocsPage()
+            ["icon"] = static () => new IconDocsPage(),
+            ["page-header"] = static () => new PageHeaderDocsPage()
         };
 
         SidebarCategories = ComponentSidebarViewModelFactory.Create(initialComponentKey);

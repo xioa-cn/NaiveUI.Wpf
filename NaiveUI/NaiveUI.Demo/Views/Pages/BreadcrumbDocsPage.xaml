@@ -1,0 +1,306 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Pages.BreadcrumbDocsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style
+            x:Key="SectionCardHeaderTitleStyle"
+            BasedOn="{StaticResource DocSectionTitleStyle}"
+            TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+        <Style x:Key="BreadcrumbIconStyle" TargetType="{x:Type nc:NIcon}">
+            <Setter Property="Margin" Value="0,0,4,0" />
+            <Setter Property="Size" Value="18" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Geometry x:Key="BreadcrumbCashGeometry">M4 7C4 5.89543 4.89543 5 6 5H18C19.1046 5 20 5.89543 20 7V17C20 18.1046 19.1046 19 18 19H6C4.89543 19 4 18.1046 4 17V7ZM7 8C7 8.55228 6.55228 9 6 9V15C6.55228 15 7 15.4477 7 16H17C17 15.4477 17.4477 15 18 15V9C17.4477 9 17 8.55228 17 8H7ZM12 10C13.1046 10 14 10.8954 14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10Z</Geometry>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="68,34,18,34">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="48"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                        Text="面包屑 Breadcrumb" />
+                </StackPanel>
+
+                <TextBlock
+                    Margin="0,26,0,0"
+                    FontSize="18"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="这东西长得和它名字不怎么像。" />
+
+                <TextBlock
+                    Margin="0,52,0,28"
+                    FontSize="36"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="演示" />
+
+                <StackPanel>
+                    <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="基础用法" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="基础图标面包屑，对齐 Naive UI 官方 basic 示例。" />
+                                <nc:NBreadcrumb>
+                                    <nc:NBreadcrumbItem Click="NBreadcrumbItemClick">
+                                        <StackPanel Orientation="Horizontal">
+                                            <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}" Style="{StaticResource BreadcrumbIconStyle}" />
+                                            <TextBlock VerticalAlignment="Center" Text="北京总行" />
+                                        </StackPanel>
+                                    </nc:NBreadcrumbItem>
+                                    <nc:NBreadcrumbItem Click="NBreadcrumbItemClick">
+                                        <StackPanel Orientation="Horizontal">
+                                            <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}" Style="{StaticResource BreadcrumbIconStyle}" />
+                                            <TextBlock VerticalAlignment="Center" Text="天津分行" />
+                                        </StackPanel>
+                                    </nc:NBreadcrumbItem>
+                                    <nc:NBreadcrumbItem Click="NBreadcrumbItemClick">
+                                        <StackPanel Orientation="Horizontal">
+                                            <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}" Style="{StaticResource BreadcrumbIconStyle}" />
+                                            <TextBlock VerticalAlignment="Center" Text="平山道支行" />
+                                        </StackPanel>
+                                    </nc:NBreadcrumbItem>
+                                </nc:NBreadcrumb>
+                                <TextBlock
+                                    Margin="0,20,0,12"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="WPF 中更常见的用法是绑定 Command 和 CommandParameter。" />
+                                <nc:NBreadcrumb Margin="0,0,0,12">
+                                    <nc:NBreadcrumbItem Command="{Binding BreadcrumbCommand}" CommandParameter="Home">
+                                        <TextBlock Text="Home" />
+                                    </nc:NBreadcrumbItem>
+                                    <nc:NBreadcrumbItem Command="{Binding BreadcrumbCommand}" CommandParameter="Components">
+                                        <TextBlock Text="Components" />
+                                    </nc:NBreadcrumbItem>
+                                    <nc:NBreadcrumbItem>
+                                        <TextBlock Text="Breadcrumb" />
+                                    </nc:NBreadcrumbItem>
+                                </nc:NBreadcrumb>
+                                <TextBlock Style="{StaticResource DocBodyTextStyle}" Text="{Binding BreadcrumbCommandText}" />
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionCustom" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="下拉菜单" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="和下拉菜单一起使用，对齐 Naive UI 官方 custom 示例。" />
+                                <nc:NBreadcrumb>
+                                    <nc:NBreadcrumbItem Click="NBreadcrumbItemClick">
+                                        <nc:NDropdown Select="HandleCustomDropdownSelect" Trigger="Click">
+                                            <nc:NDropdown.Options>
+                                                <nc:NDropdownOption Key="David Tao" Label="David Tao" />
+                                                <nc:NDropdownOption Key="黑色柳丁" Label="黑色柳丁" />
+                                            </nc:NDropdown.Options>
+                                            <Border
+                                                Margin="-4"
+                                                Padding="4"
+                                                Background="Transparent"
+                                                CornerRadius="3">
+                                                <TextBlock Text="I'm ok" />
+                                            </Border>
+                                        </nc:NDropdown>
+                                    </nc:NBreadcrumbItem>
+                                    <nc:NBreadcrumbItem Click="NBreadcrumbItemClick">
+                                        <nc:NDropdown Select="HandleCustomDropdownSelect" Trigger="Click">
+                                            <nc:NDropdown.Options>
+                                                <nc:NDropdownOption Key="小镇姑娘" Label="小镇姑娘" />
+                                                <nc:NDropdownOption Key="普通朋友" Label="普通朋友" />
+                                            </nc:NDropdown.Options>
+                                            <Border
+                                                Margin="-4"
+                                                Padding="4"
+                                                Background="Transparent"
+                                                CornerRadius="3">
+                                                <TextBlock Text="I'm ok" />
+                                            </Border>
+                                        </nc:NDropdown>
+                                    </nc:NBreadcrumbItem>
+                                </nc:NBreadcrumb>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionSeparator" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="自定义分隔符" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="使用 Separator 属性自定义整体分隔符，对齐 Naive UI 官方 separator 示例。" />
+                                <nc:NBreadcrumb Separator="&gt;">
+                                    <nc:NBreadcrumbItem Click="NBreadcrumbItemClick">
+                                        <StackPanel Orientation="Horizontal">
+                                            <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}" Style="{StaticResource BreadcrumbIconStyle}" />
+                                            <TextBlock VerticalAlignment="Center" Text="北京总行" />
+                                        </StackPanel>
+                                    </nc:NBreadcrumbItem>
+                                    <nc:NBreadcrumbItem Click="NBreadcrumbItemClick">
+                                        <StackPanel Orientation="Horizontal">
+                                            <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}" Style="{StaticResource BreadcrumbIconStyle}" />
+                                            <TextBlock VerticalAlignment="Center" Text="天津分行" />
+                                        </StackPanel>
+                                    </nc:NBreadcrumbItem>
+                                    <nc:NBreadcrumbItem>
+                                        <StackPanel Orientation="Horizontal">
+                                            <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}" Style="{StaticResource BreadcrumbIconStyle}" />
+                                            <TextBlock VerticalAlignment="Center" Text="平山道支行" />
+                                        </StackPanel>
+                                    </nc:NBreadcrumbItem>
+                                </nc:NBreadcrumb>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionSeparatorPerItem" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="自定义每项分隔符" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="使用每项自己的 Separator 或 SeparatorContent 覆盖分隔符。如果二者都提供，则优先使用 SeparatorContent，对齐 Naive UI 官方 separator-per-item 示例。" />
+                                <nc:NBreadcrumb>
+                                    <nc:NBreadcrumbItem Click="NBreadcrumbItemClick" Separator="&gt;">
+                                        <StackPanel Orientation="Horizontal">
+                                            <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}" Style="{StaticResource BreadcrumbIconStyle}" />
+                                            <TextBlock VerticalAlignment="Center" Text="北京总行" />
+                                        </StackPanel>
+                                    </nc:NBreadcrumbItem>
+                                    <nc:NBreadcrumbItem Click="NBreadcrumbItemClick">
+                                        <nc:NBreadcrumbItem.SeparatorContent>
+                                            <TextBlock Text="~" />
+                                        </nc:NBreadcrumbItem.SeparatorContent>
+                                        <StackPanel Orientation="Horizontal">
+                                            <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}" Style="{StaticResource BreadcrumbIconStyle}" />
+                                            <TextBlock VerticalAlignment="Center" Text="天津分行" />
+                                        </StackPanel>
+                                    </nc:NBreadcrumbItem>
+                                    <nc:NBreadcrumbItem Click="NBreadcrumbItemClick">
+                                        <nc:NBreadcrumbItem.SeparatorContent>
+                                            <TextBlock Text="~" />
+                                        </nc:NBreadcrumbItem.SeparatorContent>
+                                        <StackPanel Orientation="Horizontal">
+                                            <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}" Style="{StaticResource BreadcrumbIconStyle}" />
+                                            <TextBlock VerticalAlignment="Center" Text="平山道支行" />
+                                        </StackPanel>
+                                    </nc:NBreadcrumbItem>
+                                </nc:NBreadcrumb>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionApi" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="API" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <TextBlock
+                                Margin="30,24,30,24"
+                                Style="{StaticResource DocBodyTextStyle}"
+                                Text="WPF 版本保留了 Naive UI Breadcrumb 的 Separator、每项单独分隔符和分隔符插槽语义，并额外用 SeparatorContent 映射 separator slot，方便直接在 XAML 里组织内容。" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionBreadcrumbProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Breadcrumb Props" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding BreadcrumbPropsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionBreadcrumbItemProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="BreadcrumbItem Props" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding BreadcrumbItemPropsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionBreadcrumbSlots" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Breadcrumb Slots" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding BreadcrumbSlotsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionBreadcrumbItemSlots" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Breadcrumb Item Slots" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding BreadcrumbItemSlotsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="1" Background="{DynamicResource Theme.Surface.0.Brush}">
+            <nc:NMenu
+                Margin="20,36,20,20"
+                DisplayMemberPath="Label"
+                ItemInvoked="HandleOutlineItemInvoked"
+                ItemsSource="{Binding OutlineItems}"
+                SelectedValuePath="TargetName" />
+        </Border>
+    </Grid>
+</UserControl>
