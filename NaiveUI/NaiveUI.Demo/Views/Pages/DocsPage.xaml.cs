@@ -18,7 +18,7 @@ public partial class DocsPage : UserControl
     {
         if (e.Item is ComponentSidebarItemViewModel item)
         {
-            ViewModel.ShowComponent(item.Key);
+            ViewModel.ShowComponent(item);
         }
     }
 }

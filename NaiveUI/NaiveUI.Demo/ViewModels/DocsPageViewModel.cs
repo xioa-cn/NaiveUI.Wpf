@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using NaiveUI.Demo.Services;
 using NaiveUI.Demo.Views.Pages;
+using NaiveUI.NControls.Tools;
 
 namespace NaiveUI.Demo.ViewModels;
 
@@ -26,7 +27,8 @@ public sealed class DocsPageViewModel : ViewModelBase
             ["ellipsis"] = static () => new EllipsisDocsPage(),
             ["gradient-text"] = static () => new GradientTextDocsPage(),
             ["icon"] = static () => new IconDocsPage(),
-            ["page-header"] = static () => new PageHeaderDocsPage()
+            ["page-header"] = static () => new PageHeaderDocsPage(),
+            ["tag"] = static () => new TagDocsPage()
         };
 
         SidebarCategories = ComponentSidebarViewModelFactory.Create(initialComponentKey);
@@ -41,19 +43,20 @@ public sealed class DocsPageViewModel : ViewModelBase
         private set => SetProperty(ref currentContentView, value);
     }
 
-    public void ShowComponent(string componentKey)
+    public void ShowComponent(ComponentSidebarItemViewModel component)
     {
-        if (!componentPageFactories.ContainsKey(componentKey))
+        if (!componentPageFactories.ContainsKey(component.Key))
         {
+            NElMessage.Error($"页面 {component.Title} 正在开发中！");
             return;
         }
 
         foreach (var item in SidebarCategories.SelectMany(category => category.Items))
         {
-            item.IsSelected = string.Equals(item.Key, componentKey, StringComparison.OrdinalIgnoreCase);
+            item.IsSelected = string.Equals(item.Key, component.Key, StringComparison.OrdinalIgnoreCase);
         }
 
-        CurrentContentView = ResolveComponentPage(componentKey);
+        CurrentContentView = ResolveComponentPage(component.Key);
     }
 
     private object ResolveComponentPage(string componentKey)

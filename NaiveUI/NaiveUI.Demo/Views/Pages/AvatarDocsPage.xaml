@@ -39,9 +39,7 @@
             <ColumnDefinition Width="220" />
         </Grid.ColumnDefinitions>
 
-        <ScrollViewer
-            Grid.Column="0"
-            VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="68,34,18,34">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
@@ -80,9 +78,7 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="基础" />
-                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                      
-                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" />
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
@@ -92,7 +88,10 @@
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="头像默认支持图片、文字和任意可视内容。没有内容时会显示占位图标。" />
                                     <WrapPanel>
-                                        <nc:NAvatar Margin="0,0,16,16" Content="U" />
+                                        <nc:NAvatar
+                                            Margin="0,0,16,16"
+                                            Content="U"
+                                            Size="100" />
                                         <nc:NAvatar
                                             Margin="0,0,16,16"
                                             Background="{DynamicResource Primary.Third.Brush}"

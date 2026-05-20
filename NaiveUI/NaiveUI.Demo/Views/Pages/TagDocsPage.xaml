@@ -1,0 +1,659 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Pages.TagDocsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+
+
+        <Style
+            x:Key="SectionCardHeaderTitleStyle"
+            BasedOn="{StaticResource DocSectionTitleStyle}"
+            TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+        <Style x:Key="InlineSwitchStyle" TargetType="ToggleButton">
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="22" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid>
+                            <Border
+                                x:Name="SwitchTrack"
+                                Background="{DynamicResource Primary.First.Brush}"
+                                BorderBrush="{DynamicResource Primary.First.Brush}"
+                                BorderThickness="1"
+                                CornerRadius="11" />
+                            <Border
+                                x:Name="SwitchThumb"
+                                Width="18"
+                                Height="18"
+                                Margin="20,2,2,2"
+                                HorizontalAlignment="Left"
+                                Background="{DynamicResource Theme.Surface.0.Brush}"
+                                CornerRadius="9" />
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter TargetName="SwitchTrack" Property="Background" Value="{DynamicResource Theme.Border.Strong.Brush}" />
+                                <Setter TargetName="SwitchTrack" Property="BorderBrush" Value="{DynamicResource Theme.Border.Strong.Brush}" />
+                                <Setter TargetName="SwitchThumb" Property="Margin" Value="2,2,20,2" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.45" />
+                                <Setter Property="Cursor" Value="Arrow" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="68,34,18,34">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="48"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                        Text="标签 Tag" />
+                </StackPanel>
+
+                <TextBlock
+                    Margin="0,26,0,0"
+                    FontSize="18"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="通常用来展示一些属性，偶尔也用来当一些备选的属性。" />
+
+                <TextBlock
+                    Margin="0,52,0,28"
+                    FontSize="36"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="演示" />
+
+                <StackPanel>
+                    <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="基础" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="它有不同的类型。" />
+                                <WrapPanel>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        BorderThickness="2"
+                                        Click="HandleTagClick">
+                                        爱在西元前
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        BorderThickness="2"
+                                        Type="Success">
+                                        不该
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        BorderThickness="2"
+                                        Type="Warning">
+                                        超人不会飞
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        BorderThickness="2"
+                                        Type="Error">
+                                        手写的从前
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        BorderThickness="2"
+                                        Type="Info">
+                                        哪里都是你
+                                    </nc:NTag>
+                                </WrapPanel>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionBordered" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="无边框" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="设置 Bordered 为 false。" />
+                                <WrapPanel>
+                                    <nc:NTag Margin="0,0,12,12" Bordered="False">爱在西元前</nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Bordered="False"
+                                        Type="Success">
+                                        不该
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Bordered="False"
+                                        Type="Warning">
+                                        超人不会飞
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Bordered="False"
+                                        Type="Error">
+                                        手写的从前
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Bordered="False"
+                                        Type="Info">
+                                        哪里都是你
+                                    </nc:NTag>
+                                </WrapPanel>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionClosable" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="可关闭" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="点击关闭按钮会触发 Close；最后一个标签同时绑定了 Click。" />
+                                <WrapPanel>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Click="HandleTagClick"
+                                        Closable="True"
+                                        Close="HandleTagClose">
+                                        爱在西元前
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Closable="True"
+                                        Close="HandleTagClose"
+                                        Type="Success">
+                                        不该
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Closable="True"
+                                        Close="HandleTagClose"
+                                        Type="Warning">
+                                        超人不会飞
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Closable="True"
+                                        Close="HandleTagClose"
+                                        Type="Error">
+                                        手写的从前
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Click="HandleTagClick"
+                                        Closable="True"
+                                        Close="HandleTagClose"
+                                        Type="Info">
+                                        哪里都是你
+                                    </nc:NTag>
+                                </WrapPanel>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionDisabled" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="禁用" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="和官方示例一样，动态切换一组标签的禁用状态。" />
+                                <WrapPanel Margin="0,0,0,14" VerticalAlignment="Center">
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Closable="True"
+                                        Close="HandleTagClose"
+                                        Disabled="{Binding DisabledTags}">
+                                        爱在西元前
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Closable="True"
+                                        Close="HandleTagClose"
+                                        Disabled="{Binding DisabledTags}"
+                                        Type="Success">
+                                        不该
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Closable="True"
+                                        Close="HandleTagClose"
+                                        Disabled="{Binding DisabledTags}"
+                                        Type="Warning">
+                                        超人不会飞
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Closable="True"
+                                        Close="HandleTagClose"
+                                        Disabled="{Binding DisabledTags}"
+                                        Type="Error">
+                                        手写的从前
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Closable="True"
+                                        Close="HandleTagClose"
+                                        Disabled="{Binding DisabledTags}"
+                                        Type="Info">
+                                        哪里都是你
+                                    </nc:NTag>
+                                    <ToggleButton
+                                        Margin="8,0,0,10"
+                                        VerticalAlignment="Center"
+                                        IsChecked="{Binding DisabledTags, Mode=TwoWay}"
+                                        Style="{StaticResource InlineSwitchStyle}" />
+                                </WrapPanel>
+                                <TextBlock Style="{StaticResource DocBodyTextStyle}" Text="{Binding DisabledTagsDescription}" />
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionSize" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="尺寸" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="支持 tiny、small、medium、large。" />
+                                <WrapPanel>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Closable="True"
+                                        Close="HandleTagClose"
+                                        Size="Tiny"
+                                        Strong="True">
+                                        爱在西元前
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Closable="True"
+                                        Close="HandleTagClose"
+                                        Size="Small"
+                                        Type="Success">
+                                        不该
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Closable="True"
+                                        Close="HandleTagClose"
+                                        Type="Warning">
+                                        超人不会飞
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Closable="True"
+                                        Close="HandleTagClose"
+                                        Size="Large"
+                                        Type="Error">
+                                        手写的从前
+                                    </nc:NTag>
+                                </WrapPanel>
+                                <TextBlock
+                                    Margin="0,8,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="可选的文本字号重写值。当值为非数值（NaN）时，组件将采用由尺寸规格（Size）映射而来的字号" />
+                                <WrapPanel>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Padding="10"
+                                        Round="True"
+                                        Size="Small"
+                                        Strong="True"
+                                        TextFontSize="28"
+                                        Type="Success">
+                                        Small + 18
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Height="35"
+                                        Margin="0,0,12,12"
+                                        Size="Large"
+                                        TextFontSize="12"
+                                        Type="Info">
+                                        Large + 12
+                                    </nc:NTag>
+                                </WrapPanel>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionCheckable" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="可选择" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="和官方示例一样，多个标签共享同一个 checked 状态。" />
+                                <WrapPanel Margin="0,0,0,14">
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Checkable="True"
+                                        Checked="{Binding SharedChecked, Mode=TwoWay}"
+                                        Disabled="True">
+                                        爱在西元前
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Checkable="True"
+                                        Checked="{Binding SharedChecked, Mode=TwoWay}">
+                                        不该
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Checkable="True"
+                                        Checked="{Binding SharedChecked, Mode=TwoWay}">
+                                        超人不会飞
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Checkable="True"
+                                        Checked="{Binding SharedChecked, Mode=TwoWay}">
+                                        手写的从前
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Checkable="True"
+                                        Checked="{Binding SharedChecked, Mode=TwoWay}">
+                                        哪里都是你
+                                    </nc:NTag>
+                                </WrapPanel>
+                                <TextBlock Style="{StaticResource DocBodyTextStyle}" Text="{Binding SharedCheckedDescription}" />
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionShape" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="形状" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="圆的 Tag 长得像个胶囊。" />
+                                <WrapPanel>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Padding="20,10"
+                                        Closable="True"
+                                        Close="HandleTagClose"
+                                        Round="True"
+                                        Size="Small"
+                                        Strong="True"
+                                        TextFontSize="40"
+                                        Type="Success">
+                                        不该
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        VerticalAlignment="Center"
+                                        Closable="True"
+                                        Close="HandleTagClose"
+                                        Round="True"
+                                        Strong="True"
+                                        Type="Error">
+                                        手写的从前
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        VerticalAlignment="Center"
+                                        Closable="True"
+                                        Close="HandleTagClose"
+                                        Round="True"
+                                        Size="Large"
+                                        Strong="True"
+                                        Type="Error">
+                                        手写的从前
+                                    </nc:NTag>
+                                </WrapPanel>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionColor" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="颜色" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="使用一个颜色对象定制标签的颜色。" />
+                                <nc:NTag>
+                                    告别夜晚 等待天亮
+                                    <nc:NTag.Color>
+                                        <nc:NTagColor
+                                            BorderColor="#55ff55"
+                                            TextColor="#5555ff"
+                                            Color="#BBBBBB" />
+                                    </nc:NTag.Color>
+                                </nc:NTag>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionAvatar" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="头像" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="在标签中使用头像。" />
+                                <WrapPanel>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        VerticalAlignment="Center"
+                                        Click="HandleTagClick"
+                                        Type="Warning">
+                                        Anyway.FM
+                                        <nc:NTag.AvatarContent>
+                                            <nc:NAvatar Src="https://cdnimg103.lizhi.fm/user/2017/02/04/2583325032200238082_160x160.jpg" />
+                                        </nc:NTag.AvatarContent>
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Bordered="True"
+                                        Click="HandleTagClick"
+                                        Round="True"
+                                        TextFontSize="40"
+                                        Type="Success">
+                                        Anyway.FM
+                                        <nc:NTag.AvatarContent>
+                                            <nc:NAvatar
+                                                Shape="Round"
+                                                Size="35"
+                                                Src="https://cdnimg103.lizhi.fm/user/2017/02/04/2583325032200238082_160x160.jpg" />
+                                        </nc:NTag.AvatarContent>
+                                    </nc:NTag>
+                                </WrapPanel>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionIcon" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="图标" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="在标签中使用图标。" />
+                                <WrapPanel>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Bordered="True"
+                                        Click="HandleTagClick"
+                                        Size="Large"
+                                        Strong="True"
+                                        TextFontSize="20"
+                                        Type="Primary">
+                                        Checked
+                                        <nc:NTag.IconContent>
+                                            <nc:NIcon
+                                                Data="{StaticResource CheckmarkCircle}"
+                                                Size="25"
+                                                Color="{DynamicResource Primary.First.Brush}" />
+                                        </nc:NTag.IconContent>
+                                    </nc:NTag>
+                                    <nc:NTag
+                                        Margin="0,0,12,12"
+                                        Bordered="True"
+                                        Click="HandleTagClick"
+                                        Round="True"
+                                        TextFontSize="20"
+                                        Type="Info">
+                                        Checked
+                                        <nc:NTag.IconContent>
+                                            <nc:NIcon
+                                                Data="{StaticResource CheckmarkCircle}"
+                                                Size="25"
+                                                Color="{DynamicResource Info.First.Brush}" />
+                                        </nc:NTag.IconContent>
+                                    </nc:NTag>
+                                </WrapPanel>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionApi" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="API" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <TextBlock
+                                Margin="30,24,30,24"
+                                Style="{StaticResource DocBodyTextStyle}"
+                                Text="下面的 API 表在 Naive UI Tag 语义基础上，补充了 WPF 中对应的属性元素和事件映射。" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionTagProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Tag Props" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding TagPropsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionTagColorProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="TagColor Props" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,18"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="当你使用 NTagColor 自定义颜色时，可以通过下面 3 个字段分别控制背景、边框和文字颜色。" />
+                                <sections:ApiDocTable ItemsSource="{Binding TagColorPropsRows}" />
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionTagSlots" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Tag Slots" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding TagSlotsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="1" Background="{DynamicResource Theme.Surface.0.Brush}">
+            <nc:NMenu
+                Margin="20,36,20,20"
+                DisplayMemberPath="Label"
+                ItemInvoked="HandleOutlineItemInvoked"
+                ItemsSource="{Binding OutlineItems}"
+                SelectedValuePath="TargetName" />
+        </Border>
+    </Grid>
+</UserControl>

@@ -38,51 +38,53 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="{TemplateBinding ResolvedCornerRadius}">
-                            <Grid ClipToBounds="True">
-                                <Image
-                                    x:Name="PART_Image"
-                                    Source="{TemplateBinding ResolvedImageSource}"
-                                    Stretch="{TemplateBinding ImageStretch}"
-                                    Visibility="Collapsed" />
-
+                            <controls:NClipBorder CornerRadius="{TemplateBinding ResolvedCornerRadius}">
                                 <Grid>
-                                    <ContentPresenter
-                                        x:Name="AvatarVisualContentPresenter"
-                                        Margin="{TemplateBinding ResolvedContentMargin}"
-                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                        Content="{TemplateBinding DisplayVisualContent}"
-                                        RecognizesAccessKey="True"
+                                    <Image
+                                        x:Name="PART_Image"
+                                        Source="{TemplateBinding ResolvedImageSource}"
+                                        Stretch="{TemplateBinding ImageStretch}"
                                         Visibility="Collapsed" />
 
-                                    <Viewbox
-                                        x:Name="AvatarTextPresenter"
-                                        Margin="{TemplateBinding ResolvedContentMargin}"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Stretch="Uniform"
-                                        StretchDirection="DownOnly"
-                                        Visibility="Collapsed">
-                                        <TextBlock
-                                            FontSize="{TemplateBinding ResolvedFontSize}"
-                                            FontWeight="{TemplateBinding FontWeight}"
-                                            Foreground="{TemplateBinding Foreground}"
-                                            Text="{TemplateBinding DisplayTextContent}"
-                                            TextAlignment="Center" />
-                                    </Viewbox>
+                                    <Grid>
+                                        <ContentPresenter
+                                            x:Name="AvatarVisualContentPresenter"
+                                            Margin="{TemplateBinding ResolvedContentMargin}"
+                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            Content="{TemplateBinding DisplayVisualContent}"
+                                            RecognizesAccessKey="True"
+                                            Visibility="Collapsed" />
 
-                                    <Viewbox
-                                        x:Name="PlaceholderViewbox"
-                                        Margin="{TemplateBinding ResolvedPlaceholderMargin}"
-                                        Stretch="Uniform"
-                                        Visibility="Collapsed">
-                                        <Path
-                                            Data="{StaticResource Avatar_Normal}"
-                                            Fill="{TemplateBinding PlaceholderForeground}"
-                                            Stretch="Uniform" />
-                                    </Viewbox>
+                                        <Viewbox
+                                            x:Name="AvatarTextPresenter"
+                                            Margin="{TemplateBinding ResolvedContentMargin}"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch"
+                                            Stretch="Uniform"
+                                            StretchDirection="DownOnly"
+                                            Visibility="Collapsed">
+                                            <TextBlock
+                                                FontSize="{TemplateBinding ResolvedFontSize}"
+                                                FontWeight="{TemplateBinding FontWeight}"
+                                                Foreground="{TemplateBinding Foreground}"
+                                                Text="{TemplateBinding DisplayTextContent}"
+                                                TextAlignment="Center" />
+                                        </Viewbox>
+
+                                        <Viewbox
+                                            x:Name="PlaceholderViewbox"
+                                            Margin="{TemplateBinding ResolvedPlaceholderMargin}"
+                                            Stretch="Uniform"
+                                            Visibility="Collapsed">
+                                            <Path
+                                                Data="{StaticResource Avatar_Normal}"
+                                                Fill="{TemplateBinding PlaceholderForeground}"
+                                                Stretch="Uniform" />
+                                        </Viewbox>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
+                            </controls:NClipBorder>
                         </Border>
 
                         <Border
