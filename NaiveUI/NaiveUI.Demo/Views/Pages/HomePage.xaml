@@ -282,12 +282,23 @@
             Width="520"
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
-            <TextBlock
-                HorizontalAlignment="Center"
-                FontSize="52"
-                FontWeight="Bold"
-                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
-                Text="Naive UI" />
+            <Grid>
+                <nc:NGradientText
+                    HorizontalAlignment="Center"
+                    FontSize="62"
+                    FontWeight="Bold"
+                    Gradient="linear-gradient(45deg, rgba(55,88,95,0.8), rgba(145,180,188,0.9))">
+                    Naive UI
+                </nc:NGradientText>
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="52"
+                    FontWeight="Bold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="Naive UI" />
+            </Grid>
+
             <TextBlock
                 Margin="0,22,0,0"
                 HorizontalAlignment="Center"
