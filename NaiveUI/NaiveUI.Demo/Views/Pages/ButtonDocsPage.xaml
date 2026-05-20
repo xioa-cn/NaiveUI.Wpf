@@ -59,9 +59,7 @@
             <ColumnDefinition Width="220" />
         </Grid.ColumnDefinitions>
 
-        <ScrollViewer
-            Grid.Column="0"
-            VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="68,34,18,34">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
@@ -100,9 +98,7 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="基础" />
-                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                        
-                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" />
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
@@ -132,9 +128,7 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="次要按钮" />
-                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                        
-                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" />
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
@@ -226,9 +220,7 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="次次次要按钮" />
-                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                        
-                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" />
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
@@ -282,9 +274,7 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="虚线按钮" />
-                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                        
-                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" />
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
@@ -338,9 +328,7 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="文本按钮" />
-                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                        
-                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" />
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
@@ -553,9 +541,7 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="次次要按钮" />
-                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                        
-                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" />
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
@@ -844,23 +830,80 @@
                                                 Margin="0,0,0,12"
                                                 FontSize="14"
                                                 Foreground="{DynamicResource Theme.Text.Secondary.Brush}"
-                                                Text="Popover Header" />
+                                                Text="Popover Header 点击触发" />
                                             <WrapPanel>
-                                                <nc:NButton
-                                                    Margin="0,0,12,0"
-                                                    Grade="Primary"
-                                                    Kind="Text">
-                                                    操作一
-                                                </nc:NButton>
-                                                <nc:NButton
-                                                    Margin="0,0,12,0"
-                                                    Grade="Info"
-                                                    Kind="Quaternary">
-                                                    操作二
-                                                </nc:NButton>
-                                                <nc:NButton Kind="Quaternary">
-                                                    <Path Data="{StaticResource ButtonIconMoreGeometry}" Style="{StaticResource ButtonIconOnlyPathStyle}" />
-                                                </nc:NButton>
+                                                <nc:NDropdown Placement="BottomStart" Trigger="Click">
+                                                    <nc:NDropdown.Options>
+                                                        <nc:NDropdownRenderOption>
+                                                            <Border
+                                                                Margin="4,2"
+                                                                Padding="12,10"
+                                                                Background="{DynamicResource Theme.Surface.1.Brush}"
+                                                                CornerRadius="6">
+                                                                <StackPanel>
+                                                                    <TextBlock
+                                                                        FontWeight="SemiBold"
+                                                                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                                        Text="操作一" />
+                                                                    <TextBlock Margin="0,6,0,0" Text="操作一的Popover" />
+                                                                </StackPanel>
+                                                            </Border>
+                                                        </nc:NDropdownRenderOption>
+                                                    </nc:NDropdown.Options>
+                                                    <nc:NButton
+                                                        Margin="0,0,12,0"
+                                                        Grade="Primary"
+                                                        Kind="Text">
+                                                        操作一
+                                                    </nc:NButton>
+                                                </nc:NDropdown>
+                                                <nc:NDropdown Placement="BottomStart" Trigger="Click">
+                                                    <nc:NDropdown.Options>
+                                                        <nc:NDropdownRenderOption>
+                                                            <Border
+                                                                Margin="4,2"
+                                                                Padding="12,10"
+                                                                Background="{DynamicResource Theme.Surface.1.Brush}"
+                                                                CornerRadius="6">
+                                                                <StackPanel>
+                                                                    <TextBlock
+                                                                        FontWeight="SemiBold"
+                                                                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                                        Text="操作二" />
+                                                                    <TextBlock Margin="0,6,0,0" Text="操作二的Popover" />
+                                                                </StackPanel>
+                                                            </Border>
+                                                        </nc:NDropdownRenderOption>
+                                                    </nc:NDropdown.Options>
+                                                    <nc:NButton
+                                                        Margin="0,0,12,0"
+                                                        Grade="Info"
+                                                        Kind="Quaternary">
+                                                        操作二
+                                                    </nc:NButton>
+                                                </nc:NDropdown>
+                                                <nc:NDropdown Placement="BottomStart" Trigger="Click">
+                                                    <nc:NDropdown.Options>
+                                                        <nc:NDropdownRenderOption>
+                                                            <Border
+                                                                Margin="4,2"
+                                                                Padding="12,10"
+                                                                Background="{DynamicResource Theme.Surface.1.Brush}"
+                                                                CornerRadius="6">
+                                                                <StackPanel>
+                                                                    <TextBlock
+                                                                        FontWeight="SemiBold"
+                                                                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                                        Text="。。。" />
+                                                                    <TextBlock Margin="0,6,0,0" Text="。。。的Popover" />
+                                                                </StackPanel>
+                                                            </Border>
+                                                        </nc:NDropdownRenderOption>
+                                                    </nc:NDropdown.Options>
+                                                    <nc:NButton Kind="Quaternary">
+                                                        <Path Data="{StaticResource ButtonIconMoreGeometry}" Style="{StaticResource ButtonIconOnlyPathStyle}" />
+                                                    </nc:NButton>
+                                                </nc:NDropdown>
                                             </WrapPanel>
                                         </StackPanel>
                                     </Border>
