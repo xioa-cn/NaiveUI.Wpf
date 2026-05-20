@@ -17,6 +17,9 @@
     <Color x:Key="Theme.Text.Secondary.Color">#475467</Color>
     <Color x:Key="Theme.Text.Tertiary.Color">#98A2B3</Color>
     <Color x:Key="Theme.Text.Inverse.Color">#FFFFFFFF</Color>
+    <Color x:Key="Theme.Tooltip.Background.Color">#111827</Color>
+    <Color x:Key="Theme.Tooltip.Border.Color">#111827</Color>
+    <Color x:Key="Theme.Tooltip.Foreground.Color">#FFFFFFFF</Color>
     <Color x:Key="Theme.Hero.Start.Color">#F4FFF8</Color>
     <Color x:Key="Theme.Hero.End.Color">#F0F7FF</Color>
     <Color x:Key="Theme.Hero.Glow.Color">#CFF4DD</Color>
@@ -60,6 +63,9 @@
     <SolidColorBrush x:Key="Theme.Text.Secondary.Brush" Color="{StaticResource Theme.Text.Secondary.Color}" />
     <SolidColorBrush x:Key="Theme.Text.Tertiary.Brush" Color="{StaticResource Theme.Text.Tertiary.Color}" />
     <SolidColorBrush x:Key="Theme.Text.Inverse.Brush" Color="{StaticResource Theme.Text.Inverse.Color}" />
+    <SolidColorBrush x:Key="Theme.Tooltip.Background.Brush" Color="{StaticResource Theme.Tooltip.Background.Color}" />
+    <SolidColorBrush x:Key="Theme.Tooltip.Border.Brush" Color="{StaticResource Theme.Tooltip.Border.Color}" />
+    <SolidColorBrush x:Key="Theme.Tooltip.Foreground.Brush" Color="{StaticResource Theme.Tooltip.Foreground.Color}" />
 
     <SolidColorBrush x:Key="Primary.First.Brush" Color="{StaticResource Primary.First.Color}" />
     <SolidColorBrush x:Key="Primary.Second.Brush" Color="{StaticResource Primary.Second.Color}" />

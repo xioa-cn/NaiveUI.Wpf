@@ -27,7 +27,8 @@ public sealed class DemoShellViewModel : ViewModelBase
             ["divider"] = static () => new DividerDocsPage(),
             ["carousel"] = static () => new CarouselDocsPage(),
             ["collapse"] = static () => new CollapseDocsPage(),
-            ["dropdown"] = static () => new DropdownDocsPage()
+            ["dropdown"] = static () => new DropdownDocsPage(),
+            ["ellipsis"] = static () => new EllipsisDocsPage()
         };
 
         currentPageView = homePage;

@@ -1,0 +1,397 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Pages.EllipsisDocsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+        <Style
+            x:Key="SectionCardHeaderTitleStyle"
+            BasedOn="{StaticResource DocSectionTitleStyle}"
+            TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+        <Style x:Key="DemoHintTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Secondary.Brush}" />
+            <Setter Property="LineHeight" Value="24" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="340" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Border
+                Background="{DynamicResource Theme.Surface.0.Brush}"
+                BorderBrush="{DynamicResource Theme.Border.Brush}"
+                BorderThickness="0,0,1,0">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl Margin="10,18,10,18" ItemsSource="{Binding SidebarCategories}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,0,0,18">
+                                    <TextBlock Style="{StaticResource SidebarCategoryHeaderTextStyle}" Text="{Binding HeaderText}" />
+                                    <ItemsControl ItemsSource="{Binding Items}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Button Click="HandleSidebarItemClick" Style="{StaticResource SidebarNavButtonStyle}">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Style="{StaticResource SidebarNavTitleTextStyle}" Text="{Binding Title}" />
+                                                            <TextBlock Style="{StaticResource SidebarNavSubtitleTextStyle}" Text="{Binding Subtitle}" />
+                                                        </StackPanel>
+                                                        <Border
+                                                            Grid.Column="1"
+                                                            Margin="10,0,0,0"
+                                                            Padding="7,1"
+                                                            VerticalAlignment="Center"
+                                                            Background="#E6F9F0"
+                                                            CornerRadius="11"
+                                                            Visibility="{Binding HasBadge, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                            <TextBlock
+                                                                FontSize="12"
+                                                                Foreground="#18A058"
+                                                                Text="{Binding BadgeText}" />
+                                                        </Border>
+                                                    </Grid>
+                                                </Button>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+
+            <Button
+                Width="32"
+                Height="32"
+                Margin="0,300,-16,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Content="&#xE76B;"
+                Style="{StaticResource SidebarCollapseButtonStyle}" />
+        </Grid>
+
+        <ScrollViewer
+            x:Name="DocumentScrollViewer"
+            Grid.Column="1"
+            VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="68,34,18,34">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="48"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                        Text="文本省略 Ellipsis" />
+                </StackPanel>
+
+                <TextBlock
+                    Margin="0,26,0,0"
+                    FontSize="18"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="复杂度不会消失，只会转移。当你听到一些人对于精致的概念模型侃侃而谈，请保持清醒。" />
+
+                <TextBlock
+                    Margin="0,52,0,28"
+                    FontSize="36"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="演示" />
+
+                <StackPanel>
+                    <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="基础" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="带弹出提示的单行省略，交互和 Naive UI 的基础示例保持一致。" />
+                                <nc:NEllipsis
+                                    Width="100"
+                                    HorizontalAlignment="Left"
+                                    Content="{Binding BasicText}" />
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionLineClamp" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="最大行数" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="WPF 版本使用原生 FormattedText 做多行测量和 CharacterEllipsis 截断，效果尽量贴近 Naive UI 的 line-clamp 行为。" />
+                                <nc:NEllipsis
+                                    Width="360"
+                                    HorizontalAlignment="Left"
+                                    Content="{Binding MultiLineText}"
+                                    LineClamp="2" />
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionExpandTrigger" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="展开方式" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="使用 ExpandTrigger=&quot;Click&quot; 搭配 LineClamp 可以点击展开或收起完整文本。展开时会关闭 Tooltip，和 Naive UI 的行为一致。" />
+                                <nc:NEllipsis
+                                    Width="360"
+                                    HorizontalAlignment="Left"
+                                    Content="{Binding MultiLineText}"
+                                    ExpandTrigger="Click"
+                                    LineClamp="2"
+                                    Tooltip="False" />
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionCustomTooltip" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="定制 Tooltip 内容" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="通过 TooltipContent 自定义悬浮层内容，对应 Naive UI 的 tooltip slot。" />
+                                <nc:NEllipsis
+                                    Width="180"
+                                    HorizontalAlignment="Left"
+                                    Content="{Binding BasicText}">
+                                    <nc:NEllipsis.TooltipContent>
+                                        <StackPanel Width="220">
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                FontSize="14"
+                                                FontWeight="SemiBold"
+                                                Foreground="{DynamicResource Theme.Tooltip.Foreground.Brush}"
+                                                Text="《秦皇岛》" />
+                                            <TextBlock
+                                                Margin="0,8,0,0"
+                                                HorizontalAlignment="Center"
+                                                FontSize="13"
+                                                Foreground="{DynamicResource Theme.Tooltip.Foreground.Brush}"
+                                                Text="住在我心里孤独的" />
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                FontSize="13"
+                                                Foreground="{DynamicResource Theme.Tooltip.Foreground.Brush}"
+                                                Text="孤独的海怪 痛苦之王" />
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                FontSize="13"
+                                                Foreground="{DynamicResource Theme.Tooltip.Foreground.Brush}"
+                                                Text="开始厌倦 深海的光 停滞的海浪" />
+                                        </StackPanel>
+                                    </nc:NEllipsis.TooltipContent>
+                                </nc:NEllipsis>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionDynamic" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="动态文本" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="动态切换文本内容时，省略状态会立即重新测量并更新，不依赖额外手动刷新。" />
+                                <StackPanel>
+                                    <nc:NEllipsis
+                                        Width="180"
+                                        HorizontalAlignment="Left"
+                                        Content="{Binding DynamicText}" />
+                                    <nc:NButton
+                                        Width="120"
+                                        Margin="0,20,0,0"
+                                        HorizontalAlignment="Left"
+                                        Click="HandleToggleDynamicTextClick"
+                                        Grade="Primary">
+                                        切换文本
+                                    </nc:NButton>
+                                </StackPanel>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionWidthDebug" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="宽度调试" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="这类极窄宽度场景最容易暴露测量误差。这里用官方 width-debug 的数字样例验证单行截断。" />
+                                <Border
+                                    Padding="14,12"
+                                    Background="{DynamicResource Theme.Surface.1.Brush}"
+                                    CornerRadius="10">
+                                    <nc:NEllipsis
+                                        Width="70"
+                                        Content="624748504sdfasdfasdfasdfasfasdfasdfasdfasfasfasdfasdfasdfsadfasdfasfasfasfsadfsafasfsdafa"
+                                        FontFamily="Helvetica Neue"
+                                        FontSize="14" />
+                                </Border>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+                </StackPanel>
+
+                <nu:CardElement x:Name="SectionApi" Margin="0,20,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="API" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <TextBlock
+                            Margin="30,24,30,24"
+                            Style="{StaticResource DocBodyTextStyle}"
+                            Text="当前 WPF 版本围绕 Naive UI 的 Ellipsis 核心语义实现了单行省略、多行省略、点击展开和 Tooltip 定制。由于 WPF 不存在 TooltipProps 与 Vue slot 概念，相关能力分别映射为 Tooltip / TooltipContent。" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <nu:CardElement x:Name="SectionEllipsisProps" Margin="0,0,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Ellipsis Props" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding EllipsisPropsRows}" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+
+                <nu:CardElement x:Name="SectionEllipsisSlots" Margin="0,0,0,20">
+                    <nu:CardElement.HeaderElement>
+                        <Grid Margin="30,28,30,0">
+                            <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Ellipsis Slots" />
+                        </Grid>
+                    </nu:CardElement.HeaderElement>
+                    <nu:CardElement.ContentElement>
+                        <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding EllipsisSlotsRows}" />
+                    </nu:CardElement.ContentElement>
+                </nu:CardElement>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="2" Background="{DynamicResource Theme.Surface.0.Brush}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="20,36,20,20">
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="基础"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionBasic" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="最大行数"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionLineClamp" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="展开方式"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionExpandTrigger" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="定制 Tooltip 内容"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionCustomTooltip" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="动态文本"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionDynamic" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="宽度调试"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionWidthDebug" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="API"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionApi" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="Ellipsis Props"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionEllipsisProps" />
+                    <nc:NButton
+                        Margin="3"
+                        Click="ScrollToSection"
+                        Content="Ellipsis Slots"
+                        Kind="Tertiary"
+                        Style="{StaticResource OutlineLinkButtonStyle}"
+                        Tag="SectionEllipsisSlots" />
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

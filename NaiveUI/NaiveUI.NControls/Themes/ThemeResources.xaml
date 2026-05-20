@@ -10,5 +10,6 @@
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/CarouselStyles.xaml" />
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/CollapseStyles.xaml" />
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/DropdownStyles.xaml" />
+        <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/EllipsisStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
