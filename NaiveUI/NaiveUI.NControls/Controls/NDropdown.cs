@@ -11,24 +11,13 @@ using NaiveUI.NControls.Tools;
 
 namespace NaiveUI.NControls.Controls;
 
-[TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
-[TemplatePart(Name = "PART_Menu", Type = typeof(NDropdownMenu))]
-[TemplatePart(Name = "PART_PopupRoot", Type = typeof(FrameworkElement))]
-[TemplatePart(Name = "PART_ArrowLayer", Type = typeof(Canvas))]
-[TemplatePart(Name = "PART_Arrow", Type = typeof(FrameworkElement))]
 public class NDropdown : ContentControl
 {
     private const double ArrowSize = 12d;
     private const double ArrowOffset = 6d;
     private readonly DispatcherTimer hoverCloseTimer;
-    private Popup? popup;
-    private NDropdownMenu? menu;
-    private FrameworkElement? popupRoot;
-    private FrameworkElement? arrowElement;
-    private Canvas? arrowLayer;
-    private Window? ownerWindow;
+    private readonly NDropdownMenu menu;
     private bool synchronizingShow;
-    private int menuPointerDepth;
     private Point contextMenuPoint;
 
     static NDropdown()
@@ -38,7 +27,21 @@ public class NDropdown : ContentControl
 
     public NDropdown()
     {
+        menu = new NDropdownMenu
+        {
+            OwnerDropdown = this,
+            Placement = PlacementMode.Custom,
+            PlacementTarget = this,
+            CustomPopupPlacementCallback = HandlePopupPlacement,
+            StaysOpen = false
+        };
+
+        menu.Opened += HandleMenuOpened;
+        menu.Closed += HandleMenuClosed;
+        menu.SizeChanged += HandleMenuSizeChanged;
+
         Options.CollectionChanged += HandleOptionsCollectionChanged;
+        DataContextChanged += HandleDropdownDataContextChanged;
 
         hoverCloseTimer = new DispatcherTimer(DispatcherPriority.Background)
         {
@@ -143,38 +146,10 @@ public class NDropdown : ContentControl
 
     public override void OnApplyTemplate()
     {
-        DetachPopupHandlers();
         base.OnApplyTemplate();
-
-        popup = GetTemplateChild("PART_Popup") as Popup;
-        menu = GetTemplateChild("PART_Menu") as NDropdownMenu;
-        popupRoot = GetTemplateChild("PART_PopupRoot") as FrameworkElement;
-        arrowLayer = GetTemplateChild("PART_ArrowLayer") as Canvas;
-        arrowElement = GetTemplateChild("PART_Arrow") as FrameworkElement;
-
-        if (popup is not null)
-        {
-            popup.AllowsTransparency = true;
-            popup.StaysOpen = true;
-            popup.CustomPopupPlacementCallback = HandlePopupPlacement;
-            popup.Opened += HandlePopupOpened;
-            popup.Closed += HandlePopupClosed;
-        }
-
-        if (popupRoot is not null)
-        {
-            popupRoot.SizeChanged += HandlePopupRootSizeChanged;
-        }
-
-        if (menu is not null)
-        {
-            menu.OwnerDropdown = this;
-            RefreshEntries();
-            UpdateRequiredMenuWidth();
-        }
-
-        SyncShowToPopup();
-        UpdatePopupChromeLayout();
+        RefreshEntries();
+        SyncShowToMenu();
+        UpdateMenuChromeLayout();
     }
 
     protected override void OnMouseEnter(MouseEventArgs e)
@@ -208,18 +183,16 @@ public class NDropdown : ContentControl
             return;
         }
 
-        if (IsSourceWithinPopup(e.OriginalSource as DependencyObject) || menu?.IsMouseOver == true || popupRoot?.IsMouseOver == true)
-        {
-            return;
-        }
-
         if (Show)
         {
             Close();
-            return;
+        }
+        else
+        {
+            Open();
         }
 
-        Open();
+        e.Handled = true;
     }
 
     protected override void OnPreviewMouseRightButtonDown(MouseButtonEventArgs e)
@@ -247,22 +220,6 @@ public class NDropdown : ContentControl
         }
     }
 
-    internal void NotifyMenuPointerEnter()
-    {
-        menuPointerDepth++;
-        CancelHoverCloseTimer();
-    }
-
-    internal void NotifyMenuPointerLeave()
-    {
-        menuPointerDepth = Math.Max(0, menuPointerDepth - 1);
-
-        if (Trigger == NDropdownTrigger.Hover)
-        {
-            StartHoverCloseTimer();
-        }
-    }
-
     internal void CancelHoverCloseTimer()
     {
         hoverCloseTimer.Stop();
@@ -270,12 +227,30 @@ public class NDropdown : ContentControl
 
     internal void RefreshSelectionStates()
     {
-        menu?.RefreshSelectionStates();
+        menu.RefreshSelectionStatesRecursive();
     }
 
     internal bool IsSelectedKey(object key)
     {
         return Value is not null && Equals(Value, key);
+    }
+
+    internal bool ContainsSelectedDescendant(DropdownEntry entry)
+    {
+        if (Value is null)
+        {
+            return false;
+        }
+
+        foreach (var child in entry.Children)
+        {
+            if (child.ContainsKey(Value))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     internal bool InvokeEntryAction(DropdownEntry entry)
@@ -304,14 +279,17 @@ public class NDropdown : ContentControl
         if (closeAfterInvoke)
         {
             Close();
+            return;
         }
+
+        RefreshSelectionStates();
     }
 
     private static void OnShowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         if (d is NDropdown dropdown && !dropdown.synchronizingShow)
         {
-            dropdown.SyncShowToPopup();
+            dropdown.SyncShowToMenu();
         }
     }
 
@@ -330,6 +308,8 @@ public class NDropdown : ContentControl
             return;
         }
 
+        dropdown.menu.OwnerDropdown = dropdown;
+
         if (e.Property == SizeProperty)
         {
             dropdown.RefreshEntries();
@@ -337,20 +317,29 @@ public class NDropdown : ContentControl
 
         if (dropdown.Show)
         {
-            dropdown.UpdateRequiredMenuWidth();
-            dropdown.SyncShowToPopup();
-            dropdown.UpdatePopupChromeLayout();
+            dropdown.SyncShowToMenu();
+            dropdown.UpdateMenuChromeLayout();
         }
     }
 
     private void HandleOptionsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
         RefreshEntries();
-        UpdateRequiredMenuWidth();
 
         if (Show)
         {
-            SyncShowToPopup();
+            SyncShowToMenu();
+        }
+    }
+
+    private void HandleDropdownDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        menu.OwnerDropdown = this;
+        RefreshEntries();
+
+        if (Show)
+        {
+            UpdateMenuChromeLayout();
         }
     }
 
@@ -374,7 +363,7 @@ public class NDropdown : ContentControl
         synchronizingShow = true;
         SetCurrentValue(ShowProperty, value);
         synchronizingShow = false;
-        SyncShowToPopup();
+        SyncShowToMenu();
     }
 
     private bool CanOpen()
@@ -382,22 +371,21 @@ public class NDropdown : ContentControl
         return IsEnabled && BuildEntries(Options).Count > 0;
     }
 
-    private void SyncShowToPopup()
+    private void SyncShowToMenu()
     {
-        if (popup is null)
-        {
-            return;
-        }
-
         if (Show && CanOpen())
         {
             RefreshEntries();
-            popup.IsOpen = true;
-            UpdatePopupChromeLayout();
+            menu.OwnerDropdown = this;
+            menu.IsOpen = true;
+            UpdateMenuChromeLayout();
             return;
         }
 
-        popup.IsOpen = false;
+        if (menu.IsOpen)
+        {
+            menu.IsOpen = false;
+        }
 
         if (Show && !CanOpen())
         {
@@ -409,18 +397,12 @@ public class NDropdown : ContentControl
 
     private void RefreshEntries()
     {
-        if (menu is null)
-        {
-            return;
-        }
-
         menu.OwnerDropdown = this;
         menu.SetEntries(BuildEntries(Options));
-        menu.RefreshSelectionStates();
-        UpdateRequiredMenuWidth();
+        menu.RefreshSelectionStatesRecursive();
     }
 
-    private static IReadOnlyList<DropdownEntry> BuildEntries(IEnumerable<NDropdownOptionBase> options)
+    private IReadOnlyList<DropdownEntry> BuildEntries(IEnumerable<NDropdownOptionBase> options)
     {
         var results = new List<DropdownEntry>();
 
@@ -443,9 +425,12 @@ public class NDropdown : ContentControl
                         break;
                     }
 
-                    if (groupOption.Label is not null || groupOption.Icon is not null)
+                    var resolvedGroupLabel = groupOption.ResolveLabel(this);
+                    var resolvedGroupIcon = groupOption.ResolveIcon(this);
+
+                    if (resolvedGroupLabel is not null || resolvedGroupIcon is not null)
                     {
-                        results.Add(new DropdownEntry(NDropdownEntryKind.GroupHeader, groupOption.Key, groupOption.Label, groupOption.Icon));
+                        results.Add(new DropdownEntry(NDropdownEntryKind.GroupHeader, groupOption.Key, resolvedGroupLabel, resolvedGroupIcon));
                     }
 
                     foreach (var child in groupEntries)
@@ -457,14 +442,25 @@ public class NDropdown : ContentControl
                 case NDropdownRenderOption renderOption:
                     results.Add(new DropdownEntry(NDropdownEntryKind.Render, renderOption.Key, content: renderOption.Content));
                     break;
+                case NDropdownCombineOption combineOption:
+                    results.Add(
+                        new DropdownEntry(
+                            NDropdownEntryKind.Option,
+                            combineOption.Key,
+                            combineOption.ResolveLabel(this),
+                            combineOption.ResolveIcon(this),
+                            combineOption.ResolveSuffix(this),
+                            disabled: combineOption.Disabled,
+                            children: BuildEntries(combineOption.Options)));
+                    break;
                 case NDropdownOption dropdownOption:
                     results.Add(
                         new DropdownEntry(
                             NDropdownEntryKind.Option,
                             dropdownOption.Key,
-                            dropdownOption.Label,
-                            dropdownOption.Icon,
-                            dropdownOption.Suffix,
+                            dropdownOption.ResolveLabel(this),
+                            dropdownOption.ResolveIcon(this),
+                            dropdownOption.ResolveSuffix(this),
                             disabled: dropdownOption.Disabled,
                             sourceOption: dropdownOption));
                     break;
@@ -474,21 +470,16 @@ public class NDropdown : ContentControl
         return results;
     }
 
-    private void HandlePopupOpened(object? sender, EventArgs e)
+    private void HandleMenuOpened(object? sender, RoutedEventArgs e)
     {
-        menuPointerDepth = 0;
-        AttachWindowHandlers();
         CancelHoverCloseTimer();
-        UpdateRequiredMenuWidth();
-        UpdatePopupChromeLayout();
-        menu?.RefreshSelectionStates();
+        UpdateMenuChromeLayout();
+        menu.RefreshSelectionStatesRecursive();
     }
 
-    private void HandlePopupClosed(object? sender, EventArgs e)
+    private void HandleMenuClosed(object? sender, RoutedEventArgs e)
     {
         CancelHoverCloseTimer();
-        DetachOwnerWindowHandlers();
-        menuPointerDepth = 0;
 
         if (Show)
         {
@@ -498,66 +489,9 @@ public class NDropdown : ContentControl
         }
     }
 
-    private void HandlePopupRootSizeChanged(object sender, SizeChangedEventArgs e)
+    private void HandleMenuSizeChanged(object sender, SizeChangedEventArgs e)
     {
-        UpdatePopupChromeLayout();
-    }
-
-    private void AttachWindowHandlers()
-    {
-        var window = Window.GetWindow(this);
-        if (window is null || ReferenceEquals(window, ownerWindow))
-        {
-            return;
-        }
-
-        DetachOwnerWindowHandlers();
-        ownerWindow = window;
-        ownerWindow.PreviewMouseDown += HandleOwnerWindowPreviewMouseDown;
-        ownerWindow.Deactivated += HandleOwnerWindowDeactivated;
-    }
-
-    private void DetachOwnerWindowHandlers()
-    {
-        if (ownerWindow is null)
-        {
-            return;
-        }
-
-        ownerWindow.PreviewMouseDown -= HandleOwnerWindowPreviewMouseDown;
-        ownerWindow.Deactivated -= HandleOwnerWindowDeactivated;
-        ownerWindow = null;
-    }
-
-    private void DetachPopupHandlers()
-    {
-        if (popup is not null)
-        {
-            popup.Opened -= HandlePopupOpened;
-            popup.Closed -= HandlePopupClosed;
-        }
-
-        if (popupRoot is not null)
-        {
-            popupRoot.SizeChanged -= HandlePopupRootSizeChanged;
-        }
-
-        DetachOwnerWindowHandlers();
-    }
-
-    private void HandleOwnerWindowPreviewMouseDown(object sender, MouseButtonEventArgs e)
-    {
-        if (!Show || IsMouseOver || menuPointerDepth > 0 || menu?.IsMouseOver == true || popupRoot?.IsMouseOver == true || IsSourceWithinPopup(e.OriginalSource as DependencyObject))
-        {
-            return;
-        }
-
-        Close();
-    }
-
-    private void HandleOwnerWindowDeactivated(object? sender, EventArgs e)
-    {
-        Close();
+        UpdateMenuChromeLayout();
     }
 
     private void StartHoverCloseTimer()
@@ -575,7 +509,7 @@ public class NDropdown : ContentControl
     {
         hoverCloseTimer.Stop();
 
-        if (IsMouseOver || menuPointerDepth > 0)
+        if (IsMouseOver || IsPointerWithinMenu())
         {
             return;
         }
@@ -615,29 +549,16 @@ public class NDropdown : ContentControl
         };
     }
 
-    private void UpdatePopupChromeLayout()
+    private void UpdateMenuChromeLayout()
     {
-        if (menu is null)
-        {
-            return;
-        }
-
         var showArrow = ShowArrow && Trigger != NDropdownTrigger.ContextMenu;
-        if (!showArrow || popupRoot is null || arrowElement is null || arrowLayer is null)
+        if (!showArrow)
         {
-            menu.Margin = new Thickness(0);
-
-            if (arrowElement is not null)
-            {
-                arrowElement.Visibility = Visibility.Collapsed;
-            }
-
+            menu.UpdateChromeLayout(false, new Thickness(0), 0d, 0d);
             return;
         }
 
-        arrowElement.Visibility = Visibility.Visible;
-
-        Thickness menuMargin = Placement switch
+        var menuMargin = Placement switch
         {
             NDropdownPlacement.Top or NDropdownPlacement.TopStart or NDropdownPlacement.TopEnd => new Thickness(0, 0, 0, ArrowOffset),
             NDropdownPlacement.Right or NDropdownPlacement.RightStart or NDropdownPlacement.RightEnd => new Thickness(ArrowOffset, 0, 0, 0),
@@ -645,11 +566,14 @@ public class NDropdown : ContentControl
             _ => new Thickness(0, ArrowOffset, 0, 0)
         };
 
-        menu.Margin = menuMargin;
-        popupRoot.UpdateLayout();
+        var menuWidth = Math.Max(0d, menu.ActualWidth - menuMargin.Left - menuMargin.Right);
+        var menuHeight = Math.Max(0d, menu.ActualHeight - menuMargin.Top - menuMargin.Bottom);
+        if (menuWidth <= 0d || menuHeight <= 0d)
+        {
+            menu.UpdateChromeLayout(true, menuMargin, 0d, 0d);
+            return;
+        }
 
-        var menuWidth = menu.ActualWidth;
-        var menuHeight = menu.ActualHeight;
         var triggerWidth = ActualWidth;
         var triggerHeight = ActualHeight;
 
@@ -694,18 +618,7 @@ public class NDropdown : ContentControl
                 break;
         }
 
-        Canvas.SetLeft(arrowElement, left);
-        Canvas.SetTop(arrowElement, top);
-    }
-
-    private void UpdateRequiredMenuWidth()
-    {
-        if (menu is null)
-        {
-            return;
-        }
-
-        menu.UpdateRequiredWidth();
+        menu.UpdateChromeLayout(true, menuMargin, left, top);
     }
 
     private static double Clamp(double value, double min, double max)
@@ -723,7 +636,12 @@ public class NDropdown : ContentControl
         return value;
     }
 
-    private bool IsSourceWithinPopup(DependencyObject? source)
+    private bool IsPointerWithinMenu()
+    {
+        return IsSourceWithinMenu(Mouse.DirectlyOver as DependencyObject);
+    }
+
+    private bool IsSourceWithinMenu(DependencyObject? source)
     {
         if (source is null)
         {
@@ -733,10 +651,7 @@ public class NDropdown : ContentControl
         DependencyObject? current = source;
         while (current is not null)
         {
-            if (ReferenceEquals(current, menu)
-                || ReferenceEquals(current, popupRoot)
-                || ReferenceEquals(current, arrowElement)
-                || current is NDropdownMenu { OwnerDropdown: not null } currentMenu && ReferenceEquals(currentMenu.OwnerDropdown, this)
+            if (current is NDropdownMenu { OwnerDropdown: not null } currentMenu && ReferenceEquals(currentMenu.OwnerDropdown, this)
                 || current is NDropdownItem { OwnerDropdown: not null } currentItem && ReferenceEquals(currentItem.OwnerDropdown, this))
             {
                 return true;

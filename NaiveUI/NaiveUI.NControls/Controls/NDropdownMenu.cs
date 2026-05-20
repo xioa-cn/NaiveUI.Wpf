@@ -5,124 +5,152 @@ using NaiveUI.NControls.Tools;
 
 namespace NaiveUI.NControls.Controls;
 
-public class NDropdownMenu : ItemsControl
+public class NDropdownMenu : ContextMenu
 {
-    private readonly List<NDropdownItem> registeredItems = [];
-    private IReadOnlyList<DropdownEntry> currentEntries = [];
+    public const string SeparatorStyleKey = "DropdownSeparatorStyle";
 
     static NDropdownMenu()
     {
         ElementBase.DefaultStyle<NDropdownMenu>(DefaultStyleKeyProperty);
     }
 
-    internal NDropdown? OwnerDropdown { get; set; }
-
-    internal double ResolvedPrefixWidth { get; private set; } = 14d;
-
-    internal double ResolvedSuffixWidth { get; private set; } = 14d;
-
-    protected override bool IsItemItsOwnContainerOverride(object item)
+    internal NDropdown? OwnerDropdown
     {
-        return item is NDropdownItem;
-    }
-
-    protected override DependencyObject GetContainerForItemOverride()
-    {
-        return new NDropdownItem();
-    }
-
-    protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
-    {
-        base.PrepareContainerForItemOverride(element, item);
-
-        if (element is not NDropdownItem dropdownItem || item is not DropdownEntry entry)
+        get => ownerDropdown;
+        set
         {
-            return;
+            ownerDropdown = value;
+            PlacementTarget = value;
+            DataContext = value?.DataContext;
+            SetCurrentValue(MaxHeightProperty, value?.MaxMenuHeight ?? 320d);
         }
-
-        if (!registeredItems.Contains(dropdownItem))
-        {
-            registeredItems.Add(dropdownItem);
-        }
-
-        dropdownItem.OwnerDropdown = OwnerDropdown;
-        dropdownItem.ParentMenu = this;
-        dropdownItem.Entry = entry;
-        dropdownItem.RefreshFromEntry();
     }
 
-    protected override void ClearContainerForItemOverride(DependencyObject element, object item)
+    private NDropdown? ownerDropdown;
+
+    public bool ShowArrowVisual
     {
-        if (element is NDropdownItem dropdownItem)
-        {
-            dropdownItem.ParentMenu = null;
-            dropdownItem.OwnerDropdown = null;
-            dropdownItem.Entry = null;
-            registeredItems.Remove(dropdownItem);
-        }
-
-        base.ClearContainerForItemOverride(element, item);
+        get => (bool)GetValue(ShowArrowVisualProperty);
+        internal set => SetValue(ShowArrowVisualProperty, value);
     }
 
-    protected override void OnMouseEnter(System.Windows.Input.MouseEventArgs e)
+    public static readonly DependencyProperty ShowArrowVisualProperty =
+        ElementBase.Property<NDropdownMenu, bool>(nameof(ShowArrowVisualProperty), false);
+
+    public Thickness MenuContentMargin
     {
-        base.OnMouseEnter(e);
-        OwnerDropdown?.NotifyMenuPointerEnter();
+        get => (Thickness)GetValue(MenuContentMarginProperty);
+        internal set => SetValue(MenuContentMarginProperty, value);
     }
 
-    protected override void OnMouseLeave(System.Windows.Input.MouseEventArgs e)
+    public static readonly DependencyProperty MenuContentMarginProperty =
+        ElementBase.Property<NDropdownMenu, Thickness>(nameof(MenuContentMarginProperty), new Thickness(0));
+
+    public double ArrowLeft
     {
-        base.OnMouseLeave(e);
-        OwnerDropdown?.NotifyMenuPointerLeave();
+        get => (double)GetValue(ArrowLeftProperty);
+        internal set => SetValue(ArrowLeftProperty, value);
     }
+
+    public static readonly DependencyProperty ArrowLeftProperty =
+        ElementBase.Property<NDropdownMenu, double>(nameof(ArrowLeftProperty), 0d);
+
+    public double ArrowTop
+    {
+        get => (double)GetValue(ArrowTopProperty);
+        internal set => SetValue(ArrowTopProperty, value);
+    }
+
+    public static readonly DependencyProperty ArrowTopProperty =
+        ElementBase.Property<NDropdownMenu, double>(nameof(ArrowTopProperty), 0d);
 
     internal void SetEntries(IReadOnlyList<DropdownEntry> entries)
     {
-        currentEntries = entries;
-        UpdateResolvedLayoutMetrics();
-        ItemsSource = entries;
+        DataContext = OwnerDropdown?.DataContext;
+        SetCurrentValue(MaxHeightProperty, OwnerDropdown?.MaxMenuHeight ?? 320d);
+
+        Items.Clear();
+        foreach (var element in BuildMenuElements(entries))
+        {
+            Items.Add(element);
+        }
     }
 
-    internal void RefreshSelectionStates()
+    internal void RefreshSelectionStatesRecursive()
     {
-        foreach (var item in registeredItems)
+        foreach (var item in EnumerateDropdownItems(Items))
         {
-            item.RefreshSelectionState();
+            item.RefreshSelectionStateRecursive();
         }
     }
 
-    internal double UpdateRequiredWidth()
+    internal void UpdateChromeLayout(bool showArrow, Thickness menuMargin, double arrowLeft, double arrowTop)
     {
-        UpdateLayout();
-
-        const double defaultMinWidth = 144d;
-        var requiredWidth = defaultMinWidth;
-
-        foreach (var item in registeredItems)
-        {
-            requiredWidth = Math.Max(requiredWidth, item.MeasureRequiredWidth());
-        }
-
-        if (Math.Abs(MinWidth - requiredWidth) > 0.5d)
-        {
-            SetCurrentValue(MinWidthProperty, requiredWidth);
-            UpdateLayout();
-        }
-
-        return requiredWidth;
+        ShowArrowVisual = showArrow;
+        MenuContentMargin = menuMargin;
+        ArrowLeft = arrowLeft;
+        ArrowTop = arrowTop;
     }
 
-    private void UpdateResolvedLayoutMetrics()
+    private List<object> BuildMenuElements(IReadOnlyList<DropdownEntry> entries)
     {
         var size = OwnerDropdown?.Size ?? NDropdownSize.Medium;
-        var hasIcons = ContainsIcons(currentEntries);
+        var prefixWidth = GetPrefixWidth(size, ContainsIcons(entries));
+        var suffixWidth = GetSuffixWidth(size, ContainsSubmenus(entries), MeasureMaxSuffixWidth(entries));
+        var results = new List<object>(entries.Count);
 
-        ResolvedPrefixWidth = GetPrefixWidth(size, hasIcons);
-        ResolvedSuffixWidth = GetSuffixWidth(size, MeasureMaxSuffixWidth(currentEntries));
-
-        foreach (var item in registeredItems)
+        foreach (var entry in entries)
         {
-            item.RefreshFromEntry();
+            if (entry.Kind == NDropdownEntryKind.Divider)
+            {
+                var separator = new Separator();
+                separator.SetResourceReference(StyleProperty, SeparatorStyleKey);
+                results.Add(separator);
+                continue;
+            }
+
+            var item = new NDropdownItem
+            {
+                OwnerDropdown = OwnerDropdown
+            };
+
+            item.ApplyEntry(
+                entry,
+                prefixWidth,
+                suffixWidth,
+                size,
+                OwnerDropdown?.MaxMenuHeight ?? 320d,
+                OwnerDropdown?.DataContext);
+
+            if (entry.HasChildren)
+            {
+                foreach (var child in BuildMenuElements(entry.Children))
+                {
+                    item.Items.Add(child);
+                }
+            }
+
+            results.Add(item);
+        }
+
+        return results;
+    }
+
+    private static IEnumerable<NDropdownItem> EnumerateDropdownItems(ItemCollection items)
+    {
+        foreach (var item in items)
+        {
+            if (item is not NDropdownItem dropdownItem)
+            {
+                continue;
+            }
+
+            yield return dropdownItem;
+
+            foreach (var child in EnumerateDropdownItems(dropdownItem.Items))
+            {
+                yield return child;
+            }
         }
     }
 
@@ -131,6 +159,19 @@ public class NDropdownMenu : ItemsControl
         foreach (var entry in entries)
         {
             if (entry.Icon is not null)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static bool ContainsSubmenus(IReadOnlyList<DropdownEntry> entries)
+    {
+        foreach (var entry in entries)
+        {
+            if (entry.Kind == NDropdownEntryKind.Option && entry.HasChildren)
             {
                 return true;
             }
@@ -183,15 +224,18 @@ public class NDropdownMenu : ItemsControl
         return size is NDropdownSize.Large or NDropdownSize.Huge ? 40d : 36d;
     }
 
-    private static double GetSuffixWidth(NDropdownSize size, double maxSuffixContentWidth)
+    private static double GetSuffixWidth(NDropdownSize size, bool hasSubmenu, double maxSuffixContentWidth)
     {
-        var baseWidth = size is NDropdownSize.Large or NDropdownSize.Huge ? 16d : 14d;
+        var baseWidth = hasSubmenu
+            ? size is NDropdownSize.Large or NDropdownSize.Huge ? 28d : 24d
+            : 14d;
 
         if (maxSuffixContentWidth <= 0d)
         {
             return baseWidth;
         }
 
-        return Math.Max(baseWidth, maxSuffixContentWidth + 16d);
+        var contentPadding = hasSubmenu ? 28d : 16d;
+        return Math.Max(baseWidth, maxSuffixContentWidth + contentPadding);
     }
 }

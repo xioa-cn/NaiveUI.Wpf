@@ -41,13 +41,16 @@ public partial class DropdownDocsPage : UserControl
 
     private void HandleDropdownSelect(object sender, NDropdownSelectEventArgs e)
     {
+        var message = $"Select事件触发：{e.Key}";
+        NElMessage.Info(message);
         ViewModel.RecordSelection(e.Key);
     }
 
     private void HandleOptionClick(object sender, NDropdownOptionClickEventArgs e)
     {
-        NElMessage.Info(e.Key?.ToString() ?? "未提供键值");
-        ViewModel.RecordOptionAction($"点击事件触发：{e.Key}");
+        var message = $"Click事件触发：{e.Key}";
+        NElMessage.Info(message);
+        ViewModel.RecordOptionAction(message);
     }
 
     private void HandleManualDropdownButtonClick(object sender, RoutedEventArgs e)

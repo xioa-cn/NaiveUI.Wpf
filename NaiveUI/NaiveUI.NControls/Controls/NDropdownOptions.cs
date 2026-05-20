@@ -49,115 +49,16 @@ public enum NDropdownEntryKind
     Render
 }
 
-public abstract class NDropdownOptionBase : DependencyObject
+internal static class DropdownBindingHelper
 {
-    public object? Key { get; set; }
-
-    public bool Show { get; set; } = true;
-}
-
-public class NDropdownOption : NDropdownOptionBase
-{
-    public object? Label { get; set; }
-
-    public object? Icon { get; set; }
-
-    public object? Suffix { get; set; }
-
-    public bool Disabled { get; set; }
-
-    public ICommand? Command
+    public static object? ResolveDependencyPropertyValue(DependencyObject target, DependencyProperty property, object? fallbackValue, NDropdown dropdown)
     {
-        get => (ICommand?)GetValue(CommandProperty);
-        set => SetValue(CommandProperty, value);
-    }
-
-    public static readonly DependencyProperty CommandProperty =
-        DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(NDropdownOption), new PropertyMetadata(null));
-
-    public object? CommandParameter
-    {
-        get => GetValue(CommandParameterProperty);
-        set => SetValue(CommandParameterProperty, value);
-    }
-
-    public static readonly DependencyProperty CommandParameterProperty =
-        DependencyProperty.Register(nameof(CommandParameter), typeof(object), typeof(NDropdownOption), new PropertyMetadata(null));
-
-    public event EventHandler<NDropdownOptionClickEventArgs>? Click;
-
-    internal bool TryInvoke(NDropdown dropdown)
-    {
-        if (Disabled)
-        {
-            return false;
-        }
-
-        var args = new NDropdownOptionClickEventArgs(dropdown, Key, this);
-        var command = ResolveCommand(dropdown);
-        var hasExplicitCommandParameter = ReadLocalValue(CommandParameterProperty) != DependencyProperty.UnsetValue;
-
-        Click?.Invoke(this, args);
-
-        if (command is null)
-        {
-            return true;
-        }
-
-        if (hasExplicitCommandParameter)
-        {
-            TryExecuteCommand(command, ResolveCommandParameter(dropdown));
-            return true;
-        }
-
-        if (TryExecuteCommand(command, args))
-        {
-            return true;
-        }
-
-        if (TryExecuteCommand(command, Key))
-        {
-            return true;
-        }
-
-        TryExecuteCommand(command, null);
-        return true;
-    }
-
-    private static bool TryExecuteCommand(ICommand command, object? parameter)
-    {
-        if (!command.CanExecute(parameter))
-        {
-            return false;
-        }
-
-        command.Execute(parameter);
-        return true;
-    }
-
-    private ICommand? ResolveCommand(NDropdown dropdown)
-    {
-        if (Command is not null)
-        {
-            return Command;
-        }
-
-        if (BindingOperations.GetBindingBase(this, CommandProperty) is Binding binding)
-        {
-            return ResolveBindingValue(binding, dropdown) as ICommand;
-        }
-
-        return null;
-    }
-
-    private object? ResolveCommandParameter(NDropdown dropdown)
-    {
-        if (BindingOperations.GetBindingBase(this, CommandParameterProperty) is Binding binding)
+        if (BindingOperations.GetBindingBase(target, property) is Binding binding)
         {
             return ResolveBindingValue(binding, dropdown);
         }
 
-        return CommandParameter;
+        return fallbackValue;
     }
 
     private static object? ResolveBindingValue(Binding binding, NDropdown dropdown)
@@ -281,15 +182,238 @@ public class NDropdownOption : NDropdownOptionBase
     }
 }
 
-[ContentProperty(nameof(Options))]
-public class NDropdownGroupOption : NDropdownOptionBase
+public abstract class NDropdownOptionBase : DependencyObject
 {
-    public object? Label { get; set; }
+    public object? Key { get; set; }
 
-    public object? Icon { get; set; }
+    public bool Show { get; set; } = true;
+}
+
+public class NDropdownOption : NDropdownOptionBase
+{
+    public object? Label
+    {
+        get => GetValue(LabelProperty);
+        set => SetValue(LabelProperty, value);
+    }
+
+    public static readonly DependencyProperty LabelProperty =
+        DependencyProperty.Register(nameof(Label), typeof(object), typeof(NDropdownOption), new PropertyMetadata(null));
+
+    public object? Icon
+    {
+        get => GetValue(IconProperty);
+        set => SetValue(IconProperty, value);
+    }
+
+    public static readonly DependencyProperty IconProperty =
+        DependencyProperty.Register(nameof(Icon), typeof(object), typeof(NDropdownOption), new PropertyMetadata(null));
+
+    public object? Suffix
+    {
+        get => GetValue(SuffixProperty);
+        set => SetValue(SuffixProperty, value);
+    }
+
+    public static readonly DependencyProperty SuffixProperty =
+        DependencyProperty.Register(nameof(Suffix), typeof(object), typeof(NDropdownOption), new PropertyMetadata(null));
+
+    public bool Disabled { get; set; }
+
+    public ICommand? Command
+    {
+        get => (ICommand?)GetValue(CommandProperty);
+        set => SetValue(CommandProperty, value);
+    }
+
+    public static readonly DependencyProperty CommandProperty =
+        DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(NDropdownOption), new PropertyMetadata(null));
+
+    public object? CommandParameter
+    {
+        get => GetValue(CommandParameterProperty);
+        set => SetValue(CommandParameterProperty, value);
+    }
+
+    public static readonly DependencyProperty CommandParameterProperty =
+        DependencyProperty.Register(nameof(CommandParameter), typeof(object), typeof(NDropdownOption), new PropertyMetadata(null));
+
+    public event EventHandler<NDropdownOptionClickEventArgs>? Click;
+
+    internal object? ResolveLabel(NDropdown dropdown)
+    {
+        return DropdownBindingHelper.ResolveDependencyPropertyValue(this, LabelProperty, Label, dropdown);
+    }
+
+    internal object? ResolveIcon(NDropdown dropdown)
+    {
+        return DropdownBindingHelper.ResolveDependencyPropertyValue(this, IconProperty, Icon, dropdown);
+    }
+
+    internal object? ResolveSuffix(NDropdown dropdown)
+    {
+        return DropdownBindingHelper.ResolveDependencyPropertyValue(this, SuffixProperty, Suffix, dropdown);
+    }
+
+    internal bool TryInvoke(NDropdown dropdown)
+    {
+        return TryInvoke(dropdown, Key, this);
+    }
+
+    internal bool TryInvoke(NDropdown dropdown, object? invokedKey, NDropdownOption invokedOption)
+    {
+        if (Disabled)
+        {
+            return false;
+        }
+
+        var args = new NDropdownOptionClickEventArgs(dropdown, invokedKey, invokedOption);
+        var command = ResolveCommand(dropdown);
+        var hasExplicitCommandParameter = ReadLocalValue(CommandParameterProperty) != DependencyProperty.UnsetValue;
+
+        Click?.Invoke(this, args);
+
+        if (command is null)
+        {
+            return true;
+        }
+
+        if (hasExplicitCommandParameter)
+        {
+            TryExecuteCommand(command, ResolveCommandParameter(dropdown));
+            return true;
+        }
+
+        if (TryExecuteCommand(command, args))
+        {
+            return true;
+        }
+
+        if (TryExecuteCommand(command, invokedKey))
+        {
+            return true;
+        }
+
+        TryExecuteCommand(command, null);
+        return true;
+    }
+
+    private static bool TryExecuteCommand(ICommand command, object? parameter)
+    {
+        if (!command.CanExecute(parameter))
+        {
+            return false;
+        }
+
+        command.Execute(parameter);
+        return true;
+    }
+
+    private ICommand? ResolveCommand(NDropdown dropdown)
+    {
+        if (Command is not null)
+        {
+            return Command;
+        }
+
+        if (BindingOperations.GetBindingBase(this, CommandProperty) is not null)
+        {
+            return DropdownBindingHelper.ResolveDependencyPropertyValue(this, CommandProperty, Command, dropdown) as ICommand;
+        }
+
+        return null;
+    }
+
+    private object? ResolveCommandParameter(NDropdown dropdown)
+    {
+        return DropdownBindingHelper.ResolveDependencyPropertyValue(this, CommandParameterProperty, CommandParameter, dropdown);
+    }
+}
+
+[ContentProperty(nameof(Options))]
+public class NDropdownCombineOption : NDropdownOptionBase
+{
+    public object? Label
+    {
+        get => GetValue(LabelProperty);
+        set => SetValue(LabelProperty, value);
+    }
+
+    public static readonly DependencyProperty LabelProperty =
+        DependencyProperty.Register(nameof(Label), typeof(object), typeof(NDropdownCombineOption), new PropertyMetadata(null));
+
+    public object? Icon
+    {
+        get => GetValue(IconProperty);
+        set => SetValue(IconProperty, value);
+    }
+
+    public static readonly DependencyProperty IconProperty =
+        DependencyProperty.Register(nameof(Icon), typeof(object), typeof(NDropdownCombineOption), new PropertyMetadata(null));
+
+    public object? Suffix
+    {
+        get => GetValue(SuffixProperty);
+        set => SetValue(SuffixProperty, value);
+    }
+
+    public static readonly DependencyProperty SuffixProperty =
+        DependencyProperty.Register(nameof(Suffix), typeof(object), typeof(NDropdownCombineOption), new PropertyMetadata(null));
+
+    public bool Disabled { get; set; }
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
     public ObservableCollection<NDropdownOptionBase> Options { get; } = [];
+
+    internal object? ResolveLabel(NDropdown dropdown)
+    {
+        return DropdownBindingHelper.ResolveDependencyPropertyValue(this, LabelProperty, Label, dropdown);
+    }
+
+    internal object? ResolveIcon(NDropdown dropdown)
+    {
+        return DropdownBindingHelper.ResolveDependencyPropertyValue(this, IconProperty, Icon, dropdown);
+    }
+
+    internal object? ResolveSuffix(NDropdown dropdown)
+    {
+        return DropdownBindingHelper.ResolveDependencyPropertyValue(this, SuffixProperty, Suffix, dropdown);
+    }
+}
+
+[ContentProperty(nameof(Options))]
+public class NDropdownGroupOption : NDropdownOptionBase
+{
+    public object? Label
+    {
+        get => GetValue(LabelProperty);
+        set => SetValue(LabelProperty, value);
+    }
+
+    public static readonly DependencyProperty LabelProperty =
+        DependencyProperty.Register(nameof(Label), typeof(object), typeof(NDropdownGroupOption), new PropertyMetadata(null));
+
+    public object? Icon
+    {
+        get => GetValue(IconProperty);
+        set => SetValue(IconProperty, value);
+    }
+
+    public static readonly DependencyProperty IconProperty =
+        DependencyProperty.Register(nameof(Icon), typeof(object), typeof(NDropdownGroupOption), new PropertyMetadata(null));
+
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+    public ObservableCollection<NDropdownOptionBase> Options { get; } = [];
+
+    internal object? ResolveLabel(NDropdown dropdown)
+    {
+        return DropdownBindingHelper.ResolveDependencyPropertyValue(this, LabelProperty, Label, dropdown);
+    }
+
+    internal object? ResolveIcon(NDropdown dropdown)
+    {
+        return DropdownBindingHelper.ResolveDependencyPropertyValue(this, IconProperty, Icon, dropdown);
+    }
 }
 
 public sealed class NDropdownDividerOption : NDropdownOptionBase
@@ -341,7 +465,8 @@ internal sealed class DropdownEntry
         object? suffix = null,
         object? content = null,
         bool disabled = false,
-        NDropdownOption? sourceOption = null)
+        NDropdownOption? sourceOption = null,
+        IReadOnlyList<DropdownEntry>? children = null)
     {
         Kind = kind;
         Key = key;
@@ -351,6 +476,7 @@ internal sealed class DropdownEntry
         Content = content;
         Disabled = disabled;
         SourceOption = sourceOption;
+        Children = children ?? [];
     }
 
     public NDropdownEntryKind Kind { get; }
@@ -368,4 +494,31 @@ internal sealed class DropdownEntry
     public bool Disabled { get; }
 
     public NDropdownOption? SourceOption { get; }
+
+    public IReadOnlyList<DropdownEntry> Children { get; }
+
+    public bool HasChildren => Children.Count > 0;
+
+    public bool ContainsKey(object? value)
+    {
+        if (value is null)
+        {
+            return false;
+        }
+
+        if (Key is not null && Equals(Key, value))
+        {
+            return true;
+        }
+
+        foreach (var child in Children)
+        {
+            if (child.ContainsKey(value))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

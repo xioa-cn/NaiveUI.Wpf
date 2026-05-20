@@ -6,18 +6,16 @@ using NaiveUI.NControls.Tools;
 
 namespace NaiveUI.NControls.Controls;
 
-public class NDropdownItem : Control
+public class NDropdownItem : MenuItem
 {
     static NDropdownItem()
     {
         ElementBase.DefaultStyle<NDropdownItem>(DefaultStyleKeyProperty);
     }
 
-    internal DropdownEntry? Entry { get; set; }
+    internal DropdownEntry? Entry { get; private set; }
 
     internal NDropdown? OwnerDropdown { get; set; }
-
-    internal NDropdownMenu? ParentMenu { get; set; }
 
     public NDropdownEntryKind EntryKind
     {
@@ -37,50 +35,23 @@ public class NDropdownItem : Control
     public static readonly DependencyProperty HasSuffixProperty =
         ElementBase.Property<NDropdownItem, bool>(nameof(HasSuffixProperty), false);
 
-    public bool IsDisabled
+    public bool IsCurrentSelection
     {
-        get => (bool)GetValue(IsDisabledProperty);
-        private set => SetValue(IsDisabledProperty, value);
+        get => (bool)GetValue(IsCurrentSelectionProperty);
+        private set => SetValue(IsCurrentSelectionProperty, value);
     }
 
-    public static readonly DependencyProperty IsDisabledProperty =
-        ElementBase.Property<NDropdownItem, bool>(nameof(IsDisabledProperty), false);
+    public static readonly DependencyProperty IsCurrentSelectionProperty =
+        ElementBase.Property<NDropdownItem, bool>(nameof(IsCurrentSelectionProperty), false);
 
-    public bool IsHighlighted
+    public bool IsSelectionPath
     {
-        get => (bool)GetValue(IsHighlightedProperty);
-        private set => SetValue(IsHighlightedProperty, value);
+        get => (bool)GetValue(IsSelectionPathProperty);
+        private set => SetValue(IsSelectionPathProperty, value);
     }
 
-    public static readonly DependencyProperty IsHighlightedProperty =
-        ElementBase.Property<NDropdownItem, bool>(nameof(IsHighlightedProperty), false);
-
-    public bool IsSelected
-    {
-        get => (bool)GetValue(IsSelectedProperty);
-        private set => SetValue(IsSelectedProperty, value);
-    }
-
-    public static readonly DependencyProperty IsSelectedProperty =
-        ElementBase.Property<NDropdownItem, bool>(nameof(IsSelectedProperty), false);
-
-    public object? LabelContent
-    {
-        get => GetValue(LabelContentProperty);
-        private set => SetValue(LabelContentProperty, value);
-    }
-
-    public static readonly DependencyProperty LabelContentProperty =
-        ElementBase.Property<NDropdownItem, object?>(nameof(LabelContentProperty), null);
-
-    public object? IconContent
-    {
-        get => GetValue(IconContentProperty);
-        private set => SetValue(IconContentProperty, value);
-    }
-
-    public static readonly DependencyProperty IconContentProperty =
-        ElementBase.Property<NDropdownItem, object?>(nameof(IconContentProperty), null);
+    public static readonly DependencyProperty IsSelectionPathProperty =
+        ElementBase.Property<NDropdownItem, bool>(nameof(IsSelectionPathProperty), false);
 
     public object? SuffixContent
     {
@@ -145,107 +116,86 @@ public class NDropdownItem : Control
     public static readonly DependencyProperty SuffixWidthProperty =
         ElementBase.Property<NDropdownItem, double>(nameof(SuffixWidthProperty), 12d);
 
-    public override void OnApplyTemplate()
+    public double MenuMaxHeight
     {
-        base.OnApplyTemplate();
-        RefreshFromEntry();
+        get => (double)GetValue(MenuMaxHeightProperty);
+        private set => SetValue(MenuMaxHeightProperty, value);
     }
 
-    protected override void OnMouseEnter(MouseEventArgs e)
+    public static readonly DependencyProperty MenuMaxHeightProperty =
+        ElementBase.Property<NDropdownItem, double>(nameof(MenuMaxHeightProperty), 320d);
+
+    protected override void OnClick()
     {
-        base.OnMouseEnter(e);
-
-        OwnerDropdown?.CancelHoverCloseTimer();
-
-        if (EntryKind != NDropdownEntryKind.Option || IsDisabled)
+        if (EntryKind == NDropdownEntryKind.Option
+            && Entry is not null
+            && !Entry.HasChildren
+            && OwnerDropdown is not null)
         {
-            return;
+            OwnerDropdown.HandleEntryInvoked(Entry, closeAfterInvoke: false);
         }
 
-        IsHighlighted = true;
+        base.OnClick();
     }
 
-    protected override void OnMouseLeave(MouseEventArgs e)
+    internal void ApplyEntry(
+        DropdownEntry entry,
+        double prefixWidth,
+        double suffixWidth,
+        NDropdownSize size,
+        double menuMaxHeight,
+        object? dataContext)
     {
-        base.OnMouseLeave(e);
-        IsHighlighted = false;
-    }
+        Entry = entry;
+        DataContext = dataContext;
+        Items.Clear();
 
-    protected override void OnPreviewMouseLeftButtonUp(MouseButtonEventArgs e)
-    {
-        base.OnPreviewMouseLeftButtonUp(e);
-
-        if (EntryKind != NDropdownEntryKind.Option || IsDisabled || Entry is null)
-        {
-            return;
-        }
-
-        OwnerDropdown?.HandleEntryInvoked(Entry);
-        e.Handled = true;
-    }
-
-    internal void RefreshFromEntry()
-    {
-        var entry = Entry;
-        if (entry is null)
-        {
-            EntryKind = NDropdownEntryKind.Option;
-            HasSuffix = false;
-            IsDisabled = false;
-            IsHighlighted = false;
-            IsSelected = false;
-            LabelContent = null;
-            IconContent = null;
-            SuffixContent = null;
-            RenderContent = null;
-            OptionHeight = 34d;
-            OptionFontSize = 14d;
-            OptionIconSize = 16d;
-            PrefixWidth = 14d;
-            SuffixWidth = 12d;
-            Cursor = Cursors.Arrow;
-            return;
-        }
-
-        var size = OwnerDropdown?.Size ?? NDropdownSize.Medium;
         var isGroupHeader = entry.Kind == NDropdownEntryKind.GroupHeader;
-        var menuPrefixWidth = ParentMenu?.ResolvedPrefixWidth ?? GetCompactPrefixWidth(size);
-        var menuSuffixWidth = ParentMenu?.ResolvedSuffixWidth ?? GetCompactSuffixWidth(size);
 
         EntryKind = entry.Kind;
-        HasSuffix = entry.Kind == NDropdownEntryKind.Option && entry.Suffix is not null;
-        IsDisabled = entry.Kind == NDropdownEntryKind.Option && entry.Disabled;
-        LabelContent = entry.Label;
-        IconContent = entry.Icon;
+        Header = entry.Kind == NDropdownEntryKind.Render ? null : entry.Label;
+        Icon = entry.Icon;
         SuffixContent = entry.Suffix;
         RenderContent = entry.Content;
+        HasSuffix = entry.Kind == NDropdownEntryKind.Option && entry.Suffix is not null;
         OptionHeight = GetOptionHeight(size);
         OptionFontSize = isGroupHeader ? GetOptionFontSize(size) - 1d : GetOptionFontSize(size);
         OptionIconSize = GetOptionIconSize(size);
-        PrefixWidth = isGroupHeader ? Math.Max(8d, menuPrefixWidth / 2d) : menuPrefixWidth;
-        SuffixWidth = isGroupHeader ? 8d : menuSuffixWidth;
+        PrefixWidth = isGroupHeader ? Math.Max(8d, prefixWidth / 2d) : prefixWidth;
+        SuffixWidth = isGroupHeader ? 8d : suffixWidth;
+        MenuMaxHeight = menuMaxHeight;
+        IsCheckable = false;
+        StaysOpenOnClick = entry.Kind != NDropdownEntryKind.Option || entry.HasChildren;
+        IsEnabled = entry.Kind != NDropdownEntryKind.Option || !entry.Disabled;
+        IsHitTestVisible = entry.Kind == NDropdownEntryKind.Option && !entry.Disabled;
+        Focusable = false;
         Cursor = entry.Kind == NDropdownEntryKind.Option && !entry.Disabled ? Cursors.Hand : Cursors.Arrow;
-        ApplyIconPresentation(IconContent);
+
+        ApplyIconPresentation(Icon);
         ApplyIconPresentation(SuffixContent);
-        RefreshSelectionState();
+        RefreshSelectionStateRecursive();
     }
 
-    internal void RefreshSelectionState()
+    internal void RefreshSelectionStateRecursive()
     {
         if (EntryKind != NDropdownEntryKind.Option || Entry is null || OwnerDropdown is null)
         {
-            IsSelected = false;
-            return;
+            IsCurrentSelection = false;
+            IsSelectionPath = false;
+        }
+        else
+        {
+            IsCurrentSelection = Entry.Key is not null && OwnerDropdown.IsSelectedKey(Entry.Key);
+            IsSelectionPath = !IsCurrentSelection && Entry.HasChildren && OwnerDropdown.ContainsSelectedDescendant(Entry);
         }
 
-        IsSelected = Entry.Key is not null && OwnerDropdown.IsSelectedKey(Entry.Key);
-    }
-
-    internal double MeasureRequiredWidth()
-    {
-        InvalidateMeasure();
-        Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-        return DesiredSize.Width;
+        foreach (var item in Items)
+        {
+            if (item is NDropdownItem child)
+            {
+                child.RefreshSelectionStateRecursive();
+            }
+        }
     }
 
     private static double GetOptionHeight(NDropdownSize size)
@@ -278,16 +228,6 @@ public class NDropdownItem : Control
             NDropdownSize.Huge => 18d,
             _ => 16d
         };
-    }
-
-    private static double GetCompactPrefixWidth(NDropdownSize size)
-    {
-        return size is NDropdownSize.Large or NDropdownSize.Huge ? 16d : 14d;
-    }
-
-    private static double GetCompactSuffixWidth(NDropdownSize size)
-    {
-        return size is NDropdownSize.Large or NDropdownSize.Huge ? 16d : 14d;
     }
 
     private void ApplyIconPresentation(object? content)
