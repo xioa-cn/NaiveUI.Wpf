@@ -106,7 +106,7 @@
                         FontSize="48"
                         FontWeight="Bold"
                         Foreground="{DynamicResource Theme.Text.Primary.Brush}"
-                        Text="下拉菜单" />
+                        Text="下拉菜单 Dropdown" />
                 </StackPanel>
 
                 <TextBlock
