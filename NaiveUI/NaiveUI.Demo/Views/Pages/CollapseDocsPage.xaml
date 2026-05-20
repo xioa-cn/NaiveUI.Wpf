@@ -34,73 +34,12 @@
 
     <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="340" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="220" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0">
-            <Border
-                Background="{DynamicResource Theme.Surface.0.Brush}"
-                BorderBrush="{DynamicResource Theme.Border.Brush}"
-                BorderThickness="0,0,1,0">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ItemsControl Margin="10,18,10,18" ItemsSource="{Binding SidebarCategories}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="0,0,0,18">
-                                    <TextBlock Style="{StaticResource SidebarCategoryHeaderTextStyle}" Text="{Binding HeaderText}" />
-                                    <ItemsControl ItemsSource="{Binding Items}">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <Button Click="HandleSidebarItemClick" Style="{StaticResource SidebarNavButtonStyle}">
-                                                    <Grid>
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition />
-                                                            <ColumnDefinition Width="Auto" />
-                                                        </Grid.ColumnDefinitions>
-                                                        <StackPanel Orientation="Horizontal">
-                                                            <TextBlock Style="{StaticResource SidebarNavTitleTextStyle}" Text="{Binding Title}" />
-                                                            <TextBlock Style="{StaticResource SidebarNavSubtitleTextStyle}" Text="{Binding Subtitle}" />
-                                                        </StackPanel>
-                                                        <Border
-                                                            Grid.Column="1"
-                                                            Margin="10,0,0,0"
-                                                            Padding="7,1"
-                                                            VerticalAlignment="Center"
-                                                            Background="#E6F9F0"
-                                                            CornerRadius="11"
-                                                            Visibility="{Binding HasBadge, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                            <TextBlock
-                                                                FontSize="12"
-                                                                Foreground="#18A058"
-                                                                Text="{Binding BadgeText}" />
-                                                        </Border>
-                                                    </Grid>
-                                                </Button>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </ScrollViewer>
-            </Border>
-
-            <Button
-                Width="32"
-                Height="32"
-                Margin="0,300,-16,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Content="&#xE76B;"
-                Style="{StaticResource SidebarCollapseButtonStyle}" />
-        </Grid>
-
         <ScrollViewer
-            x:Name="DocumentScrollViewer"
-            Grid.Column="1"
+            Grid.Column="0"
             VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="68,34,18,34">
                 <StackPanel Orientation="Horizontal">
@@ -423,7 +362,7 @@
             </StackPanel>
         </ScrollViewer>
 
-        <Border Grid.Column="2" Background="{DynamicResource Theme.Surface.0.Brush}">
+        <Border Grid.Column="1" Background="{DynamicResource Theme.Surface.0.Brush}">
             <nc:NMenu
                 Margin="20,36,20,20"
                 DisplayMemberPath="Label"

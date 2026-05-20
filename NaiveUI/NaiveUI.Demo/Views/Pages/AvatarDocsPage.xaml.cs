@@ -2,7 +2,6 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using NaiveUI.Demo.Services;
 using NaiveUI.Demo.ViewModels;
 using NaiveUI.NControls.Controls;
 
@@ -40,12 +39,4 @@ public partial class AvatarDocsPage : UserControl
         }
     }
 
-    private void HandleSidebarItemClick(object sender, RoutedEventArgs e)
-    {
-        if (sender is Button { DataContext: ComponentSidebarItemViewModel item })
-        {
-            ViewModel.SelectSidebarItem(item);
-            DemoNavigationService.RequestComponent(item.Key);
-        }
-    }
 }
