@@ -36,9 +36,7 @@
             <ColumnDefinition Width="220" />
         </Grid.ColumnDefinitions>
 
-        <ScrollViewer
-            Grid.Column="0"
-            VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="68,34,18,34">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
@@ -64,8 +62,7 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
-                        <ColumnDefinition Width="20" />
-                        <ColumnDefinition />
+
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0">
@@ -212,9 +209,7 @@
                                 </StackPanel>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
-                    </StackPanel>
 
-                    <StackPanel Grid.Column="2">
                         <nu:CardElement x:Name="SectionHoverable" Margin="0,0,0,20">
                             <nu:CardElement.HeaderElement>
                                 <Grid Margin="30,28,30,0">
