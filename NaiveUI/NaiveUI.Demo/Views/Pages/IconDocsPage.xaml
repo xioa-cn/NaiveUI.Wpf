@@ -1,0 +1,473 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Pages.IconDocsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style
+            x:Key="SectionCardHeaderTitleStyle"
+            BasedOn="{StaticResource DocSectionTitleStyle}"
+            TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+        <Style x:Key="IconFilledPathStyle" TargetType="Path">
+            <Setter Property="Fill" Value="{Binding ResolvedBrush, RelativeSource={RelativeSource AncestorType={x:Type nc:NIcon}}}" />
+            <Setter Property="Stretch" Value="Uniform" />
+        </Style>
+
+        <Style x:Key="IconStrokePathStyle" TargetType="Path">
+            <Setter Property="Fill" Value="Transparent" />
+            <Setter Property="Stroke" Value="{Binding ResolvedBrush, RelativeSource={RelativeSource AncestorType={x:Type nc:NIcon}}}" />
+            <Setter Property="StrokeEndLineCap" Value="Round" />
+            <Setter Property="StrokeLineJoin" Value="Round" />
+            <Setter Property="StrokeStartLineCap" Value="Round" />
+            <Setter Property="StrokeThickness" Value="32" />
+        </Style>
+
+        <Style x:Key="IconStrokeLineStyle" TargetType="Line">
+            <Setter Property="Stroke" Value="{Binding ResolvedBrush, RelativeSource={RelativeSource AncestorType={x:Type nc:NIcon}}}" />
+            <Setter Property="StrokeEndLineCap" Value="Round" />
+            <Setter Property="StrokeStartLineCap" Value="Round" />
+            <Setter Property="StrokeThickness" Value="32" />
+        </Style>
+
+        <Style x:Key="IconFilledEllipseStyle" TargetType="Ellipse">
+            <Setter Property="Fill" Value="{Binding ResolvedBrush, RelativeSource={RelativeSource AncestorType={x:Type nc:NIcon}}}" />
+        </Style>
+
+        <Style x:Key="IconStrokeEllipseStyle" TargetType="Ellipse">
+            <Setter Property="Fill" Value="Transparent" />
+            <Setter Property="Stroke" Value="{Binding ResolvedBrush, RelativeSource={RelativeSource AncestorType={x:Type nc:NIcon}}}" />
+            <Setter Property="StrokeEndLineCap" Value="Round" />
+            <Setter Property="StrokeStartLineCap" Value="Round" />
+            <Setter Property="StrokeThickness" Value="32" />
+        </Style>
+
+        <Style x:Key="IconStrokeRectangleStyle" TargetType="Rectangle">
+            <Setter Property="Fill" Value="Transparent" />
+            <Setter Property="Stroke" Value="{Binding ResolvedBrush, RelativeSource={RelativeSource AncestorType={x:Type nc:NIcon}}}" />
+            <Setter Property="StrokeLineJoin" Value="Round" />
+            <Setter Property="StrokeThickness" Value="32" />
+        </Style>
+
+        <Geometry x:Key="IconGameControllerFilledGeometry">M483.13,245.38C461.92,149.49,430,98.31,382.65,84.33A107.13,107.13,0,0,0,352,80c-13.71,0-25.65,3.34-38.28,6.88C298.5,91.15,281.21,96,256,96s-42.51-4.84-57.76-9.11C185.6,83.34,173.67,80,160,80a115.74,115.74,0,0,0-31.73,4.32c-47.1,13.92-79,65.08-100.52,161C4.61,348.54,16,413.71,59.69,428.83a56.62,56.62,0,0,0,18.64,3.22c29.93,0,53.93-24.93,70.33-45.34,18.53-23.1,40.22-34.82,107.34-34.82,59.95,0,84.76,8.13,106.19,34.82,13.47,16.78,26.2,28.52,38.9,35.91,16.89,9.82,33.77,12,50.16,6.37,25.82-8.81,40.62-32.1,44-69.24C497.82,331.27,493.86,293.86,483.13,245.38ZM208,240H176v32a16,16,0,0,1-32,0V240H112a16,16,0,0,1,0-32h32V176a16,16,0,0,1,32,0v32h32a16,16,0,0,1,0,32Zm84,4a20,20,0,1,1,20-20A20,20,0,0,1,292,244Zm44,44a20,20,0,1,1,20-19.95A20,20,0,0,1,336,288Zm0-88a20,20,0,1,1,20-20A20,20,0,0,1,336,200Zm44,44a20,20,0,1,1,20-20A20,20,0,0,1,380,244Z</Geometry>
+        <Geometry x:Key="IconCustomPlusGeometry">M368.5 240H272v-96.5c0-8.8-7.2-16-16-16s-16 7.2-16 16V240h-96.5c-8.8 0-16 7.2-16 16 0 4.4 1.8 8.4 4.7 11.3 2.9 2.9 6.9 4.7 11.3 4.7H240v96.5c0 4.4 1.8 8.4 4.7 11.3 2.9 2.9 6.9 4.7 11.3 4.7 8.8 0 16-7.2 16-16V272h96.5c8.8 0 16-7.2 16-16s-7.2-16-16-16z</Geometry>
+        <Geometry x:Key="IconCheckmarkGeometry">M9.54996 15.6L4.59996 10.65C4.20814 10.2582 4.20814 9.62293 4.59996 9.23111C4.99179 8.83929 5.62704 8.83929 6.01887 9.23111L9.54996 12.7622L17.9811 4.33111C18.3729 3.93929 19.0081 3.93929 19.4 4.33111C19.7918 4.72293 19.7918 5.35818 19.4 5.75L9.54996 15.6Z</Geometry>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="68,34,18,34">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="48"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                        Text="图标 Icon" />
+                </StackPanel>
+
+                <TextBlock
+                    Margin="0,26,0,0"
+                    FontSize="18"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="naive-ui 推荐使用 xicons 作为图标库。WPF 版本保留了 size、color、depth、component 和 icon-wrapper 语义，并补充了 Geometry 直连写法。" />
+
+                <TextBlock
+                    Margin="0,52,0,28"
+                    FontSize="36"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="演示" />
+
+                <StackPanel>
+                    <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="基础用法" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="支持默认内容、显式颜色以及 component 属性三种常见写法，对齐 Naive UI 官方基础示例。" />
+                                <WrapPanel VerticalAlignment="Center">
+                                    <nc:NIcon Margin="0,0,24,0" Size="40">
+                                        <Canvas Width="512" Height="512">
+                                            <Path Data="M467.51,248.83c-18.4-83.18-45.69-136.24-89.43-149.17A91.5,91.5,0,0,0,352,96c-26.89,0-48.11,16-96,16s-69.15-16-96-16a99.09,99.09,0,0,0-27.2,3.66C89,112.59,61.94,165.7,43.33,248.83c-19,84.91-15.56,152,21.58,164.88,26,9,49.25-9.61,71.27-37,25-31.2,55.79-40.8,119.82-40.8s93.62,9.6,118.66,40.8c22,27.41,46.11,45.79,71.42,37.16C487.1,399.86,486.52,334.74,467.51,248.83Z" Style="{StaticResource IconStrokePathStyle}" />
+                                            <Ellipse
+                                                Canvas.Left="272"
+                                                Canvas.Top="204"
+                                                Width="40"
+                                                Height="40"
+                                                Style="{StaticResource IconFilledEllipseStyle}" />
+                                            <Ellipse
+                                                Canvas.Left="316"
+                                                Canvas.Top="248"
+                                                Width="40"
+                                                Height="40"
+                                                Style="{StaticResource IconFilledEllipseStyle}" />
+                                            <Ellipse
+                                                Canvas.Left="316"
+                                                Canvas.Top="160"
+                                                Width="40"
+                                                Height="40"
+                                                Style="{StaticResource IconFilledEllipseStyle}" />
+                                            <Ellipse
+                                                Canvas.Left="360"
+                                                Canvas.Top="204"
+                                                Width="40"
+                                                Height="40"
+                                                Style="{StaticResource IconFilledEllipseStyle}" />
+                                            <Line
+                                                Style="{StaticResource IconStrokeLineStyle}"
+                                                X1="160"
+                                                X2="160"
+                                                Y1="176"
+                                                Y2="272" />
+                                            <Line
+                                                Style="{StaticResource IconStrokeLineStyle}"
+                                                X1="208"
+                                                X2="112"
+                                                Y1="224"
+                                                Y2="224" />
+                                        </Canvas>
+                                    </nc:NIcon>
+
+                                    <nc:NIcon
+                                        Margin="0,0,24,0"
+                                        Size="40"
+                                        Color="#0e7a0d">
+                                        <Path Data="{StaticResource IconGameControllerFilledGeometry}" Style="{StaticResource IconFilledPathStyle}" />
+                                    </nc:NIcon>
+
+                                    <nc:NIcon Size="40">
+                                        <nc:NIcon.Component>
+                                            <Path Data="{StaticResource IconGameControllerFilledGeometry}" Style="{StaticResource IconFilledPathStyle}" />
+                                        </nc:NIcon.Component>
+                                    </nc:NIcon>
+                                </WrapPanel>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionCustom" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="自定义图标" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="将自定义 SVG 放入图标。对应到 WPF 时，可以直接把 Path、Canvas 或任意可视元素放进 NIcon。" />
+                                <nc:NIcon
+                                    HorizontalAlignment="Left"
+                                    Size="40"
+                                    Color="#0e7a0d">
+                                    <Path Data="{StaticResource IconCustomPlusGeometry}" Style="{StaticResource IconFilledPathStyle}" />
+                                </nc:NIcon>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionDepth" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="深度" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="为了搭配不同级的文字颜色，图标提供 depth 选项。这里按官方示例展示 1 到 5 的深度层级。" />
+                                <WrapPanel VerticalAlignment="Center">
+                                    <nc:NIcon
+                                        Margin="0,0,18,0"
+                                        Depth="1"
+                                        Size="40">
+                                        <Canvas Width="512" Height="512">
+                                            <Rectangle
+                                                Canvas.Left="32"
+                                                Canvas.Top="80"
+                                                Width="448"
+                                                Height="256"
+                                                RadiusX="16"
+                                                RadiusY="16"
+                                                Style="{StaticResource IconStrokeRectangleStyle}" />
+                                            <Line
+                                                Style="{StaticResource IconStrokeLineStyle}"
+                                                X1="64"
+                                                X2="448"
+                                                Y1="384"
+                                                Y2="384" />
+                                            <Line
+                                                Style="{StaticResource IconStrokeLineStyle}"
+                                                X1="96"
+                                                X2="416"
+                                                Y1="432"
+                                                Y2="432" />
+                                            <Ellipse
+                                                Canvas.Left="176"
+                                                Canvas.Top="128"
+                                                Width="160"
+                                                Height="160"
+                                                Style="{StaticResource IconStrokeEllipseStyle}" />
+                                            <Path Data="M480,160a80,80,0,0,1-80-80" Style="{StaticResource IconStrokePathStyle}" />
+                                            <Path Data="M32,160a80,80,0,0,0,80-80" Style="{StaticResource IconStrokePathStyle}" />
+                                            <Path Data="M480,256a80,80,0,0,0-80,80" Style="{StaticResource IconStrokePathStyle}" />
+                                            <Path Data="M32,256a80,80,0,0,1,80,80" Style="{StaticResource IconStrokePathStyle}" />
+                                        </Canvas>
+                                    </nc:NIcon>
+
+                                    <nc:NIcon
+                                        Margin="0,0,18,0"
+                                        Depth="2"
+                                        Size="40">
+                                        <Canvas Width="512" Height="512">
+                                            <Rectangle
+                                                Canvas.Left="32"
+                                                Canvas.Top="80"
+                                                Width="448"
+                                                Height="256"
+                                                RadiusX="16"
+                                                RadiusY="16"
+                                                Style="{StaticResource IconStrokeRectangleStyle}" />
+                                            <Line
+                                                Style="{StaticResource IconStrokeLineStyle}"
+                                                X1="64"
+                                                X2="448"
+                                                Y1="384"
+                                                Y2="384" />
+                                            <Line
+                                                Style="{StaticResource IconStrokeLineStyle}"
+                                                X1="96"
+                                                X2="416"
+                                                Y1="432"
+                                                Y2="432" />
+                                            <Ellipse
+                                                Canvas.Left="176"
+                                                Canvas.Top="128"
+                                                Width="160"
+                                                Height="160"
+                                                Style="{StaticResource IconStrokeEllipseStyle}" />
+                                            <Path Data="M480,160a80,80,0,0,1-80-80" Style="{StaticResource IconStrokePathStyle}" />
+                                            <Path Data="M32,160a80,80,0,0,0,80-80" Style="{StaticResource IconStrokePathStyle}" />
+                                            <Path Data="M480,256a80,80,0,0,0-80,80" Style="{StaticResource IconStrokePathStyle}" />
+                                            <Path Data="M32,256a80,80,0,0,1,80,80" Style="{StaticResource IconStrokePathStyle}" />
+                                        </Canvas>
+                                    </nc:NIcon>
+
+                                    <nc:NIcon
+                                        Margin="0,0,18,0"
+                                        Depth="3"
+                                        Size="40">
+                                        <Canvas Width="512" Height="512">
+                                            <Rectangle
+                                                Canvas.Left="32"
+                                                Canvas.Top="80"
+                                                Width="448"
+                                                Height="256"
+                                                RadiusX="16"
+                                                RadiusY="16"
+                                                Style="{StaticResource IconStrokeRectangleStyle}" />
+                                            <Line
+                                                Style="{StaticResource IconStrokeLineStyle}"
+                                                X1="64"
+                                                X2="448"
+                                                Y1="384"
+                                                Y2="384" />
+                                            <Line
+                                                Style="{StaticResource IconStrokeLineStyle}"
+                                                X1="96"
+                                                X2="416"
+                                                Y1="432"
+                                                Y2="432" />
+                                            <Ellipse
+                                                Canvas.Left="176"
+                                                Canvas.Top="128"
+                                                Width="160"
+                                                Height="160"
+                                                Style="{StaticResource IconStrokeEllipseStyle}" />
+                                            <Path Data="M480,160a80,80,0,0,1-80-80" Style="{StaticResource IconStrokePathStyle}" />
+                                            <Path Data="M32,160a80,80,0,0,0,80-80" Style="{StaticResource IconStrokePathStyle}" />
+                                            <Path Data="M480,256a80,80,0,0,0-80,80" Style="{StaticResource IconStrokePathStyle}" />
+                                            <Path Data="M32,256a80,80,0,0,1,80,80" Style="{StaticResource IconStrokePathStyle}" />
+                                        </Canvas>
+                                    </nc:NIcon>
+
+                                    <nc:NIcon
+                                        Margin="0,0,18,0"
+                                        Depth="4"
+                                        Size="40">
+                                        <Canvas Width="512" Height="512">
+                                            <Rectangle
+                                                Canvas.Left="32"
+                                                Canvas.Top="80"
+                                                Width="448"
+                                                Height="256"
+                                                RadiusX="16"
+                                                RadiusY="16"
+                                                Style="{StaticResource IconStrokeRectangleStyle}" />
+                                            <Line
+                                                Style="{StaticResource IconStrokeLineStyle}"
+                                                X1="64"
+                                                X2="448"
+                                                Y1="384"
+                                                Y2="384" />
+                                            <Line
+                                                Style="{StaticResource IconStrokeLineStyle}"
+                                                X1="96"
+                                                X2="416"
+                                                Y1="432"
+                                                Y2="432" />
+                                            <Ellipse
+                                                Canvas.Left="176"
+                                                Canvas.Top="128"
+                                                Width="160"
+                                                Height="160"
+                                                Style="{StaticResource IconStrokeEllipseStyle}" />
+                                            <Path Data="M480,160a80,80,0,0,1-80-80" Style="{StaticResource IconStrokePathStyle}" />
+                                            <Path Data="M32,160a80,80,0,0,0,80-80" Style="{StaticResource IconStrokePathStyle}" />
+                                            <Path Data="M480,256a80,80,0,0,0-80,80" Style="{StaticResource IconStrokePathStyle}" />
+                                            <Path Data="M32,256a80,80,0,0,1,80,80" Style="{StaticResource IconStrokePathStyle}" />
+                                        </Canvas>
+                                    </nc:NIcon>
+
+                                    <nc:NIcon Depth="5" Size="40">
+                                        <Canvas Width="512" Height="512">
+                                            <Rectangle
+                                                Canvas.Left="32"
+                                                Canvas.Top="80"
+                                                Width="448"
+                                                Height="256"
+                                                RadiusX="16"
+                                                RadiusY="16"
+                                                Style="{StaticResource IconStrokeRectangleStyle}" />
+                                            <Line
+                                                Style="{StaticResource IconStrokeLineStyle}"
+                                                X1="64"
+                                                X2="448"
+                                                Y1="384"
+                                                Y2="384" />
+                                            <Line
+                                                Style="{StaticResource IconStrokeLineStyle}"
+                                                X1="96"
+                                                X2="416"
+                                                Y1="432"
+                                                Y2="432" />
+                                            <Ellipse
+                                                Canvas.Left="176"
+                                                Canvas.Top="128"
+                                                Width="160"
+                                                Height="160"
+                                                Style="{StaticResource IconStrokeEllipseStyle}" />
+                                            <Path Data="M480,160a80,80,0,0,1-80-80" Style="{StaticResource IconStrokePathStyle}" />
+                                            <Path Data="M32,160a80,80,0,0,0,80-80" Style="{StaticResource IconStrokePathStyle}" />
+                                            <Path Data="M480,256a80,80,0,0,0-80,80" Style="{StaticResource IconStrokePathStyle}" />
+                                            <Path Data="M32,256a80,80,0,0,1,80,80" Style="{StaticResource IconStrokePathStyle}" />
+                                        </Canvas>
+                                    </nc:NIcon>
+                                </WrapPanel>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionWrapper" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="带背景色的图标" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="有的时候加个背景显得没那么单调。NIconWrapper 会负责背景、圆角和默认图标前景色。" />
+                                <nc:NIconWrapper
+                                    HorizontalAlignment="Left"
+                                    BorderRadius="10"
+                                    Size="24">
+                                    <nc:NIcon Data="{StaticResource IconCheckmarkGeometry}" Size="18" />
+                                </nc:NIconWrapper>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionApi" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="API" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <TextBlock
+                                Margin="30,24,30,24"
+                                Style="{StaticResource DocBodyTextStyle}"
+                                Text="下面的 API 表以 Naive UI Icon / IconWrapper 为主线整理。除了官方的 color、depth、size、component 语义，WPF 版本额外提供了 Data 和 IconBrush，方便直接复用 Geometry 资源。" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionIconProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Icon Props" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding IconPropsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionIconWrapperProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="IconWrapper Props" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding IconWrapperPropsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionIconSlots" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Icon Slots" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding IconSlotsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="1" Background="{DynamicResource Theme.Surface.0.Brush}">
+            <nc:NMenu
+                Margin="20,36,20,20"
+                DisplayMemberPath="Label"
+                ItemInvoked="HandleOutlineItemInvoked"
+                ItemsSource="{Binding OutlineItems}"
+                SelectedValuePath="TargetName" />
+        </Border>
+    </Grid>
+</UserControl>

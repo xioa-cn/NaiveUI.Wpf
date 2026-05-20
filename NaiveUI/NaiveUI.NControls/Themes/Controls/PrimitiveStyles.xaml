@@ -6,26 +6,6 @@
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/ThemeTokens.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style TargetType="{x:Type controls:NIcon}">
-        <Setter Property="Width" Value="20" />
-        <Setter Property="Height" Value="20" />
-        <Setter Property="IconBrush" Value="{DynamicResource Theme.Text.Secondary.Brush}" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type controls:NIcon}">
-                    <Viewbox StretchDirection="Both">
-                        <Path
-                            Width="{TemplateBinding Width}"
-                            Height="{TemplateBinding Height}"
-                            Data="{TemplateBinding Data}"
-                            Fill="{TemplateBinding IconBrush}"
-                            Stretch="{TemplateBinding Stretch}" />
-                    </Viewbox>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
     <Style TargetType="{x:Type controls:NLayout}">
         <Setter Property="Background" Value="{DynamicResource Theme.Window.Background.Brush}" />
         <Setter Property="Template">
