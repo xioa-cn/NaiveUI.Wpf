@@ -11,6 +11,7 @@ public partial class PageHeaderDocsPageViewModel : ObservableObject
 {
     public PageHeaderDocsPageViewModel()
     {
+        BreadcrumbCommand = new RelayCommand<object?>(HandleBreadcrumbCommand);
         OutlineItems = DocOutlineItem.Create(
             ("基础用法", "SectionBasic"),
             ("API", "SectionApi"),
@@ -59,5 +60,17 @@ public partial class PageHeaderDocsPageViewModel : ObservableObject
     private static void HandleBack()
     {
         NElMessage.Info("Command [onBack]");
+    }
+    public ICommand BreadcrumbCommand { get; }
+
+    private void HandleBreadcrumbCommand(object? parameter)
+    {
+        var message = parameter switch
+        {
+            string text when !string.IsNullOrWhiteSpace(text) => $"Last command: {text}",
+            _ => "Last command: null"
+        };
+
+        NElMessage.Info(message);
     }
 }

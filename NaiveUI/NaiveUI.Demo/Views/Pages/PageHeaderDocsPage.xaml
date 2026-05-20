@@ -76,10 +76,10 @@
 
                                     <nc:NPageHeader.HeaderContent>
                                         <nc:NBreadcrumb>
-                                            <nc:NBreadcrumbItem Click="BreadcrumbItemClick">播客</nc:NBreadcrumbItem>
-                                            <nc:NBreadcrumbItem Click="BreadcrumbItemClick">精选</nc:NBreadcrumbItem>
-                                            <nc:NBreadcrumbItem Click="BreadcrumbItemClick">超级精选</nc:NBreadcrumbItem>
-                                            <nc:NBreadcrumbItem Click="BreadcrumbItemClick">Anyway.FM</nc:NBreadcrumbItem>
+                                            <nc:NBreadcrumbItem Command="{Binding BreadcrumbCommand}" CommandParameter="播客">播客</nc:NBreadcrumbItem>
+                                            <nc:NBreadcrumbItem Command="{Binding BreadcrumbCommand}" CommandParameter="精选">精选</nc:NBreadcrumbItem>
+                                            <nc:NBreadcrumbItem Command="{Binding BreadcrumbCommand}" CommandParameter="超级精选">超级精选</nc:NBreadcrumbItem>
+                                            <nc:NBreadcrumbItem Command="{Binding BreadcrumbCommand}" CommandParameter="Anyway.FM">Anyway.FM</nc:NBreadcrumbItem>
                                         </nc:NBreadcrumb>
                                     </nc:NPageHeader.HeaderContent>
 
