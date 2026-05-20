@@ -1,4 +1,4 @@
-<UserControl
+﻿<UserControl
     x:Class="NaiveUI.Demo.Views.Pages.EllipsisDocsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -325,73 +325,12 @@
         </ScrollViewer>
 
         <Border Grid.Column="2" Background="{DynamicResource Theme.Surface.0.Brush}">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <StackPanel Margin="20,36,20,20">
-                    <nc:NButton
-                        Margin="3"
-                        Click="ScrollToSection"
-                        Content="基础"
-                        Kind="Tertiary"
-                        Style="{StaticResource OutlineLinkButtonStyle}"
-                        Tag="SectionBasic" />
-                    <nc:NButton
-                        Margin="3"
-                        Click="ScrollToSection"
-                        Content="最大行数"
-                        Kind="Tertiary"
-                        Style="{StaticResource OutlineLinkButtonStyle}"
-                        Tag="SectionLineClamp" />
-                    <nc:NButton
-                        Margin="3"
-                        Click="ScrollToSection"
-                        Content="展开方式"
-                        Kind="Tertiary"
-                        Style="{StaticResource OutlineLinkButtonStyle}"
-                        Tag="SectionExpandTrigger" />
-                    <nc:NButton
-                        Margin="3"
-                        Click="ScrollToSection"
-                        Content="定制 Tooltip 内容"
-                        Kind="Tertiary"
-                        Style="{StaticResource OutlineLinkButtonStyle}"
-                        Tag="SectionCustomTooltip" />
-                    <nc:NButton
-                        Margin="3"
-                        Click="ScrollToSection"
-                        Content="动态文本"
-                        Kind="Tertiary"
-                        Style="{StaticResource OutlineLinkButtonStyle}"
-                        Tag="SectionDynamic" />
-                    <nc:NButton
-                        Margin="3"
-                        Click="ScrollToSection"
-                        Content="宽度调试"
-                        Kind="Tertiary"
-                        Style="{StaticResource OutlineLinkButtonStyle}"
-                        Tag="SectionWidthDebug" />
-                    <nc:NButton
-                        Margin="3"
-                        Click="ScrollToSection"
-                        Content="API"
-                        Kind="Tertiary"
-                        Style="{StaticResource OutlineLinkButtonStyle}"
-                        Tag="SectionApi" />
-                    <nc:NButton
-                        Margin="3"
-                        Click="ScrollToSection"
-                        Content="Ellipsis Props"
-                        Kind="Tertiary"
-                        Style="{StaticResource OutlineLinkButtonStyle}"
-                        Tag="SectionEllipsisProps" />
-                    <nc:NButton
-                        Margin="3"
-                        Click="ScrollToSection"
-                        Content="Ellipsis Slots"
-                        Kind="Tertiary"
-                        Style="{StaticResource OutlineLinkButtonStyle}"
-                        Tag="SectionEllipsisSlots" />
-                </StackPanel>
-            </ScrollViewer>
+            <nc:NMenu
+                Margin="20,36,20,20"
+                DisplayMemberPath="Label"
+                ItemInvoked="HandleOutlineItemInvoked"
+                ItemsSource="{Binding OutlineItems}"
+                SelectedValuePath="TargetName" />
         </Border>
     </Grid>
 </UserControl>

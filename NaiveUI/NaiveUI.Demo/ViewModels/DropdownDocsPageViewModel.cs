@@ -21,6 +21,22 @@ public partial class DropdownDocsPageViewModel : ObservableObject
     public DropdownDocsPageViewModel(string selectedKey = "dropdown")
     {
         SidebarCategories = ComponentSidebarViewModelFactory.Create(selectedKey);
+        OutlineItems = DocOutlineItem.Create(
+            ("基础", "SectionBasic"),
+            ("图标", "SectionIcon"),
+            ("触发方式", "SectionTrigger"),
+            ("单项交互", "SectionAction"),
+            ("多级联动", "SectionCascade"),
+            ("分组与分割线", "SectionGroup"),
+            ("显示箭头", "SectionArrow"),
+            ("弹出位置", "SectionPlacement"),
+            ("菜单尺寸", "SectionSize"),
+            ("自定义内容", "SectionCustomContent"),
+            ("接口说明", "SectionApi"),
+            ("下拉菜单属性", "SectionDropdownProps"),
+            ("菜单项与组合项属性", "SectionDropdownOptionProps"),
+            ("其他类型", "SectionDropdownOtherTypes"),
+            ("触发插槽", "SectionDropdownSlots"));
         OptionActionCommand = new RelayCommand<object>(HandleOptionActionCommand);
 
         DropdownPropsRows =
@@ -67,6 +83,8 @@ public partial class DropdownDocsPageViewModel : ObservableObject
     }
 
     public ObservableCollection<ComponentSidebarCategoryViewModel> SidebarCategories { get; }
+
+    public IReadOnlyList<DocOutlineItem> OutlineItems { get; }
 
     public IReadOnlyList<ApiDocRow> DropdownPropsRows { get; }
 

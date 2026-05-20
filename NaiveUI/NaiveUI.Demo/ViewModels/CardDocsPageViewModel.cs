@@ -11,6 +11,18 @@ public sealed class CardDocsPageViewModel: ViewModelBase
     public CardDocsPageViewModel(string selectedKey = "card")
     {
         SidebarCategories = ComponentSidebarViewModelFactory.Create(selectedKey);
+        OutlineItems = DocOutlineItem.Create(
+            ("基础", "SectionBasic"),
+            ("标题与额外操作", "SectionHeaderExtra"),
+            ("封面", "SectionCover"),
+            ("分段底部", "SectionSegmented"),
+            ("悬浮效果", "SectionHoverable"),
+            ("内嵌样式", "SectionEmbedded"),
+            ("尺寸", "SectionSizes"),
+            ("加载中", "SectionLoading"),
+            ("API", "SectionApi"),
+            ("Card Props", "SectionCardProps"),
+            ("Card Slots", "SectionCardSlots"));
 
         CardPropsRows =
         [
@@ -44,6 +56,8 @@ public sealed class CardDocsPageViewModel: ViewModelBase
     }
 
     public ObservableCollection<ComponentSidebarCategoryViewModel> SidebarCategories { get; }
+
+    public IReadOnlyList<DocOutlineItem> OutlineItems { get; }
 
     public IReadOnlyList<ApiDocRow> CardPropsRows { get; }
 

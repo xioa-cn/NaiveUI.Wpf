@@ -11,6 +11,20 @@ public sealed class CollapseDocsPageViewModel : ViewModelBase
     public CollapseDocsPageViewModel(string selectedKey = "collapse")
     {
         SidebarCategories = ComponentSidebarViewModelFactory.Create(selectedKey);
+        OutlineItems = DocOutlineItem.Create(
+            ("基础", "SectionBasic"),
+            ("手风琴模式", "SectionAccordion"),
+            ("默认展开项", "SectionDefaultExpanded"),
+            ("箭头位置", "SectionArrowPlacement"),
+            ("触发区域", "SectionTriggerAreas"),
+            ("额外内容与自定义头部", "SectionHeaderExtra"),
+            ("禁用项", "SectionDisabled"),
+            ("显示策略", "SectionDisplayDirective"),
+            ("接口说明", "SectionApi"),
+            ("折叠面板属性", "SectionCollapseProps"),
+            ("折叠项属性", "SectionCollapseItemProps"),
+            ("折叠面板插槽", "SectionCollapseSlots"),
+            ("折叠项插槽", "SectionCollapseItemSlots"));
 
         CollapsePropsRows =
         [
@@ -50,6 +64,8 @@ public sealed class CollapseDocsPageViewModel : ViewModelBase
     }
 
     public ObservableCollection<ComponentSidebarCategoryViewModel> SidebarCategories { get; }
+
+    public IReadOnlyList<DocOutlineItem> OutlineItems { get; }
 
     public IReadOnlyList<ApiDocRow> CollapsePropsRows { get; }
 

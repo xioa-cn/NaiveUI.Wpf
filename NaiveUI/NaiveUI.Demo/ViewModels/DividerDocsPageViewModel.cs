@@ -11,6 +11,16 @@ public sealed class DividerDocsPageViewModel : ViewModelBase
     public DividerDocsPageViewModel(string selectedKey = "divider")
     {
         SidebarCategories = ComponentSidebarViewModelFactory.Create(selectedKey);
+        OutlineItems = DocOutlineItem.Create(
+            ("基础", "SectionBasic"),
+            ("标题位置", "SectionTitlePlacement"),
+            ("虚线", "SectionDashed"),
+            ("垂直分割", "SectionVertical"),
+            ("线条粗细", "SectionThickness"),
+            ("自定义标题内容", "SectionCustomTitle"),
+            ("接口说明", "SectionApi"),
+            ("分割线属性", "SectionDividerProps"),
+            ("分割线插槽", "SectionDividerSlots"));
 
         DividerPropsRows =
         [
@@ -32,6 +42,8 @@ public sealed class DividerDocsPageViewModel : ViewModelBase
     }
 
     public ObservableCollection<ComponentSidebarCategoryViewModel> SidebarCategories { get; }
+
+    public IReadOnlyList<DocOutlineItem> OutlineItems { get; }
 
     public IReadOnlyList<ApiDocRow> DividerPropsRows { get; }
 

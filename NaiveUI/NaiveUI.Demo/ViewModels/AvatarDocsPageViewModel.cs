@@ -11,6 +11,17 @@ public sealed class AvatarDocsPageViewModel: ViewModelBase
     public AvatarDocsPageViewModel(string selectedKey = "avatar")
     {
         SidebarCategories = ComponentSidebarViewModelFactory.Create(selectedKey);
+        OutlineItems = DocOutlineItem.Create(
+            ("基础", "SectionBasic"),
+            ("形状", "SectionShape"),
+            ("尺寸", "SectionSize"),
+            ("图片", "SectionImage"),
+            ("徽标", "SectionBadge"),
+            ("回退策略", "SectionFallback"),
+            ("组合展示", "SectionGroup"),
+            ("API", "SectionApi"),
+            ("Avatar Props", "SectionAvatarProps"),
+            ("Avatar Slots", "SectionAvatarSlots"));
 
         AvatarPropsRows =
         [
@@ -42,6 +53,8 @@ public sealed class AvatarDocsPageViewModel: ViewModelBase
     }
 
     public ObservableCollection<ComponentSidebarCategoryViewModel> SidebarCategories { get; }
+
+    public IReadOnlyList<DocOutlineItem> OutlineItems { get; }
 
     public IReadOnlyList<ApiDocRow> AvatarPropsRows { get; }
 

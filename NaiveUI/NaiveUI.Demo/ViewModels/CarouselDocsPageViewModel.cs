@@ -11,6 +11,16 @@ public sealed class CarouselDocsPageViewModel : ViewModelBase
     public CarouselDocsPageViewModel(string selectedKey = "carousel")
     {
         SidebarCategories = ComponentSidebarViewModelFactory.Create(selectedKey);
+        OutlineItems = DocOutlineItem.Create(
+            ("基础用法", "SectionBasic"),
+            ("自动播放", "SectionAutoplay"),
+            ("淡入淡出", "SectionFade"),
+            ("卡片效果", "SectionCardEffect"),
+            ("指示器位置", "SectionPlacement"),
+            ("触发方式", "SectionTrigger"),
+            ("接口说明", "SectionApi"),
+            ("轮播属性", "SectionCarouselProps"),
+            ("轮播插槽", "SectionCarouselSlots"));
 
         CarouselPropsRows =
         [
@@ -41,6 +51,8 @@ public sealed class CarouselDocsPageViewModel : ViewModelBase
 
     public ObservableCollection<ComponentSidebarCategoryViewModel> SidebarCategories { get; }
 
+    public IReadOnlyList<DocOutlineItem> OutlineItems { get; }
+
     public IReadOnlyList<ApiDocRow> CarouselPropsRows { get; }
 
     public IReadOnlyList<ApiDocRow> CarouselSlotsRows { get; }
@@ -53,5 +65,4 @@ public sealed class CarouselDocsPageViewModel : ViewModelBase
         }
     }
 }
-
 

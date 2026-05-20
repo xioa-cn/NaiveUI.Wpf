@@ -17,9 +17,9 @@ public partial class DropdownDocsPage : UserControl
         DataContext = new DropdownDocsPageViewModel();
     }
 
-    private void ScrollToSection(object sender, RoutedEventArgs e)
+    private void HandleOutlineItemInvoked(object? sender, NMenuItemInvokedEventArgs e)
     {
-        if (sender is not FrameworkElement element || element.Tag is not string targetName)
+        if (e.Value is not string targetName)
         {
             return;
         }

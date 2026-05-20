@@ -15,6 +15,16 @@ public sealed class EllipsisDocsPageViewModel : ViewModelBase
     public EllipsisDocsPageViewModel(string selectedKey = "ellipsis")
     {
         SidebarCategories = ComponentSidebarViewModelFactory.Create(selectedKey);
+        OutlineItems = DocOutlineItem.Create(
+            ("基础", "SectionBasic"),
+            ("最大行数", "SectionLineClamp"),
+            ("展开方式", "SectionExpandTrigger"),
+            ("定制 Tooltip 内容", "SectionCustomTooltip"),
+            ("动态文本", "SectionDynamic"),
+            ("宽度调试", "SectionWidthDebug"),
+            ("API", "SectionApi"),
+            ("Ellipsis Props", "SectionEllipsisProps"),
+            ("Ellipsis Slots", "SectionEllipsisSlots"));
 
         EllipsisPropsRows =
         [
@@ -36,6 +46,8 @@ public sealed class EllipsisDocsPageViewModel : ViewModelBase
     }
 
     public ObservableCollection<ComponentSidebarCategoryViewModel> SidebarCategories { get; }
+
+    public IReadOnlyList<DocOutlineItem> OutlineItems { get; }
 
     public IReadOnlyList<ApiDocRow> EllipsisPropsRows { get; }
 

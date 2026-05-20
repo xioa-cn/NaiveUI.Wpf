@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using NaiveUI.Demo.Services;
 using NaiveUI.Demo.ViewModels;
+using NaiveUI.NControls.Controls;
 
 namespace NaiveUI.Demo.Views.Pages;
 
@@ -26,9 +27,9 @@ public partial class AvatarDocsPage : UserControl
         BrokenAvatarWithPlaceholder.Src = new BitmapImage(InvalidAvatarUri);
     }
 
-    private void ScrollToSection(object sender, RoutedEventArgs e)
+    private void HandleOutlineItemInvoked(object? sender, NMenuItemInvokedEventArgs e)
     {
-        if (sender is not FrameworkElement element || element.Tag is not string targetName)
+        if (e.Value is not string targetName)
         {
             return;
         }

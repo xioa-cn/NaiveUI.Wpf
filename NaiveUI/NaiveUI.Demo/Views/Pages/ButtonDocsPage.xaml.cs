@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using NaiveUI.Demo.Services;
 using NaiveUI.Demo.ViewModels;
+using NaiveUI.NControls.Controls;
 using NaiveUI.NControls.Tools;
 
 namespace NaiveUI.Demo.Views.Pages;
@@ -16,9 +17,9 @@ public partial class ButtonDocsPage : UserControl
         DataContext = new ButtonDocsPageViewModel();
     }
 
-    private void ScrollToSection(object sender, RoutedEventArgs e)
+    private void HandleOutlineItemInvoked(object? sender, NMenuItemInvokedEventArgs e)
     {
-        if (sender is not FrameworkElement element || element.Tag is not string targetName)
+        if (e.Value is not string targetName)
         {
             return;
         }

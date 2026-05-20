@@ -11,6 +11,30 @@ public sealed class ButtonDocsPageViewModel: ViewModelBase
     public ButtonDocsPageViewModel(string selectedKey = "button")
     {
         SidebarCategories = ComponentSidebarViewModelFactory.Create(selectedKey);
+        OutlineItems = DocOutlineItem.Create(
+            ("基础", "SectionBasic"),
+            ("次要按钮", "SectionSecondary"),
+            ("次次要按钮", "SectionTertiary"),
+            ("次次次要按钮", "SectionQuaternary"),
+            ("虚线按钮", "SectionDashed"),
+            ("尺寸", "SectionSize"),
+            ("文本按钮", "SectionText"),
+            ("标签", "SectionTag"),
+            ("禁用", "SectionDisabled"),
+            ("图标", "SectionIcon"),
+            ("事件", "SectionEvent"),
+            ("形状", "SectionShape"),
+            ("透明背景", "SectionGhost"),
+            ("加载中", "SectionLoading"),
+            ("自定义颜色", "SectionCustomColor"),
+            ("按钮组", "SectionButtonGroup"),
+            ("使用图标作为按钮", "SectionIconOnly"),
+            ("配合 Popover 的特殊情况", "SectionPopover"),
+            ("API", "SectionApi"),
+            ("Button Props", "SectionButtonProps"),
+            ("ButtonGroup Props", "SectionButtonGroupProps"),
+            ("Button Slots", "SectionButtonSlots"),
+            ("ButtonGroup Slots", "SectionButtonGroupSlots"));
 
         ButtonPropsRows =
         [
@@ -54,6 +78,8 @@ public sealed class ButtonDocsPageViewModel: ViewModelBase
     }
 
     public ObservableCollection<ComponentSidebarCategoryViewModel> SidebarCategories { get; }
+
+    public IReadOnlyList<DocOutlineItem> OutlineItems { get; }
 
     public IReadOnlyList<ApiDocRow> ButtonPropsRows { get; }
 
