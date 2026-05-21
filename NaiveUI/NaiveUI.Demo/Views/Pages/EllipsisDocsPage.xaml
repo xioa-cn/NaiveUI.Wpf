@@ -9,6 +9,7 @@
     xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
     xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
     xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
     mc:Ignorable="d">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -66,16 +67,19 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <StackPanel Margin="30,24,30,24">
-                                <TextBlock
-                                    Margin="0,0,0,20"
-                                    Style="{StaticResource DocBodyTextStyle}"
-                                    Text="带弹出提示的单行省略，交互和 Naive UI 的基础示例保持一致。" />
-                                <nc:NEllipsis
-                                    Width="100"
-                                    HorizontalAlignment="Left"
-                                    Content="{Binding BasicText}" />
-                            </StackPanel>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                       UniqueKey="EllipsisDocsPage1">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="带弹出提示的单行省略，交互和 Naive UI 的基础示例保持一致。" />
+                                    <nc:NEllipsis
+                                        Width="100"
+                                        HorizontalAlignment="Left"
+                                        Content="{Binding BasicText}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
 
@@ -86,17 +90,20 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <StackPanel Margin="30,24,30,24">
-                                <TextBlock
-                                    Margin="0,0,0,20"
-                                    Style="{StaticResource DocBodyTextStyle}"
-                                    Text="WPF 版本使用原生 FormattedText 做多行测量和 CharacterEllipsis 截断，效果尽量贴近 Naive UI 的 line-clamp 行为。" />
-                                <nc:NEllipsis
-                                    Width="360"
-                                    HorizontalAlignment="Left"
-                                    Content="{Binding MultiLineText}"
-                                    LineClamp="2" />
-                            </StackPanel>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                       UniqueKey="EllipsisDocsPage2">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="WPF 版本使用原生 FormattedText 做多行测量和 CharacterEllipsis 截断，效果尽量贴近 Naive UI 的 line-clamp 行为。" />
+                                    <nc:NEllipsis
+                                        Width="360"
+                                        HorizontalAlignment="Left"
+                                        Content="{Binding MultiLineText}"
+                                        LineClamp="2" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
 
@@ -107,19 +114,22 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <StackPanel Margin="30,24,30,24">
-                                <TextBlock
-                                    Margin="0,0,0,20"
-                                    Style="{StaticResource DocBodyTextStyle}"
-                                    Text="使用 ExpandTrigger=&quot;Click&quot; 搭配 LineClamp 可以点击展开或收起完整文本。展开时会关闭 Tooltip，和 Naive UI 的行为一致。" />
-                                <nc:NEllipsis
-                                    Width="360"
-                                    HorizontalAlignment="Left"
-                                    Content="{Binding MultiLineText}"
-                                    ExpandTrigger="Click"
-                                    LineClamp="2"
-                                    Tooltip="False" />
-                            </StackPanel>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                       UniqueKey="EllipsisDocsPage3">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="使用 ExpandTrigger=&quot;Click&quot; 搭配 LineClamp 可以点击展开或收起完整文本。展开时会关闭 Tooltip，和 Naive UI 的行为一致。" />
+                                    <nc:NEllipsis
+                                        Width="360"
+                                        HorizontalAlignment="Left"
+                                        Content="{Binding MultiLineText}"
+                                        ExpandTrigger="Click"
+                                        LineClamp="2"
+                                        Tooltip="False" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
 
@@ -130,43 +140,46 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <StackPanel Margin="30,24,30,24">
-                                <TextBlock
-                                    Margin="0,0,0,20"
-                                    Style="{StaticResource DocBodyTextStyle}"
-                                    Text="通过 TooltipContent 自定义悬浮层内容，对应 Naive UI 的 tooltip slot。" />
-                                <nc:NEllipsis
-                                    Width="180"
-                                    HorizontalAlignment="Left"
-                                    Content="{Binding BasicText}">
-                                    <nc:NEllipsis.TooltipContent>
-                                        <StackPanel Width="220">
-                                            <TextBlock
-                                                HorizontalAlignment="Center"
-                                                FontSize="14"
-                                                FontWeight="SemiBold"
-                                                Foreground="{DynamicResource Theme.Tooltip.Foreground.Brush}"
-                                                Text="《秦皇岛》" />
-                                            <TextBlock
-                                                Margin="0,8,0,0"
-                                                HorizontalAlignment="Center"
-                                                FontSize="13"
-                                                Foreground="{DynamicResource Theme.Tooltip.Foreground.Brush}"
-                                                Text="住在我心里孤独的" />
-                                            <TextBlock
-                                                HorizontalAlignment="Center"
-                                                FontSize="13"
-                                                Foreground="{DynamicResource Theme.Tooltip.Foreground.Brush}"
-                                                Text="孤独的海怪 痛苦之王" />
-                                            <TextBlock
-                                                HorizontalAlignment="Center"
-                                                FontSize="13"
-                                                Foreground="{DynamicResource Theme.Tooltip.Foreground.Brush}"
-                                                Text="开始厌倦 深海的光 停滞的海浪" />
-                                        </StackPanel>
-                                    </nc:NEllipsis.TooltipContent>
-                                </nc:NEllipsis>
-                            </StackPanel>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                       UniqueKey="EllipsisDocsPage4">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="通过 TooltipContent 自定义悬浮层内容，对应 Naive UI 的 tooltip slot。" />
+                                    <nc:NEllipsis
+                                        Width="180"
+                                        HorizontalAlignment="Left"
+                                        Content="{Binding BasicText}">
+                                        <nc:NEllipsis.TooltipContent>
+                                            <StackPanel Width="220">
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    FontSize="14"
+                                                    FontWeight="SemiBold"
+                                                    Foreground="{DynamicResource Theme.Tooltip.Foreground.Brush}"
+                                                    Text="《秦皇岛》" />
+                                                <TextBlock
+                                                    Margin="0,8,0,0"
+                                                    HorizontalAlignment="Center"
+                                                    FontSize="13"
+                                                    Foreground="{DynamicResource Theme.Tooltip.Foreground.Brush}"
+                                                    Text="住在我心里孤独的" />
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    FontSize="13"
+                                                    Foreground="{DynamicResource Theme.Tooltip.Foreground.Brush}"
+                                                    Text="孤独的海怪 痛苦之王" />
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    FontSize="13"
+                                                    Foreground="{DynamicResource Theme.Tooltip.Foreground.Brush}"
+                                                    Text="开始厌倦 深海的光 停滞的海浪" />
+                                            </StackPanel>
+                                        </nc:NEllipsis.TooltipContent>
+                                    </nc:NEllipsis>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
 
@@ -177,26 +190,29 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <StackPanel Margin="30,24,30,24">
-                                <TextBlock
-                                    Margin="0,0,0,20"
-                                    Style="{StaticResource DocBodyTextStyle}"
-                                    Text="动态切换文本内容时，省略状态会立即重新测量并更新，不依赖额外手动刷新。" />
-                                <StackPanel>
-                                    <nc:NEllipsis
-                                        Width="180"
-                                        HorizontalAlignment="Left"
-                                        Content="{Binding DynamicText}" />
-                                    <nc:NButton
-                                        Width="120"
-                                        Margin="0,20,0,0"
-                                        HorizontalAlignment="Left"
-                                        Click="HandleToggleDynamicTextClick"
-                                        Grade="Primary">
-                                        切换文本
-                                    </nc:NButton>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                       UniqueKey="EllipsisDocsPage5">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="动态切换文本内容时，省略状态会立即重新测量并更新，不依赖额外手动刷新。" />
+                                    <StackPanel>
+                                        <nc:NEllipsis
+                                            Width="180"
+                                            HorizontalAlignment="Left"
+                                            Content="{Binding DynamicText}" />
+                                        <nc:NButton
+                                            Width="120"
+                                            Margin="0,20,0,0"
+                                            HorizontalAlignment="Left"
+                                            Click="HandleToggleDynamicTextClick"
+                                            Grade="Primary">
+                                            切换文本
+                                        </nc:NButton>
+                                    </StackPanel>
                                 </StackPanel>
-                            </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
 
@@ -207,22 +223,25 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <StackPanel Margin="30,24,30,24">
-                                <TextBlock
-                                    Margin="0,0,0,20"
-                                    Style="{StaticResource DocBodyTextStyle}"
-                                    Text="这类极窄宽度场景最容易暴露测量误差。这里用官方 width-debug 的数字样例验证单行截断。" />
-                                <Border
-                                    Padding="14,12"
-                                    Background="{DynamicResource Theme.Surface.1.Brush}"
-                                    CornerRadius="10">
-                                    <nc:NEllipsis
-                                        Width="70"
-                                        Content="624748504sdfasdfasdfasdfasfasdfasdfasdfasfasfasdfasdfasdfsadfasdfasfasfasfsadfsafasfsdafa"
-                                        FontFamily="Helvetica Neue"
-                                        FontSize="14" />
-                                </Border>
-                            </StackPanel>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                       UniqueKey="EllipsisDocsPage6">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="这类极窄宽度场景最容易暴露测量误差。这里用官方 width-debug 的数字样例验证单行截断。" />
+                                    <Border
+                                        Padding="14,12"
+                                        Background="{DynamicResource Theme.Surface.1.Brush}"
+                                        CornerRadius="10">
+                                        <nc:NEllipsis
+                                            Width="70"
+                                            Content="624748504sdfasdfasdfasdfasfasdfasdfasdfasfasfasdfasdfasdfsadfasdfasfasfasfsadfsafasfsdafa"
+                                            FontFamily="Helvetica Neue"
+                                            FontSize="14" />
+                                    </Border>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
                 </StackPanel>

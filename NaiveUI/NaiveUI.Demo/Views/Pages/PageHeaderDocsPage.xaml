@@ -9,6 +9,7 @@
     xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
     xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
     xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
     mc:Ignorable="d">
     <UserControl.Resources>
         <Style
@@ -68,75 +69,97 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <StackPanel Margin="30,24,30,24">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                       UniqueKey="PageHeaderPage1">
+                                <StackPanel Margin="30,24,30,24">
 
 
-                                <nc:NPageHeader OnBack="{Binding BackCommand}" Subtitle="让你的听觉更懂视觉">
-                                    <nc:NPageHeader.TitleContent>
-                                        <TextBlock Text="Anyway.FM" />
-                                    </nc:NPageHeader.TitleContent>
+                                    <nc:NPageHeader OnBack="{Binding BackCommand}" Subtitle="让你的听觉更懂视觉">
+                                        <nc:NPageHeader.TitleContent>
+                                            <TextBlock Text="Anyway.FM" />
+                                        </nc:NPageHeader.TitleContent>
 
-                                    <nc:NPageHeader.HeaderContent>
-                                        <nc:NBreadcrumb>
-                                            <nc:NBreadcrumbItem Command="{Binding BreadcrumbCommand}" CommandParameter="播客">播客</nc:NBreadcrumbItem>
-                                            <nc:NBreadcrumbItem Command="{Binding BreadcrumbCommand}" CommandParameter="精选">精选</nc:NBreadcrumbItem>
-                                            <nc:NBreadcrumbItem Command="{Binding BreadcrumbCommand}" CommandParameter="超级精选">超级精选</nc:NBreadcrumbItem>
-                                            <nc:NBreadcrumbItem Command="{Binding BreadcrumbCommand}" CommandParameter="Anyway.FM">Anyway.FM</nc:NBreadcrumbItem>
-                                        </nc:NBreadcrumb>
-                                    </nc:NPageHeader.HeaderContent>
+                                        <nc:NPageHeader.HeaderContent>
+                                            <nc:NBreadcrumb>
+                                                <nc:NBreadcrumbItem Command="{Binding BreadcrumbCommand}"
+                                                                    CommandParameter="播客">
+                                                    播客
+                                                </nc:NBreadcrumbItem>
+                                                <nc:NBreadcrumbItem Command="{Binding BreadcrumbCommand}"
+                                                                    CommandParameter="精选">
+                                                    精选
+                                                </nc:NBreadcrumbItem>
+                                                <nc:NBreadcrumbItem Command="{Binding BreadcrumbCommand}"
+                                                                    CommandParameter="超级精选">
+                                                    超级精选
+                                                </nc:NBreadcrumbItem>
+                                                <nc:NBreadcrumbItem Command="{Binding BreadcrumbCommand}"
+                                                                    CommandParameter="Anyway.FM">
+                                                    Anyway.FM
+                                                </nc:NBreadcrumbItem>
+                                            </nc:NBreadcrumb>
+                                        </nc:NPageHeader.HeaderContent>
 
-                                    <nc:NPageHeader.AvatarContent>
-                                        <nc:NAvatar Size="40" Src="https://cdnimg103.lizhi.fm/user/2017/02/04/2583325032200238082_160x160.jpg" />
-                                    </nc:NPageHeader.AvatarContent>
+                                        <nc:NPageHeader.AvatarContent>
+                                            <nc:NAvatar Size="40"
+                                                        Src="https://cdnimg103.lizhi.fm/user/2017/02/04/2583325032200238082_160x160.jpg" />
+                                        </nc:NPageHeader.AvatarContent>
 
-                                    <nc:NPageHeader.ExtraContent>
-                                        <StackPanel Orientation="Horizontal">
-                                            <nc:NButton Margin="0,0,12,0">催更</nc:NButton>
-                                            <nc:NDropdown
-                                                Placement="BottomStart"
-                                                Select="HandleExtraDropdownSelect"
-                                                Trigger="Click">
-                                                <nc:NDropdown.Options>
-                                                    <nc:NDropdownOption Key="1" Label="催更" />
-                                                    <nc:NDropdownOption Key="2" Label="催更" />
-                                                    <nc:NDropdownOption Key="3" Label="催更" />
-                                                </nc:NDropdown.Options>
-                                                <nc:NButton Kind="Quaternary">···</nc:NButton>
-                                            </nc:NDropdown>
-                                        </StackPanel>
-                                    </nc:NPageHeader.ExtraContent>
+                                        <nc:NPageHeader.ExtraContent>
+                                            <StackPanel Orientation="Horizontal">
+                                                <nc:NButton Margin="0,0,12,0">催更</nc:NButton>
+                                                <nc:NDropdown
+                                                    Placement="BottomStart"
+                                                    Select="HandleExtraDropdownSelect"
+                                                    Trigger="Click">
+                                                    <nc:NDropdown.Options>
+                                                        <nc:NDropdownOption Key="1" Label="催更" />
+                                                        <nc:NDropdownOption Key="2" Label="催更" />
+                                                        <nc:NDropdownOption Key="3" Label="催更" />
+                                                    </nc:NDropdown.Options>
+                                                    <nc:NButton Kind="Quaternary">···</nc:NButton>
+                                                </nc:NDropdown>
+                                            </StackPanel>
+                                        </nc:NPageHeader.ExtraContent>
 
-                                    <nc:NPageHeader.FooterContent>
-                                        <TextBlock
-                                            FontSize="14"
-                                            Foreground="{DynamicResource Theme.Text.Secondary.Brush}"
-                                            Text="截止到 2021 年 4 月 3 日" />
-                                    </nc:NPageHeader.FooterContent>
+                                        <nc:NPageHeader.FooterContent>
+                                            <TextBlock
+                                                FontSize="14"
+                                                Foreground="{DynamicResource Theme.Text.Secondary.Brush}"
+                                                Text="截止到 2021 年 4 月 3 日" />
+                                        </nc:NPageHeader.FooterContent>
 
-                                    <UniformGrid Columns="5">
-                                        <StackPanel>
-                                            <TextBlock Style="{StaticResource PageHeaderStatLabelStyle}" Text="正片" />
-                                            <TextBlock Style="{StaticResource PageHeaderStatValueStyle}" Text="125 集" />
-                                        </StackPanel>
-                                        <StackPanel>
-                                            <TextBlock Style="{StaticResource PageHeaderStatLabelStyle}" Text="嘉宾" />
-                                            <TextBlock Style="{StaticResource PageHeaderStatValueStyle}" Text="22 位" />
-                                        </StackPanel>
-                                        <StackPanel>
-                                            <TextBlock Style="{StaticResource PageHeaderStatLabelStyle}" Text="道歉" />
-                                            <TextBlock Style="{StaticResource PageHeaderStatValueStyle}" Text="36 次" />
-                                        </StackPanel>
-                                        <StackPanel>
-                                            <TextBlock Style="{StaticResource PageHeaderStatLabelStyle}" Text="话题" />
-                                            <TextBlock Style="{StaticResource PageHeaderStatValueStyle}" Text="83 个" />
-                                        </StackPanel>
-                                        <StackPanel>
-                                            <TextBlock Style="{StaticResource PageHeaderStatLabelStyle}" Text="参考链接" />
-                                            <TextBlock Style="{StaticResource PageHeaderStatValueStyle}" Text="2,346 个" />
-                                        </StackPanel>
-                                    </UniformGrid>
-                                </nc:NPageHeader>
-                            </StackPanel>
+                                        <UniformGrid Columns="5">
+                                            <StackPanel>
+                                                <TextBlock Style="{StaticResource PageHeaderStatLabelStyle}" Text="正片" />
+                                                <TextBlock Style="{StaticResource PageHeaderStatValueStyle}"
+                                                           Text="125 集" />
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <TextBlock Style="{StaticResource PageHeaderStatLabelStyle}" Text="嘉宾" />
+                                                <TextBlock Style="{StaticResource PageHeaderStatValueStyle}"
+                                                           Text="22 位" />
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <TextBlock Style="{StaticResource PageHeaderStatLabelStyle}" Text="道歉" />
+                                                <TextBlock Style="{StaticResource PageHeaderStatValueStyle}"
+                                                           Text="36 次" />
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <TextBlock Style="{StaticResource PageHeaderStatLabelStyle}" Text="话题" />
+                                                <TextBlock Style="{StaticResource PageHeaderStatValueStyle}"
+                                                           Text="83 个" />
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <TextBlock Style="{StaticResource PageHeaderStatLabelStyle}"
+                                                           Text="参考链接" />
+                                                <TextBlock Style="{StaticResource PageHeaderStatValueStyle}"
+                                                           Text="2,346 个" />
+                                            </StackPanel>
+                                        </UniformGrid>
+                                    </nc:NPageHeader>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
 

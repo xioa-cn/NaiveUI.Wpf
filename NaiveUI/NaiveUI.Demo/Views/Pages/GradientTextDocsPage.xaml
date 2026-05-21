@@ -9,6 +9,7 @@
     xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
     xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
     xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
     mc:Ignorable="d">
     <UserControl.Resources>
         <Style
@@ -60,30 +61,33 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <StackPanel Margin="30,24,30,24">
-                                <TextBlock
-                                    Margin="0,0,0,20"
-                                    Style="{StaticResource DocBodyTextStyle}"
-                                    Text="它有不同的类型。" />
-                                <StackPanel>
-                                    <nc:NGradientText
-                                        Style="{StaticResource GradientTextLineStyle}"
-                                        Text="炸了"
-                                        Type="Error" />
-                                    <nc:NGradientText
-                                        Style="{StaticResource GradientTextLineStyle}"
-                                        Text="噢"
-                                        Type="Info" />
-                                    <nc:NGradientText
-                                        Style="{StaticResource GradientTextLineStyle}"
-                                        Text="注意"
-                                        Type="Warning" />
-                                    <nc:NGradientText
-                                        Margin="0"
-                                        Text="成了"
-                                        Type="Success" />
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                       UniqueKey="GradientTextDocsPage1">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="它有不同的类型。" />
+                                    <StackPanel>
+                                        <nc:NGradientText
+                                            Style="{StaticResource GradientTextLineStyle}"
+                                            Text="炸了"
+                                            Type="Error" />
+                                        <nc:NGradientText
+                                            Style="{StaticResource GradientTextLineStyle}"
+                                            Text="噢"
+                                            Type="Info" />
+                                        <nc:NGradientText
+                                            Style="{StaticResource GradientTextLineStyle}"
+                                            Text="注意"
+                                            Type="Warning" />
+                                        <nc:NGradientText
+                                            Margin="0"
+                                            Text="成了"
+                                            Type="Success" />
+                                    </StackPanel>
                                 </StackPanel>
-                            </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
 
@@ -94,35 +98,38 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <StackPanel Margin="30,24,30,24">
-                                <TextBlock
-                                    Margin="0,0,0,20"
-                                    Style="{StaticResource DocBodyTextStyle}"
-                                    Text="其实用 CSS 也挺方便的。" />
-                                <StackPanel>
-                                    <WrapPanel Margin="0,0,0,10">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                       UniqueKey="GradientTextDocsPage2">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="其实用 CSS 也挺方便的。" />
+                                    <StackPanel>
+                                        <WrapPanel Margin="0,0,0,10">
+                                            <nc:NGradientText
+                                                Margin="0,0,18,0"
+                                                FontSize="36"
+                                                Text="Live Forever"
+                                                Type="Info" />
+                                            <nc:NGradientText
+                                                FontSize="36"
+                                                Text="Live Forever"
+                                                Type="Danger" />
+                                        </WrapPanel>
                                         <nc:NGradientText
-                                            Margin="0,0,18,0"
-                                            FontSize="36"
-                                            Text="Live Forever"
-                                            Type="Info" />
+                                            Margin="0,0,0,10"
+                                            Size="24"
+                                            Text="Married with Children"
+                                            Type="Warning" />
                                         <nc:NGradientText
-                                            FontSize="36"
-                                            Text="Live Forever"
-                                            Type="Danger" />
-                                    </WrapPanel>
-                                    <nc:NGradientText
-                                        Margin="0,0,0,10"
-                                        Size="24"
-                                        Text="Married with Children"
-                                        Type="Warning" />
-                                    <nc:NGradientText
-                                        Margin="0"
-                                        Size="24"
-                                        Text="Back in the USSR"
-                                        Type="Success" />
+                                            Margin="0"
+                                            Size="24"
+                                            Text="Back in the USSR"
+                                            Type="Success" />
+                                    </StackPanel>
                                 </StackPanel>
-                            </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
 
@@ -133,41 +140,44 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <StackPanel Margin="30,24,30,24">
-                                <TextBlock
-                                    Margin="0,0,0,20"
-                                    Style="{StaticResource DocBodyTextStyle}"
-                                    Text="靠你了。" />
-                                <StackPanel>
-                                    <nc:NGradientText
-                                        Margin="0,0,0,10"
-                                        FontFamily="Algerian"
-                                        FontSize="24"
-                                        FontStyle="Italic"
-                                        FontWeight="DemiBold"
-                                        Gradient="linear-gradient(90deg, rgb(85, 85, 85) 0%, rgb(170, 170, 170) 100%)"
-                                        Text="字符串写法 linear-gradient" />
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                       UniqueKey="GradientTextDocsPage3">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="靠你了。" />
+                                    <StackPanel>
+                                        <nc:NGradientText
+                                            Margin="0,0,0,10"
+                                            FontFamily="Algerian"
+                                            FontSize="24"
+                                            FontStyle="Italic"
+                                            FontWeight="DemiBold"
+                                            Gradient="linear-gradient(90deg, rgb(85, 85, 85) 0%, rgb(170, 170, 170) 100%)"
+                                            Text="字符串写法 linear-gradient" />
 
-                                    <nc:NGradientText
-                                        Margin="0,0,0,10"
-                                        FontSize="24"
-                                        FontStyle="Oblique"
-                                        Text="对象写法 Gradient">
-                                        <nc:NGradientText.Gradient>
-                                            <nc:NGradientTextGradient
-                                                Deg="90"
-                                                From="rgb(85, 85, 85)"
-                                                To="rgb(170, 170, 170)" />
-                                        </nc:NGradientText.Gradient>
-                                    </nc:NGradientText>
+                                        <nc:NGradientText
+                                            Margin="0,0,0,10"
+                                            FontSize="24"
+                                            FontStyle="Oblique"
+                                            Text="对象写法 Gradient">
+                                            <nc:NGradientText.Gradient>
+                                                <nc:NGradientTextGradient
+                                                    Deg="90"
+                                                    From="rgb(85, 85, 85)"
+                                                    To="rgb(170, 170, 170)" />
+                                            </nc:NGradientText.Gradient>
+                                        </nc:NGradientText>
 
-                                    <nc:NGradientText
-                                        Margin="0"
-                                        Gradient="linear-gradient(90deg, red 0%, green 50%, blue 100%)"
-                                        Size="60"
-                                        Text="多色字符串写法 linear-gradient" />
+                                        <nc:NGradientText
+                                            Margin="0"
+                                            Gradient="linear-gradient(90deg, red 0%, green 50%, blue 100%)"
+                                            Size="60"
+                                            Text="多色字符串写法 linear-gradient" />
+                                    </StackPanel>
                                 </StackPanel>
-                            </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
 
@@ -188,7 +198,8 @@
                     <nu:CardElement x:Name="SectionGradientTextProps" Margin="0,0,0,20">
                         <nu:CardElement.HeaderElement>
                             <Grid Margin="30,28,30,0">
-                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="GradientText Props" />
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}"
+                                           Text="GradientText Props" />
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
@@ -199,7 +210,8 @@
                     <nu:CardElement x:Name="SectionGradientTextGradientProps" Margin="0,0,0,20">
                         <nu:CardElement.HeaderElement>
                             <Grid Margin="30,28,30,0">
-                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="GradientTextGradient Props" />
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}"
+                                           Text="GradientTextGradient Props" />
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
@@ -216,7 +228,8 @@
                     <nu:CardElement x:Name="SectionGradientTextSlots" Margin="0,0,0,20">
                         <nu:CardElement.HeaderElement>
                             <Grid Margin="30,28,30,0">
-                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="GradientText Slots" />
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}"
+                                           Text="GradientText Slots" />
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>

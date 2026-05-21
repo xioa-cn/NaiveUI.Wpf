@@ -4,11 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
-    d:DataContext="{d:DesignInstance Type=viewModels:DividerDocsPageViewModel}"
     xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
     xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
     xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:DividerDocsPageViewModel}"
     mc:Ignorable="d">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -40,9 +41,7 @@
             <ColumnDefinition Width="220" />
         </Grid.ColumnDefinitions>
 
-        <ScrollViewer
-            Grid.Column="0"
-            VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="68,34,18,34">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
@@ -66,12 +65,6 @@
                     Text="演示" />
 
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="20" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-
                     <StackPanel Grid.Column="0">
                         <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
                             <nu:CardElement.HeaderElement>
@@ -85,11 +78,13 @@
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="不带标题时，Divider 会像 Naive UI 一样直接用一条横线完成内容分段。" />
-                                    <StackPanel Width="420">
-                                        <TextBlock Style="{StaticResource DividerExampleTextStyle}" Text="准备阶段：先确认环境、依赖和运行方式。" />
-                                        <nc:NDivider />
-                                        <TextBlock Style="{StaticResource DividerExampleTextStyle}" Text="执行阶段：按顺序落实界面、交互和状态同步。" />
-                                    </StackPanel>
+                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="DividerDocsPage1">
+                                        <StackPanel Width="420" HorizontalAlignment="Left">
+                                            <TextBlock Style="{StaticResource DividerExampleTextStyle}" Text="准备阶段：先确认环境、依赖和运行方式。" />
+                                            <nc:NDivider />
+                                            <TextBlock Style="{StaticResource DividerExampleTextStyle}" Text="执行阶段：按顺序落实界面、交互和状态同步。" />
+                                        </StackPanel>
+                                    </showMeTheXaml:XamlDisplay>
                                 </StackPanel>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
@@ -106,11 +101,13 @@
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="标题默认居中，也可以像 Naive UI 一样切到左侧或右侧。" />
-                                    <StackPanel Width="420">
-                                        <nc:NDivider>居中标题</nc:NDivider>
-                                        <nc:NDivider TitlePlacement="Left">左侧标题</nc:NDivider>
-                                        <nc:NDivider TitlePlacement="Right">右侧标题</nc:NDivider>
-                                    </StackPanel>
+                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="DividerDocsPage2">
+                                        <StackPanel Width="420" HorizontalAlignment="Left">
+                                            <nc:NDivider>居中标题</nc:NDivider>
+                                            <nc:NDivider TitlePlacement="Left">左侧标题</nc:NDivider>
+                                            <nc:NDivider TitlePlacement="Right">右侧标题</nc:NDivider>
+                                        </StackPanel>
+                                    </showMeTheXaml:XamlDisplay>
                                 </StackPanel>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
@@ -122,54 +119,54 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <StackPanel Margin="30,24,30,24">
-                                    <TextBlock
-                                        Margin="0,0,0,20"
-                                        Style="{StaticResource DocBodyTextStyle}"
-                                        Text="垂直模式用于并列信息块之间的轻量分隔，表现与 Naive UI 保持一致。可通过 Height 直接控制垂直分割线高度。" />
-                                    <Border
-                                        Width="420"
-                                        Padding="18,16"
-                                        Background="{DynamicResource Theme.Surface.1.Brush}"
-                                        CornerRadius="12">
-                                        <WrapPanel VerticalAlignment="Center">
-                                            <TextBlock
-                                                VerticalAlignment="Center"
-                                                FontSize="50"
-                                                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
-                                                Text="概览" />
-                                            <nc:NDivider
-                                                Height="30"
-                                                BorderBrush="Green"
-                                                Vertical="True" />
-                                            <TextBlock
-                                                VerticalAlignment="Center"
-                                                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
-                                                Text="设置" />
-                                            <nc:NDivider Vertical="True" />
-                                            <TextBlock
-                                                VerticalAlignment="Center"
-                                                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
-                                                Text="日志" />
-                                            <nc:NDivider Vertical="True" />
-                                            <TextBlock
-                                                VerticalAlignment="Center"
-                                                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
-                                                Text="监控" />
-                                        </WrapPanel>
-                                    </Border>
-                                    <TextBlock
-                                        Margin="0,14,0,0"
-                                        Style="{StaticResource DividerExampleTextStyle}"
-                                        Text="示例：&lt;nc:NDivider Vertical=&quot;True&quot; Height=&quot;30&quot; /&gt;" />
-                                </StackPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="DividerDocsPage3">
+                                    <StackPanel Margin="30,24,30,24" HorizontalAlignment="Left">
+                                        <TextBlock
+                                            Margin="0,0,0,20"
+                                            Style="{StaticResource DocBodyTextStyle}"
+                                            Text="垂直模式用于并列信息块之间的轻量分隔，表现与 Naive UI 保持一致。可通过 Height 直接控制垂直分割线高度。" />
+                                        <Border
+                                            Width="420"
+                                            Padding="18,16"
+                                            HorizontalAlignment="Left"
+                                            Background="{DynamicResource Theme.Surface.1.Brush}"
+                                            CornerRadius="12">
+                                            <WrapPanel VerticalAlignment="Center">
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontSize="50"
+                                                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                    Text="概览" />
+                                                <nc:NDivider
+                                                    Height="30"
+                                                    BorderBrush="Green"
+                                                    Vertical="True" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                    Text="设置" />
+                                                <nc:NDivider Vertical="True" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                    Text="日志" />
+                                                <nc:NDivider Vertical="True" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                    Text="监控" />
+                                            </WrapPanel>
+                                        </Border>
+                                        <TextBlock
+                                            Margin="0,14,0,0"
+                                            Style="{StaticResource DividerExampleTextStyle}"
+                                            Text="示例：&lt;nc:NDivider Vertical=&quot;True&quot; Height=&quot;30&quot; /&gt;" />
+                                    </StackPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
 
-                    </StackPanel>
-
-                    <StackPanel Grid.Column="2">
                         <nu:CardElement x:Name="SectionDashed" Margin="0,0,0,20">
                             <nu:CardElement.HeaderElement>
                                 <Grid Margin="30,28,30,0">
@@ -182,11 +179,13 @@
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="Dashed 只影响横向线段，适合弱化分隔感或表达阶段性内容。" />
-                                    <StackPanel Width="420">
-                                        <nc:NDivider Dashed="True">虚线标题</nc:NDivider>
-                                        <nc:NDivider Dashed="True" TitlePlacement="Left">左侧虚线</nc:NDivider>
-                                        <nc:NDivider Dashed="True" TitlePlacement="Right">右侧虚线</nc:NDivider>
-                                    </StackPanel>
+                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="DividerDocsPage4">
+                                        <StackPanel Width="420" HorizontalAlignment="Left">
+                                            <nc:NDivider Dashed="True">虚线标题</nc:NDivider>
+                                            <nc:NDivider Dashed="True" TitlePlacement="Left">左侧虚线</nc:NDivider>
+                                            <nc:NDivider Dashed="True" TitlePlacement="Right">右侧虚线</nc:NDivider>
+                                        </StackPanel>
+                                    </showMeTheXaml:XamlDisplay>
                                 </StackPanel>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
@@ -198,23 +197,25 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <StackPanel Margin="30,24,30,24">
-                                    <TextBlock
-                                        Margin="0,0,0,20"
-                                        Style="{StaticResource DocBodyTextStyle}"
-                                        Text="默认插槽可以放文本，也可以放自定义 UI 元素，用法和 Naive UI 的 default slot 一致。" />
-                                    <StackPanel Width="420">
-                                        <nc:NDivider TitlePlacement="Left">
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock VerticalAlignment="Center" Text="发布状态" />
-                                                <Border Style="{StaticResource DividerBadgeStyle}">
-                                                    <TextBlock Foreground="#18A058" Text="稳定" />
-                                                </Border>
-                                            </StackPanel>
-                                        </nc:NDivider>
-                                        <TextBlock Style="{StaticResource DividerExampleTextStyle}" Text="当前版本已经通过基础验证，可以继续扩展交互和异常处理。" />
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="DividerDocsPage5">
+                                    <StackPanel Margin="30,24,30,24" HorizontalAlignment="Left">
+                                        <TextBlock
+                                            Margin="0,0,0,20"
+                                            Style="{StaticResource DocBodyTextStyle}"
+                                            Text="默认插槽可以放文本，也可以放自定义 UI 元素，用法和 Naive UI 的 default slot 一致。" />
+                                        <StackPanel Width="420" HorizontalAlignment="Left">
+                                            <nc:NDivider TitlePlacement="Left">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock VerticalAlignment="Center" Text="发布状态" />
+                                                    <Border Style="{StaticResource DividerBadgeStyle}">
+                                                        <TextBlock Foreground="#18A058" Text="稳定" />
+                                                    </Border>
+                                                </StackPanel>
+                                            </nc:NDivider>
+                                            <TextBlock Style="{StaticResource DividerExampleTextStyle}" Text="当前版本已经通过基础验证，可以继续扩展交互和异常处理。" />
+                                        </StackPanel>
                                     </StackPanel>
-                                </StackPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
@@ -225,39 +226,41 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <StackPanel Margin="30,24,30,24">
-                                    <TextBlock
-                                        Margin="0,0,0,20"
-                                        Style="{StaticResource DocBodyTextStyle}"
-                                        Text="通过 LineThickness 可以直接控制线条粗细，横向和纵向都生效。" />
-                                    <StackPanel Width="420">
-                                        <nc:NDivider LineThickness="1">默认粗细</nc:NDivider>
-                                        <nc:NDivider LineThickness="2">加粗一档</nc:NDivider>
-                                        <nc:NDivider Dashed="True" LineThickness="3">加粗虚线</nc:NDivider>
-                                        <WrapPanel Margin="0,12,0,0" VerticalAlignment="Center">
-                                            <TextBlock
-                                                VerticalAlignment="Center"
-                                                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
-                                                Text="甲" />
-                                            <nc:NDivider
-                                                Height="28"
-                                                LineThickness="3"
-                                                Vertical="True" />
-                                            <TextBlock
-                                                VerticalAlignment="Center"
-                                                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
-                                                Text="乙" />
-                                            <nc:NDivider
-                                                Height="28"
-                                                LineThickness="5"
-                                                Vertical="True" />
-                                            <TextBlock
-                                                VerticalAlignment="Center"
-                                                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
-                                                Text="丙" />
-                                        </WrapPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="DividerDocsPage6">
+                                    <StackPanel Margin="30,24,30,24">
+                                        <TextBlock
+                                            Margin="0,0,0,20"
+                                            Style="{StaticResource DocBodyTextStyle}"
+                                            Text="通过 LineThickness 可以直接控制线条粗细，横向和纵向都生效。" />
+                                        <StackPanel Width="420" HorizontalAlignment="Left">
+                                            <nc:NDivider LineThickness="1">默认粗细</nc:NDivider>
+                                            <nc:NDivider LineThickness="2">加粗一档</nc:NDivider>
+                                            <nc:NDivider Dashed="True" LineThickness="3">加粗虚线</nc:NDivider>
+                                            <WrapPanel Margin="0,12,0,0" VerticalAlignment="Center">
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                    Text="甲" />
+                                                <nc:NDivider
+                                                    Height="28"
+                                                    LineThickness="3"
+                                                    Vertical="True" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                    Text="乙" />
+                                                <nc:NDivider
+                                                    Height="28"
+                                                    LineThickness="5"
+                                                    Vertical="True" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                    Text="丙" />
+                                            </WrapPanel>
+                                        </StackPanel>
                                     </StackPanel>
-                                </StackPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
                     </StackPanel>

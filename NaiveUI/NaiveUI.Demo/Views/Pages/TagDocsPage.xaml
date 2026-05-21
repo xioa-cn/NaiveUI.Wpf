@@ -9,6 +9,7 @@
     xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
     xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
     xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
     mc:Ignorable="d">
     <UserControl.Resources>
 
@@ -47,8 +48,10 @@
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="False">
-                                <Setter TargetName="SwitchTrack" Property="Background" Value="{DynamicResource Theme.Border.Strong.Brush}" />
-                                <Setter TargetName="SwitchTrack" Property="BorderBrush" Value="{DynamicResource Theme.Border.Strong.Brush}" />
+                                <Setter TargetName="SwitchTrack" Property="Background"
+                                        Value="{DynamicResource Theme.Border.Strong.Brush}" />
+                                <Setter TargetName="SwitchTrack" Property="BorderBrush"
+                                        Value="{DynamicResource Theme.Border.Strong.Brush}" />
                                 <Setter TargetName="SwitchThumb" Property="Margin" Value="2,2,20,2" />
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
@@ -101,44 +104,47 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <StackPanel Margin="30,24,30,24">
-                                <TextBlock
-                                    Margin="0,0,0,20"
-                                    Style="{StaticResource DocBodyTextStyle}"
-                                    Text="它有不同的类型。" />
-                                <WrapPanel>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        BorderThickness="2"
-                                        Click="HandleTagClick">
-                                        爱在西元前
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        BorderThickness="2"
-                                        Type="Success">
-                                        不该
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        BorderThickness="2"
-                                        Type="Warning">
-                                        超人不会飞
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        BorderThickness="2"
-                                        Type="Error">
-                                        手写的从前
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        BorderThickness="2"
-                                        Type="Info">
-                                        哪里都是你
-                                    </nc:NTag>
-                                </WrapPanel>
-                            </StackPanel>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                       UniqueKey="TagPage1">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="它有不同的类型。" />
+                                    <WrapPanel>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            BorderThickness="2"
+                                            Click="HandleTagClick">
+                                            爱在西元前
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            BorderThickness="2"
+                                            Type="Success">
+                                            不该
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            BorderThickness="2"
+                                            Type="Warning">
+                                            超人不会飞
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            BorderThickness="2"
+                                            Type="Error">
+                                            手写的从前
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            BorderThickness="2"
+                                            Type="Info">
+                                            哪里都是你
+                                        </nc:NTag>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
 
@@ -149,39 +155,42 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <StackPanel Margin="30,24,30,24">
-                                <TextBlock
-                                    Margin="0,0,0,20"
-                                    Style="{StaticResource DocBodyTextStyle}"
-                                    Text="设置 Bordered 为 false。" />
-                                <WrapPanel>
-                                    <nc:NTag Margin="0,0,12,12" Bordered="False">爱在西元前</nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Bordered="False"
-                                        Type="Success">
-                                        不该
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Bordered="False"
-                                        Type="Warning">
-                                        超人不会飞
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Bordered="False"
-                                        Type="Error">
-                                        手写的从前
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Bordered="False"
-                                        Type="Info">
-                                        哪里都是你
-                                    </nc:NTag>
-                                </WrapPanel>
-                            </StackPanel>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                       UniqueKey="TagPage2">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="设置 Bordered 为 false。" />
+                                    <WrapPanel>
+                                        <nc:NTag Margin="0,0,12,12" Bordered="False">爱在西元前</nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Bordered="False"
+                                            Type="Success">
+                                            不该
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Bordered="False"
+                                            Type="Warning">
+                                            超人不会飞
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Bordered="False"
+                                            Type="Error">
+                                            手写的从前
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Bordered="False"
+                                            Type="Info">
+                                            哪里都是你
+                                        </nc:NTag>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
 
@@ -192,50 +201,53 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <StackPanel Margin="30,24,30,24">
-                                <TextBlock
-                                    Margin="0,0,0,20"
-                                    Style="{StaticResource DocBodyTextStyle}"
-                                    Text="点击关闭按钮会触发 Close；最后一个标签同时绑定了 Click。" />
-                                <WrapPanel>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Click="HandleTagClick"
-                                        Closable="True"
-                                        Close="HandleTagClose">
-                                        爱在西元前
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Closable="True"
-                                        Close="HandleTagClose"
-                                        Type="Success">
-                                        不该
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Closable="True"
-                                        Close="HandleTagClose"
-                                        Type="Warning">
-                                        超人不会飞
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Closable="True"
-                                        Close="HandleTagClose"
-                                        Type="Error">
-                                        手写的从前
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Click="HandleTagClick"
-                                        Closable="True"
-                                        Close="HandleTagClose"
-                                        Type="Info">
-                                        哪里都是你
-                                    </nc:NTag>
-                                </WrapPanel>
-                            </StackPanel>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                       UniqueKey="TagPage3">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="点击关闭按钮会触发 Close；最后一个标签同时绑定了 Click。" />
+                                    <WrapPanel>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Click="HandleTagClick"
+                                            Closable="True"
+                                            Close="HandleTagClose">
+                                            爱在西元前
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Closable="True"
+                                            Close="HandleTagClose"
+                                            Type="Success">
+                                            不该
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Closable="True"
+                                            Close="HandleTagClose"
+                                            Type="Warning">
+                                            超人不会飞
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Closable="True"
+                                            Close="HandleTagClose"
+                                            Type="Error">
+                                            手写的从前
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Click="HandleTagClick"
+                                            Closable="True"
+                                            Close="HandleTagClose"
+                                            Type="Info">
+                                            哪里都是你
+                                        </nc:NTag>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
 
@@ -246,59 +258,63 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <StackPanel Margin="30,24,30,24">
-                                <TextBlock
-                                    Margin="0,0,0,20"
-                                    Style="{StaticResource DocBodyTextStyle}"
-                                    Text="和官方示例一样，动态切换一组标签的禁用状态。" />
-                                <WrapPanel Margin="0,0,0,14" VerticalAlignment="Center">
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Closable="True"
-                                        Close="HandleTagClose"
-                                        Disabled="{Binding DisabledTags}">
-                                        爱在西元前
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Closable="True"
-                                        Close="HandleTagClose"
-                                        Disabled="{Binding DisabledTags}"
-                                        Type="Success">
-                                        不该
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Closable="True"
-                                        Close="HandleTagClose"
-                                        Disabled="{Binding DisabledTags}"
-                                        Type="Warning">
-                                        超人不会飞
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Closable="True"
-                                        Close="HandleTagClose"
-                                        Disabled="{Binding DisabledTags}"
-                                        Type="Error">
-                                        手写的从前
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Closable="True"
-                                        Close="HandleTagClose"
-                                        Disabled="{Binding DisabledTags}"
-                                        Type="Info">
-                                        哪里都是你
-                                    </nc:NTag>
-                                    <ToggleButton
-                                        Margin="8,0,0,10"
-                                        VerticalAlignment="Center"
-                                        IsChecked="{Binding DisabledTags, Mode=TwoWay}"
-                                        Style="{StaticResource InlineSwitchStyle}" />
-                                </WrapPanel>
-                                <TextBlock Style="{StaticResource DocBodyTextStyle}" Text="{Binding DisabledTagsDescription}" />
-                            </StackPanel>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                       UniqueKey="TagPage4">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="和官方示例一样，动态切换一组标签的禁用状态。" />
+                                    <WrapPanel Margin="0,0,0,14" VerticalAlignment="Center">
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Closable="True"
+                                            Close="HandleTagClose"
+                                            Disabled="{Binding DisabledTags}">
+                                            爱在西元前
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Closable="True"
+                                            Close="HandleTagClose"
+                                            Disabled="{Binding DisabledTags}"
+                                            Type="Success">
+                                            不该
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Closable="True"
+                                            Close="HandleTagClose"
+                                            Disabled="{Binding DisabledTags}"
+                                            Type="Warning">
+                                            超人不会飞
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Closable="True"
+                                            Close="HandleTagClose"
+                                            Disabled="{Binding DisabledTags}"
+                                            Type="Error">
+                                            手写的从前
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Closable="True"
+                                            Close="HandleTagClose"
+                                            Disabled="{Binding DisabledTags}"
+                                            Type="Info">
+                                            哪里都是你
+                                        </nc:NTag>
+                                        <ToggleButton
+                                            Margin="8,0,0,10"
+                                            VerticalAlignment="Center"
+                                            IsChecked="{Binding DisabledTags, Mode=TwoWay}"
+                                            Style="{StaticResource InlineSwitchStyle}" />
+                                    </WrapPanel>
+                                    <TextBlock Style="{StaticResource DocBodyTextStyle}"
+                                               Text="{Binding DisabledTagsDescription}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
 
@@ -309,69 +325,72 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <StackPanel Margin="30,24,30,24">
-                                <TextBlock
-                                    Margin="0,0,0,20"
-                                    Style="{StaticResource DocBodyTextStyle}"
-                                    Text="支持 tiny、small、medium、large。" />
-                                <WrapPanel>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Closable="True"
-                                        Close="HandleTagClose"
-                                        Size="Tiny"
-                                        Strong="True">
-                                        爱在西元前
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Closable="True"
-                                        Close="HandleTagClose"
-                                        Size="Small"
-                                        Type="Success">
-                                        不该
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Closable="True"
-                                        Close="HandleTagClose"
-                                        Type="Warning">
-                                        超人不会飞
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Closable="True"
-                                        Close="HandleTagClose"
-                                        Size="Large"
-                                        Type="Error">
-                                        手写的从前
-                                    </nc:NTag>
-                                </WrapPanel>
-                                <TextBlock
-                                    Margin="0,8,0,20"
-                                    Style="{StaticResource DocBodyTextStyle}"
-                                    Text="可选的文本字号重写值。当值为非数值（NaN）时，组件将采用由尺寸规格（Size）映射而来的字号" />
-                                <WrapPanel>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Padding="10"
-                                        Round="True"
-                                        Size="Small"
-                                        Strong="True"
-                                        TextFontSize="28"
-                                        Type="Success">
-                                        Small + 18
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Height="35"
-                                        Margin="0,0,12,12"
-                                        Size="Large"
-                                        TextFontSize="12"
-                                        Type="Info">
-                                        Large + 12
-                                    </nc:NTag>
-                                </WrapPanel>
-                            </StackPanel>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                       UniqueKey="TagPage5">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="支持 tiny、small、medium、large。" />
+                                    <WrapPanel>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Closable="True"
+                                            Close="HandleTagClose"
+                                            Size="Tiny"
+                                            Strong="True">
+                                            爱在西元前
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Closable="True"
+                                            Close="HandleTagClose"
+                                            Size="Small"
+                                            Type="Success">
+                                            不该
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Closable="True"
+                                            Close="HandleTagClose"
+                                            Type="Warning">
+                                            超人不会飞
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Closable="True"
+                                            Close="HandleTagClose"
+                                            Size="Large"
+                                            Type="Error">
+                                            手写的从前
+                                        </nc:NTag>
+                                    </WrapPanel>
+                                    <TextBlock
+                                        Margin="0,8,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="可选的文本字号重写值。当值为非数值（NaN）时，组件将采用由尺寸规格（Size）映射而来的字号" />
+                                    <WrapPanel>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Padding="10"
+                                            Round="True"
+                                            Size="Small"
+                                            Strong="True"
+                                            TextFontSize="28"
+                                            Type="Success">
+                                            Small + 18
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Height="35"
+                                            Margin="0,0,12,12"
+                                            Size="Large"
+                                            TextFontSize="12"
+                                            Type="Info">
+                                            Large + 12
+                                        </nc:NTag>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
 
@@ -382,46 +401,50 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <StackPanel Margin="30,24,30,24">
-                                <TextBlock
-                                    Margin="0,0,0,20"
-                                    Style="{StaticResource DocBodyTextStyle}"
-                                    Text="和官方示例一样，多个标签共享同一个 checked 状态。" />
-                                <WrapPanel Margin="0,0,0,14">
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Checkable="True"
-                                        Checked="{Binding SharedChecked, Mode=TwoWay}"
-                                        Disabled="True">
-                                        爱在西元前
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Checkable="True"
-                                        Checked="{Binding SharedChecked, Mode=TwoWay}">
-                                        不该
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Checkable="True"
-                                        Checked="{Binding SharedChecked, Mode=TwoWay}">
-                                        超人不会飞
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Checkable="True"
-                                        Checked="{Binding SharedChecked, Mode=TwoWay}">
-                                        手写的从前
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Checkable="True"
-                                        Checked="{Binding SharedChecked, Mode=TwoWay}">
-                                        哪里都是你
-                                    </nc:NTag>
-                                </WrapPanel>
-                                <TextBlock Style="{StaticResource DocBodyTextStyle}" Text="{Binding SharedCheckedDescription}" />
-                            </StackPanel>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                       UniqueKey="TagPage6">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="和官方示例一样，多个标签共享同一个 checked 状态。" />
+                                    <WrapPanel Margin="0,0,0,14">
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Checkable="True"
+                                            Checked="{Binding SharedChecked, Mode=TwoWay}"
+                                            Disabled="True">
+                                            爱在西元前
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Checkable="True"
+                                            Checked="{Binding SharedChecked, Mode=TwoWay}">
+                                            不该
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Checkable="True"
+                                            Checked="{Binding SharedChecked, Mode=TwoWay}">
+                                            超人不会飞
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Checkable="True"
+                                            Checked="{Binding SharedChecked, Mode=TwoWay}">
+                                            手写的从前
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Checkable="True"
+                                            Checked="{Binding SharedChecked, Mode=TwoWay}">
+                                            哪里都是你
+                                        </nc:NTag>
+                                    </WrapPanel>
+                                    <TextBlock Style="{StaticResource DocBodyTextStyle}"
+                                               Text="{Binding SharedCheckedDescription}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
 
@@ -432,47 +455,50 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <StackPanel Margin="30,24,30,24">
-                                <TextBlock
-                                    Margin="0,0,0,20"
-                                    Style="{StaticResource DocBodyTextStyle}"
-                                    Text="圆的 Tag 长得像个胶囊。" />
-                                <WrapPanel>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Padding="20,10"
-                                        Closable="True"
-                                        Close="HandleTagClose"
-                                        Round="True"
-                                        Size="Small"
-                                        Strong="True"
-                                        TextFontSize="40"
-                                        Type="Success">
-                                        不该
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        VerticalAlignment="Center"
-                                        Closable="True"
-                                        Close="HandleTagClose"
-                                        Round="True"
-                                        Strong="True"
-                                        Type="Error">
-                                        手写的从前
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        VerticalAlignment="Center"
-                                        Closable="True"
-                                        Close="HandleTagClose"
-                                        Round="True"
-                                        Size="Large"
-                                        Strong="True"
-                                        Type="Error">
-                                        手写的从前
-                                    </nc:NTag>
-                                </WrapPanel>
-                            </StackPanel>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                       UniqueKey="TagPage7">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="圆的 Tag 长得像个胶囊。" />
+                                    <WrapPanel>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Padding="20,10"
+                                            Closable="True"
+                                            Close="HandleTagClose"
+                                            Round="True"
+                                            Size="Small"
+                                            Strong="True"
+                                            TextFontSize="40"
+                                            Type="Success">
+                                            不该
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            VerticalAlignment="Center"
+                                            Closable="True"
+                                            Close="HandleTagClose"
+                                            Round="True"
+                                            Strong="True"
+                                            Type="Error">
+                                            手写的从前
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            VerticalAlignment="Center"
+                                            Closable="True"
+                                            Close="HandleTagClose"
+                                            Round="True"
+                                            Size="Large"
+                                            Strong="True"
+                                            Type="Error">
+                                            手写的从前
+                                        </nc:NTag>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
 
@@ -483,21 +509,24 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <StackPanel Margin="30,24,30,24">
-                                <TextBlock
-                                    Margin="0,0,0,20"
-                                    Style="{StaticResource DocBodyTextStyle}"
-                                    Text="使用一个颜色对象定制标签的颜色。" />
-                                <nc:NTag>
-                                    告别夜晚 等待天亮
-                                    <nc:NTag.Color>
-                                        <nc:NTagColor
-                                            BorderColor="#55ff55"
-                                            TextColor="#5555ff"
-                                            Color="#BBBBBB" />
-                                    </nc:NTag.Color>
-                                </nc:NTag>
-                            </StackPanel>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                       UniqueKey="TagPage8">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="使用一个颜色对象定制标签的颜色。" />
+                                    <nc:NTag>
+                                        告别夜晚 等待天亮
+                                        <nc:NTag.Color>
+                                            <nc:NTagColor
+                                                BorderColor="#55ff55"
+                                                TextColor="#5555ff"
+                                                Color="#BBBBBB" />
+                                        </nc:NTag.Color>
+                                    </nc:NTag>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
 
@@ -508,39 +537,43 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <StackPanel Margin="30,24,30,24">
-                                <TextBlock
-                                    Margin="0,0,0,20"
-                                    Style="{StaticResource DocBodyTextStyle}"
-                                    Text="在标签中使用头像。" />
-                                <WrapPanel>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        VerticalAlignment="Center"
-                                        Click="HandleTagClick"
-                                        Type="Warning">
-                                        Anyway.FM
-                                        <nc:NTag.AvatarContent>
-                                            <nc:NAvatar Src="https://cdnimg103.lizhi.fm/user/2017/02/04/2583325032200238082_160x160.jpg" />
-                                        </nc:NTag.AvatarContent>
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Bordered="True"
-                                        Click="HandleTagClick"
-                                        Round="True"
-                                        TextFontSize="40"
-                                        Type="Success">
-                                        Anyway.FM
-                                        <nc:NTag.AvatarContent>
-                                            <nc:NAvatar
-                                                Shape="Round"
-                                                Size="35"
-                                                Src="https://cdnimg103.lizhi.fm/user/2017/02/04/2583325032200238082_160x160.jpg" />
-                                        </nc:NTag.AvatarContent>
-                                    </nc:NTag>
-                                </WrapPanel>
-                            </StackPanel>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                       UniqueKey="TagPage9">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="在标签中使用头像。" />
+                                    <WrapPanel>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            VerticalAlignment="Center"
+                                            Click="HandleTagClick"
+                                            Type="Warning">
+                                            Anyway.FM
+                                            <nc:NTag.AvatarContent>
+                                                <nc:NAvatar
+                                                    Src="https://cdnimg103.lizhi.fm/user/2017/02/04/2583325032200238082_160x160.jpg" />
+                                            </nc:NTag.AvatarContent>
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Bordered="True"
+                                            Click="HandleTagClick"
+                                            Round="True"
+                                            TextFontSize="40"
+                                            Type="Success">
+                                            Anyway.FM
+                                            <nc:NTag.AvatarContent>
+                                                <nc:NAvatar
+                                                    Shape="Round"
+                                                    Size="35"
+                                                    Src="https://cdnimg103.lizhi.fm/user/2017/02/04/2583325032200238082_160x160.jpg" />
+                                            </nc:NTag.AvatarContent>
+                                        </nc:NTag>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
 
@@ -551,45 +584,48 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <StackPanel Margin="30,24,30,24">
-                                <TextBlock
-                                    Margin="0,0,0,20"
-                                    Style="{StaticResource DocBodyTextStyle}"
-                                    Text="在标签中使用图标。" />
-                                <WrapPanel>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Bordered="True"
-                                        Click="HandleTagClick"
-                                        Size="Large"
-                                        Strong="True"
-                                        TextFontSize="20"
-                                        Type="Primary">
-                                        Checked
-                                        <nc:NTag.IconContent>
-                                            <nc:NIcon
-                                                Data="{StaticResource CheckmarkCircle}"
-                                                Size="25"
-                                                Color="{DynamicResource Primary.First.Brush}" />
-                                        </nc:NTag.IconContent>
-                                    </nc:NTag>
-                                    <nc:NTag
-                                        Margin="0,0,12,12"
-                                        Bordered="True"
-                                        Click="HandleTagClick"
-                                        Round="True"
-                                        TextFontSize="20"
-                                        Type="Info">
-                                        Checked
-                                        <nc:NTag.IconContent>
-                                            <nc:NIcon
-                                                Data="{StaticResource CheckmarkCircle}"
-                                                Size="25"
-                                                Color="{DynamicResource Info.First.Brush}" />
-                                        </nc:NTag.IconContent>
-                                    </nc:NTag>
-                                </WrapPanel>
-                            </StackPanel>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                       UniqueKey="TagPage10">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="在标签中使用图标。" />
+                                    <WrapPanel>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Bordered="True"
+                                            Click="HandleTagClick"
+                                            Size="Large"
+                                            Strong="True"
+                                            TextFontSize="20"
+                                            Type="Primary">
+                                            Checked
+                                            <nc:NTag.IconContent>
+                                                <nc:NIcon
+                                                    Data="{StaticResource CheckmarkCircle}"
+                                                    Size="25"
+                                                    Color="{DynamicResource Primary.First.Brush}" />
+                                            </nc:NTag.IconContent>
+                                        </nc:NTag>
+                                        <nc:NTag
+                                            Margin="0,0,12,12"
+                                            Bordered="True"
+                                            Click="HandleTagClick"
+                                            Round="True"
+                                            TextFontSize="20"
+                                            Type="Info">
+                                            Checked
+                                            <nc:NTag.IconContent>
+                                                <nc:NIcon
+                                                    Data="{StaticResource CheckmarkCircle}"
+                                                    Size="25"
+                                                    Color="{DynamicResource Info.First.Brush}" />
+                                            </nc:NTag.IconContent>
+                                        </nc:NTag>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
 

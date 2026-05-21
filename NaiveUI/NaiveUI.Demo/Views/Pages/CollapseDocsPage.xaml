@@ -5,11 +5,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
-    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
-    d:DataContext="{d:DesignInstance Type=viewModels:CollapseDocsPageViewModel}"
     xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
     xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:CollapseDocsPageViewModel}"
     mc:Ignorable="d">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -40,9 +41,7 @@
             <ColumnDefinition Width="220" />
         </Grid.ColumnDefinitions>
 
-        <ScrollViewer
-            Grid.Column="0"
-            VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="68,34,18,34">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
@@ -66,12 +65,6 @@
                     Text="演示" />
 
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="20" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-
                     <StackPanel Grid.Column="0">
                         <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
                             <nu:CardElement.HeaderElement>
@@ -80,23 +73,25 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <StackPanel Margin="30,24,30,24">
-                                    <TextBlock
-                                        Margin="0,0,0,20"
-                                        Style="{StaticResource DocBodyTextStyle}"
-                                        Text="最基础的折叠面板用法，适合按主题分组展示说明、配置项或概览信息。" />
-                                    <nc:NCollapse Width="420">
-                                        <nc:NCollapseItem Title="平台概览" CollapseName="overview">
-                                            <TextBlock TextWrapping="Wrap">将监控、配置和说明按块组织，用户只在需要时展开对应内容。</TextBlock>
-                                        </nc:NCollapseItem>
-                                        <nc:NCollapseItem Title="数据同步" CollapseName="sync">
-                                            <TextBlock TextWrapping="Wrap">支持将同步状态、执行规则和异常提示集中在一个面板中管理。</TextBlock>
-                                        </nc:NCollapseItem>
-                                        <nc:NCollapseItem Title="发布策略" CollapseName="release">
-                                            <TextBlock TextWrapping="Wrap">面向需要分阶段展示详细规则的场景，避免页面一次性堆满长内容。</TextBlock>
-                                        </nc:NCollapseItem>
-                                    </nc:NCollapse>
-                                </StackPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="CollapseDocsPage1">
+                                    <StackPanel Margin="30,24,30,24" HorizontalAlignment="Left">
+                                        <TextBlock
+                                            Margin="0,0,0,20"
+                                            Style="{StaticResource DocBodyTextStyle}"
+                                            Text="最基础的折叠面板用法，适合按主题分组展示说明、配置项或概览信息。" />
+                                        <nc:NCollapse Width="420" HorizontalAlignment="Left">
+                                            <nc:NCollapseItem Title="平台概览" CollapseName="overview">
+                                                <TextBlock TextWrapping="Wrap">将监控、配置和说明按块组织，用户只在需要时展开对应内容。</TextBlock>
+                                            </nc:NCollapseItem>
+                                            <nc:NCollapseItem Title="数据同步" CollapseName="sync">
+                                                <TextBlock TextWrapping="Wrap">支持将同步状态、执行规则和异常提示集中在一个面板中管理。</TextBlock>
+                                            </nc:NCollapseItem>
+                                            <nc:NCollapseItem Title="发布策略" CollapseName="release">
+                                                <TextBlock TextWrapping="Wrap">面向需要分阶段展示详细规则的场景，避免页面一次性堆满长内容。</TextBlock>
+                                            </nc:NCollapseItem>
+                                        </nc:NCollapse>
+                                    </StackPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
@@ -107,26 +102,31 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <StackPanel Margin="30,24,30,24">
-                                    <TextBlock
-                                        Margin="0,0,0,20"
-                                        Style="{StaticResource DocBodyTextStyle}"
-                                        Text="开启 Accordion 后，同一时刻只保留一个展开项，适合问答、说明书和配置流程。" />
-                                    <nc:NCollapse Width="420" Accordion="True">
-                                        <nc:NCollapse.DefaultExpandedNames>
-                                            <sys:String>faq-1</sys:String>
-                                        </nc:NCollapse.DefaultExpandedNames>
-                                        <nc:NCollapseItem Title="如何初始化项目？" CollapseName="faq-1">
-                                            <TextBlock TextWrapping="Wrap">建议先完成主题、导航和基础表单的搭建，再逐步接入具体业务模块。</TextBlock>
-                                        </nc:NCollapseItem>
-                                        <nc:NCollapseItem Title="如何控制展开状态？" CollapseName="faq-2">
-                                            <TextBlock TextWrapping="Wrap">可以使用 ExpandedNames 管理当前展开项，并在 Accordion 模式下只保留一个名称。</TextBlock>
-                                        </nc:NCollapseItem>
-                                        <nc:NCollapseItem Title="什么时候适合手风琴？" CollapseName="faq-3">
-                                            <TextBlock TextWrapping="Wrap">当用户一次只需要处理一个信息块时，手风琴模式更利于聚焦。</TextBlock>
-                                        </nc:NCollapseItem>
-                                    </nc:NCollapse>
-                                </StackPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="CollapseDocsPage2">
+                                    <StackPanel Margin="30,24,30,24" HorizontalAlignment="Left">
+                                        <TextBlock
+                                            Margin="0,0,0,20"
+                                            Style="{StaticResource DocBodyTextStyle}"
+                                            Text="开启 Accordion 后，同一时刻只保留一个展开项，适合问答、说明书和配置流程。" />
+                                        <nc:NCollapse
+                                            Width="420"
+                                            HorizontalAlignment="Left"
+                                            Accordion="True">
+                                            <nc:NCollapse.DefaultExpandedNames>
+                                                <sys:String>faq-1</sys:String>
+                                            </nc:NCollapse.DefaultExpandedNames>
+                                            <nc:NCollapseItem Title="如何初始化项目？" CollapseName="faq-1">
+                                                <TextBlock TextWrapping="Wrap">建议先完成主题、导航和基础表单的搭建，再逐步接入具体业务模块。</TextBlock>
+                                            </nc:NCollapseItem>
+                                            <nc:NCollapseItem Title="如何控制展开状态？" CollapseName="faq-2">
+                                                <TextBlock TextWrapping="Wrap">可以使用 ExpandedNames 管理当前展开项，并在 Accordion 模式下只保留一个名称。</TextBlock>
+                                            </nc:NCollapseItem>
+                                            <nc:NCollapseItem Title="什么时候适合手风琴？" CollapseName="faq-3">
+                                                <TextBlock TextWrapping="Wrap">当用户一次只需要处理一个信息块时，手风琴模式更利于聚焦。</TextBlock>
+                                            </nc:NCollapseItem>
+                                        </nc:NCollapse>
+                                    </StackPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
@@ -137,27 +137,29 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <StackPanel Margin="30,24,30,24">
-                                    <TextBlock
-                                        Margin="0,0,0,20"
-                                        Style="{StaticResource DocBodyTextStyle}"
-                                        Text="使用 DefaultExpandedNames 可以直接配置初始展开状态，适合默认展示重点内容。" />
-                                    <nc:NCollapse Width="420">
-                                        <nc:NCollapse.DefaultExpandedNames>
-                                            <sys:String>plan</sys:String>
-                                            <sys:String>notice</sys:String>
-                                        </nc:NCollapse.DefaultExpandedNames>
-                                        <nc:NCollapseItem Title="上线计划" CollapseName="plan">
-                                            <TextBlock TextWrapping="Wrap">默认展开的内容可用于展示当前最需要用户关注的计划与状态。</TextBlock>
-                                        </nc:NCollapseItem>
-                                        <nc:NCollapseItem Title="注意事项" CollapseName="notice">
-                                            <TextBlock TextWrapping="Wrap">支持一次默认展开多个面板，适合首页提示或入门说明。</TextBlock>
-                                        </nc:NCollapseItem>
-                                        <nc:NCollapseItem Title="归档记录" CollapseName="archive">
-                                            <TextBlock TextWrapping="Wrap">非重点信息默认保持折叠，减少首屏信息干扰。</TextBlock>
-                                        </nc:NCollapseItem>
-                                    </nc:NCollapse>
-                                </StackPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="CollapseDocsPage3">
+                                    <StackPanel Margin="30,24,30,24" HorizontalAlignment="Left">
+                                        <TextBlock
+                                            Margin="0,0,0,20"
+                                            Style="{StaticResource DocBodyTextStyle}"
+                                            Text="使用 DefaultExpandedNames 可以直接配置初始展开状态，适合默认展示重点内容。" />
+                                        <nc:NCollapse Width="420" HorizontalAlignment="Left">
+                                            <nc:NCollapse.DefaultExpandedNames>
+                                                <sys:String>plan</sys:String>
+                                                <sys:String>notice</sys:String>
+                                            </nc:NCollapse.DefaultExpandedNames>
+                                            <nc:NCollapseItem Title="上线计划" CollapseName="plan">
+                                                <TextBlock TextWrapping="Wrap">默认展开的内容可用于展示当前最需要用户关注的计划与状态。</TextBlock>
+                                            </nc:NCollapseItem>
+                                            <nc:NCollapseItem Title="注意事项" CollapseName="notice">
+                                                <TextBlock TextWrapping="Wrap">支持一次默认展开多个面板，适合首页提示或入门说明。</TextBlock>
+                                            </nc:NCollapseItem>
+                                            <nc:NCollapseItem Title="归档记录" CollapseName="archive">
+                                                <TextBlock TextWrapping="Wrap">非重点信息默认保持折叠，减少首屏信息干扰。</TextBlock>
+                                            </nc:NCollapseItem>
+                                        </nc:NCollapse>
+                                    </StackPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
@@ -168,25 +170,28 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <StackPanel Margin="30,24,30,24">
-                                    <TextBlock
-                                        Margin="0,0,0,20"
-                                        Style="{StaticResource DocBodyTextStyle}"
-                                        Text="通过 ArrowPlacement 可以控制箭头位于左侧还是右侧，便于匹配不同信息层级和对齐习惯。" />
-                                    <nc:NCollapse Width="420" ArrowPlacement="Right">
-                                        <nc:NCollapseItem Title="右侧箭头布局" CollapseName="right-1">
-                                            <TextBlock TextWrapping="Wrap">当列表标题更长时，将箭头放在右侧可以让文本起点保持整齐。</TextBlock>
-                                        </nc:NCollapseItem>
-                                        <nc:NCollapseItem Title="更接近设置页结构" CollapseName="right-2">
-                                            <TextBlock TextWrapping="Wrap">对于设置面板或说明列表，右侧箭头更接近常见的桌面应用视觉习惯。</TextBlock>
-                                        </nc:NCollapseItem>
-                                    </nc:NCollapse>
-                                </StackPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="CollapseDocsPage4">
+                                    <StackPanel Margin="30,24,30,24" HorizontalAlignment="Left">
+                                        <TextBlock
+                                            Margin="0,0,0,20"
+                                            Style="{StaticResource DocBodyTextStyle}"
+                                            Text="通过 ArrowPlacement 可以控制箭头位于左侧还是右侧，便于匹配不同信息层级和对齐习惯。" />
+                                        <nc:NCollapse
+                                            Width="420"
+                                            HorizontalAlignment="Left"
+                                            ArrowPlacement="Right">
+                                            <nc:NCollapseItem Title="右侧箭头布局" CollapseName="right-1">
+                                                <TextBlock TextWrapping="Wrap">当列表标题更长时，将箭头放在右侧可以让文本起点保持整齐。</TextBlock>
+                                            </nc:NCollapseItem>
+                                            <nc:NCollapseItem Title="更接近设置页结构" CollapseName="right-2">
+                                                <TextBlock TextWrapping="Wrap">对于设置面板或说明列表，右侧箭头更接近常见的桌面应用视觉习惯。</TextBlock>
+                                            </nc:NCollapseItem>
+                                        </nc:NCollapse>
+                                    </StackPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
-                    </StackPanel>
 
-                    <StackPanel Grid.Column="2">
                         <nu:CardElement x:Name="SectionTriggerAreas" Margin="0,0,0,20">
                             <nu:CardElement.HeaderElement>
                                 <Grid Margin="30,28,30,0">
@@ -194,25 +199,30 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <StackPanel Margin="30,24,30,24">
-                                    <TextBlock
-                                        Margin="0,0,0,20"
-                                        Style="{StaticResource DocBodyTextStyle}"
-                                        Text="通过 TriggerAreas 可以决定主标题区、箭头区和额外区哪些位置允许触发展开收起。" />
-                                    <nc:NCollapse Width="420" TriggerAreas="Main, Arrow, Extra">
-                                        <nc:NCollapseItem Title="全部区域都可触发" CollapseName="trigger-main">
-                                            <nc:NCollapseItem.HeaderExtra>
-                                                <Border Style="{StaticResource CollapseBadgeStyle}">
-                                                    <TextBlock Foreground="#2E7D32" Text="点我也会切换" />
-                                                </Border>
-                                            </nc:NCollapseItem.HeaderExtra>
-                                            <TextBlock TextWrapping="Wrap">当 TriggerAreas 包含 Extra 时，头部右侧额外内容区域也会参与展开收起。</TextBlock>
-                                        </nc:NCollapseItem>
-                                        <nc:NCollapseItem Title="保留主标题与箭头" CollapseName="trigger-arrow">
-                                            <TextBlock TextWrapping="Wrap">默认配置通常使用 Main 与 Arrow 两个区域，既清晰也符合用户直觉。</TextBlock>
-                                        </nc:NCollapseItem>
-                                    </nc:NCollapse>
-                                </StackPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="CollapseDocsPage5">
+                                    <StackPanel Margin="30,24,30,24" HorizontalAlignment="Left">
+                                        <TextBlock
+                                            Margin="0,0,0,20"
+                                            Style="{StaticResource DocBodyTextStyle}"
+                                            Text="通过 TriggerAreas 可以决定主标题区、箭头区和额外区哪些位置允许触发展开收起。" />
+                                        <nc:NCollapse
+                                            Width="420"
+                                            HorizontalAlignment="Left"
+                                            TriggerAreas="Main, Arrow, Extra">
+                                            <nc:NCollapseItem Title="全部区域都可触发" CollapseName="trigger-main">
+                                                <nc:NCollapseItem.HeaderExtra>
+                                                    <Border Style="{StaticResource CollapseBadgeStyle}">
+                                                        <TextBlock Foreground="#2E7D32" Text="点我也会切换" />
+                                                    </Border>
+                                                </nc:NCollapseItem.HeaderExtra>
+                                                <TextBlock TextWrapping="Wrap">当 TriggerAreas 包含 Extra 时，头部右侧额外内容区域也会参与展开收起。</TextBlock>
+                                            </nc:NCollapseItem>
+                                            <nc:NCollapseItem Title="保留主标题与箭头" CollapseName="trigger-arrow">
+                                                <TextBlock TextWrapping="Wrap">默认配置通常使用 Main 与 Arrow 两个区域，既清晰也符合用户直觉。</TextBlock>
+                                            </nc:NCollapseItem>
+                                        </nc:NCollapse>
+                                    </StackPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
@@ -223,32 +233,34 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <StackPanel Margin="30,24,30,24">
-                                    <nc:NCollapse Width="420">
-                                        <nc:NCollapseItem Title="头部右侧额外操作" CollapseName="extra">
-                                            <nc:NCollapseItem.HeaderExtra>
-                                                <nc:NButton Style="{StaticResource CollapseExtraButtonStyle}">更多</nc:NButton>
-                                            </nc:NCollapseItem.HeaderExtra>
-                                            <TextBlock TextWrapping="Wrap">HeaderExtra 适合放置状态说明、次级按钮或辅助提示。</TextBlock>
-                                        </nc:NCollapseItem>
-                                        <nc:NCollapseItem CollapseName="custom-header">
-                                            <nc:NCollapseItem.Header>
-                                                <StackPanel>
-                                                    <TextBlock
-                                                        FontSize="15"
-                                                        FontWeight="SemiBold"
-                                                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
-                                                        Text="自定义头部组合" />
-                                                    <TextBlock
-                                                        Margin="0,4,0,0"
-                                                        Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
-                                                        Text="可在头部中组合副标题、标签或状态摘要。" />
-                                                </StackPanel>
-                                            </nc:NCollapseItem.Header>
-                                            <TextBlock TextWrapping="Wrap">当简单标题不足以表达上下文时，可以使用 Header 插槽自定义整块头部内容。</TextBlock>
-                                        </nc:NCollapseItem>
-                                    </nc:NCollapse>
-                                </StackPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="CollapseDocsPage6">
+                                    <StackPanel Margin="30,24,30,24" HorizontalAlignment="Left">
+                                        <nc:NCollapse Width="420">
+                                            <nc:NCollapseItem Title="头部右侧额外操作" CollapseName="extra">
+                                                <nc:NCollapseItem.HeaderExtra>
+                                                    <nc:NButton Style="{StaticResource CollapseExtraButtonStyle}">更多</nc:NButton>
+                                                </nc:NCollapseItem.HeaderExtra>
+                                                <TextBlock TextWrapping="Wrap">HeaderExtra 适合放置状态说明、次级按钮或辅助提示。</TextBlock>
+                                            </nc:NCollapseItem>
+                                            <nc:NCollapseItem CollapseName="custom-header">
+                                                <nc:NCollapseItem.Header>
+                                                    <StackPanel>
+                                                        <TextBlock
+                                                            FontSize="15"
+                                                            FontWeight="SemiBold"
+                                                            Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                            Text="自定义头部组合" />
+                                                        <TextBlock
+                                                            Margin="0,4,0,0"
+                                                            Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                                            Text="可在头部中组合副标题、标签或状态摘要。" />
+                                                    </StackPanel>
+                                                </nc:NCollapseItem.Header>
+                                                <TextBlock TextWrapping="Wrap">当简单标题不足以表达上下文时，可以使用 Header 插槽自定义整块头部内容。</TextBlock>
+                                            </nc:NCollapseItem>
+                                        </nc:NCollapse>
+                                    </StackPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
@@ -259,19 +271,21 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <StackPanel Margin="30,24,30,24">
-                                    <nc:NCollapse Width="420">
-                                        <nc:NCollapseItem Title="可交互项" CollapseName="enabled">
-                                            <TextBlock TextWrapping="Wrap">正常状态下的折叠项支持点击主区域和箭头区域切换。</TextBlock>
-                                        </nc:NCollapseItem>
-                                        <nc:NCollapseItem
-                                            Title="禁用项"
-                                            CollapseName="disabled"
-                                            Disabled="True">
-                                            <TextBlock TextWrapping="Wrap">禁用项不会响应展开收起，适合权限受限或暂不可用的内容块。</TextBlock>
-                                        </nc:NCollapseItem>
-                                    </nc:NCollapse>
-                                </StackPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="CollapseDocsPage7">
+                                    <StackPanel Margin="30,24,30,24" HorizontalAlignment="Left">
+                                        <nc:NCollapse Width="420">
+                                            <nc:NCollapseItem Title="可交互项" CollapseName="enabled">
+                                                <TextBlock TextWrapping="Wrap">正常状态下的折叠项支持点击主区域和箭头区域切换。</TextBlock>
+                                            </nc:NCollapseItem>
+                                            <nc:NCollapseItem
+                                                Title="禁用项"
+                                                CollapseName="disabled"
+                                                Disabled="True">
+                                                <TextBlock TextWrapping="Wrap">禁用项不会响应展开收起，适合权限受限或暂不可用的内容块。</TextBlock>
+                                            </nc:NCollapseItem>
+                                        </nc:NCollapse>
+                                    </StackPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
@@ -282,23 +296,28 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <StackPanel Margin="30,24,30,24">
-                                    <TextBlock
-                                        Margin="0,0,0,20"
-                                        Style="{StaticResource DocBodyTextStyle}"
-                                        Text="DisplayDirective 用来决定内容折叠后是直接移出视觉树，还是保留内容并仅收起高度。" />
-                                    <nc:NCollapse Width="420" DisplayDirective="Show">
-                                        <nc:NCollapseItem Title="继承父级 Show 策略" CollapseName="show">
-                                            <TextBlock TextWrapping="Wrap">Show 适合需要保留内部状态或避免反复创建内容的区域。</TextBlock>
-                                        </nc:NCollapseItem>
-                                        <nc:NCollapseItem
-                                            Title="单项覆盖为 If"
-                                            CollapseName="if"
-                                            DisplayDirective="If">
-                                            <TextBlock TextWrapping="Wrap">当前项单独使用 If，表示折叠后直接从视觉树中移除内容。</TextBlock>
-                                        </nc:NCollapseItem>
-                                    </nc:NCollapse>
-                                </StackPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="CollapseDocsPage8">
+                                    <StackPanel Margin="30,24,30,24" HorizontalAlignment="Left">
+                                        <TextBlock
+                                            Margin="0,0,0,20"
+                                            Style="{StaticResource DocBodyTextStyle}"
+                                            Text="DisplayDirective 用来决定内容折叠后是直接移出视觉树，还是保留内容并仅收起高度。" />
+                                        <nc:NCollapse
+                                            Width="420"
+                                            HorizontalAlignment="Left"
+                                            DisplayDirective="Show">
+                                            <nc:NCollapseItem Title="继承父级 Show 策略" CollapseName="show">
+                                                <TextBlock TextWrapping="Wrap">Show 适合需要保留内部状态或避免反复创建内容的区域。</TextBlock>
+                                            </nc:NCollapseItem>
+                                            <nc:NCollapseItem
+                                                Title="单项覆盖为 If"
+                                                CollapseName="if"
+                                                DisplayDirective="If">
+                                                <TextBlock TextWrapping="Wrap">当前项单独使用 If，表示折叠后直接从视觉树中移除内容。</TextBlock>
+                                            </nc:NCollapseItem>
+                                        </nc:NCollapse>
+                                    </StackPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
                     </StackPanel>

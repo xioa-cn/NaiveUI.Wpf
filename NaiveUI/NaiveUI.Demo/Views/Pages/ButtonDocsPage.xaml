@@ -10,6 +10,7 @@
     xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewModels:ButtonDocsPageViewModel}"
     xmlns:tag="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
     mc:Ignorable="d">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -44,7 +45,8 @@
             <Setter Property="Height" Value="16" />
             <Setter Property="Stretch" Value="Uniform" />
             <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Fill" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type nc:NButton}}}" />
+            <Setter Property="Fill"
+                    Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type nc:NButton}}}" />
         </Style>
         <Style
             x:Key="ButtonIconOnlyPathStyle"
@@ -85,13 +87,7 @@
                     Text="演示" />
 
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="20" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel Grid.Column="0">
+                    <StackPanel>
                         <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
                             <nu:CardElement.HeaderElement>
                                 <Grid Margin="30,28,30,0">
@@ -109,15 +105,18 @@
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="按钮的 type 分别为 default、tertiary、primary、info、success、warning 和 error。" />
-                                    <WrapPanel>
-                                        <nc:NButton Margin="0,0,14,14">Default</nc:NButton>
-                                        <nc:NButton Margin="0,0,14,14" Kind="Tertiary">Tertiary</nc:NButton>
-                                        <nc:NButton Margin="0,0,14,14" Grade="Primary">Primary</nc:NButton>
-                                        <nc:NButton Margin="0,0,14,14" Grade="Info">Info</nc:NButton>
-                                        <nc:NButton Margin="0,0,14,14" Grade="Success">Success</nc:NButton>
-                                        <nc:NButton Margin="0,0,14,14" Grade="Warning">Warning</nc:NButton>
-                                        <nc:NButton Margin="0,0,14,14" Grade="Error">Error</nc:NButton>
-                                    </WrapPanel>
+                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                               UniqueKey="ButtonDocsPage1">
+                                        <WrapPanel>
+                                            <nc:NButton Margin="0,0,14,14">Default</nc:NButton>
+                                            <nc:NButton Margin="0,0,14,14" Kind="Tertiary">Tertiary</nc:NButton>
+                                            <nc:NButton Margin="0,0,14,14" Grade="Primary">Primary</nc:NButton>
+                                            <nc:NButton Margin="0,0,14,14" Grade="Info">Info</nc:NButton>
+                                            <nc:NButton Margin="0,0,14,14" Grade="Success">Success</nc:NButton>
+                                            <nc:NButton Margin="0,0,14,14" Grade="Warning">Warning</nc:NButton>
+                                            <nc:NButton Margin="0,0,14,14" Grade="Error">Error</nc:NButton>
+                                        </WrapPanel>
+                                    </showMeTheXaml:XamlDisplay>
                                 </StackPanel>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
@@ -134,83 +133,87 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <StackPanel Margin="30,24,30,24">
-                                    <WrapPanel>
-                                        <nc:NButton Margin="0,0,14,14" Kind="Secondary">Default</nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Primary"
-                                            Kind="Secondary">
-                                            Primary
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Info"
-                                            Kind="Secondary">
-                                            Info
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Success"
-                                            Kind="Secondary">
-                                            Success
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Warning"
-                                            Kind="Secondary">
-                                            Warning
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Error"
-                                            Kind="Secondary">
-                                            Error
-                                        </nc:NButton>
-                                    </WrapPanel>
-                                    <WrapPanel>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            CornerRadius="20"
-                                            Grade="Primary"
-                                            Kind="Secondary"
-                                            Round="True">
-                                            Primary
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            CornerRadius="20"
-                                            Grade="Info"
-                                            Kind="Secondary"
-                                            Round="True">
-                                            Info
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            CornerRadius="20"
-                                            Grade="Success"
-                                            Kind="Secondary"
-                                            Round="True">
-                                            Success
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            CornerRadius="20"
-                                            Grade="Warning"
-                                            Kind="Secondary"
-                                            Round="True">
-                                            Warning
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            CornerRadius="20"
-                                            Grade="Error"
-                                            Kind="Secondary"
-                                            Round="True">
-                                            Error
-                                        </nc:NButton>
-                                    </WrapPanel>
-                                </StackPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                           UniqueKey="ButtonDocsPage2">
+                                    <StackPanel Margin="30,24,30,24">
+
+                                        <WrapPanel>
+                                            <nc:NButton Margin="0,0,14,14" Kind="Secondary">Default</nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Primary"
+                                                Kind="Secondary">
+                                                Primary
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Info"
+                                                Kind="Secondary">
+                                                Info
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Success"
+                                                Kind="Secondary">
+                                                Success
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Warning"
+                                                Kind="Secondary">
+                                                Warning
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Error"
+                                                Kind="Secondary">
+                                                Error
+                                            </nc:NButton>
+                                        </WrapPanel>
+                                        <WrapPanel>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                CornerRadius="20"
+                                                Grade="Primary"
+                                                Kind="Secondary"
+                                                Round="True">
+                                                Primary
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                CornerRadius="20"
+                                                Grade="Info"
+                                                Kind="Secondary"
+                                                Round="True">
+                                                Info
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                CornerRadius="20"
+                                                Grade="Success"
+                                                Kind="Secondary"
+                                                Round="True">
+                                                Success
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                CornerRadius="20"
+                                                Grade="Warning"
+                                                Kind="Secondary"
+                                                Round="True">
+                                                Warning
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                CornerRadius="20"
+                                                Grade="Error"
+                                                Kind="Secondary"
+                                                Round="True">
+                                                Error
+                                            </nc:NButton>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
@@ -226,45 +229,48 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <StackPanel Margin="30,24,30,24">
-                                    <TextBlock
-                                        Margin="0,0,0,20"
-                                        Style="{StaticResource DocBodyTextStyle}"
-                                        Text="更轻的透明按钮，适合弱强调操作。" />
-                                    <WrapPanel>
-                                        <nc:NButton Margin="0,0,14,14" Kind="Quaternary">Default</nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Primary"
-                                            Kind="Quaternary">
-                                            Primary
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Info"
-                                            Kind="Quaternary">
-                                            Info
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Success"
-                                            Kind="Quaternary">
-                                            Success
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Warning"
-                                            Kind="Quaternary">
-                                            Warning
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Error"
-                                            Kind="Quaternary">
-                                            Error
-                                        </nc:NButton>
-                                    </WrapPanel>
-                                </StackPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                           UniqueKey="ButtonDocsPage3">
+                                    <StackPanel Margin="30,24,30,24">
+                                        <TextBlock
+                                            Margin="0,0,0,20"
+                                            Style="{StaticResource DocBodyTextStyle}"
+                                            Text="更轻的透明按钮，适合弱强调操作。" />
+                                        <WrapPanel>
+                                            <nc:NButton Margin="0,0,14,14" Kind="Quaternary">Default</nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Primary"
+                                                Kind="Quaternary">
+                                                Primary
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Info"
+                                                Kind="Quaternary">
+                                                Info
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Success"
+                                                Kind="Quaternary">
+                                                Success
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Warning"
+                                                Kind="Quaternary">
+                                                Warning
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Error"
+                                                Kind="Quaternary">
+                                                Error
+                                            </nc:NButton>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
@@ -280,45 +286,48 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <StackPanel Margin="30,24,30,24">
-                                    <TextBlock
-                                        Margin="0,0,0,20"
-                                        Style="{StaticResource DocBodyTextStyle}"
-                                        Text="使用 dashed 来展示轻量边界操作。" />
-                                    <WrapPanel>
-                                        <nc:NButton Margin="0,0,14,14" Kind="Dashed">Default</nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Primary"
-                                            Kind="Dashed">
-                                            Primary
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Info"
-                                            Kind="Dashed">
-                                            Info
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Success"
-                                            Kind="Dashed">
-                                            Success
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Warning"
-                                            Kind="Dashed">
-                                            Warning
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Error"
-                                            Kind="Dashed">
-                                            Error
-                                        </nc:NButton>
-                                    </WrapPanel>
-                                </StackPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                           UniqueKey="ButtonDocsPage4">
+                                    <StackPanel Margin="30,24,30,24">
+                                        <TextBlock
+                                            Margin="0,0,0,20"
+                                            Style="{StaticResource DocBodyTextStyle}"
+                                            Text="使用 dashed 来展示轻量边界操作。" />
+                                        <WrapPanel>
+                                            <nc:NButton Margin="0,0,14,14" Kind="Dashed">Default</nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Primary"
+                                                Kind="Dashed">
+                                                Primary
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Info"
+                                                Kind="Dashed">
+                                                Info
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Success"
+                                                Kind="Dashed">
+                                                Success
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Warning"
+                                                Kind="Dashed">
+                                                Warning
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Error"
+                                                Kind="Dashed">
+                                                Error
+                                            </nc:NButton>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
@@ -334,45 +343,48 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <StackPanel Margin="30,24,30,24">
-                                    <TextBlock
-                                        Margin="0,0,0,20"
-                                        Style="{StaticResource DocBodyTextStyle}"
-                                        Text="适合嵌入文本上下文中。" />
-                                    <WrapPanel>
-                                        <nc:NButton Margin="0,0,14,14" Kind="Text">Default</nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Primary"
-                                            Kind="Text">
-                                            Primary
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Info"
-                                            Kind="Text">
-                                            Info
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Success"
-                                            Kind="Text">
-                                            Success
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Warning"
-                                            Kind="Text">
-                                            Warning
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Error"
-                                            Kind="Text">
-                                            Error
-                                        </nc:NButton>
-                                    </WrapPanel>
-                                </StackPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                           UniqueKey="ButtonDocsPage5">
+                                    <StackPanel Margin="30,24,30,24">
+                                        <TextBlock
+                                            Margin="0,0,0,20"
+                                            Style="{StaticResource DocBodyTextStyle}"
+                                            Text="适合嵌入文本上下文中。" />
+                                        <WrapPanel>
+                                            <nc:NButton Margin="0,0,14,14" Kind="Text">Default</nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Primary"
+                                                Kind="Text">
+                                                Primary
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Info"
+                                                Kind="Text">
+                                                Info
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Success"
+                                                Kind="Text">
+                                                Success
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Warning"
+                                                Kind="Text">
+                                                Warning
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Error"
+                                                Kind="Text">
+                                                Error
+                                            </nc:NButton>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
@@ -387,17 +399,20 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <StackPanel Margin="30,24,30,24">
-                                    <TextBlock
-                                        Margin="0,0,0,18"
-                                        Style="{StaticResource DocBodyTextStyle}"
-                                        Text="WPF 没有 HTML tag，对应以语义标签和跳转用途展示。" />
-                                    <WrapPanel>
-                                        <nc:NButton Margin="0,0,14,14">button</nc:NButton>
-                                        <nc:NButton Margin="0,0,14,14" Kind="Text">a</nc:NButton>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                           UniqueKey="ButtonDocsPage6">
+                                    <StackPanel Margin="30,24,30,24">
+                                        <TextBlock
+                                            Margin="0,0,0,18"
+                                            Style="{StaticResource DocBodyTextStyle}"
+                                            Text="WPF 没有 HTML tag，对应以语义标签和跳转用途展示。" />
+                                        <WrapPanel>
+                                            <nc:NButton Margin="0,0,14,14">button</nc:NButton>
+                                            <nc:NButton Margin="0,0,14,14" Kind="Text">a</nc:NButton>
 
-                                    </WrapPanel>
-                                </StackPanel>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
@@ -412,38 +427,41 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <WrapPanel Margin="30,24,30,24">
-                                    <nc:NButton Margin="0,0,14,14">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Path
-                                                Margin="0,0,8,0"
-                                                Data="{StaticResource ButtonIconAddGeometry}"
-                                                Style="{StaticResource ButtonIconPathStyle}" />
-                                            <TextBlock Text="创建" />
-                                        </StackPanel>
-                                    </nc:NButton>
-                                    <nc:NButton Margin="0,0,14,14" Grade="Primary">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Path
-                                                Margin="0,0,8,0"
-                                                Data="{StaticResource ButtonIconFavoriteGeometry}"
-                                                Style="{StaticResource ButtonIconPathStyle}" />
-                                            <TextBlock Text="收藏" />
-                                        </StackPanel>
-                                    </nc:NButton>
-                                    <nc:NButton
-                                        Margin="0,0,14,14"
-                                        Grade="Info"
-                                        Kind="Secondary">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Path
-                                                Margin="0,0,8,0"
-                                                Data="{StaticResource ButtonIconDownloadGeometry}"
-                                                Style="{StaticResource ButtonIconPathStyle}" />
-                                            <TextBlock Text="下载" />
-                                        </StackPanel>
-                                    </nc:NButton>
-                                </WrapPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                           UniqueKey="ButtonDocsPage7">
+                                    <WrapPanel Margin="30,24,30,24">
+                                        <nc:NButton Margin="0,0,14,14">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path
+                                                    Margin="0,0,8,0"
+                                                    Data="{StaticResource ButtonIconAddGeometry}"
+                                                    Style="{StaticResource ButtonIconPathStyle}" />
+                                                <TextBlock Text="创建" />
+                                            </StackPanel>
+                                        </nc:NButton>
+                                        <nc:NButton Margin="0,0,14,14" Grade="Primary">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path
+                                                    Margin="0,0,8,0"
+                                                    Data="{StaticResource ButtonIconFavoriteGeometry}"
+                                                    Style="{StaticResource ButtonIconPathStyle}" />
+                                                <TextBlock Text="收藏" />
+                                            </StackPanel>
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Info"
+                                            Kind="Secondary">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path
+                                                    Margin="0,0,8,0"
+                                                    Data="{StaticResource ButtonIconDownloadGeometry}"
+                                                    Style="{StaticResource ButtonIconPathStyle}" />
+                                                <TextBlock Text="下载" />
+                                            </StackPanel>
+                                        </nc:NButton>
+                                    </WrapPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
@@ -454,22 +472,25 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <WrapPanel Margin="30,24,30,24">
-                                    <nc:NButton Margin="0,0,14,14">Default</nc:NButton>
-                                    <nc:NButton
-                                        Margin="0,0,14,14"
-                                        CornerRadius="20"
-                                        Round="True">
-                                        Round
-                                    </nc:NButton>
-                                    <nc:NButton
-                                        Margin="0,0,14,14"
-                                        CornerRadius="20"
-                                        Grade="Primary"
-                                        Round="True">
-                                        Pill
-                                    </nc:NButton>
-                                </WrapPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                           UniqueKey="ButtonDocsPage8">
+                                    <WrapPanel Margin="30,24,30,24">
+                                        <nc:NButton Margin="0,0,14,14">Default</nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            CornerRadius="20"
+                                            Round="True">
+                                            Round
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            CornerRadius="20"
+                                            Grade="Primary"
+                                            Round="True">
+                                            Pill
+                                        </nc:NButton>
+                                    </WrapPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
@@ -485,55 +506,40 @@
                                     Padding="18"
                                     Background="#1F2937"
                                     CornerRadius="8">
-                                    <WrapPanel VerticalAlignment="Center">
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Foreground="White"
-                                            Kind="Ghost">
-                                            Default
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Primary"
-                                            Kind="Ghost">
-                                            Primary
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Info"
-                                            Kind="Ghost">
-                                            Info
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Warning"
-                                            Kind="Ghost">
-                                            Warning
-                                        </nc:NButton>
-                                    </WrapPanel>
+                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                               UniqueKey="ButtonDocsPage9">
+                                        <WrapPanel VerticalAlignment="Center">
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Foreground="White"
+                                                Kind="Ghost">
+                                                Default
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Primary"
+                                                Kind="Ghost">
+                                                Primary
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Info"
+                                                Kind="Ghost">
+                                                Info
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Warning"
+                                                Kind="Ghost">
+                                                Warning
+                                            </nc:NButton>
+                                        </WrapPanel>
+                                    </showMeTheXaml:XamlDisplay>
                                 </Border>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
-
-
-
-                    </StackPanel>
-
-                    <StackPanel Grid.Column="2">
-                        <nu:CardElement
-                            x:Name="SectionButtonSlotsColumn"
-                            Margin="0,0,0,20"
-                            Visibility="Collapsed">
-                            <nu:CardElement.HeaderElement>
-                                <Grid Margin="30,28,30,0">
-                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Button Slots" />
-                                </Grid>
-                            </nu:CardElement.HeaderElement>
-                            <nu:CardElement.ContentElement>
-                                <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding ButtonSlotsRows}" />
-                            </nu:CardElement.ContentElement>
-                        </nu:CardElement>
+                     
 
                         <nu:CardElement x:Name="SectionTertiary" Margin="0,0,0,20">
                             <nu:CardElement.HeaderElement>
@@ -547,41 +553,44 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <StackPanel Margin="30,24,30,24">
-                                    <WrapPanel>
-                                        <nc:NButton Margin="0,0,14,14" Kind="Tertiary">Default</nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Primary"
-                                            Kind="Tertiary">
-                                            Primary
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Info"
-                                            Kind="Tertiary">
-                                            Info
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Success"
-                                            Kind="Tertiary">
-                                            Success
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Warning"
-                                            Kind="Tertiary">
-                                            Warning
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Grade="Error"
-                                            Kind="Tertiary">
-                                            Error
-                                        </nc:NButton>
-                                    </WrapPanel>
-                                </StackPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                           UniqueKey="ButtonDocsPage10">
+                                    <StackPanel Margin="30,24,30,24">
+                                        <WrapPanel>
+                                            <nc:NButton Margin="0,0,14,14" Kind="Tertiary">Default</nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Primary"
+                                                Kind="Tertiary">
+                                                Primary
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Info"
+                                                Kind="Tertiary">
+                                                Info
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Success"
+                                                Kind="Tertiary">
+                                                Success
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Warning"
+                                                Kind="Tertiary">
+                                                Warning
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Grade="Error"
+                                                Kind="Tertiary">
+                                                Error
+                                            </nc:NButton>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
@@ -592,17 +601,20 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <StackPanel Margin="30,24,30,24">
-                                    <TextBlock
-                                        Margin="0,0,0,20"
-                                        Style="{StaticResource DocBodyTextStyle}"
-                                        Text="有 small、medium 和 large 尺寸。" />
-                                    <WrapPanel>
-                                        <nc:NButton Margin="0,0,14,14" Size="Small">小</nc:NButton>
-                                        <nc:NButton Margin="0,0,14,14" Size="Medium">不小</nc:NButton>
-                                        <nc:NButton Margin="0,0,14,14" Size="Large">不不小</nc:NButton>
-                                    </WrapPanel>
-                                </StackPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                           UniqueKey="ButtonDocsPage11">
+                                    <StackPanel Margin="30,24,30,24">
+                                        <TextBlock
+                                            Margin="0,0,0,20"
+                                            Style="{StaticResource DocBodyTextStyle}"
+                                            Text="有 small、medium 和 large 尺寸。" />
+                                        <WrapPanel>
+                                            <nc:NButton Margin="0,0,14,14" Size="Small">小</nc:NButton>
+                                            <nc:NButton Margin="0,0,14,14" Size="Medium">不小</nc:NButton>
+                                            <nc:NButton Margin="0,0,14,14" Size="Large">不不小</nc:NButton>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
@@ -613,29 +625,32 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <WrapPanel Margin="30,24,30,24">
-                                    <nc:NButton Margin="0,0,14,14" IsEnabled="False">Default</nc:NButton>
-                                    <nc:NButton
-                                        Margin="0,0,14,14"
-                                        Grade="Primary"
-                                        IsEnabled="False">
-                                        Primary
-                                    </nc:NButton>
-                                    <nc:NButton
-                                        Margin="0,0,14,14"
-                                        Grade="Info"
-                                        IsEnabled="False"
-                                        Kind="Secondary">
-                                        Info
-                                    </nc:NButton>
-                                    <nc:NButton
-                                        Margin="0,0,14,14"
-                                        Grade="Warning"
-                                        IsEnabled="False"
-                                        Kind="Text">
-                                        Warning
-                                    </nc:NButton>
-                                </WrapPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                           UniqueKey="ButtonDocsPage12">
+                                    <WrapPanel Margin="30,24,30,24">
+                                        <nc:NButton Margin="0,0,14,14" IsEnabled="False">Default</nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Primary"
+                                            IsEnabled="False">
+                                            Primary
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Info"
+                                            IsEnabled="False"
+                                            Kind="Secondary">
+                                            Info
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Warning"
+                                            IsEnabled="False"
+                                            Kind="Text">
+                                            Warning
+                                        </nc:NButton>
+                                    </WrapPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
@@ -646,21 +661,24 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <StackPanel Margin="30,24,30,24">
-                                    <TextBlock
-                                        Margin="0,0,0,18"
-                                        Style="{StaticResource DocBodyTextStyle}"
-                                        Text="点击按钮时触发 Click / Command。" />
-                                    <WrapPanel>
-                                        <nc:NButton Margin="0,0,14,14" Click="HandleDemoButtonClick">默认事件</nc:NButton>
-                                        <nc:NButton
-                                            Margin="0,0,14,14"
-                                            Click="HandleDemoButtonClick"
-                                            Grade="Primary">
-                                            成功提示
-                                        </nc:NButton>
-                                    </WrapPanel>
-                                </StackPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                           UniqueKey="ButtonDocsPage13">
+                                    <StackPanel Margin="30,24,30,24">
+                                        <TextBlock
+                                            Margin="0,0,0,18"
+                                            Style="{StaticResource DocBodyTextStyle}"
+                                            Text="点击按钮时触发 Click / Command。" />
+                                        <WrapPanel>
+                                            <nc:NButton Margin="0,0,14,14" Click="HandleDemoButtonClick">默认事件</nc:NButton>
+                                            <nc:NButton
+                                                Margin="0,0,14,14"
+                                                Click="HandleDemoButtonClick"
+                                                Grade="Primary">
+                                                成功提示
+                                            </nc:NButton>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
@@ -671,35 +689,38 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <WrapPanel Margin="30,24,30,24">
-                                    <nc:NButton
-                                        Margin="0,0,14,14"
-                                        CustomBackgroundBrush="#1D4ED8"
-                                        CustomBorderBrush="#1D4ED8"
-                                        CustomForegroundBrush="White"
-                                        CustomHoverBackgroundBrush="#2563EB"
-                                        CustomHoverBorderBrush="#2563EB"
-                                        CustomHoverForegroundBrush="White"
-                                        CustomPressedBackgroundBrush="#1E40AF"
-                                        CustomPressedBorderBrush="#1E40AF"
-                                        CustomPressedForegroundBrush="White">
-                                        Ocean
-                                    </nc:NButton>
-                                    <nc:NButton
-                                        Margin="0,0,14,14"
-                                        CustomBackgroundBrush="#FCE7F3"
-                                        CustomBorderBrush="#FCE7F3"
-                                        CustomForegroundBrush="#BE185D"
-                                        CustomHoverBackgroundBrush="#FBCFE8"
-                                        CustomHoverBorderBrush="#FBCFE8"
-                                        CustomHoverForegroundBrush="#9D174D"
-                                        CustomPressedBackgroundBrush="#F9A8D4"
-                                        CustomPressedBorderBrush="#F9A8D4"
-                                        CustomPressedForegroundBrush="#831843"
-                                        Kind="Secondary">
-                                        Rose
-                                    </nc:NButton>
-                                </WrapPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                           UniqueKey="ButtonDocsPage14">
+                                    <WrapPanel Margin="30,24,30,24">
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            CustomBackgroundBrush="#1D4ED8"
+                                            CustomBorderBrush="#1D4ED8"
+                                            CustomForegroundBrush="White"
+                                            CustomHoverBackgroundBrush="#2563EB"
+                                            CustomHoverBorderBrush="#2563EB"
+                                            CustomHoverForegroundBrush="White"
+                                            CustomPressedBackgroundBrush="#1E40AF"
+                                            CustomPressedBorderBrush="#1E40AF"
+                                            CustomPressedForegroundBrush="White">
+                                            Ocean
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            CustomBackgroundBrush="#FCE7F3"
+                                            CustomBorderBrush="#FCE7F3"
+                                            CustomForegroundBrush="#BE185D"
+                                            CustomHoverBackgroundBrush="#FBCFE8"
+                                            CustomHoverBorderBrush="#FBCFE8"
+                                            CustomHoverForegroundBrush="#9D174D"
+                                            CustomPressedBackgroundBrush="#F9A8D4"
+                                            CustomPressedBorderBrush="#F9A8D4"
+                                            CustomPressedForegroundBrush="#831843"
+                                            Kind="Secondary">
+                                            Rose
+                                        </nc:NButton>
+                                    </WrapPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
@@ -710,37 +731,43 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <WrapPanel Margin="30,24,30,24">
-                                    <nc:NButton Margin="5">
-                                        <Viewbox Width="18" Height="18">
-                                            <Path
-                                                Data="{StaticResource ButtonIconAddGeometry}"
-                                                Fill="SteelBlue"
-                                                Style="{StaticResource ButtonIconOnlyPathStyle}" />
-                                        </Viewbox>
-                                    </nc:NButton>
-                                    <nc:NButton Margin="5" Grade="Primary">
-                                        <Viewbox Width="18" Height="18">
-                                            <Path Data="{StaticResource ButtonIconFavoriteGeometry}" Style="{StaticResource ButtonIconOnlyPathStyle}" />
-                                        </Viewbox>
-                                    </nc:NButton>
-                                    <nc:NButton
-                                        Margin="5"
-                                        Grade="Success"
-                                        Kind="Secondary">
-                                        <Viewbox Width="18" Height="18">
-                                            <Path Data="{StaticResource ButtonIconCheckGeometry}" Style="{StaticResource ButtonIconOnlyPathStyle}" />
-                                        </Viewbox>
-                                    </nc:NButton>
-                                    <nc:NButton
-                                        Margin="5"
-                                        Grade="Warning"
-                                        Kind="Quaternary">
-                                        <Viewbox Width="18" Height="18">
-                                            <Path Data="{StaticResource ButtonIconDownloadGeometry}" Style="{StaticResource ButtonIconOnlyPathStyle}" />
-                                        </Viewbox>
-                                    </nc:NButton>
-                                </WrapPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                           UniqueKey="ButtonDocsPage15">
+                                    <WrapPanel Margin="30,24,30,24">
+                                        <nc:NButton Margin="5">
+                                            <Viewbox Width="18" Height="18">
+                                                <Path
+                                                    Data="{StaticResource ButtonIconAddGeometry}"
+                                                    Fill="SteelBlue"
+                                                    Style="{StaticResource ButtonIconOnlyPathStyle}" />
+                                            </Viewbox>
+                                        </nc:NButton>
+                                        <nc:NButton Margin="5" Grade="Primary">
+                                            <Viewbox Width="18" Height="18">
+                                                <Path Data="{StaticResource ButtonIconFavoriteGeometry}"
+                                                      Style="{StaticResource ButtonIconOnlyPathStyle}" />
+                                            </Viewbox>
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="5"
+                                            Grade="Success"
+                                            Kind="Secondary">
+                                            <Viewbox Width="18" Height="18">
+                                                <Path Data="{StaticResource ButtonIconCheckGeometry}"
+                                                      Style="{StaticResource ButtonIconOnlyPathStyle}" />
+                                            </Viewbox>
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="5"
+                                            Grade="Warning"
+                                            Kind="Quaternary">
+                                            <Viewbox Width="18" Height="18">
+                                                <Path Data="{StaticResource ButtonIconDownloadGeometry}"
+                                                      Style="{StaticResource ButtonIconOnlyPathStyle}" />
+                                            </Viewbox>
+                                        </nc:NButton>
+                                    </WrapPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
@@ -752,30 +779,33 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <WrapPanel Margin="30,24,30,24">
-                                    <nc:NButton Margin="0,0,14,14" IsLoading="True">Default</nc:NButton>
-                                    <nc:NButton
-                                        Margin="0,0,14,14"
-                                        Grade="Primary"
-                                        IsLoading="True"
-                                        LoadingBrush="White">
-                                        Primary
-                                    </nc:NButton>
-                                    <nc:NButton
-                                        Margin="0,0,14,14"
-                                        Grade="Success"
-                                        IsLoading="True"
-                                        Kind="Secondary">
-                                        Success
-                                    </nc:NButton>
-                                    <nc:NButton
-                                        Margin="0,0,14,14"
-                                        Grade="Warning"
-                                        IsLoading="True"
-                                        Kind="Text">
-                                        Warning
-                                    </nc:NButton>
-                                </WrapPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                           UniqueKey="ButtonDocsPage16">
+                                    <WrapPanel Margin="30,24,30,24">
+                                        <nc:NButton Margin="0,0,14,14" IsLoading="True">Default</nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Primary"
+                                            IsLoading="True"
+                                            LoadingBrush="White">
+                                            Primary
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Success"
+                                            IsLoading="True"
+                                            Kind="Secondary">
+                                            Success
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,14,14"
+                                            Grade="Warning"
+                                            IsLoading="True"
+                                            Kind="Text">
+                                            Warning
+                                        </nc:NButton>
+                                    </WrapPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
@@ -786,138 +816,140 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <StackPanel Margin="30,24,30,24">
-                                    <StackPanel Orientation="Horizontal">
-                                        <nc:NButton Style="{StaticResource ButtonGroupItemStyle}">Star</nc:NButton>
-                                        <nc:NButton Grade="Primary" Style="{StaticResource ButtonGroupItemStyle}">Like</nc:NButton>
-                                        <nc:NButton Style="{StaticResource ButtonGroupItemStyle}">Share</nc:NButton>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                           UniqueKey="ButtonDocsPage17">
+                                    <StackPanel Margin="30,24,30,24">
+                                        <StackPanel Orientation="Horizontal">
+                                            <nc:NButton Style="{StaticResource ButtonGroupItemStyle}">Star</nc:NButton>
+                                            <nc:NButton Grade="Primary" Style="{StaticResource ButtonGroupItemStyle}">Like</nc:NButton>
+                                            <nc:NButton Style="{StaticResource ButtonGroupItemStyle}">Share</nc:NButton>
+                                        </StackPanel>
+                                        <StackPanel Margin="0,16,0,0" Orientation="Horizontal">
+                                            <nc:NButton Kind="Secondary" Style="{StaticResource ButtonGroupItemStyle}">A</nc:NButton>
+                                            <nc:NButton
+                                                Grade="Info"
+                                                Kind="Secondary"
+                                                Style="{StaticResource ButtonGroupItemStyle}">
+                                                B
+                                            </nc:NButton>
+                                            <nc:NButton
+                                                Grade="Success"
+                                                Kind="Secondary"
+                                                Style="{StaticResource ButtonGroupItemStyle}">
+                                                C
+                                            </nc:NButton>
+                                        </StackPanel>
                                     </StackPanel>
-                                    <StackPanel Margin="0,16,0,0" Orientation="Horizontal">
-                                        <nc:NButton Kind="Secondary" Style="{StaticResource ButtonGroupItemStyle}">A</nc:NButton>
-                                        <nc:NButton
-                                            Grade="Info"
-                                            Kind="Secondary"
-                                            Style="{StaticResource ButtonGroupItemStyle}">
-                                            B
-                                        </nc:NButton>
-                                        <nc:NButton
-                                            Grade="Success"
-                                            Kind="Secondary"
-                                            Style="{StaticResource ButtonGroupItemStyle}">
-                                            C
-                                        </nc:NButton>
-                                    </StackPanel>
-                                </StackPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
                         <nu:CardElement x:Name="SectionPopover" Margin="0,0,0,20">
                             <nu:CardElement.HeaderElement>
                                 <Grid Margin="30,28,30,0">
-                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="配合 Popover 的特殊情况" />
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}"
+                                               Text="配合 Popover 的特殊情况" />
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <StackPanel Margin="30,24,30,24">
-                                    <TextBlock
-                                        Margin="0,0,0,18"
-                                        Style="{StaticResource DocBodyTextStyle}"
-                                        Text="在弹出层场景下，建议使用 text / quaternary 按钮减轻视觉重量。" />
-                                    <Border
-                                        Padding="18"
-                                        Background="{DynamicResource Theme.Surface.1.Brush}"
-                                        CornerRadius="10">
-                                        <StackPanel>
-                                            <TextBlock
-                                                Margin="0,0,0,12"
-                                                FontSize="14"
-                                                Foreground="{DynamicResource Theme.Text.Secondary.Brush}"
-                                                Text="Popover Header 点击触发" />
-                                            <WrapPanel>
-                                                <nc:NDropdown Placement="BottomStart" Trigger="Click">
-                                                    <nc:NDropdown.Options>
-                                                        <nc:NDropdownRenderOption>
-                                                            <Border
-                                                                Margin="4,2"
-                                                                Padding="12,10"
-                                                                Background="{DynamicResource Theme.Surface.1.Brush}"
-                                                                CornerRadius="6">
-                                                                <StackPanel>
-                                                                    <TextBlock
-                                                                        FontWeight="SemiBold"
-                                                                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
-                                                                        Text="操作一" />
-                                                                    <TextBlock Margin="0,6,0,0" Text="操作一的Popover" />
-                                                                </StackPanel>
-                                                            </Border>
-                                                        </nc:NDropdownRenderOption>
-                                                    </nc:NDropdown.Options>
-                                                    <nc:NButton
-                                                        Margin="0,0,12,0"
-                                                        Grade="Primary"
-                                                        Kind="Text">
-                                                        操作一
-                                                    </nc:NButton>
-                                                </nc:NDropdown>
-                                                <nc:NDropdown Placement="BottomStart" Trigger="Click">
-                                                    <nc:NDropdown.Options>
-                                                        <nc:NDropdownRenderOption>
-                                                            <Border
-                                                                Margin="4,2"
-                                                                Padding="12,10"
-                                                                Background="{DynamicResource Theme.Surface.1.Brush}"
-                                                                CornerRadius="6">
-                                                                <StackPanel>
-                                                                    <TextBlock
-                                                                        FontWeight="SemiBold"
-                                                                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
-                                                                        Text="操作二" />
-                                                                    <TextBlock Margin="0,6,0,0" Text="操作二的Popover" />
-                                                                </StackPanel>
-                                                            </Border>
-                                                        </nc:NDropdownRenderOption>
-                                                    </nc:NDropdown.Options>
-                                                    <nc:NButton
-                                                        Margin="0,0,12,0"
-                                                        Grade="Info"
-                                                        Kind="Quaternary">
-                                                        操作二
-                                                    </nc:NButton>
-                                                </nc:NDropdown>
-                                                <nc:NDropdown Placement="BottomStart" Trigger="Click">
-                                                    <nc:NDropdown.Options>
-                                                        <nc:NDropdownRenderOption>
-                                                            <Border
-                                                                Margin="4,2"
-                                                                Padding="12,10"
-                                                                Background="{DynamicResource Theme.Surface.1.Brush}"
-                                                                CornerRadius="6">
-                                                                <StackPanel>
-                                                                    <TextBlock
-                                                                        FontWeight="SemiBold"
-                                                                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
-                                                                        Text="。。。" />
-                                                                    <TextBlock Margin="0,6,0,0" Text="。。。的Popover" />
-                                                                </StackPanel>
-                                                            </Border>
-                                                        </nc:NDropdownRenderOption>
-                                                    </nc:NDropdown.Options>
-                                                    <nc:NButton Kind="Quaternary">
-                                                        <Path Data="{StaticResource ButtonIconMoreGeometry}" Style="{StaticResource ButtonIconOnlyPathStyle}" />
-                                                    </nc:NButton>
-                                                </nc:NDropdown>
-                                            </WrapPanel>
-                                        </StackPanel>
-                                    </Border>
-                                </StackPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
+                                                           UniqueKey="ButtonDocsPage18">
+                                    <StackPanel Margin="30,24,30,24">
+                                        <TextBlock
+                                            Margin="0,0,0,18"
+                                            Style="{StaticResource DocBodyTextStyle}"
+                                            Text="在弹出层场景下，建议使用 text / quaternary 按钮减轻视觉重量。" />
+                                        <Border
+                                            Padding="18"
+                                            Background="{DynamicResource Theme.Surface.1.Brush}"
+                                            CornerRadius="10">
+                                            <StackPanel>
+                                                <TextBlock
+                                                    Margin="0,0,0,12"
+                                                    FontSize="14"
+                                                    Foreground="{DynamicResource Theme.Text.Secondary.Brush}"
+                                                    Text="Popover Header 点击触发" />
+                                                <WrapPanel>
+                                                    <nc:NDropdown Placement="BottomStart" Trigger="Click">
+                                                        <nc:NDropdown.Options>
+                                                            <nc:NDropdownRenderOption>
+                                                                <Border
+                                                                    Margin="4,2"
+                                                                    Padding="12,10"
+                                                                    Background="{DynamicResource Theme.Surface.1.Brush}"
+                                                                    CornerRadius="6">
+                                                                    <StackPanel>
+                                                                        <TextBlock
+                                                                            FontWeight="SemiBold"
+                                                                            Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                                            Text="操作一" />
+                                                                        <TextBlock Margin="0,6,0,0" Text="操作一的Popover" />
+                                                                    </StackPanel>
+                                                                </Border>
+                                                            </nc:NDropdownRenderOption>
+                                                        </nc:NDropdown.Options>
+                                                        <nc:NButton
+                                                            Margin="0,0,12,0"
+                                                            Grade="Primary"
+                                                            Kind="Text">
+                                                            操作一
+                                                        </nc:NButton>
+                                                    </nc:NDropdown>
+                                                    <nc:NDropdown Placement="BottomStart" Trigger="Click">
+                                                        <nc:NDropdown.Options>
+                                                            <nc:NDropdownRenderOption>
+                                                                <Border
+                                                                    Margin="4,2"
+                                                                    Padding="12,10"
+                                                                    Background="{DynamicResource Theme.Surface.1.Brush}"
+                                                                    CornerRadius="6">
+                                                                    <StackPanel>
+                                                                        <TextBlock
+                                                                            FontWeight="SemiBold"
+                                                                            Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                                            Text="操作二" />
+                                                                        <TextBlock Margin="0,6,0,0" Text="操作二的Popover" />
+                                                                    </StackPanel>
+                                                                </Border>
+                                                            </nc:NDropdownRenderOption>
+                                                        </nc:NDropdown.Options>
+                                                        <nc:NButton
+                                                            Margin="0,0,12,0"
+                                                            Grade="Info"
+                                                            Kind="Quaternary">
+                                                            操作二
+                                                        </nc:NButton>
+                                                    </nc:NDropdown>
+                                                    <nc:NDropdown Placement="BottomStart" Trigger="Click">
+                                                        <nc:NDropdown.Options>
+                                                            <nc:NDropdownRenderOption>
+                                                                <Border
+                                                                    Margin="4,2"
+                                                                    Padding="12,10"
+                                                                    Background="{DynamicResource Theme.Surface.1.Brush}"
+                                                                    CornerRadius="6">
+                                                                    <StackPanel>
+                                                                        <TextBlock
+                                                                            FontWeight="SemiBold"
+                                                                            Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                                            Text="。。。" />
+                                                                        <TextBlock Margin="0,6,0,0" Text="。。。的Popover" />
+                                                                    </StackPanel>
+                                                                </Border>
+                                                            </nc:NDropdownRenderOption>
+                                                        </nc:NDropdown.Options>
+                                                        <nc:NButton Kind="Quaternary">
+                                                            <Path Data="{StaticResource ButtonIconMoreGeometry}"
+                                                                  Style="{StaticResource ButtonIconOnlyPathStyle}" />
+                                                        </nc:NButton>
+                                                    </nc:NDropdown>
+                                                </WrapPanel>
+                                            </StackPanel>
+                                        </Border>
+                                    </StackPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
-
-
-
-
-
-
 
 
                     </StackPanel>
@@ -958,7 +990,21 @@
                         <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding ButtonGroupPropsRows}" />
                     </nu:CardElement.ContentElement>
                 </nu:CardElement>
-
+                
+                <!-- <nu:CardElement -->
+                <!--     x:Name="SectionButtonSlotsColumn" -->
+                <!--     Margin="0,0,0,20" -->
+                <!--     Visibility="Collapsed"> -->
+                <!--     <nu:CardElement.HeaderElement> -->
+                <!--         <Grid Margin="30,28,30,0"> -->
+                <!--             <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Button Slots" /> -->
+                <!--         </Grid> -->
+                <!--     </nu:CardElement.HeaderElement> -->
+                <!--     <nu:CardElement.ContentElement> -->
+                <!--         <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding ButtonSlotsRows}" /> -->
+                <!--     </nu:CardElement.ContentElement> -->
+                <!-- </nu:CardElement> -->
+                
                 <nu:CardElement x:Name="SectionButtonSlots" Margin="0,0,0,20">
                     <nu:CardElement.HeaderElement>
                         <Grid Margin="30,28,30,0">
