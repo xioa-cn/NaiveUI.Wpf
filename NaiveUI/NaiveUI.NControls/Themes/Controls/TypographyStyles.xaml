@@ -1,0 +1,552 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:NaiveUI.NControls.Controls">
+
+    <TextDecorationCollection x:Key="TypographyUnderlineTextDecorations">
+        <TextDecoration Location="Underline" />
+    </TextDecorationCollection>
+
+    <TextDecorationCollection x:Key="TypographyDeleteTextDecorations">
+        <TextDecoration Location="Strikethrough" />
+    </TextDecorationCollection>
+
+    <TextDecorationCollection x:Key="TypographyUnderlineDeleteTextDecorations">
+        <TextDecoration Location="Underline" />
+        <TextDecoration Location="Strikethrough" />
+    </TextDecorationCollection>
+
+    <DataTemplate x:Key="TypographyInlineStringTemplate">
+        <TextBlock Text="{Binding}" TextWrapping="Wrap" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="TypographyBlockStringTemplate">
+        <TextBlock
+            Text="{Binding}"
+            TextWrapping="Wrap"
+            LineHeight="26" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="NTextStringTemplate">
+        <TextBlock Text="{Binding}" TextWrapping="Wrap">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NText}}, Path=Underline}" Value="True" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NText}}, Path=Delete}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="TextDecorations" Value="{StaticResource TypographyUnderlineTextDecorations}" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NText}}, Path=Underline}" Value="False" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NText}}, Path=Delete}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="TextDecorations" Value="{StaticResource TypographyDeleteTextDecorations}" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NText}}, Path=Underline}" Value="True" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NText}}, Path=Delete}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="TextDecorations" Value="{StaticResource TypographyUnderlineDeleteTextDecorations}" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+    </DataTemplate>
+
+    <DataTemplate x:Key="NAStringTemplate">
+        <TextBlock Text="{Binding}" TextWrapping="Wrap">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NA}}, Path=CanInvoke}" Value="True" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NA}}, Path=IsMouseOver}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="TextDecorations" Value="{StaticResource TypographyUnderlineTextDecorations}" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NA}}, Path=CanInvoke}" Value="True" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NA}}, Path=IsPointerPressed}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="TextDecorations" Value="{StaticResource TypographyUnderlineTextDecorations}" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+    </DataTemplate>
+
+    <Style TargetType="{x:Type controls:NText}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:NText}">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="3"
+                        Padding="{TemplateBinding Padding}">
+                        <ContentPresenter
+                            ContentTemplate="{StaticResource NTextStringTemplate}"
+                            RecognizesAccessKey="True"
+                            TextElement.FontFamily="{TemplateBinding FontFamily}"
+                            TextElement.FontSize="{TemplateBinding FontSize}"
+                            TextElement.FontStyle="{TemplateBinding FontStyle}"
+                            TextElement.FontWeight="{TemplateBinding FontWeight}"
+                            TextElement.Foreground="{TemplateBinding Foreground}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Type" Value="{x:Static controls:NTypographyType.Success}">
+                            <Setter Property="Foreground" Value="{DynamicResource Success.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="Type" Value="{x:Static controls:NTypographyType.Info}">
+                            <Setter Property="Foreground" Value="{DynamicResource Info.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="Type" Value="{x:Static controls:NTypographyType.Warning}">
+                            <Setter Property="Foreground" Value="{DynamicResource Warning.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="Type" Value="{x:Static controls:NTypographyType.Error}">
+                            <Setter Property="Foreground" Value="{DynamicResource Error.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="Strong" Value="True">
+                            <Setter Property="FontWeight" Value="SemiBold" />
+                        </Trigger>
+                        <Trigger Property="Italic" Value="True">
+                            <Setter Property="FontStyle" Value="Italic" />
+                        </Trigger>
+                        <Trigger Property="Code" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource Theme.Fill.2.Brush}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource Theme.Fill.2.Brush}" />
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="Padding" Value="6,1" />
+                            <Setter Property="FontFamily" Value="Consolas" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Type" Value="{x:Static controls:NTypographyType.Default}" />
+                                <Condition Property="Depth" Value="2" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Secondary.Brush}" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Type" Value="{x:Static controls:NTypographyType.Default}" />
+                                <Condition Property="Depth" Value="3" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Tertiary.Brush}" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type controls:NP}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Margin" Value="0,0,0,18" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:NP}">
+                    <ContentPresenter
+                        ContentTemplate="{StaticResource TypographyBlockStringTemplate}"
+                        RecognizesAccessKey="True"
+                        TextElement.FontFamily="{TemplateBinding FontFamily}"
+                        TextElement.FontSize="{TemplateBinding FontSize}"
+                        TextElement.FontWeight="{TemplateBinding FontWeight}"
+                        TextElement.Foreground="{TemplateBinding Foreground}" />
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Depth" Value="2">
+                            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Secondary.Brush}" />
+                        </Trigger>
+                        <Trigger Property="Depth" Value="3">
+                            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Tertiary.Brush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="TypographyHeaderBaseStyle" TargetType="{x:Type controls:NTypographyHeaderBase}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="Margin" Value="0,0,0,18" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:NTypographyHeaderBase}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            x:Name="PrefixBar"
+                            Grid.Column="0"
+                            Width="4"
+                            Height="{TemplateBinding ResolvedPrefixBarHeight}"
+                            Margin="0,0,12,0"
+                            VerticalAlignment="Stretch"
+                            Background="{DynamicResource Primary.First.Brush}"
+                            CornerRadius="2"
+                            Visibility="Collapsed" />
+
+                        <ContentPresenter
+                            Grid.Column="1"
+                            ContentTemplate="{StaticResource TypographyInlineStringTemplate}"
+                            RecognizesAccessKey="True"
+                            TextElement.FontFamily="{TemplateBinding FontFamily}"
+                            TextElement.FontSize="{TemplateBinding FontSize}"
+                            TextElement.FontStyle="{TemplateBinding FontStyle}"
+                            TextElement.FontWeight="{TemplateBinding FontWeight}"
+                            TextElement.Foreground="{TemplateBinding Foreground}" />
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Prefix" Value="{x:Static controls:NTypographyHeaderPrefix.Bar}">
+                            <Setter TargetName="PrefixBar" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="AlignText" Value="True">
+                            <Setter TargetName="PrefixBar" Property="VerticalAlignment" Value="Center" />
+                        </Trigger>
+                        <Trigger Property="Type" Value="{x:Static controls:NTypographyType.Success}">
+                            <Setter Property="Foreground" Value="{DynamicResource Success.First.Brush}" />
+                            <Setter TargetName="PrefixBar" Property="Background" Value="{DynamicResource Success.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="Type" Value="{x:Static controls:NTypographyType.Info}">
+                            <Setter Property="Foreground" Value="{DynamicResource Info.First.Brush}" />
+                            <Setter TargetName="PrefixBar" Property="Background" Value="{DynamicResource Info.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="Type" Value="{x:Static controls:NTypographyType.Warning}">
+                            <Setter Property="Foreground" Value="{DynamicResource Warning.First.Brush}" />
+                            <Setter TargetName="PrefixBar" Property="Background" Value="{DynamicResource Warning.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="Type" Value="{x:Static controls:NTypographyType.Error}">
+                            <Setter Property="Foreground" Value="{DynamicResource Error.First.Brush}" />
+                            <Setter TargetName="PrefixBar" Property="Background" Value="{DynamicResource Error.First.Brush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type controls:NH1}" BasedOn="{StaticResource TypographyHeaderBaseStyle}">
+        <Setter Property="FontSize" Value="30" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Margin" Value="0,0,0,20" />
+    </Style>
+
+    <Style TargetType="{x:Type controls:NH2}" BasedOn="{StaticResource TypographyHeaderBaseStyle}">
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Margin" Value="0,0,0,18" />
+    </Style>
+
+    <Style TargetType="{x:Type controls:NH3}" BasedOn="{StaticResource TypographyHeaderBaseStyle}">
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Margin" Value="0,0,0,16" />
+    </Style>
+
+    <Style TargetType="{x:Type controls:NH4}" BasedOn="{StaticResource TypographyHeaderBaseStyle}">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Margin" Value="0,0,0,14" />
+    </Style>
+
+    <Style TargetType="{x:Type controls:NH5}" BasedOn="{StaticResource TypographyHeaderBaseStyle}">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Margin" Value="0,0,0,12" />
+    </Style>
+
+    <Style TargetType="{x:Type controls:NH6}" BasedOn="{StaticResource TypographyHeaderBaseStyle}">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Margin" Value="0,0,0,10" />
+    </Style>
+
+    <Style TargetType="{x:Type controls:NBlockquote}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Secondary.Brush}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Margin" Value="0,18,0,18" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:NBlockquote}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            x:Name="QuoteBar"
+                            Grid.Column="0"
+                            Width="4"
+                            Margin="0,5,0,5"
+                            Background="{DynamicResource Theme.Border.Strong.Brush}"
+                            CornerRadius="2" />
+
+                        <Border
+                            Grid.Column="1"
+                            Margin="16,0,0,0"
+                            Padding="0,2,0,2">
+                            <ContentPresenter
+                                ContentTemplate="{StaticResource TypographyBlockStringTemplate}"
+                                RecognizesAccessKey="True"
+                                VerticalAlignment="Center"
+                                TextElement.FontFamily="{TemplateBinding FontFamily}"
+                                TextElement.FontSize="{TemplateBinding FontSize}"
+                                TextElement.Foreground="{TemplateBinding Foreground}" />
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="AlignText" Value="True">
+                            <Setter TargetName="QuoteBar" Property="Margin" Value="0,2,0,2" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="TypographyListBaseStyle" TargetType="{x:Type controls:NTypographyListBase}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="Margin" Value="0,0,0,18" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:NTypographyListBase}">
+                    <ItemsPresenter />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type controls:NUl}" BasedOn="{StaticResource TypographyListBaseStyle}" />
+
+    <Style TargetType="{x:Type controls:NOl}" BasedOn="{StaticResource TypographyListBaseStyle}" />
+
+    <Style TargetType="{x:Type controls:NLi}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="Margin" Value="0,0,0,10" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:NLi}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            x:Name="MarkerPresenter"
+                            MinWidth="24"
+                            Margin="0,0,8,0"
+                            VerticalAlignment="Top"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontWeight="{TemplateBinding FontWeight}"
+                            Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                            LineHeight="26"
+                            Text="{TemplateBinding MarkerText}" />
+
+                        <ContentPresenter
+                            Grid.Column="1"
+                            ContentTemplate="{StaticResource TypographyBlockStringTemplate}"
+                            RecognizesAccessKey="True"
+                            VerticalAlignment="Top"
+                            TextElement.FontFamily="{TemplateBinding FontFamily}"
+                            TextElement.FontSize="{TemplateBinding FontSize}"
+                            TextElement.Foreground="{TemplateBinding Foreground}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="AlignText" Value="True">
+                            <Setter TargetName="MarkerPresenter" Property="VerticalAlignment" Value="Center" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type controls:NA}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Cursor" Value="Arrow" />
+        <Setter Property="Foreground" Value="{DynamicResource Primary.First.Brush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:NA}">
+                    <Border
+                        x:Name="LinkBorder"
+                        Background="Transparent"
+                        CornerRadius="3"
+                        Padding="0">
+                        <ContentPresenter
+                            ContentTemplate="{StaticResource NAStringTemplate}"
+                            RecognizesAccessKey="True"
+                            TextElement.FontFamily="{TemplateBinding FontFamily}"
+                            TextElement.FontSize="{TemplateBinding FontSize}"
+                            TextElement.FontStyle="{TemplateBinding FontStyle}"
+                            TextElement.FontWeight="{TemplateBinding FontWeight}"
+                            TextElement.Foreground="{TemplateBinding Foreground}" />
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="CanInvoke" Value="True">
+                            <Setter Property="Cursor" Value="Hand" />
+                        </Trigger>
+                        <Trigger Property="CanInvoke" Value="False">
+                            <Setter Property="Opacity" Value="0.55" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="CanInvoke" Value="True" />
+                                <Condition Property="IsMouseOver" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Foreground" Value="{DynamicResource Primary.Hover.Brush}" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="CanInvoke" Value="True" />
+                                <Condition Property="IsPointerPressed" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Foreground" Value="{DynamicResource Primary.Pressed.Brush}" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type controls:NHr}">
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Margin" Value="0,18,0,18" />
+        <Setter Property="LineThickness" Value="1" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:NHr}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <Path
+                            x:Name="VerticalLine"
+                            Width="{TemplateBinding ResolvedLineThickness}"
+                            Height="{TemplateBinding ResolvedVerticalHeight}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Data="M0.5,0 L0.5,1"
+                            Stretch="Fill"
+                            Stroke="{TemplateBinding BorderBrush}"
+                            StrokeThickness="{TemplateBinding ResolvedLineThickness}"
+                            Visibility="Collapsed" />
+
+                        <Grid x:Name="HorizontalRoot">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition x:Name="LeftLineColumn" Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition x:Name="RightLineColumn" Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Path
+                                x:Name="LeftLine"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="3"
+                                Height="{TemplateBinding ResolvedLineThickness}"
+                                VerticalAlignment="Center"
+                                Data="M0,0.5 L1,0.5"
+                                Stretch="Fill"
+                                Stroke="{TemplateBinding BorderBrush}"
+                                StrokeThickness="{TemplateBinding ResolvedLineThickness}" />
+
+                            <ContentPresenter
+                                x:Name="TitlePresenter"
+                                Grid.Column="1"
+                                Margin="12,0"
+                                VerticalAlignment="Center"
+                                Content="{TemplateBinding ResolvedTitleContent}"
+                                ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                TextElement.FontWeight="{TemplateBinding FontWeight}"
+                                TextElement.Foreground="{TemplateBinding Foreground}"
+                                Visibility="Collapsed" />
+
+                            <Path
+                                x:Name="RightLine"
+                                Grid.Column="2"
+                                Height="{TemplateBinding ResolvedLineThickness}"
+                                VerticalAlignment="Center"
+                                Data="M0,0.5 L1,0.5"
+                                Stretch="Fill"
+                                Stroke="{TemplateBinding BorderBrush}"
+                                StrokeThickness="{TemplateBinding ResolvedLineThickness}"
+                                Visibility="Collapsed" />
+                        </Grid>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasTitle" Value="True">
+                            <Setter TargetName="LeftLine" Property="Grid.ColumnSpan" Value="1" />
+                            <Setter TargetName="TitlePresenter" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="RightLine" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="TitlePlacement" Value="Left">
+                            <Setter TargetName="LeftLineColumn" Property="Width" Value="28" />
+                            <Setter TargetName="RightLineColumn" Property="Width" Value="*" />
+                        </Trigger>
+                        <Trigger Property="TitlePlacement" Value="Right">
+                            <Setter TargetName="LeftLineColumn" Property="Width" Value="*" />
+                            <Setter TargetName="RightLineColumn" Property="Width" Value="28" />
+                        </Trigger>
+                        <Trigger Property="Dashed" Value="True">
+                            <Setter TargetName="LeftLine" Property="StrokeDashArray" Value="3,2" />
+                            <Setter TargetName="RightLine" Property="StrokeDashArray" Value="3,2" />
+                        </Trigger>
+                        <Trigger Property="Vertical" Value="True">
+                            <Setter TargetName="HorizontalRoot" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="VerticalLine" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="Vertical" Value="True">
+                <Setter Property="Margin" Value="8,0" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

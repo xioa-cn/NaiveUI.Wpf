@@ -18,5 +18,6 @@
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/EllipsisStyles.xaml" />
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/GradientTextStyles.xaml" />
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/PageHeaderStyles.xaml" />
+        <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/TypographyStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

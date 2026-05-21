@@ -28,7 +28,8 @@ public sealed class DocsPageViewModel : ViewModelBase
             ["gradient-text"] = static () => new GradientTextDocsPage(),
             ["icon"] = static () => new IconDocsPage(),
             ["page-header"] = static () => new PageHeaderDocsPage(),
-            ["tag"] = static () => new TagDocsPage()
+            ["tag"] = static () => new TagDocsPage(),
+            ["typography"] = static () => new TypographyDocsPage()
         };
 
         SidebarCategories = ComponentSidebarViewModelFactory.Create(initialComponentKey);

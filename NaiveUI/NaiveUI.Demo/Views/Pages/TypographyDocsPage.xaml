@@ -1,0 +1,384 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Pages.TypographyDocsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:TypographyDocsPageViewModel}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style
+            x:Key="SectionCardHeaderTitleStyle"
+            BasedOn="{StaticResource DocSectionTitleStyle}"
+            TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+
+
+        <Style x:Key="TypographyArticleContainerStyle" TargetType="StackPanel">
+            <Setter Property="MaxWidth" Value="1000" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="68,34,18,34">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="48"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                        Text="排印 Typography" />
+                </StackPanel>
+
+                <TextBlock
+                    Margin="0,26,0,0"
+                    FontSize="18"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="Naive UI 提供了常用 HTML 标签的一些基本样式，以及对文本渲染提供帮助的组件。排印是一门艺术。" />
+
+                <TextBlock
+                    Margin="0,52,0,28"
+                    FontSize="36"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="演示" />
+
+                <StackPanel>
+                    <nu:CardElement x:Name="SectionHeader" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="标题" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="Header 不光是 Header。和 Naive UI 一样，这里支持带前缀条块的标题，以及 align-text 对齐方式。" />
+
+                                <Grid Margin="0,0,0,4">
+                                    <Border
+                                        Width="24"
+                                        HorizontalAlignment="Left"
+                                        Background="#80808080" />
+                                    <StackPanel Margin="24,0,0,0">
+                                        <nc:NH1>
+                                            <nc:NText Type="Info">sin(x)</nc:NText>
+                                        </nc:NH1>
+                                        <nc:NH1 Prefix="Bar">
+                                            <nc:NText Type="Info">sin(x)</nc:NText>
+                                        </nc:NH1>
+                                        <nc:NH1 AlignText="True" Prefix="Bar">
+                                            <nc:NText Type="Info">sin(x)</nc:NText>
+                                        </nc:NH1>
+                                        <nc:NH1
+                                            AlignText="True"
+                                            Prefix="Bar"
+                                            Type="Success">
+                                            <nc:NText Type="Success">sin(x)</nc:NText>
+                                        </nc:NH1>
+                                        <nc:NH1
+                                            AlignText="True"
+                                            Prefix="Bar"
+                                            Type="Info">
+                                            <nc:NText Type="Info">sin(x)</nc:NText>
+                                        </nc:NH1>
+                                        <nc:NH1
+                                            AlignText="True"
+                                            Prefix="Bar"
+                                            Type="Warning">
+                                            <nc:NText Type="Warning">sin(x)</nc:NText>
+                                        </nc:NH1>
+                                        <nc:NH1
+                                            AlignText="True"
+                                            Prefix="Bar"
+                                            Type="Error">
+                                            <nc:NText Type="Error">sin(x)</nc:NText>
+                                        </nc:NH1>
+
+                                        <nc:NH2>cos(x)</nc:NH2>
+                                        <nc:NH2 Prefix="Bar">cos(x)</nc:NH2>
+                                        <nc:NH2 AlignText="True" Prefix="Bar">cos(x)</nc:NH2>
+
+                                        <nc:NH3>-sin(x)</nc:NH3>
+                                        <nc:NH3 Prefix="Bar">-sin(x)</nc:NH3>
+                                        <nc:NH3 AlignText="True" Prefix="Bar">-sin(x)</nc:NH3>
+
+                                        <nc:NH4>-cos(x)</nc:NH4>
+                                        <nc:NH4 Prefix="Bar">-cos(x)</nc:NH4>
+                                        <nc:NH4 AlignText="True" Prefix="Bar">-cos(x)</nc:NH4>
+
+                                        <nc:NH5>sin(x)</nc:NH5>
+                                        <nc:NH5 Prefix="Bar">sin(x)</nc:NH5>
+                                        <nc:NH5 AlignText="True" Prefix="Bar">sin(x)</nc:NH5>
+
+                                        <nc:NH6>循环吧！</nc:NH6>
+                                        <nc:NH6 Prefix="Bar">循环吧！</nc:NH6>
+                                        <nc:NH6 AlignText="True" Prefix="Bar">循环吧！</nc:NH6>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionTags" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="标签" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24" Style="{StaticResource TypographyArticleContainerStyle}">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="其他的 Naive UI 预置标签。这里按官方 demo 的结构把链接、标题、段落、列表、分隔线和引用块组合在一起。" />
+
+                                <nc:NA Href="https://baike.baidu.com/item/%E4%B8%94%E5%90%AC%E9%A3%8E%E5%90%9F" Target="_blank">
+                                    且听风吟
+                                </nc:NA>
+
+                                <nc:NH1>h1 标题</nc:NH1>
+                                <nc:NP>
+                                    《且听风吟》是村上春树的第一部长篇小说。它完成于 1979 年，带有非常鲜明的早期个人风格：
+                                    节奏轻、叙述淡、情绪疏离，却已经能看见村上后来作品里的很多底色。
+                                </nc:NP>
+
+                                <nc:NH2>h2 标题</nc:NH2>
+                                <nc:NP>
+                                    作品最初发表于《群像》新人文学奖体系中，随后获得广泛关注。轻盈口吻和孤独感并置的写法，
+                                    也让它成了许多人进入村上作品世界的入口。
+                                </nc:NP>
+
+                                <nc:NH3>h3 标题</nc:NH3>
+                                <nc:NP>
+                                    这类文本在 Typography 中最重要的不是单个控件，而是整组语义元素在一起时的节奏、层级和留白关系。
+                                </nc:NP>
+
+                                <nc:NH4>h4 标题</nc:NH4>
+                                <nc:NP>
+                                    你可以继续向下组合更小一级的标题、段落、列表和引用，让页面像文章一样自然地展开。
+                                </nc:NP>
+
+                                <nc:NH5>h5 标题</nc:NH5>
+                                <nc:NP>
+                                    这是较小一级的标题，用来承接更细一点的内容层次。
+                                </nc:NP>
+
+                                <nc:NH6>h6 标题</nc:NH6>
+                                <nc:NP>
+                                    最小一级标题通常用于很轻的结构提示。
+                                </nc:NP>
+
+                                <nc:NUl>
+                                    <nc:NLi>li 标题</nc:NLi>
+                                    <nc:NLi>li 标题</nc:NLi>
+                                    <nc:NLi>li 标题</nc:NLi>
+                                </nc:NUl>
+
+                                <nc:NHr />
+
+                                <nc:NOl>
+                                    <nc:NLi>li 标题</nc:NLi>
+                                    <nc:NLi>li 标题</nc:NLi>
+                                    <nc:NLi>li 标题</nc:NLi>
+                                </nc:NOl>
+
+                                <nc:NUl AlignText="True">
+                                    <nc:NLi FontSize="20">li 标题</nc:NLi>
+                                    <nc:NLi FontSize="20">li 标题</nc:NLi>
+                                    <nc:NLi FontSize="20">li 标题</nc:NLi>
+                                </nc:NUl>
+
+                                <nc:NHr />
+
+                                <nc:NOl AlignText="True">
+                                    <nc:NLi FontSize="20">li 标题</nc:NLi>
+                                    <nc:NLi FontSize="20">li 标题</nc:NLi>
+                                    <nc:NLi FontSize="20">li 标题</nc:NLi>
+                                </nc:NOl>
+
+                                <nc:NBlockquote FontSize="20">
+                                    《且听风吟》是村上春树的第一部长篇小说。早期村上的那种轻盈、疏离与节奏感，
+                                    在这里已经很清楚了。
+                                </nc:NBlockquote>
+
+                                <nc:NBlockquote AlignText="True" FontSize="30">
+                                    《且听风吟》是村上春树的第一部长篇小说。把对齐方式打开以后，左侧引用条块会更贴近文本的视觉中心。
+                                </nc:NBlockquote>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionText" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="文本" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="用不同类型的文本展示各种信息。" />
+                                <WrapPanel>
+                                    <nc:NText Margin="5" Type="Info">Info</nc:NText>
+                                    <nc:NText Margin="5" Type="Success">Success</nc:NText>
+                                    <nc:NText Margin="5" Type="Warning">Warning</nc:NText>
+                                    <nc:NText Margin="5" Type="Error">Error</nc:NText>
+                                    <nc:NText Margin="5" Strong="True">Strong</nc:NText>
+                                    <nc:NText Margin="5" Italic="True">Italic</nc:NText>
+                                    <nc:NText Margin="5" Underline="True">Underline</nc:NText>
+                                    <nc:NText Margin="5" Delete="True">Delete</nc:NText>
+                                    <nc:NText Margin="5" Code="True">Code</nc:NText>
+                                    <nc:NText
+                                        Margin="5"
+                                        Code="True"
+                                        Delete="True">
+                                        Code
+                                    </nc:NText>
+                                    <nc:NText Margin="5" Depth="1">Primary Depth</nc:NText>
+                                    <nc:NText Margin="5" Depth="2">Secondary Depth</nc:NText>
+                                    <nc:NText Margin="5" Depth="3">Tertiary Depth</nc:NText>
+                                </WrapPanel>
+                                <nc:NText Tag="div">作为 Div</nc:NText>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionRouterLink" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Router Link" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="有的时候会需要让链接具备页面导航能力。WPF 里更常见的做法是直接绑定 Command，这里保留 Naive UI demo 的语义并映射成命令。" />
+                                <nc:NA Command="{Binding RouterLinkCommand}" CommandParameter="/">
+                                    回到主页
+                                </nc:NA>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionApi" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="API" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <TextBlock
+                                Margin="30,24,30,24"
+                                Style="{StaticResource DocBodyTextStyle}"
+                                Text="下面的 API 表以 Naive UI Typography 为基础，并补齐了 WPF 版在命令式交互上的映射。" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionTextProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Text Props" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding TextPropsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionAProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="A Props" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding APropsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionPProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="P Props" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding PPropsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionHeaderProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="H1, H2, H3, H4, H5, H6 Props" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding HeaderPropsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionListProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Ul, Ol Props" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding ListPropsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionBlockquoteProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Blockquote Props" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding BlockquotePropsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionSlots" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="All Typography Components Slots" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding SlotsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="1" Background="{DynamicResource Theme.Surface.0.Brush}">
+            <nc:NMenu
+                Margin="20,36,20,20"
+                DisplayMemberPath="Label"
+                ItemInvoked="HandleOutlineItemInvoked"
+                ItemsSource="{Binding OutlineItems}"
+                SelectedValuePath="TargetName" />
+        </Border>
+    </Grid>
+</UserControl>
