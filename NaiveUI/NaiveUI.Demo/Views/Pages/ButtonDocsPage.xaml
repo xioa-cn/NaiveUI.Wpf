@@ -7,6 +7,8 @@
     xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
     xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
     xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:ButtonDocsPageViewModel}"
     xmlns:tag="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
     mc:Ignorable="d">
     <UserControl.Resources>
