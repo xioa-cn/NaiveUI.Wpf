@@ -124,9 +124,9 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
-                        <ScrollViewer Focusable="False" VerticalScrollBarVisibility="Auto">
+                        <controls:NScrollViewer Focusable="False" VerticalScrollBarVisibility="Auto">
                             <ItemsPresenter />
-                        </ScrollViewer>
+                        </controls:NScrollViewer>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
