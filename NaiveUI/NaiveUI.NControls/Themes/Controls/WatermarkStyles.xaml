@@ -16,8 +16,8 @@
                         <Grid
                             x:Name="PART_OverlayHost"
                             Margin="{TemplateBinding ResolvedOverlayMargin}"
-                            IsHitTestVisible="False"
-                            Panel.ZIndex="{TemplateBinding ZIndex}">
+                            Panel.ZIndex="{TemplateBinding ZIndex}"
+                            IsHitTestVisible="False">
                             <Grid.RenderTransform>
                                 <RotateTransform Angle="{TemplateBinding GlobalRotate}" />
                             </Grid.RenderTransform>

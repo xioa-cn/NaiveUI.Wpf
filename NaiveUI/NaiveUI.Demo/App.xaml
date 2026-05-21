@@ -2,7 +2,11 @@
     x:Class="NaiveUI.Demo.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:avalonEdit1="clr-namespace:ShowMeTheXAML.AvalonEdit;assembly=ShowMeTheXAML.AvalonEdit"
+    xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
+    xmlns:con="clr-namespace:NaiveUI.Demo.Converter"
     xmlns:local="clr-namespace:NaiveUI.Demo"
+    xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
     StartupUri="./Views/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -11,8 +15,176 @@
                 <!--<ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Themes.xaml" />-->
                 <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/ThemeResources.xaml" />
                 <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/LightTheme.xaml" />
-
             </ResourceDictionary.MergedDictionaries>
+
+
+            <Style
+                x:Key="AvalonTextEditorXamlDisplay"
+                BasedOn="{StaticResource {x:Type avalonedit:TextEditor}}"
+                TargetType="avalonedit:TextEditor">
+                <Setter Property="SyntaxHighlighting" Value="XML" />
+                <Setter Property="FontFamily" Value="Consolas" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="IsReadOnly" Value="True" />
+                <Setter Property="ShowLineNumbers" Value="True" />
+                <Setter Property="WordWrap" Value="False" />
+                <Setter Property="HorizontalScrollBarVisibility" Value="Visible" />
+                <Setter Property="VerticalScrollBarVisibility" Value="Visible" />
+                <Setter Property="Background" Value="{DynamicResource Theme.Surface.1.Brush}" />
+                <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+            </Style>
+
+            <Style x:Key="XamlDisplayToggleButtonStyle" TargetType="ToggleButton">
+                <Setter Property="Focusable" Value="False" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Secondary.Brush}" />
+                <Setter Property="ToolTip" Value="显示代码" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToggleButton">
+                            <Border
+                                x:Name="ButtonBorder"
+                                Padding="10,7"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
+                                CornerRadius="6">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="8" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Viewbox Width="22" Height="22">
+                                        <Canvas Width="24" Height="24">
+                                            <Path
+                                                Data="M9 7 L4 12 L9 17 M15 7 L20 12 L15 17 M13 5 L11 19"
+                                                Stroke="{TemplateBinding Foreground}"
+                                                StrokeEndLineCap="Round"
+                                                StrokeLineJoin="Round"
+                                                StrokeStartLineCap="Round"
+                                                StrokeThickness="1.8" />
+                                        </Canvas>
+                                    </Viewbox>
+
+                                    <Grid
+                                        Grid.Column="2"
+                                        Width="10"
+                                        Height="10">
+                                        <Path
+                                            x:Name="ChevronDownGlyph"
+                                            Width="10"
+                                            Height="6"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Data="M1 1 L5 5 L9 1"
+                                            Stroke="{TemplateBinding Foreground}"
+                                            StrokeEndLineCap="Round"
+                                            StrokeLineJoin="Round"
+                                            StrokeStartLineCap="Round"
+                                            StrokeThickness="1.6" />
+                                        <Path
+                                            x:Name="ChevronUpGlyph"
+                                            Width="10"
+                                            Height="6"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Data="M1 5 L5 1 L9 5"
+                                            Stroke="{TemplateBinding Foreground}"
+                                            StrokeEndLineCap="Round"
+                                            StrokeLineJoin="Round"
+                                            StrokeStartLineCap="Round"
+                                            StrokeThickness="1.6"
+                                            Visibility="Collapsed" />
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="ButtonBorder" Property="Background" Value="{DynamicResource Theme.Surface.1.Brush}" />
+                                    <Setter TargetName="ButtonBorder" Property="BorderBrush" Value="{DynamicResource Primary.First.Brush}" />
+                                    <Setter Property="Foreground" Value="{DynamicResource Primary.First.Brush}" />
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="ButtonBorder" Property="Background" Value="{DynamicResource Primary.Third.Brush}" />
+                                    <Setter TargetName="ButtonBorder" Property="BorderBrush" Value="{DynamicResource Primary.First.Brush}" />
+                                    <Setter TargetName="ChevronDownGlyph" Property="Visibility" Value="Collapsed" />
+                                    <Setter TargetName="ChevronUpGlyph" Property="Visibility" Value="Visible" />
+                                    <Setter Property="Foreground" Value="{DynamicResource Primary.First.Brush}" />
+                                    <Setter Property="ToolTip" Value="隐藏代码" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style
+                x:Key="AvalonEditXamlDisplay"
+                BasedOn="{StaticResource {x:Type showMeTheXaml:XamlDisplay}}"
+                TargetType="showMeTheXaml:XamlDisplay">
+                <Style.Resources>
+                    <avalonEdit1:TextDocumentValueConverter x:Key="TextDocumentValueConverter" />
+                    <con:BoolToVisibility x:Key="BoolToVisibility" />
+                </Style.Resources>
+                <Setter Property="con:EditViewShowAttach.IsEditViewShow" Value="False" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="showMeTheXaml:XamlDisplay">
+                            <Border
+                                Padding="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <ContentPresenter
+                                        Grid.Row="0"
+                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+
+                                    <Grid Grid.Row="1" Margin="0,12,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <ToggleButton
+                                            Grid.Column="1"
+                                            IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(con:EditViewShowAttach.IsEditViewShow), Mode=TwoWay}"
+                                            Style="{StaticResource XamlDisplayToggleButtonStyle}" />
+                                    </Grid>
+
+                                    <Border
+                                        Grid.Row="2"
+                                        Margin="0,12,0,0"
+                                        BorderBrush="Transparent"
+                                        BorderThickness="1"
+                                        CornerRadius="8"
+                                        Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(con:EditViewShowAttach.IsEditViewShow), Converter={StaticResource BoolToVisibility}}">
+                                        <avalonedit:TextEditor
+                                            Height="auto"
+                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            Document="{Binding Xaml, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TextDocumentValueConverter}}"
+                                            FontSize="18"
+                                            ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                            Style="{StaticResource AvalonTextEditorXamlDisplay}" />
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

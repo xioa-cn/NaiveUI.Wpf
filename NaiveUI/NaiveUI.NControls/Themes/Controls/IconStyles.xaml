@@ -21,9 +21,7 @@
                             x:Name="ContentHost"
                             Stretch="{TemplateBinding Stretch}"
                             StretchDirection="Both">
-                            <ContentPresenter
-                                Content="{TemplateBinding ResolvedContent}"
-                                Opacity="{TemplateBinding ResolvedOpacity}" />
+                            <ContentPresenter Content="{TemplateBinding ResolvedContent}" Opacity="{TemplateBinding ResolvedOpacity}" />
                         </Viewbox>
 
                         <Viewbox

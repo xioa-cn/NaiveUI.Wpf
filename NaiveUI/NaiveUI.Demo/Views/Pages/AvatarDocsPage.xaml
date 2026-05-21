@@ -5,10 +5,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
-    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
-    d:DataContext="{d:DesignInstance Type=viewModels:AvatarDocsPageViewModel}"
     xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
     xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:AvatarDocsPageViewModel}"
     mc:Ignorable="d">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -65,13 +66,8 @@
                     Text="演示" />
 
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="20" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Column="0">
+                    <StackPanel>
                         <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
                             <nu:CardElement.HeaderElement>
                                 <Grid Margin="30,28,30,0">
@@ -84,27 +80,29 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <StackPanel Margin="30,24,30,24">
-                                    <TextBlock
-                                        Margin="0,0,0,20"
-                                        Style="{StaticResource DocBodyTextStyle}"
-                                        Text="头像默认支持图片、文字和任意可视内容。没有内容时会显示占位图标。" />
-                                    <WrapPanel>
-                                        <nc:NAvatar
-                                            Margin="0,0,16,16"
-                                            Content="U"
-                                            Size="100" />
-                                        <nc:NAvatar
-                                            Margin="0,0,16,16"
-                                            Background="{DynamicResource Primary.Third.Brush}"
-                                            Content="AB"
-                                            Foreground="{DynamicResource Primary.First.Brush}" />
-                                        <nc:NAvatar Margin="0,0,16,16">
-                                            <Path Data="{StaticResource AvatarStarGeometry}" Style="{StaticResource AvatarIconPathStyle}" />
-                                        </nc:NAvatar>
-                                        <nc:NAvatar Margin="0,0,16,16" />
-                                    </WrapPanel>
-                                </StackPanel>
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AvatarDocsPage1">
+                                    <StackPanel Margin="30,24,30,24">
+                                        <TextBlock
+                                            Margin="0,0,0,20"
+                                            Style="{StaticResource DocBodyTextStyle}"
+                                            Text="头像默认支持图片、文字和任意可视内容。没有内容时会显示占位图标。" />
+                                        <WrapPanel>
+                                            <nc:NAvatar
+                                                Margin="0,0,16,16"
+                                                Content="U"
+                                                Size="100" />
+                                            <nc:NAvatar
+                                                Margin="0,0,16,16"
+                                                Background="{DynamicResource Primary.Third.Brush}"
+                                                Content="AB"
+                                                Foreground="{DynamicResource Primary.First.Brush}" />
+                                            <nc:NAvatar Margin="0,0,16,16">
+                                                <Path Data="{StaticResource AvatarStarGeometry}" Style="{StaticResource AvatarIconPathStyle}" />
+                                            </nc:NAvatar>
+                                            <nc:NAvatar Margin="0,0,16,16" />
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </showMeTheXaml:XamlDisplay>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
@@ -120,28 +118,30 @@
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="支持圆角方形和圆形两种形状，默认是更贴近 Naive UI 的圆角方形。" />
-                                    <WrapPanel>
-                                        <nc:NAvatar
-                                            Margin="0,0,16,16"
-                                            Content="N"
-                                            Shape="Square" />
-                                        <nc:NAvatar
-                                            Margin="0,0,16,16"
-                                            Content="UI"
-                                            Shape="Round" />
-                                        <nc:NAvatar
-                                            Margin="0,0,16,16"
-                                            Background="{DynamicResource Info.Third.Brush}"
-                                            Content="A"
-                                            Foreground="{DynamicResource Info.First.Brush}"
-                                            Shape="Square" />
-                                        <nc:NAvatar
-                                            Margin="0,0,16,16"
-                                            Background="{DynamicResource Warning.Third.Brush}"
-                                            Content="B"
-                                            Foreground="{DynamicResource Warning.First.Brush}"
-                                            Shape="Round" />
-                                    </WrapPanel>
+                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AvatarDocsPage2">
+                                        <WrapPanel>
+                                            <nc:NAvatar
+                                                Margin="0,0,16,16"
+                                                Content="N"
+                                                Shape="Square" />
+                                            <nc:NAvatar
+                                                Margin="0,0,16,16"
+                                                Content="UI"
+                                                Shape="Round" />
+                                            <nc:NAvatar
+                                                Margin="0,0,16,16"
+                                                Background="{DynamicResource Info.Third.Brush}"
+                                                Content="A"
+                                                Foreground="{DynamicResource Info.First.Brush}"
+                                                Shape="Square" />
+                                            <nc:NAvatar
+                                                Margin="0,0,16,16"
+                                                Background="{DynamicResource Warning.Third.Brush}"
+                                                Content="B"
+                                                Foreground="{DynamicResource Warning.First.Brush}"
+                                                Shape="Round" />
+                                        </WrapPanel>
+                                    </showMeTheXaml:XamlDisplay>
                                 </StackPanel>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
@@ -158,28 +158,30 @@
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="通过 Size 统一控制头像尺寸，文字和标记会随尺寸自动调整。" />
-                                    <WrapPanel VerticalAlignment="Bottom">
-                                        <nc:NAvatar
-                                            Margin="0,0,16,16"
-                                            Content="N"
-                                            Size="24" />
-                                        <nc:NAvatar
-                                            Margin="0,0,16,16"
-                                            Content="Na"
-                                            Size="32" />
-                                        <nc:NAvatar
-                                            Margin="0,0,16,16"
-                                            Content="UI"
-                                            Size="40" />
-                                        <nc:NAvatar
-                                            Margin="0,0,16,16"
-                                            Content="WPF"
-                                            Size="56" />
-                                        <nc:NAvatar
-                                            Margin="0,0,16,16"
-                                            Content="Avatar"
-                                            Size="72" />
-                                    </WrapPanel>
+                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AvatarDocsPage3">
+                                        <WrapPanel VerticalAlignment="Bottom">
+                                            <nc:NAvatar
+                                                Margin="0,0,16,16"
+                                                Content="N"
+                                                Size="24" />
+                                            <nc:NAvatar
+                                                Margin="0,0,16,16"
+                                                Content="Na"
+                                                Size="32" />
+                                            <nc:NAvatar
+                                                Margin="0,0,16,16"
+                                                Content="UI"
+                                                Size="40" />
+                                            <nc:NAvatar
+                                                Margin="0,0,16,16"
+                                                Content="WPF"
+                                                Size="56" />
+                                            <nc:NAvatar
+                                                Margin="0,0,16,16"
+                                                Content="Avatar"
+                                                Size="72" />
+                                        </WrapPanel>
+                                    </showMeTheXaml:XamlDisplay>
                                 </StackPanel>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
@@ -196,43 +198,43 @@
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="图片模式下，Src 会优先显示；可搭配 FallbackSrc 与 FallbackContent 提供失败回退。" />
-                                    <WrapPanel>
-                                        <nc:NAvatar
-                                            Margin="0,0,16,16"
-                                            Shape="Round"
-                                            Size="48"
-                                            Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
-                                        <nc:NAvatar
-                                            Margin="0,0,16,16"
-                                            Shape="Square"
-                                            Size="56"
-                                            Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
-                                        <nc:NAvatar
-                                            x:Name="BrokenAvatarWithFallback"
-                                            Margin="0,0,16,16"
-                                            FallbackSrc="/NaiveUI.Demo;component/Assets/Header.jpg"
-                                            Shape="Round"
-                                            Size="48" />
-                                        <nc:NAvatar
-                                            x:Name="BrokenAvatarWithTextFallback"
-                                            Margin="0,0,16,16"
-                                            Background="{DynamicResource Error.Third.Brush}"
-                                            FallbackContent="NF"
-                                            Foreground="{DynamicResource Error.First.Brush}"
-                                            Shape="Round"
-                                            Size="48" />
-                                        <nc:NAvatar
-                                            x:Name="BrokenAvatarWithPlaceholder"
-                                            Margin="0,0,16,16"
-                                            Shape="Round"
-                                            Size="48" />
-                                    </WrapPanel>
+                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AvatarDocsPage4">
+                                        <WrapPanel>
+                                            <nc:NAvatar
+                                                Margin="0,0,16,16"
+                                                Shape="Round"
+                                                Size="48"
+                                                Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                            <nc:NAvatar
+                                                Margin="0,0,16,16"
+                                                Shape="Square"
+                                                Size="56"
+                                                Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                            <nc:NAvatar
+                                                x:Name="BrokenAvatarWithFallback"
+                                                Margin="0,0,16,16"
+                                                FallbackSrc="/NaiveUI.Demo;component/Assets/Header.jpg"
+                                                Shape="Round"
+                                                Size="48" />
+                                            <nc:NAvatar
+                                                x:Name="BrokenAvatarWithTextFallback"
+                                                Margin="0,0,16,16"
+                                                Background="{DynamicResource Error.Third.Brush}"
+                                                FallbackContent="NF"
+                                                Foreground="{DynamicResource Error.First.Brush}"
+                                                Shape="Round"
+                                                Size="48" />
+                                            <nc:NAvatar
+                                                x:Name="BrokenAvatarWithPlaceholder"
+                                                Margin="0,0,16,16"
+                                                Shape="Round"
+                                                Size="48" />
+                                        </WrapPanel>
+                                    </showMeTheXaml:XamlDisplay>
                                 </StackPanel>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
-                    </StackPanel>
 
-                    <StackPanel Grid.Column="2">
                         <nu:CardElement x:Name="SectionBadge" Margin="0,0,0,20">
                             <nu:CardElement.HeaderElement>
                                 <Grid Margin="30,28,30,0">
@@ -245,37 +247,39 @@
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="右上角徽标用于提醒消息数量或状态，大小会随头像尺寸变化。" />
-                                    <WrapPanel>
-                                        <nc:NAvatar
-                                            Margin="0,0,16,16"
-                                            Badge="1"
-                                            Content="N"
-                                            Shape="Round" />
-                                        <nc:NAvatar
-                                            Margin="0,0,16,16"
-                                            Badge="99+"
-                                            BadgeCornerRadius="10"
-                                            Content="UI"
-                                            Shape="Round"
-                                            Size="40" />
-                                        <nc:NAvatar
-                                            Margin="0,0,16,16"
-                                            Background="{DynamicResource Success.Third.Brush}"
-                                            Badge="NEW"
-                                            BadgeCornerRadius="12"
-                                            BadgeForeground="Black"
-                                            Content="A"
-                                            Foreground="{DynamicResource Success.First.Brush}"
-                                            Shape="Square"
-                                            Size="48" />
-                                        <nc:NAvatar
-                                            Margin="0,0,16,16"
-                                            Badge="!"
-                                            BadgeBackground="{DynamicResource Warning.First.Brush}"
-                                            Content="B"
-                                            Shape="Round"
-                                            Size="56" />
-                                    </WrapPanel>
+                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AvatarDocsPage5">
+                                        <WrapPanel>
+                                            <nc:NAvatar
+                                                Margin="0,0,16,16"
+                                                Badge="1"
+                                                Content="N"
+                                                Shape="Round" />
+                                            <nc:NAvatar
+                                                Margin="0,0,16,16"
+                                                Badge="99+"
+                                                BadgeCornerRadius="10"
+                                                Content="UI"
+                                                Shape="Round"
+                                                Size="40" />
+                                            <nc:NAvatar
+                                                Margin="0,0,16,16"
+                                                Background="{DynamicResource Success.Third.Brush}"
+                                                Badge="NEW"
+                                                BadgeCornerRadius="12"
+                                                BadgeForeground="Black"
+                                                Content="A"
+                                                Foreground="{DynamicResource Success.First.Brush}"
+                                                Shape="Square"
+                                                Size="48" />
+                                            <nc:NAvatar
+                                                Margin="0,0,16,16"
+                                                Badge="!"
+                                                BadgeBackground="{DynamicResource Warning.First.Brush}"
+                                                Content="B"
+                                                Shape="Round"
+                                                Size="56" />
+                                        </WrapPanel>
+                                    </showMeTheXaml:XamlDisplay>
                                 </StackPanel>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
@@ -292,33 +296,35 @@
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="渲染优先级为：Src/FallbackSrc 图片，其次是 Content/FallbackContent，最后是占位图标。" />
-                                    <WrapPanel>
-                                        <nc:NAvatar
-                                            Margin="0,0,16,16"
-                                            Background="{DynamicResource Info.Third.Brush}"
-                                            Content="IMG"
-                                            FallbackContent="TXT"
-                                            Foreground="{DynamicResource Info.First.Brush}"
-                                            Shape="Round"
-                                            Size="52"
-                                            Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
-                                        <nc:NAvatar
-                                            Margin="0,0,16,16"
-                                            Background="{DynamicResource Info.Third.Brush}"
-                                            FallbackContent="TXT"
-                                            Foreground="{DynamicResource Info.First.Brush}"
-                                            Shape="Round"
-                                            Size="52" />
-                                        <nc:NAvatar
-                                            Margin="0,0,16,16"
-                                            Background="{DynamicResource Primary.Third.Brush}"
-                                            FallbackContent="{x:Null}"
-                                            Foreground="{DynamicResource Primary.First.Brush}"
-                                            Shape="Square"
-                                            Size="52">
-                                            <Path Data="{StaticResource AvatarUserPlusGeometry}" Style="{StaticResource AvatarIconPathStyle}" />
-                                        </nc:NAvatar>
-                                    </WrapPanel>
+                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AvatarDocsPage6">
+                                        <WrapPanel>
+                                            <nc:NAvatar
+                                                Margin="0,0,16,16"
+                                                Background="{DynamicResource Info.Third.Brush}"
+                                                Content="IMG"
+                                                FallbackContent="TXT"
+                                                Foreground="{DynamicResource Info.First.Brush}"
+                                                Shape="Round"
+                                                Size="52"
+                                                Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                            <nc:NAvatar
+                                                Margin="0,0,16,16"
+                                                Background="{DynamicResource Info.Third.Brush}"
+                                                FallbackContent="TXT"
+                                                Foreground="{DynamicResource Info.First.Brush}"
+                                                Shape="Round"
+                                                Size="52" />
+                                            <nc:NAvatar
+                                                Margin="0,0,16,16"
+                                                Background="{DynamicResource Primary.Third.Brush}"
+                                                FallbackContent="{x:Null}"
+                                                Foreground="{DynamicResource Primary.First.Brush}"
+                                                Shape="Square"
+                                                Size="52">
+                                                <Path Data="{StaticResource AvatarUserPlusGeometry}" Style="{StaticResource AvatarIconPathStyle}" />
+                                            </nc:NAvatar>
+                                        </WrapPanel>
+                                    </showMeTheXaml:XamlDisplay>
                                 </StackPanel>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
@@ -335,35 +341,37 @@
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="通过 BorderBrush 和负边距可以搭出 Naive UI 常见的头像组效果。" />
-                                    <StackPanel Orientation="Horizontal">
-                                        <nc:NAvatar
-                                            Margin="0,0,-10,0"
-                                            BorderBrush="{DynamicResource Theme.Surface.0.Brush}"
-                                            BorderThickness="2"
-                                            Content="A"
-                                            Shape="Round"
-                                            Size="44" />
-                                        <nc:NAvatar
-                                            Margin="0,0,-10,0"
-                                            BorderBrush="{DynamicResource Theme.Surface.0.Brush}"
-                                            BorderThickness="2"
-                                            Content="B"
-                                            Shape="Round"
-                                            Size="44" />
-                                        <nc:NAvatar
-                                            Margin="0,0,-10,0"
-                                            BorderBrush="{DynamicResource Theme.Surface.0.Brush}"
-                                            BorderThickness="2"
-                                            Shape="Round"
-                                            Size="44"
-                                            Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
-                                        <nc:NAvatar
-                                            BorderBrush="{DynamicResource Theme.Surface.0.Brush}"
-                                            BorderThickness="2"
-                                            Content="+6"
-                                            Shape="Round"
-                                            Size="44" />
-                                    </StackPanel>
+                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AvatarDocsPage7">
+                                        <StackPanel Orientation="Horizontal">
+                                            <nc:NAvatar
+                                                Margin="0,0,-10,0"
+                                                BorderBrush="{DynamicResource Theme.Surface.0.Brush}"
+                                                BorderThickness="2"
+                                                Content="A"
+                                                Shape="Round"
+                                                Size="44" />
+                                            <nc:NAvatar
+                                                Margin="0,0,-10,0"
+                                                BorderBrush="{DynamicResource Theme.Surface.0.Brush}"
+                                                BorderThickness="2"
+                                                Content="B"
+                                                Shape="Round"
+                                                Size="44" />
+                                            <nc:NAvatar
+                                                Margin="0,0,-10,0"
+                                                BorderBrush="{DynamicResource Theme.Surface.0.Brush}"
+                                                BorderThickness="2"
+                                                Shape="Round"
+                                                Size="44"
+                                                Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                            <nc:NAvatar
+                                                BorderBrush="{DynamicResource Theme.Surface.0.Brush}"
+                                                BorderThickness="2"
+                                                Content="+6"
+                                                Shape="Round"
+                                                Size="44" />
+                                        </StackPanel>
+                                    </showMeTheXaml:XamlDisplay>
                                 </StackPanel>
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>

@@ -60,8 +60,8 @@
 
                             <StackPanel
                                 Grid.Column="0"
-                                Orientation="Horizontal"
-                                VerticalAlignment="Center">
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
                                 <Button
                                     x:Name="PART_BackButton"
                                     Margin="0,0,16,0"

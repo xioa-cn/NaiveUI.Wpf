@@ -19,16 +19,16 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ToolTip">
                     <Border
+                        Padding="{TemplateBinding Padding}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="6"
-                        Padding="{TemplateBinding Padding}">
+                        CornerRadius="6">
                         <ContentPresenter
                             Margin="0"
                             RecognizesAccessKey="True"
-                            TextElement.Foreground="{TemplateBinding Foreground}"
-                            TextElement.FontSize="13" />
+                            TextElement.FontSize="13"
+                            TextElement.Foreground="{TemplateBinding Foreground}" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

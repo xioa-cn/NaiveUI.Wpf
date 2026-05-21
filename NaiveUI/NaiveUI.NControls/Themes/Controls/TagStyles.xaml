@@ -30,9 +30,9 @@
                         CornerRadius="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NTag}}, Path=ResolvedCloseCornerRadius}">
                         <controls:NIcon
                             x:Name="CloseIconElement"
-                            Color="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NTag}}, Path=ResolvedCloseIconBrush}"
                             Data="{StaticResource Close}"
-                            Size="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NTag}}, Path=ResolvedCloseIconSize}" />
+                            Size="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NTag}}, Path=ResolvedCloseIconSize}"
+                            Color="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NTag}}, Path=ResolvedCloseIconBrush}" />
                     </Border>
 
                     <ControlTemplate.Triggers>
@@ -58,11 +58,11 @@
                     <Border
                         x:Name="RootBorder"
                         MinHeight="{TemplateBinding ResolvedHeight}"
+                        Padding="{TemplateBinding ResolvedPadding}"
                         Background="{TemplateBinding ResolvedBackground}"
                         BorderBrush="{TemplateBinding ResolvedBorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{TemplateBinding ResolvedCornerRadius}"
-                        Padding="{TemplateBinding ResolvedPadding}">
+                        CornerRadius="{TemplateBinding ResolvedCornerRadius}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />

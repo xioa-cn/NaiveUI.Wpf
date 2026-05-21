@@ -49,13 +49,13 @@
                         <Canvas IsHitTestVisible="False">
                             <Border
                                 x:Name="Arrow"
+                                Canvas.Left="{TemplateBinding ArrowLeft}"
+                                Canvas.Top="{TemplateBinding ArrowTop}"
                                 Width="12"
                                 Height="12"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                Canvas.Left="{TemplateBinding ArrowLeft}"
-                                Canvas.Top="{TemplateBinding ArrowTop}"
                                 CornerRadius="2"
                                 Visibility="Collapsed">
                                 <Border.Effect>
