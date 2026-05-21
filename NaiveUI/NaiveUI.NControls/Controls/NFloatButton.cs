@@ -38,10 +38,12 @@ public enum NFloatButtonMenuTrigger
 public class NFloatButton : Button
 {
     private const string MenuPopupPartName = "PART_MenuPopup";
+    private const string MenuContentHostPartName = "PART_MenuContentHost";
     private static readonly CornerRadius CircleCornerRadius = new(999d);
     private static readonly CornerRadius SquareCornerRadius = new(8d);
     private readonly DispatcherTimer hoverCloseTimer;
     private Popup? menuPopupPart;
+    private ContentControl? menuContentHostPart;
     private FrameworkElement? popupChildPart;
     private bool applyingAutoLayout;
     private Thickness userMargin;
@@ -238,8 +240,10 @@ public class NFloatButton : Button
         base.OnApplyTemplate();
 
         menuPopupPart = GetTemplateChild(MenuPopupPartName) as Popup;
+        menuContentHostPart = GetTemplateChild(MenuContentHostPartName) as ContentControl;
         popupChildPart = menuPopupPart?.Child as FrameworkElement;
 
+        UpdateMenuHostContent();
         AttachPopupHandlers();
         SyncPopupState();
     }
@@ -355,6 +359,7 @@ public class NFloatButton : Button
         }
 
         button.UpdateResolvedState();
+        button.UpdateMenuHostContent();
         button.SyncPopupState();
     }
 
@@ -522,6 +527,7 @@ public class NFloatButton : Button
         }
 
         menuPopupPart = null;
+        menuContentHostPart = null;
         popupChildPart = null;
     }
 
@@ -536,6 +542,16 @@ public class NFloatButton : Button
         menuPopupPart.VerticalOffset = -8d;
         menuPopupPart.StaysOpen = MenuTrigger != NFloatButtonMenuTrigger.Click;
         menuPopupPart.IsOpen = HasMenu && ShowMenu;
+    }
+
+    private void UpdateMenuHostContent()
+    {
+        if (menuContentHostPart is null)
+        {
+            return;
+        }
+
+        menuContentHostPart.Content = Menu;
     }
 
     internal static bool TryResolveOffset(object? value, out double offset)

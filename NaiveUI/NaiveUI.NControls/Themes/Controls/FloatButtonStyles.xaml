@@ -44,7 +44,7 @@
                             Placement="Top"
                             PopupAnimation="Fade">
                             <Border Background="Transparent" Padding="8">
-                                <ContentPresenter Content="{TemplateBinding Menu}" />
+                                <ContentControl x:Name="PART_MenuContentHost" />
                             </Border>
                         </Popup>
 

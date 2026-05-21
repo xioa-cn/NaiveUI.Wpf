@@ -121,7 +121,7 @@
                                             Position="Absolute"
                                             Right="0"
                                             Shape="Square">
-                                            <nc:NIcon Data="{StaticResource Avatar_Normal}" Size="15" />
+                                            <nc:NIcon Data="{StaticResource Starting}" Size="15" />
                                         </nc:NFloatButton>
                                         <nc:NFloatButton
                                             Bottom="0"
@@ -129,20 +129,20 @@
                                             Position="Absolute"
                                             Shape="Square"
                                             Type="Primary">
-                                            <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
+                                            <nc:NIcon Data="{StaticResource Starting}" Size="15" />
                                         </nc:NFloatButton>
                                         <nc:NFloatButton
                                             Position="Absolute"
                                             Right="0"
                                             Top="0">
-                                            <nc:NIcon Data="{StaticResource Avatar_Normal}" Size="15" />
+                                            <nc:NIcon Data="{StaticResource Starting}" Size="15" />
                                         </nc:NFloatButton>
                                         <nc:NFloatButton
                                             Left="0"
                                             Position="Absolute"
                                             Top="0"
                                             Type="Primary">
-                                            <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
+                                            <nc:NIcon Data="{StaticResource Starting}" Size="15" />
                                         </nc:NFloatButton>
                                     </Grid>
                                 </Border>
