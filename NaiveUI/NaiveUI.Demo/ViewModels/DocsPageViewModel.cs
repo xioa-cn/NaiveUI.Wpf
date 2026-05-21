@@ -27,6 +27,7 @@ public sealed class DocsPageViewModel : ViewModelBase
             ["ellipsis"] = static () => new EllipsisDocsPage(),
             ["gradient-text"] = static () => new GradientTextDocsPage(),
             ["icon"] = static () => new IconDocsPage(),
+            ["float-button"] = static () => new FloatButtonDocsPage(),
             ["page-header"] = static () => new PageHeaderDocsPage(),
             ["tag"] = static () => new TagDocsPage(),
             ["typography"] = static () => new TypographyDocsPage(),

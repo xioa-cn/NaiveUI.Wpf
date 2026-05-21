@@ -20,5 +20,6 @@
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/PageHeaderStyles.xaml" />
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/TypographyStyles.xaml" />
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/WatermarkStyles.xaml" />
+        <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/FloatButtonStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

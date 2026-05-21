@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using NaiveUI.NControls.Themes;
 using NaiveUI.NControls.Tools;
+using System;
 
 namespace NaiveUI.NControls.Controls;
 
@@ -29,7 +30,7 @@ public class NIcon : ContentControl
     }
 
     public static readonly DependencyProperty DataProperty =
-        ElementBase.Property<NIcon, Geometry?>(nameof(DataProperty), null);
+        ElementBase.Property<NIcon, Geometry?>(nameof(DataProperty), null, OnAppearancePropertyChanged);
 
     public Brush? IconBrush
     {
@@ -85,6 +86,24 @@ public class NIcon : ContentControl
     public static readonly DependencyProperty StretchProperty =
         ElementBase.Property<NIcon, Stretch>(nameof(StretchProperty), Stretch.Uniform);
 
+    public bool UseStroke
+    {
+        get => (bool)GetValue(UseStrokeProperty);
+        set => SetValue(UseStrokeProperty, value);
+    }
+
+    public static readonly DependencyProperty UseStrokeProperty =
+        ElementBase.Property<NIcon, bool>(nameof(UseStrokeProperty), false);
+
+    public double StrokeThickness
+    {
+        get => (double)GetValue(StrokeThicknessProperty);
+        set => SetValue(StrokeThicknessProperty, value);
+    }
+
+    public static readonly DependencyProperty StrokeThicknessProperty =
+        ElementBase.Property<NIcon, double>(nameof(StrokeThicknessProperty), double.NaN, OnAppearancePropertyChanged);
+
     public object? ResolvedContent
     {
         get => GetValue(ResolvedContentProperty);
@@ -120,6 +139,15 @@ public class NIcon : ContentControl
 
     public static readonly DependencyProperty ResolvedOpacityProperty =
         ElementBase.Property<NIcon, double>(nameof(ResolvedOpacityProperty), 1d);
+
+    public double ResolvedStrokeThickness
+    {
+        get => (double)GetValue(ResolvedStrokeThicknessProperty);
+        private set => SetValue(ResolvedStrokeThicknessProperty, value);
+    }
+
+    public static readonly DependencyProperty ResolvedStrokeThicknessProperty =
+        ElementBase.Property<NIcon, double>(nameof(ResolvedStrokeThicknessProperty), 1.75d);
 
     protected override void OnContentChanged(object oldContent, object newContent)
     {
@@ -185,6 +213,11 @@ public class NIcon : ContentControl
         {
             UpdateResolvedContent();
         }
+
+        if (property is null || property == StrokeThicknessProperty || property == DataProperty)
+        {
+            UpdateResolvedStrokeThickness();
+        }
     }
 
     private void UpdateResolvedContent()
@@ -200,6 +233,21 @@ public class NIcon : ContentControl
     private void UpdateResolvedOpacity()
     {
         ResolvedOpacity = GetDepthOpacity(Depth);
+    }
+
+    private void UpdateResolvedStrokeThickness()
+    {
+        if (!double.IsNaN(StrokeThickness) && StrokeThickness > 0d)
+        {
+            ResolvedStrokeThickness = StrokeThickness;
+            return;
+        }
+
+        var maxDimension = Data is null
+            ? 0d
+            : Math.Max(Data.Bounds.Width, Data.Bounds.Height);
+
+        ResolvedStrokeThickness = maxDimension > 128d ? 32d : 1.75d;
     }
 
     private Brush GetThemePrimaryBrush()

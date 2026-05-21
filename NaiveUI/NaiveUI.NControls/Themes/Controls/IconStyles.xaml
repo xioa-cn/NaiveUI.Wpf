@@ -29,11 +29,25 @@
                             Stretch="{TemplateBinding Stretch}"
                             StretchDirection="Both"
                             Visibility="Collapsed">
-                            <Path
-                                Data="{TemplateBinding Data}"
-                                Fill="{TemplateBinding ResolvedBrush}"
-                                Opacity="{TemplateBinding ResolvedOpacity}"
-                                Stretch="{TemplateBinding Stretch}" />
+                            <Grid>
+                                <Path
+                                    x:Name="FillPathHost"
+                                    Data="{TemplateBinding Data}"
+                                    Fill="{TemplateBinding ResolvedBrush}"
+                                    Opacity="{TemplateBinding ResolvedOpacity}"
+                                    Stretch="{TemplateBinding Stretch}" />
+                                <Path
+                                    x:Name="StrokePathHost"
+                                    Data="{TemplateBinding Data}"
+                                    Opacity="{TemplateBinding ResolvedOpacity}"
+                                    Stretch="{TemplateBinding Stretch}"
+                                    Stroke="{TemplateBinding ResolvedBrush}"
+                                    StrokeEndLineCap="Round"
+                                    StrokeLineJoin="Round"
+                                    StrokeStartLineCap="Round"
+                                    StrokeThickness="{TemplateBinding ResolvedStrokeThickness}"
+                                    Visibility="Collapsed" />
+                            </Grid>
                         </Viewbox>
                     </Grid>
 
@@ -41,6 +55,11 @@
                         <Trigger Property="ResolvedContent" Value="{x:Null}">
                             <Setter TargetName="ContentHost" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="PathHost" Property="Visibility" Value="Visible" />
+                        </Trigger>
+
+                        <Trigger Property="UseStroke" Value="True">
+                            <Setter TargetName="FillPathHost" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="StrokePathHost" Property="Visibility" Value="Visible" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
