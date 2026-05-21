@@ -43,7 +43,7 @@
         </Grid.ColumnDefinitions>
 
         <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="68,34,18,34">
+            <StackPanel Margin="25,34,18,34">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
                         FontSize="48"

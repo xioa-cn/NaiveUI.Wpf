@@ -8,8 +8,8 @@
     xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
     xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
     xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
-    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
     xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewModels:WatermarkDocsPageViewModel}"
     mc:Ignorable="d">
     <UserControl.Resources>
@@ -48,10 +48,8 @@
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="False">
-                                <Setter TargetName="SwitchTrack" Property="Background"
-                                        Value="{DynamicResource Theme.Border.Strong.Brush}" />
-                                <Setter TargetName="SwitchTrack" Property="BorderBrush"
-                                        Value="{DynamicResource Theme.Border.Strong.Brush}" />
+                                <Setter TargetName="SwitchTrack" Property="Background" Value="{DynamicResource Theme.Border.Strong.Brush}" />
+                                <Setter TargetName="SwitchTrack" Property="BorderBrush" Value="{DynamicResource Theme.Border.Strong.Brush}" />
                                 <Setter TargetName="SwitchThumb" Property="Margin" Value="2,2,20,2" />
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -104,7 +102,7 @@
         </Grid.ColumnDefinitions>
 
         <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="68,34,18,34">
+            <StackPanel Margin="25,34,18,34">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
                         FontSize="48"
@@ -134,8 +132,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="WatermarkDocsPage1">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="WatermarkDocsPage1">
                                 <StackPanel Margin="30,24,30,24">
                                     <nc:NWatermark
                                         Cross="True"
@@ -167,20 +164,16 @@
                                                         <ColumnDefinition Width="*" />
                                                         <ColumnDefinition Width="*" />
                                                     </Grid.ColumnDefinitions>
-                                                    <Border Grid.Column="0"
-                                                            Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                    <Border Grid.Column="0" Style="{StaticResource DemoTableHeaderBorderStyle}">
                                                         <TextBlock Text="复盘" />
                                                     </Border>
-                                                    <Border Grid.Column="1"
-                                                            Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                    <Border Grid.Column="1" Style="{StaticResource DemoTableHeaderBorderStyle}">
                                                         <TextBlock Text="赋能" />
                                                     </Border>
-                                                    <Border Grid.Column="2"
-                                                            Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                    <Border Grid.Column="2" Style="{StaticResource DemoTableHeaderBorderStyle}">
                                                         <TextBlock Text="协同" />
                                                     </Border>
-                                                    <Border Grid.Column="3"
-                                                            Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                    <Border Grid.Column="3" Style="{StaticResource DemoTableHeaderBorderStyle}">
                                                         <TextBlock Text="..." />
                                                     </Border>
                                                     <Border
@@ -198,20 +191,16 @@
                                                         <ColumnDefinition Width="*" />
                                                         <ColumnDefinition Width="*" />
                                                     </Grid.ColumnDefinitions>
-                                                    <Border Grid.Column="0"
-                                                            Style="{StaticResource DemoTableBorderStyle}">
+                                                    <Border Grid.Column="0" Style="{StaticResource DemoTableBorderStyle}">
                                                         <TextBlock Text="拉通" />
                                                     </Border>
-                                                    <Border Grid.Column="1"
-                                                            Style="{StaticResource DemoTableBorderStyle}">
+                                                    <Border Grid.Column="1" Style="{StaticResource DemoTableBorderStyle}">
                                                         <TextBlock Text="打通" />
                                                     </Border>
-                                                    <Border Grid.Column="2"
-                                                            Style="{StaticResource DemoTableBorderStyle}">
+                                                    <Border Grid.Column="2" Style="{StaticResource DemoTableBorderStyle}">
                                                         <TextBlock Text="树立" />
                                                     </Border>
-                                                    <Border Grid.Column="3"
-                                                            Style="{StaticResource DemoTableBorderStyle}">
+                                                    <Border Grid.Column="3" Style="{StaticResource DemoTableBorderStyle}">
                                                         <TextBlock Text="..." />
                                                     </Border>
                                                     <Border
@@ -275,16 +264,14 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="WatermarkDocsPage2">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="WatermarkDocsPage2">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,16"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="可以打开全屏，这样显得很专业。" />
                                     <StackPanel Orientation="Horizontal">
-                                        <ToggleButton IsChecked="{Binding ShowFullscreenWatermark, Mode=TwoWay}"
-                                                      Style="{StaticResource InlineSwitchStyle}" />
+                                        <ToggleButton IsChecked="{Binding ShowFullscreenWatermark, Mode=TwoWay}" Style="{StaticResource InlineSwitchStyle}" />
                                         <TextBlock
                                             Margin="12,0,0,0"
                                             VerticalAlignment="Center"
@@ -318,16 +305,14 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="WatermarkDocsPage3">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="WatermarkDocsPage3">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,16"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="放点图。WPF 版示例这里使用本地 pack URI，避免运行时依赖外网。" />
                                     <StackPanel Orientation="Horizontal">
-                                        <ToggleButton IsChecked="{Binding ShowImageWatermark, Mode=TwoWay}"
-                                                      Style="{StaticResource InlineSwitchStyle}" />
+                                        <ToggleButton IsChecked="{Binding ShowImageWatermark, Mode=TwoWay}" Style="{StaticResource InlineSwitchStyle}" />
                                         <TextBlock
                                             Margin="12,0,0,0"
                                             VerticalAlignment="Center"
@@ -361,8 +346,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="WatermarkDocsPage4">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="WatermarkDocsPage4">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,16"
@@ -398,20 +382,16 @@
                                                         <ColumnDefinition Width="*" />
                                                         <ColumnDefinition Width="*" />
                                                     </Grid.ColumnDefinitions>
-                                                    <Border Grid.Column="0"
-                                                            Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                    <Border Grid.Column="0" Style="{StaticResource DemoTableHeaderBorderStyle}">
                                                         <TextBlock Text="复盘" />
                                                     </Border>
-                                                    <Border Grid.Column="1"
-                                                            Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                    <Border Grid.Column="1" Style="{StaticResource DemoTableHeaderBorderStyle}">
                                                         <TextBlock Text="赋能" />
                                                     </Border>
-                                                    <Border Grid.Column="2"
-                                                            Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                    <Border Grid.Column="2" Style="{StaticResource DemoTableHeaderBorderStyle}">
                                                         <TextBlock Text="协同" />
                                                     </Border>
-                                                    <Border Grid.Column="3"
-                                                            Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                    <Border Grid.Column="3" Style="{StaticResource DemoTableHeaderBorderStyle}">
                                                         <TextBlock Text="..." />
                                                     </Border>
                                                     <Border
@@ -429,20 +409,16 @@
                                                         <ColumnDefinition Width="*" />
                                                         <ColumnDefinition Width="*" />
                                                     </Grid.ColumnDefinitions>
-                                                    <Border Grid.Column="0"
-                                                            Style="{StaticResource DemoTableBorderStyle}">
+                                                    <Border Grid.Column="0" Style="{StaticResource DemoTableBorderStyle}">
                                                         <TextBlock Text="拉通" />
                                                     </Border>
-                                                    <Border Grid.Column="1"
-                                                            Style="{StaticResource DemoTableBorderStyle}">
+                                                    <Border Grid.Column="1" Style="{StaticResource DemoTableBorderStyle}">
                                                         <TextBlock Text="打通" />
                                                     </Border>
-                                                    <Border Grid.Column="2"
-                                                            Style="{StaticResource DemoTableBorderStyle}">
+                                                    <Border Grid.Column="2" Style="{StaticResource DemoTableBorderStyle}">
                                                         <TextBlock Text="树立" />
                                                     </Border>
-                                                    <Border Grid.Column="3"
-                                                            Style="{StaticResource DemoTableBorderStyle}">
+                                                    <Border Grid.Column="3" Style="{StaticResource DemoTableBorderStyle}">
                                                         <TextBlock Text="..." />
                                                     </Border>
                                                     <Border
@@ -506,8 +482,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="WatermarkDocsPage5">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="WatermarkDocsPage5">
                                 <Grid Margin="30,24,30,24">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
@@ -566,20 +541,16 @@
                                                             <ColumnDefinition Width="*" />
                                                             <ColumnDefinition Width="*" />
                                                         </Grid.ColumnDefinitions>
-                                                        <Border Grid.Column="0"
-                                                                Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                        <Border Grid.Column="0" Style="{StaticResource DemoTableHeaderBorderStyle}">
                                                             <TextBlock Text="复盘" />
                                                         </Border>
-                                                        <Border Grid.Column="1"
-                                                                Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                        <Border Grid.Column="1" Style="{StaticResource DemoTableHeaderBorderStyle}">
                                                             <TextBlock Text="赋能" />
                                                         </Border>
-                                                        <Border Grid.Column="2"
-                                                                Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                        <Border Grid.Column="2" Style="{StaticResource DemoTableHeaderBorderStyle}">
                                                             <TextBlock Text="协同" />
                                                         </Border>
-                                                        <Border Grid.Column="3"
-                                                                Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                        <Border Grid.Column="3" Style="{StaticResource DemoTableHeaderBorderStyle}">
                                                             <TextBlock Text="..." />
                                                         </Border>
                                                         <Border
@@ -655,13 +626,11 @@
                                                         Maximum="32"
                                                         Minimum="8"
                                                         Value="{Binding CustomFontSize, Mode=TwoWay}" />
-                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
-                                                               Text="{Binding CustomFontSize, StringFormat=F0}" />
+                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomFontSize, StringFormat=F0}" />
                                                 </StackPanel>
                                                 <StackPanel Margin="0,0,0,16">
                                                     <TextBlock Style="{StaticResource FormLabelStyle}" Text="字体颜色" />
-                                                    <TextBox Style="{StaticResource EditorTextBoxStyle}"
-                                                             Text="{Binding CustomFontColorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                    <TextBox Style="{StaticResource EditorTextBoxStyle}" Text="{Binding CustomFontColorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                 </StackPanel>
 
                                                 <StackPanel Margin="0,0,12,16">
@@ -683,14 +652,12 @@
                                                         Minimum="100"
                                                         TickFrequency="100"
                                                         Value="{Binding CustomFontWeightValue, Mode=TwoWay}" />
-                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
-                                                               Text="{Binding CustomFontWeightValue}" />
+                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomFontWeightValue}" />
                                                 </StackPanel>
 
                                                 <StackPanel Margin="0,0,12,16">
                                                     <TextBlock Style="{StaticResource FormLabelStyle}" Text="是否跨越边界" />
-                                                    <ToggleButton IsChecked="{Binding CustomCross, Mode=TwoWay}"
-                                                                  Style="{StaticResource InlineSwitchStyle}" />
+                                                    <ToggleButton IsChecked="{Binding CustomCross, Mode=TwoWay}" Style="{StaticResource InlineSwitchStyle}" />
                                                 </StackPanel>
                                                 <StackPanel Margin="0,0,0,16">
                                                     <TextBlock Style="{StaticResource FormLabelStyle}" Text="旋转角度" />
@@ -698,8 +665,7 @@
                                                         Maximum="90"
                                                         Minimum="-90"
                                                         Value="{Binding CustomRotate, Mode=TwoWay}" />
-                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
-                                                               Text="{Binding CustomRotate, StringFormat=F0}" />
+                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomRotate, StringFormat=F0}" />
                                                 </StackPanel>
 
                                                 <StackPanel Margin="0,0,12,16">
@@ -708,8 +674,7 @@
                                                         Maximum="180"
                                                         Minimum="-180"
                                                         Value="{Binding CustomGlobalRotate, Mode=TwoWay}" />
-                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
-                                                               Text="{Binding CustomGlobalRotate, StringFormat=F0}" />
+                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomGlobalRotate, StringFormat=F0}" />
                                                 </StackPanel>
                                                 <StackPanel Margin="0,0,0,16">
                                                     <TextBlock Style="{StaticResource FormLabelStyle}" Text="行高" />
@@ -717,8 +682,7 @@
                                                         Maximum="48"
                                                         Minimum="8"
                                                         Value="{Binding CustomLineHeight, Mode=TwoWay}" />
-                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
-                                                               Text="{Binding CustomLineHeight, StringFormat=F0}" />
+                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomLineHeight, StringFormat=F0}" />
                                                 </StackPanel>
 
                                                 <StackPanel Margin="0,0,12,16">
@@ -727,8 +691,7 @@
                                                         Maximum="256"
                                                         Minimum="32"
                                                         Value="{Binding CustomMarkHeight, Mode=TwoWay}" />
-                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
-                                                               Text="{Binding CustomMarkHeight, StringFormat=F0}" />
+                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomMarkHeight, StringFormat=F0}" />
                                                 </StackPanel>
                                                 <StackPanel Margin="0,0,0,16">
                                                     <TextBlock Style="{StaticResource FormLabelStyle}" Text="宽度" />
@@ -736,8 +699,7 @@
                                                         Maximum="320"
                                                         Minimum="64"
                                                         Value="{Binding CustomMarkWidth, Mode=TwoWay}" />
-                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
-                                                               Text="{Binding CustomMarkWidth, StringFormat=F0}" />
+                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomMarkWidth, StringFormat=F0}" />
                                                 </StackPanel>
 
                                                 <StackPanel Margin="0,0,12,16">
@@ -746,8 +708,7 @@
                                                         Maximum="160"
                                                         Minimum="0"
                                                         Value="{Binding CustomXGap, Mode=TwoWay}" />
-                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
-                                                               Text="{Binding CustomXGap, StringFormat=F0}" />
+                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomXGap, StringFormat=F0}" />
                                                 </StackPanel>
                                                 <StackPanel Margin="0,0,0,16">
                                                     <TextBlock Style="{StaticResource FormLabelStyle}" Text="Y轴间隔" />
@@ -755,8 +716,7 @@
                                                         Maximum="160"
                                                         Minimum="0"
                                                         Value="{Binding CustomYGap, Mode=TwoWay}" />
-                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
-                                                               Text="{Binding CustomYGap, StringFormat=F0}" />
+                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomYGap, StringFormat=F0}" />
                                                 </StackPanel>
 
                                                 <StackPanel Margin="0,0,12,16">
@@ -765,8 +725,7 @@
                                                         Maximum="96"
                                                         Minimum="0"
                                                         Value="{Binding CustomXOffset, Mode=TwoWay}" />
-                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
-                                                               Text="{Binding CustomXOffset, StringFormat=F0}" />
+                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomXOffset, StringFormat=F0}" />
                                                 </StackPanel>
                                                 <StackPanel Margin="0,0,0,16">
                                                     <TextBlock Style="{StaticResource FormLabelStyle}" Text="Y轴偏移" />
@@ -774,8 +733,7 @@
                                                         Maximum="96"
                                                         Minimum="0"
                                                         Value="{Binding CustomYOffset, Mode=TwoWay}" />
-                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
-                                                               Text="{Binding CustomYOffset, StringFormat=F0}" />
+                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomYOffset, StringFormat=F0}" />
                                                 </StackPanel>
 
                                                 <StackPanel Margin="0,0,12,16">
@@ -786,8 +744,7 @@
                                                         Minimum="0"
                                                         TickFrequency="1"
                                                         Value="{Binding CustomZIndex, Mode=TwoWay}" />
-                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
-                                                               Text="{Binding CustomZIndex}" />
+                                                    <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomZIndex}" />
                                                 </StackPanel>
                                                 <StackPanel Margin="0,0,0,16">
                                                     <TextBlock Style="{StaticResource FormLabelStyle}" Text="文本对齐" />

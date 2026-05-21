@@ -4,12 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
-    d:DataContext="{d:DesignInstance Type=viewModels:CarouselDocsPageViewModel}"
     xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
     xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
     xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
     xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:CarouselDocsPageViewModel}"
     mc:Ignorable="d">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -57,10 +57,8 @@
             <ColumnDefinition Width="220" />
         </Grid.ColumnDefinitions>
 
-        <ScrollViewer
-            Grid.Column="0"
-            VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="68,34,18,34">
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="25,34,18,34">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
                         FontSize="48"
@@ -97,8 +95,7 @@
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="默认轮播使用滑动过渡，并支持左右箭头和指示器手动切换。" />
-                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                               UniqueKey="CarouselDocsPage1">
+                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="CarouselDocsPage1">
                                         <nc:NCarousel
                                             Height="250"
                                             CornerRadius="20"
@@ -106,8 +103,7 @@
                                             <Border Padding="28" Background="{StaticResource CarouselGradientOne}">
                                                 <Grid>
                                                     <StackPanel VerticalAlignment="Bottom">
-                                                        <TextBlock Style="{StaticResource CarouselHeroTitleStyle}"
-                                                                   Text="设计令牌" />
+                                                        <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="设计令牌" />
                                                         <TextBlock
                                                             Margin="0,10,0,0"
                                                             Style="{StaticResource CarouselHeroBodyStyle}"
@@ -118,8 +114,7 @@
                                             <Border Padding="28" Background="{StaticResource CarouselGradientTwo}">
                                                 <Grid>
                                                     <StackPanel VerticalAlignment="Bottom">
-                                                        <TextBlock Style="{StaticResource CarouselHeroTitleStyle}"
-                                                                   Text="可组合模板" />
+                                                        <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="可组合模板" />
                                                         <TextBlock
                                                             Margin="0,10,0,0"
                                                             Style="{StaticResource CarouselHeroBodyStyle}"
@@ -130,8 +125,7 @@
                                             <Border Padding="28" Background="{StaticResource CarouselGradientThree}">
                                                 <Grid>
                                                     <StackPanel VerticalAlignment="Bottom">
-                                                        <TextBlock Style="{StaticResource CarouselHeroTitleStyle}"
-                                                                   Text="交互展示" />
+                                                        <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="交互展示" />
                                                         <TextBlock
                                                             Margin="0,10,0,0"
                                                             Style="{StaticResource CarouselHeroBodyStyle}"
@@ -157,8 +151,7 @@
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="自动播放会按间隔切换内容，并在鼠标悬停于轮播图上方时暂停。" />
-                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                               UniqueKey="CarouselDocsPage2">
+                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="CarouselDocsPage2">
                                         <nc:NCarousel
                                             Height="220"
                                             Autoplay="True"
@@ -168,8 +161,7 @@
                                             ShowArrow="True">
                                             <Border Padding="26" Background="{StaticResource CarouselGradientFour}">
                                                 <StackPanel VerticalAlignment="Bottom">
-                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}"
-                                                               Text="版本动态" />
+                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="版本动态" />
                                                     <TextBlock
                                                         Margin="0,10,0,0"
                                                         Style="{StaticResource CarouselHeroBodyStyle}"
@@ -178,8 +170,7 @@
                                             </Border>
                                             <Border Padding="26" Background="{StaticResource CarouselGradientTwo}">
                                                 <StackPanel VerticalAlignment="Bottom">
-                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}"
-                                                               Text="功能发现" />
+                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="功能发现" />
                                                     <TextBlock
                                                         Margin="0,10,0,0"
                                                         Style="{StaticResource CarouselHeroBodyStyle}"
@@ -188,8 +179,7 @@
                                             </Border>
                                             <Border Padding="26" Background="{StaticResource CarouselGradientOne}">
                                                 <StackPanel VerticalAlignment="Bottom">
-                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}"
-                                                               Text="悬停暂停" />
+                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="悬停暂停" />
                                                     <TextBlock
                                                         Margin="0,10,0,0"
                                                         Style="{StaticResource CarouselHeroBodyStyle}"
@@ -214,8 +204,7 @@
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="当每一屏更像内容状态而不是翻页动作时，淡入淡出会更柔和。" />
-                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                               UniqueKey="CarouselDocsPage3">
+                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="CarouselDocsPage3">
                                         <nc:NCarousel
                                             Height="220"
                                             CornerRadius="18"
@@ -225,8 +214,7 @@
                                             TransitionDuration="420">
                                             <Border Padding="26" Background="{StaticResource CarouselGradientOne}">
                                                 <StackPanel VerticalAlignment="Bottom">
-                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}"
-                                                               Text="柔和过渡" />
+                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="柔和过渡" />
                                                     <TextBlock
                                                         Margin="0,10,0,0"
                                                         Style="{StaticResource CarouselHeroBodyStyle}"
@@ -235,8 +223,7 @@
                                             </Border>
                                             <Border Padding="26" Background="{StaticResource CarouselGradientOne}">
                                                 <StackPanel VerticalAlignment="Bottom">
-                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}"
-                                                               Text="柔和过渡" />
+                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="柔和过渡" />
                                                     <TextBlock
                                                         Margin="0,10,0,0"
                                                         Style="{StaticResource CarouselHeroBodyStyle}"
@@ -245,8 +232,7 @@
                                             </Border>
                                             <Border Padding="26" Background="{StaticResource CarouselGradientThree}">
                                                 <StackPanel VerticalAlignment="Bottom">
-                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}"
-                                                               Text="降低机械感" />
+                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="降低机械感" />
                                                     <TextBlock
                                                         Margin="0,10,0,0"
                                                         Style="{StaticResource CarouselHeroBodyStyle}"
@@ -271,8 +257,7 @@
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="卡片模式会叠加缩放和透明度变化，让切换更有层次感。" />
-                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                               UniqueKey="CarouselDocsPage4">
+                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="CarouselDocsPage4">
                                         <nc:NCarousel
                                             Height="250"
                                             CornerRadius="20"
@@ -281,8 +266,7 @@
                                             TransitionDuration="360">
                                             <Border Padding="26" Background="{StaticResource CarouselGradientFour}">
                                                 <StackPanel VerticalAlignment="Bottom">
-                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}"
-                                                               Text="层次动效" />
+                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="层次动效" />
                                                     <TextBlock
                                                         Margin="0,10,0,0"
                                                         Style="{StaticResource CarouselHeroBodyStyle}"
@@ -291,8 +275,7 @@
                                             </Border>
                                             <Border Padding="26" Background="{StaticResource CarouselGradientOne}">
                                                 <StackPanel VerticalAlignment="Bottom">
-                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}"
-                                                               Text="视觉重心" />
+                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="视觉重心" />
                                                     <TextBlock
                                                         Margin="0,10,0,0"
                                                         Style="{StaticResource CarouselHeroBodyStyle}"
@@ -301,8 +284,7 @@
                                             </Border>
                                             <Border Padding="26" Background="{StaticResource CarouselGradientThree}">
                                                 <StackPanel VerticalAlignment="Bottom">
-                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}"
-                                                               Text="聚焦当前项" />
+                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="聚焦当前项" />
                                                     <TextBlock
                                                         Margin="0,10,0,0"
                                                         Style="{StaticResource CarouselHeroBodyStyle}"
@@ -327,8 +309,7 @@
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="指示器可以移动到视口边缘，也可以切换为更紧凑的线条样式。" />
-                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                               UniqueKey="CarouselDocsPage5">
+                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="CarouselDocsPage5">
                                         <nc:NCarousel
                                             Height="220"
                                             CornerRadius="18"
@@ -336,8 +317,7 @@
                                             DotType="Line">
                                             <Border Padding="26" Background="{StaticResource CarouselGradientTwo}">
                                                 <StackPanel VerticalAlignment="Bottom">
-                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}"
-                                                               Text="右侧指示器" />
+                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="右侧指示器" />
                                                     <TextBlock
                                                         Margin="0,10,0,0"
                                                         Style="{StaticResource CarouselHeroBodyStyle}"
@@ -346,8 +326,7 @@
                                             </Border>
                                             <Border Padding="26" Background="{StaticResource CarouselGradientOne}">
                                                 <StackPanel VerticalAlignment="Bottom">
-                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}"
-                                                               Text="线条样式" />
+                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="线条样式" />
                                                     <TextBlock
                                                         Margin="0,10,0,0"
                                                         Style="{StaticResource CarouselHeroBodyStyle}"
@@ -356,8 +335,7 @@
                                             </Border>
                                             <Border Padding="26" Background="{StaticResource CarouselGradientFour}">
                                                 <StackPanel VerticalAlignment="Bottom">
-                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}"
-                                                               Text="位置选项" />
+                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="位置选项" />
                                                     <TextBlock
                                                         Margin="0,10,0,0"
                                                         Style="{StaticResource CarouselHeroBodyStyle}"
@@ -382,8 +360,7 @@
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="指示器默认通过点击切换，也可以改为悬停预览。" />
-                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                               UniqueKey="CarouselDocsPage6">
+                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="CarouselDocsPage6">
                                         <nc:NCarousel
                                             Height="220"
                                             CornerRadius="18"
@@ -393,8 +370,7 @@
                                             Trigger="Hover">
                                             <Border Padding="26" Background="{StaticResource CarouselGradientThree}">
                                                 <StackPanel VerticalAlignment="Bottom">
-                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}"
-                                                               Text="悬停切换" />
+                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="悬停切换" />
                                                     <TextBlock
                                                         Margin="0,10,0,0"
                                                         Style="{StaticResource CarouselHeroBodyStyle}"
@@ -403,8 +379,7 @@
                                             </Border>
                                             <Border Padding="26" Background="{StaticResource CarouselGradientFour}">
                                                 <StackPanel VerticalAlignment="Bottom">
-                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}"
-                                                               Text="快速对比" />
+                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="快速对比" />
                                                     <TextBlock
                                                         Margin="0,10,0,0"
                                                         Style="{StaticResource CarouselHeroBodyStyle}"
@@ -413,8 +388,7 @@
                                             </Border>
                                             <Border Padding="26" Background="{StaticResource CarouselGradientOne}">
                                                 <StackPanel VerticalAlignment="Bottom">
-                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}"
-                                                               Text="键盘友好" />
+                                                    <TextBlock Style="{StaticResource CarouselHeroTitleStyle}" Text="键盘友好" />
                                                     <TextBlock
                                                         Margin="0,10,0,0"
                                                         Style="{StaticResource CarouselHeroBodyStyle}"

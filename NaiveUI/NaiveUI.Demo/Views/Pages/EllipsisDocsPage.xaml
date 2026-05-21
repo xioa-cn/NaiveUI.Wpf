@@ -4,12 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
-    d:DataContext="{d:DesignInstance Type=viewModels:EllipsisDocsPageViewModel}"
     xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
     xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
     xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
     xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:EllipsisDocsPageViewModel}"
     mc:Ignorable="d">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -34,10 +34,8 @@
             <ColumnDefinition Width="220" />
         </Grid.ColumnDefinitions>
 
-        <ScrollViewer
-            Grid.Column="0"
-            VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="68,34,18,34">
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="25,34,18,34">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
                         FontSize="48"
@@ -67,8 +65,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="EllipsisDocsPage1">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="EllipsisDocsPage1">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -90,8 +87,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="EllipsisDocsPage2">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="EllipsisDocsPage2">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -114,8 +110,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="EllipsisDocsPage3">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="EllipsisDocsPage3">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -140,8 +135,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="EllipsisDocsPage4">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="EllipsisDocsPage4">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -190,8 +184,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="EllipsisDocsPage5">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="EllipsisDocsPage5">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -223,8 +216,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="EllipsisDocsPage6">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="EllipsisDocsPage6">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"

@@ -7,8 +7,8 @@
     xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
     xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
     xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
-    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
     xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
     x:Name="Root"
     d:DataContext="{d:DesignInstance Type=viewModels:DropdownDocsPageViewModel}"
     mc:Ignorable="d">
@@ -40,7 +40,7 @@
         </Grid.ColumnDefinitions>
 
         <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="68,34,18,34">
+            <StackPanel Margin="25,34,18,34">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
                         FontSize="48"
@@ -74,8 +74,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="DDropdownDocsPage1">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="DDropdownDocsPage1">
                                     <StackPanel Margin="30,24,30,24">
                                         <TextBlock
                                             Margin="0,0,0,20"
@@ -105,8 +104,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="DDropdownDocsPage2">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="DDropdownDocsPage2">
                                     <StackPanel Margin="30,24,30,24">
                                         <TextBlock
                                             Margin="0,0,0,20"
@@ -173,8 +171,7 @@
                                                 HorizontalAlignment="Left"
                                                 Background="{DynamicResource Theme.Surface.1.Brush}"
                                                 CornerRadius="10">
-                                                <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}"
-                                                           Text="在这里点右键，体验 ContextMenu 触发。" />
+                                                <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}" Text="在这里点右键，体验 ContextMenu 触发。" />
                                             </Border>
                                         </nc:NDropdown>
                                     </StackPanel>
@@ -189,8 +186,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="DDropdownDocsPage3">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="DDropdownDocsPage3">
                                     <StackPanel Margin="30,24,30,24">
                                         <TextBlock
                                             Margin="0,0,0,20"
@@ -200,8 +196,7 @@
                                             Padding="14,12"
                                             Background="{DynamicResource Theme.Surface.1.Brush}"
                                             CornerRadius="10">
-                                            <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}"
-                                                       Text="{Binding OptionActionText}" />
+                                            <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}" Text="{Binding OptionActionText}" />
                                         </Border>
                                         <WrapPanel Margin="0,18,0,0">
                                             <nc:NDropdown
@@ -271,8 +266,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="DDropdownDocsPage4">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="DDropdownDocsPage4">
                                     <StackPanel Margin="30,24,30,24">
                                         <TextBlock
                                             Margin="0,0,0,20"
@@ -286,9 +280,7 @@
                                                 <nc:NDropdownGroupOption Label="快速操作">
                                                     <nc:NDropdownOption Key="新建项目" Label="新建项目">
                                                         <nc:NDropdownOption.Suffix>
-                                                            <TextBlock
-                                                                Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
-                                                                Text="Ctrl+N" />
+                                                            <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="Ctrl+N" />
                                                         </nc:NDropdownOption.Suffix>
                                                     </nc:NDropdownOption>
                                                     <nc:NDropdownOption Key="导出配置" Label="导出配置" />
@@ -317,8 +309,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="DDropdownDocsPage5">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="DDropdownDocsPage5">
                                     <StackPanel Margin="30,24,30,24">
                                         <TextBlock
                                             Margin="0,0,0,20"
@@ -385,8 +376,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="DDropdownDocsPage6">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="DDropdownDocsPage6">
                                     <StackPanel Margin="30,24,30,24">
                                         <TextBlock
                                             Margin="0,0,0,20"
@@ -433,8 +423,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="DDropdownDocsPage7">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="DDropdownDocsPage7">
                                     <StackPanel Margin="30,24,30,24">
                                         <TextBlock
                                             Margin="0,0,0,20"
@@ -472,8 +461,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="DDropdownDocsPage8">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="DDropdownDocsPage8">
                                     <StackPanel Margin="30,24,30,24">
                                         <TextBlock
                                             Margin="0,0,0,20"
@@ -546,8 +534,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="DDropdownDocsPage9">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="DDropdownDocsPage9">
                                     <StackPanel Margin="30,24,30,24">
                                         <TextBlock
                                             Margin="0,0,0,20"
@@ -581,8 +568,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="DDropdownDocsPage10">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="DDropdownDocsPage10">
                                     <StackPanel Margin="30,24,30,24">
                                         <TextBlock
                                             Margin="0,0,0,20"

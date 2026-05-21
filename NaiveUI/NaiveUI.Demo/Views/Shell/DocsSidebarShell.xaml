@@ -9,7 +9,7 @@
     mc:Ignorable="d">
     <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="340" />
+            <ColumnDefinition Width="auto" MinWidth="300" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 

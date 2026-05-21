@@ -4,12 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
-    d:DataContext="{d:DesignInstance Type=viewModels:BreadcrumbDocsPageViewModel}"
     xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
     xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
     xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
     xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:BreadcrumbDocsPageViewModel}"
     mc:Ignorable="d">
     <UserControl.Resources>
         <Style
@@ -35,7 +35,7 @@
         </Grid.ColumnDefinitions>
 
         <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="68,34,18,34">
+            <StackPanel Margin="25,34,18,34">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
                         FontSize="48"
@@ -65,8 +65,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="BreadcrumbDocsPage1">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="BreadcrumbDocsPage1">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -75,22 +74,19 @@
                                     <nc:NBreadcrumb>
                                         <nc:NBreadcrumbItem Click="NBreadcrumbItemClick">
                                             <StackPanel Orientation="Horizontal">
-                                                <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}"
-                                                          Style="{StaticResource BreadcrumbIconStyle}" />
+                                                <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}" Style="{StaticResource BreadcrumbIconStyle}" />
                                                 <TextBlock VerticalAlignment="Center" Text="北京总行" />
                                             </StackPanel>
                                         </nc:NBreadcrumbItem>
                                         <nc:NBreadcrumbItem Click="NBreadcrumbItemClick">
                                             <StackPanel Orientation="Horizontal">
-                                                <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}"
-                                                          Style="{StaticResource BreadcrumbIconStyle}" />
+                                                <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}" Style="{StaticResource BreadcrumbIconStyle}" />
                                                 <TextBlock VerticalAlignment="Center" Text="天津分行" />
                                             </StackPanel>
                                         </nc:NBreadcrumbItem>
                                         <nc:NBreadcrumbItem Click="NBreadcrumbItemClick">
                                             <StackPanel Orientation="Horizontal">
-                                                <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}"
-                                                          Style="{StaticResource BreadcrumbIconStyle}" />
+                                                <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}" Style="{StaticResource BreadcrumbIconStyle}" />
                                                 <TextBlock VerticalAlignment="Center" Text="平山道支行" />
                                             </StackPanel>
                                         </nc:NBreadcrumbItem>
@@ -100,20 +96,17 @@
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="WPF 中更常见的用法是绑定 Command 和 CommandParameter。" />
                                     <nc:NBreadcrumb Margin="0,0,0,12">
-                                        <nc:NBreadcrumbItem Command="{Binding BreadcrumbCommand}"
-                                                            CommandParameter="Home">
+                                        <nc:NBreadcrumbItem Command="{Binding BreadcrumbCommand}" CommandParameter="Home">
                                             <TextBlock Text="Home" />
                                         </nc:NBreadcrumbItem>
-                                        <nc:NBreadcrumbItem Command="{Binding BreadcrumbCommand}"
-                                                            CommandParameter="Components">
+                                        <nc:NBreadcrumbItem Command="{Binding BreadcrumbCommand}" CommandParameter="Components">
                                             <TextBlock Text="Components" />
                                         </nc:NBreadcrumbItem>
                                         <nc:NBreadcrumbItem>
                                             <TextBlock Text="Breadcrumb" />
                                         </nc:NBreadcrumbItem>
                                     </nc:NBreadcrumb>
-                                    <TextBlock Style="{StaticResource DocBodyTextStyle}"
-                                               Text="{Binding BreadcrumbCommandText}" />
+                                    <TextBlock Style="{StaticResource DocBodyTextStyle}" Text="{Binding BreadcrumbCommandText}" />
                                 </StackPanel>
                             </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
@@ -126,8 +119,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="BreadcrumbDocsPage2">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="BreadcrumbDocsPage2">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -177,8 +169,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="BreadcrumbDocsPage3">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="BreadcrumbDocsPage3">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -187,22 +178,19 @@
                                     <nc:NBreadcrumb Separator="&gt;">
                                         <nc:NBreadcrumbItem Click="NBreadcrumbItemClick">
                                             <StackPanel Orientation="Horizontal">
-                                                <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}"
-                                                          Style="{StaticResource BreadcrumbIconStyle}" />
+                                                <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}" Style="{StaticResource BreadcrumbIconStyle}" />
                                                 <TextBlock VerticalAlignment="Center" Text="北京总行" />
                                             </StackPanel>
                                         </nc:NBreadcrumbItem>
                                         <nc:NBreadcrumbItem Click="NBreadcrumbItemClick">
                                             <StackPanel Orientation="Horizontal">
-                                                <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}"
-                                                          Style="{StaticResource BreadcrumbIconStyle}" />
+                                                <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}" Style="{StaticResource BreadcrumbIconStyle}" />
                                                 <TextBlock VerticalAlignment="Center" Text="天津分行" />
                                             </StackPanel>
                                         </nc:NBreadcrumbItem>
                                         <nc:NBreadcrumbItem>
                                             <StackPanel Orientation="Horizontal">
-                                                <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}"
-                                                          Style="{StaticResource BreadcrumbIconStyle}" />
+                                                <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}" Style="{StaticResource BreadcrumbIconStyle}" />
                                                 <TextBlock VerticalAlignment="Center" Text="平山道支行" />
                                             </StackPanel>
                                         </nc:NBreadcrumbItem>
@@ -219,8 +207,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="BreadcrumbDocsPage4">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="BreadcrumbDocsPage4">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -229,8 +216,7 @@
                                     <nc:NBreadcrumb>
                                         <nc:NBreadcrumbItem Click="NBreadcrumbItemClick" Separator="&gt;">
                                             <StackPanel Orientation="Horizontal">
-                                                <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}"
-                                                          Style="{StaticResource BreadcrumbIconStyle}" />
+                                                <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}" Style="{StaticResource BreadcrumbIconStyle}" />
                                                 <TextBlock VerticalAlignment="Center" Text="北京总行" />
                                             </StackPanel>
                                         </nc:NBreadcrumbItem>
@@ -239,8 +225,7 @@
                                                 <TextBlock Text="~" />
                                             </nc:NBreadcrumbItem.SeparatorContent>
                                             <StackPanel Orientation="Horizontal">
-                                                <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}"
-                                                          Style="{StaticResource BreadcrumbIconStyle}" />
+                                                <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}" Style="{StaticResource BreadcrumbIconStyle}" />
                                                 <TextBlock VerticalAlignment="Center" Text="天津分行" />
                                             </StackPanel>
                                         </nc:NBreadcrumbItem>
@@ -249,8 +234,7 @@
                                                 <TextBlock Text="~" />
                                             </nc:NBreadcrumbItem.SeparatorContent>
                                             <StackPanel Orientation="Horizontal">
-                                                <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}"
-                                                          Style="{StaticResource BreadcrumbIconStyle}" />
+                                                <nc:NIcon Data="{StaticResource BreadcrumbCashGeometry}" Style="{StaticResource BreadcrumbIconStyle}" />
                                                 <TextBlock VerticalAlignment="Center" Text="平山道支行" />
                                             </StackPanel>
                                         </nc:NBreadcrumbItem>
@@ -288,8 +272,7 @@
                     <nu:CardElement x:Name="SectionBreadcrumbItemProps" Margin="0,0,0,20">
                         <nu:CardElement.HeaderElement>
                             <Grid Margin="30,28,30,0">
-                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}"
-                                           Text="BreadcrumbItem Props" />
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="BreadcrumbItem Props" />
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
@@ -311,8 +294,7 @@
                     <nu:CardElement x:Name="SectionBreadcrumbItemSlots" Margin="0,0,0,20">
                         <nu:CardElement.HeaderElement>
                             <Grid Margin="30,28,30,0">
-                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}"
-                                           Text="Breadcrumb Item Slots" />
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Breadcrumb Item Slots" />
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>

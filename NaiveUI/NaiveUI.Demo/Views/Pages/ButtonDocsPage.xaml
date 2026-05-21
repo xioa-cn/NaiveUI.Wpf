@@ -7,10 +7,10 @@
     xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
     xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
     xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+    xmlns:tag="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
     xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewModels:ButtonDocsPageViewModel}"
-    xmlns:tag="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
-    xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
     mc:Ignorable="d">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -45,8 +45,7 @@
             <Setter Property="Height" Value="16" />
             <Setter Property="Stretch" Value="Uniform" />
             <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Fill"
-                    Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type nc:NButton}}}" />
+            <Setter Property="Fill" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type nc:NButton}}}" />
         </Style>
         <Style
             x:Key="ButtonIconOnlyPathStyle"
@@ -64,7 +63,7 @@
         </Grid.ColumnDefinitions>
 
         <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="68,34,18,34">
+            <StackPanel Margin="25,34,18,34">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
                         FontSize="48"
@@ -105,8 +104,7 @@
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="按钮的 type 分别为 default、tertiary、primary、info、success、warning 和 error。" />
-                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                               UniqueKey="ButtonDocsPage1">
+                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ButtonDocsPage1">
                                         <WrapPanel>
                                             <nc:NButton Margin="0,0,14,14">Default</nc:NButton>
                                             <nc:NButton Margin="0,0,14,14" Kind="Tertiary">Tertiary</nc:NButton>
@@ -133,8 +131,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="ButtonDocsPage2">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ButtonDocsPage2">
                                     <StackPanel Margin="30,24,30,24">
 
                                         <WrapPanel>
@@ -229,8 +226,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="ButtonDocsPage3">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ButtonDocsPage3">
                                     <StackPanel Margin="30,24,30,24">
                                         <TextBlock
                                             Margin="0,0,0,20"
@@ -286,8 +282,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="ButtonDocsPage4">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ButtonDocsPage4">
                                     <StackPanel Margin="30,24,30,24">
                                         <TextBlock
                                             Margin="0,0,0,20"
@@ -343,8 +338,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="ButtonDocsPage5">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ButtonDocsPage5">
                                     <StackPanel Margin="30,24,30,24">
                                         <TextBlock
                                             Margin="0,0,0,20"
@@ -399,8 +393,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="ButtonDocsPage6">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ButtonDocsPage6">
                                     <StackPanel Margin="30,24,30,24">
                                         <TextBlock
                                             Margin="0,0,0,18"
@@ -427,8 +420,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="ButtonDocsPage7">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ButtonDocsPage7">
                                     <WrapPanel Margin="30,24,30,24">
                                         <nc:NButton Margin="0,0,14,14">
                                             <StackPanel Orientation="Horizontal">
@@ -472,8 +464,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="ButtonDocsPage8">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ButtonDocsPage8">
                                     <WrapPanel Margin="30,24,30,24">
                                         <nc:NButton Margin="0,0,14,14">Default</nc:NButton>
                                         <nc:NButton
@@ -506,8 +497,7 @@
                                     Padding="18"
                                     Background="#1F2937"
                                     CornerRadius="8">
-                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                               UniqueKey="ButtonDocsPage9">
+                                    <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ButtonDocsPage9">
                                         <WrapPanel VerticalAlignment="Center">
                                             <nc:NButton
                                                 Margin="0,0,14,14"
@@ -539,7 +529,7 @@
                             </nu:CardElement.ContentElement>
                         </nu:CardElement>
 
-                     
+
 
                         <nu:CardElement x:Name="SectionTertiary" Margin="0,0,0,20">
                             <nu:CardElement.HeaderElement>
@@ -553,8 +543,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="ButtonDocsPage10">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ButtonDocsPage10">
                                     <StackPanel Margin="30,24,30,24">
                                         <WrapPanel>
                                             <nc:NButton Margin="0,0,14,14" Kind="Tertiary">Default</nc:NButton>
@@ -601,8 +590,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="ButtonDocsPage11">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ButtonDocsPage11">
                                     <StackPanel Margin="30,24,30,24">
                                         <TextBlock
                                             Margin="0,0,0,20"
@@ -625,8 +613,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="ButtonDocsPage12">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ButtonDocsPage12">
                                     <WrapPanel Margin="30,24,30,24">
                                         <nc:NButton Margin="0,0,14,14" IsEnabled="False">Default</nc:NButton>
                                         <nc:NButton
@@ -661,8 +648,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="ButtonDocsPage13">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ButtonDocsPage13">
                                     <StackPanel Margin="30,24,30,24">
                                         <TextBlock
                                             Margin="0,0,0,18"
@@ -689,8 +675,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="ButtonDocsPage14">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ButtonDocsPage14">
                                     <WrapPanel Margin="30,24,30,24">
                                         <nc:NButton
                                             Margin="0,0,14,14"
@@ -731,8 +716,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="ButtonDocsPage15">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ButtonDocsPage15">
                                     <WrapPanel Margin="30,24,30,24">
                                         <nc:NButton Margin="5">
                                             <Viewbox Width="18" Height="18">
@@ -744,8 +728,7 @@
                                         </nc:NButton>
                                         <nc:NButton Margin="5" Grade="Primary">
                                             <Viewbox Width="18" Height="18">
-                                                <Path Data="{StaticResource ButtonIconFavoriteGeometry}"
-                                                      Style="{StaticResource ButtonIconOnlyPathStyle}" />
+                                                <Path Data="{StaticResource ButtonIconFavoriteGeometry}" Style="{StaticResource ButtonIconOnlyPathStyle}" />
                                             </Viewbox>
                                         </nc:NButton>
                                         <nc:NButton
@@ -753,8 +736,7 @@
                                             Grade="Success"
                                             Kind="Secondary">
                                             <Viewbox Width="18" Height="18">
-                                                <Path Data="{StaticResource ButtonIconCheckGeometry}"
-                                                      Style="{StaticResource ButtonIconOnlyPathStyle}" />
+                                                <Path Data="{StaticResource ButtonIconCheckGeometry}" Style="{StaticResource ButtonIconOnlyPathStyle}" />
                                             </Viewbox>
                                         </nc:NButton>
                                         <nc:NButton
@@ -762,8 +744,7 @@
                                             Grade="Warning"
                                             Kind="Quaternary">
                                             <Viewbox Width="18" Height="18">
-                                                <Path Data="{StaticResource ButtonIconDownloadGeometry}"
-                                                      Style="{StaticResource ButtonIconOnlyPathStyle}" />
+                                                <Path Data="{StaticResource ButtonIconDownloadGeometry}" Style="{StaticResource ButtonIconOnlyPathStyle}" />
                                             </Viewbox>
                                         </nc:NButton>
                                     </WrapPanel>
@@ -779,8 +760,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="ButtonDocsPage16">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ButtonDocsPage16">
                                     <WrapPanel Margin="30,24,30,24">
                                         <nc:NButton Margin="0,0,14,14" IsLoading="True">Default</nc:NButton>
                                         <nc:NButton
@@ -816,8 +796,7 @@
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="ButtonDocsPage17">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ButtonDocsPage17">
                                     <StackPanel Margin="30,24,30,24">
                                         <StackPanel Orientation="Horizontal">
                                             <nc:NButton Style="{StaticResource ButtonGroupItemStyle}">Star</nc:NButton>
@@ -847,13 +826,11 @@
                         <nu:CardElement x:Name="SectionPopover" Margin="0,0,0,20">
                             <nu:CardElement.HeaderElement>
                                 <Grid Margin="30,28,30,0">
-                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}"
-                                               Text="配合 Popover 的特殊情况" />
+                                    <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="配合 Popover 的特殊情况" />
                                 </Grid>
                             </nu:CardElement.HeaderElement>
                             <nu:CardElement.ContentElement>
-                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                           UniqueKey="ButtonDocsPage18">
+                                <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ButtonDocsPage18">
                                     <StackPanel Margin="30,24,30,24">
                                         <TextBlock
                                             Margin="0,0,0,18"
@@ -939,8 +916,7 @@
                                                             </nc:NDropdownRenderOption>
                                                         </nc:NDropdown.Options>
                                                         <nc:NButton Kind="Quaternary">
-                                                            <Path Data="{StaticResource ButtonIconMoreGeometry}"
-                                                                  Style="{StaticResource ButtonIconOnlyPathStyle}" />
+                                                            <Path Data="{StaticResource ButtonIconMoreGeometry}" Style="{StaticResource ButtonIconOnlyPathStyle}" />
                                                         </nc:NButton>
                                                     </nc:NDropdown>
                                                 </WrapPanel>
@@ -990,11 +966,11 @@
                         <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding ButtonGroupPropsRows}" />
                     </nu:CardElement.ContentElement>
                 </nu:CardElement>
-                
-                <!-- <nu:CardElement -->
-                <!--     x:Name="SectionButtonSlotsColumn" -->
-                <!--     Margin="0,0,0,20" -->
-                <!--     Visibility="Collapsed"> -->
+
+                <!--  <nu:CardElement  -->
+                <!--  x:Name="SectionButtonSlotsColumn"  -->
+                <!--  Margin="0,0,0,20"  -->
+                <!--  Visibility="Collapsed">  -->
                 <!--     <nu:CardElement.HeaderElement> -->
                 <!--         <Grid Margin="30,28,30,0"> -->
                 <!--             <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Button Slots" /> -->
@@ -1004,7 +980,7 @@
                 <!--         <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding ButtonSlotsRows}" /> -->
                 <!--     </nu:CardElement.ContentElement> -->
                 <!-- </nu:CardElement> -->
-                
+
                 <nu:CardElement x:Name="SectionButtonSlots" Margin="0,0,0,20">
                     <nu:CardElement.HeaderElement>
                         <Grid Margin="30,28,30,0">

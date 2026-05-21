@@ -7,8 +7,8 @@
     xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
     xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
     xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
-    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
     xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewModels:TypographyDocsPageViewModel}"
     mc:Ignorable="d">
     <UserControl.Resources>
@@ -32,7 +32,7 @@
         </Grid.ColumnDefinitions>
 
         <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="68,34,18,34">
+            <StackPanel Margin="25,34,18,34">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
                         FontSize="48"
@@ -62,8 +62,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="TypographyDocsPage1">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="TypographyDocsPage1">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -143,17 +142,14 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="TypographyDocsPage2">
-                                <StackPanel Margin="30,24,30,24"
-                                            Style="{StaticResource TypographyArticleContainerStyle}">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="TypographyDocsPage2">
+                                <StackPanel Margin="30,24,30,24" Style="{StaticResource TypographyArticleContainerStyle}">
                                     <TextBlock
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="其他的 Naive UI 预置标签。这里按官方 demo 的结构把链接、标题、段落、列表、分隔线和引用块组合在一起。" />
 
-                                    <nc:NA Href="https://baike.baidu.com/item/%E4%B8%94%E5%90%AC%E9%A3%8E%E5%90%9F"
-                                           Target="_blank">
+                                    <nc:NA Href="https://baike.baidu.com/item/%E4%B8%94%E5%90%AC%E9%A3%8E%E5%90%9F" Target="_blank">
                                         且听风吟
                                     </nc:NA>
 
@@ -237,8 +233,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="TypographyDocsPage3">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="TypographyDocsPage3">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -277,8 +272,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="TypographyDocsPage4">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="TypographyDocsPage4">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -342,8 +336,7 @@
                     <nu:CardElement x:Name="SectionHeaderProps" Margin="0,0,0,20">
                         <nu:CardElement.HeaderElement>
                             <Grid Margin="30,28,30,0">
-                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}"
-                                           Text="H1, H2, H3, H4, H5, H6 Props" />
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="H1, H2, H3, H4, H5, H6 Props" />
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
@@ -376,8 +369,7 @@
                     <nu:CardElement x:Name="SectionSlots" Margin="0,0,0,20">
                         <nu:CardElement.HeaderElement>
                             <Grid Margin="30,28,30,0">
-                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}"
-                                           Text="All Typography Components Slots" />
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="All Typography Components Slots" />
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>

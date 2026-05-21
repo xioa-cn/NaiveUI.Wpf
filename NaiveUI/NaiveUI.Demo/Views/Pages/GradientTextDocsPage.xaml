@@ -4,12 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
-    d:DataContext="{d:DesignInstance Type=viewModels:GradientTextDocsPageViewModel}"
     xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
     xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
     xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
     xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:GradientTextDocsPageViewModel}"
     mc:Ignorable="d">
     <UserControl.Resources>
         <Style
@@ -31,7 +31,7 @@
         </Grid.ColumnDefinitions>
 
         <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="68,34,18,34">
+            <StackPanel Margin="25,34,18,34">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
                         FontSize="48"
@@ -61,8 +61,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="GradientTextDocsPage1">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="GradientTextDocsPage1">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -98,8 +97,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="GradientTextDocsPage2">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="GradientTextDocsPage2">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -140,8 +138,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="GradientTextDocsPage3">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="GradientTextDocsPage3">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -198,8 +195,7 @@
                     <nu:CardElement x:Name="SectionGradientTextProps" Margin="0,0,0,20">
                         <nu:CardElement.HeaderElement>
                             <Grid Margin="30,28,30,0">
-                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}"
-                                           Text="GradientText Props" />
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="GradientText Props" />
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
@@ -210,8 +206,7 @@
                     <nu:CardElement x:Name="SectionGradientTextGradientProps" Margin="0,0,0,20">
                         <nu:CardElement.HeaderElement>
                             <Grid Margin="30,28,30,0">
-                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}"
-                                           Text="GradientTextGradient Props" />
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="GradientTextGradient Props" />
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
@@ -228,8 +223,7 @@
                     <nu:CardElement x:Name="SectionGradientTextSlots" Margin="0,0,0,20">
                         <nu:CardElement.HeaderElement>
                             <Grid Margin="30,28,30,0">
-                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}"
-                                           Text="GradientText Slots" />
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="GradientText Slots" />
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>

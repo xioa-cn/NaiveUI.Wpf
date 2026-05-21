@@ -4,12 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
-    d:DataContext="{d:DesignInstance Type=viewModels:TagDocsPageViewModel}"
     xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
     xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
     xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
     xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:TagDocsPageViewModel}"
     mc:Ignorable="d">
     <UserControl.Resources>
 
@@ -48,10 +48,8 @@
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="False">
-                                <Setter TargetName="SwitchTrack" Property="Background"
-                                        Value="{DynamicResource Theme.Border.Strong.Brush}" />
-                                <Setter TargetName="SwitchTrack" Property="BorderBrush"
-                                        Value="{DynamicResource Theme.Border.Strong.Brush}" />
+                                <Setter TargetName="SwitchTrack" Property="Background" Value="{DynamicResource Theme.Border.Strong.Brush}" />
+                                <Setter TargetName="SwitchTrack" Property="BorderBrush" Value="{DynamicResource Theme.Border.Strong.Brush}" />
                                 <Setter TargetName="SwitchThumb" Property="Margin" Value="2,2,20,2" />
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
@@ -74,7 +72,7 @@
         </Grid.ColumnDefinitions>
 
         <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="68,34,18,34">
+            <StackPanel Margin="25,34,18,34">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
                         FontSize="48"
@@ -104,8 +102,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="TagPage1">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="TagPage1">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -155,8 +152,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="TagPage2">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="TagPage2">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -201,8 +197,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="TagPage3">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="TagPage3">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -258,8 +253,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="TagPage4">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="TagPage4">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -311,8 +305,7 @@
                                             IsChecked="{Binding DisabledTags, Mode=TwoWay}"
                                             Style="{StaticResource InlineSwitchStyle}" />
                                     </WrapPanel>
-                                    <TextBlock Style="{StaticResource DocBodyTextStyle}"
-                                               Text="{Binding DisabledTagsDescription}" />
+                                    <TextBlock Style="{StaticResource DocBodyTextStyle}" Text="{Binding DisabledTagsDescription}" />
                                 </StackPanel>
                             </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
@@ -325,8 +318,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="TagPage5">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="TagPage5">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -401,8 +393,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="TagPage6">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="TagPage6">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -441,8 +432,7 @@
                                             哪里都是你
                                         </nc:NTag>
                                     </WrapPanel>
-                                    <TextBlock Style="{StaticResource DocBodyTextStyle}"
-                                               Text="{Binding SharedCheckedDescription}" />
+                                    <TextBlock Style="{StaticResource DocBodyTextStyle}" Text="{Binding SharedCheckedDescription}" />
                                 </StackPanel>
                             </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
@@ -455,8 +445,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="TagPage7">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="TagPage7">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -509,8 +498,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="TagPage8">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="TagPage8">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -537,8 +525,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="TagPage9">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="TagPage9">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
@@ -552,8 +539,7 @@
                                             Type="Warning">
                                             Anyway.FM
                                             <nc:NTag.AvatarContent>
-                                                <nc:NAvatar
-                                                    Src="https://cdnimg103.lizhi.fm/user/2017/02/04/2583325032200238082_160x160.jpg" />
+                                                <nc:NAvatar Src="https://cdnimg103.lizhi.fm/user/2017/02/04/2583325032200238082_160x160.jpg" />
                                             </nc:NTag.AvatarContent>
                                         </nc:NTag>
                                         <nc:NTag
@@ -584,8 +570,7 @@
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
-                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}"
-                                                       UniqueKey="TagPage10">
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="TagPage10">
                                 <StackPanel Margin="30,24,30,24">
                                     <TextBlock
                                         Margin="0,0,0,20"
