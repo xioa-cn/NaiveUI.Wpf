@@ -13,8 +13,9 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/NaiveUI.Demo;component/Styles/DemoShellStyles.xaml" />
                 <!--<ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Themes.xaml" />-->
+                <ResourceDictionary Source="/NaiveUI.NControls;component/SkinDefault.xaml" />
                 <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/ThemeResources.xaml" />
-                <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/LightTheme.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
 
 
