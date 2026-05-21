@@ -1,7 +1,317 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Themes.xaml" />
-        <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/ThemeResources.xaml" />
-        <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/LightTheme.xaml" />
-    </ResourceDictionary.MergedDictionaries>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="{DynamicResource Theme.Surface.0.Color}" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.WindowTextBrushKey}" Color="{DynamicResource Theme.Text.Primary.Color}" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="{DynamicResource Theme.Fill.2.Color}" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="{DynamicResource Theme.Text.Primary.Color}" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.ControlLightBrushKey}" Color="{DynamicResource Theme.Surface.1.Color}" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.ControlLightLightBrushKey}" Color="{DynamicResource Theme.Surface.0.Color}" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.ControlDarkBrushKey}" Color="{DynamicResource Theme.Border.Color}" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.ControlDarkDarkBrushKey}" Color="{DynamicResource Theme.Border.Strong.Color}" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.GrayTextBrushKey}" Color="{DynamicResource Theme.Text.Tertiary.Color}" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.ActiveBorderBrushKey}" Color="{DynamicResource Theme.Border.Strong.Color}" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveBorderBrushKey}" Color="{DynamicResource Theme.Border.Color}" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{DynamicResource Primary.First.Color}" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="{DynamicResource Theme.Text.Inverse.Color}" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="{DynamicResource Primary.Third.Color}" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="{DynamicResource Theme.Text.Primary.Color}" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.HotTrackBrushKey}" Color="{DynamicResource Primary.First.Color}" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.InfoBrushKey}" Color="{DynamicResource Theme.Tooltip.Background.Color}" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.InfoTextBrushKey}" Color="{DynamicResource Theme.Tooltip.Foreground.Color}" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.MenuBrushKey}" Color="{DynamicResource Theme.Surface.0.Color}" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.MenuTextBrushKey}" Color="{DynamicResource Theme.Text.Primary.Color}" />
+
+    <Style TargetType="Window">
+        <Setter Property="Background" Value="{DynamicResource Theme.Window.Background.Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+    </Style>
+
+    <Style TargetType="Page">
+        <Setter Property="Background" Value="{DynamicResource Theme.Window.Background.Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+    </Style>
+
+    <Style x:Key="ThemeNativeTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+    </Style>
+
+    <Style TargetType="TextElement">
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+    </Style>
+
+    <Style TargetType="Label">
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+    </Style>
+
+    <Style TargetType="Hyperlink">
+        <Setter Property="Foreground" Value="{DynamicResource Primary.First.Brush}" />
+    </Style>
+
+    <Style TargetType="GroupBox">
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+    </Style>
+
+    <Style TargetType="ToolTip">
+        <Setter Property="Background" Value="{DynamicResource Theme.Tooltip.Background.Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Tooltip.Foreground.Brush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Tooltip.Border.Brush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="10,6" />
+    </Style>
+
+    <Style x:Key="ThemeNativeButtonBaseStyle" TargetType="ButtonBase">
+        <Setter Property="Background" Value="{DynamicResource Theme.Fill.2.Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="12,6" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Theme.Fill.2Hover.Brush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Strong.Brush}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Theme.Fill.2Pressed.Brush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Strong.Brush}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.55" />
+                <Setter Property="Cursor" Value="Arrow" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ThemeNativeButtonStyle" TargetType="Button" BasedOn="{StaticResource ThemeNativeButtonBaseStyle}" />
+
+    <Style x:Key="ThemeNativeRepeatButtonStyle" TargetType="RepeatButton" BasedOn="{StaticResource ThemeNativeButtonBaseStyle}">
+        <Setter Property="Padding" Value="8,4" />
+    </Style>
+
+    <Style x:Key="ThemeNativeToggleButtonStyle" TargetType="ToggleButton" BasedOn="{StaticResource ThemeNativeButtonBaseStyle}">
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Primary.Third.Brush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Primary.First.Brush}" />
+                <Setter Property="Foreground" Value="{DynamicResource Primary.First.Brush}" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Theme.Fill.2Hover.Brush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Strong.Brush}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Theme.Fill.2Pressed.Brush}" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsChecked" Value="True" />
+                    <Condition Property="IsMouseOver" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Background" Value="{DynamicResource Primary.Third.Brush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Primary.First.Brush}" />
+                <Setter Property="Foreground" Value="{DynamicResource Primary.First.Brush}" />
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ThemeNativeCheckableStyle" TargetType="ToggleButton">
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Padding" Value="2" />
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.55" />
+                <Setter Property="Cursor" Value="Arrow" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ThemeNativeCheckBoxStyle" TargetType="CheckBox" BasedOn="{StaticResource ThemeNativeCheckableStyle}" />
+
+    <Style x:Key="ThemeNativeRadioButtonStyle" TargetType="RadioButton" BasedOn="{StaticResource ThemeNativeCheckableStyle}" />
+
+    <Style x:Key="ThemeNativeTextBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CaretBrush" Value="{DynamicResource Primary.First.Brush}" />
+        <Setter Property="Padding" Value="8,6" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Strong.Brush}" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource Primary.First.Brush}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.55" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="PasswordBox">
+        <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="8,6" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Strong.Brush}" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource Primary.First.Brush}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.55" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="RichTextBox">
+        <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="8,6" />
+        <Setter Property="CaretBrush" Value="{DynamicResource Primary.First.Brush}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Strong.Brush}" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource Primary.First.Brush}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.55" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="ComboBox">
+        <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="8,6" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Strong.Brush}" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource Primary.First.Brush}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.55" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="ComboBoxItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="Padding" Value="8,6" />
+        <Style.Triggers>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Theme.Fill.2Hover.Brush}" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Primary.Third.Brush}" />
+                <Setter Property="Foreground" Value="{DynamicResource Primary.First.Brush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ThemeNativeListBoxStyle" TargetType="ListBox">
+        <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+
+    <Style x:Key="ThemeNativeListViewStyle" TargetType="ListView" BasedOn="{StaticResource ThemeNativeListBoxStyle}" />
+
+    <Style x:Key="ThemeNativeListBoxItemStyle" TargetType="ListBoxItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="Padding" Value="8,6" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Theme.Fill.2Hover.Brush}" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Primary.Third.Brush}" />
+                <Setter Property="Foreground" Value="{DynamicResource Primary.First.Brush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ThemeNativeListViewItemStyle" TargetType="ListViewItem" BasedOn="{StaticResource ThemeNativeListBoxItemStyle}" />
+
+    <Style TargetType="TreeView">
+        <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+
+    <Style TargetType="Menu">
+        <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+    </Style>
+
+    <Style x:Key="ThemeNativeContextMenuStyle" TargetType="ContextMenu">
+        <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+
+    <Style x:Key="ThemeNativeMenuItemStyle" TargetType="MenuItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+    </Style>
+
+    <Style TargetType="DataGrid">
+        <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+        <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource Theme.Border.Brush}" />
+        <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource Theme.Border.Brush}" />
+        <Setter Property="RowBackground" Value="{DynamicResource Theme.Surface.0.Brush}" />
+        <Setter Property="AlternatingRowBackground" Value="{DynamicResource Theme.Surface.1.Brush}" />
+        <Setter Property="HeadersVisibility" Value="All" />
+    </Style>
+
+    <Style TargetType="DataGridColumnHeader">
+        <Setter Property="Background" Value="{DynamicResource Theme.Surface.1.Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="Padding" Value="8,6" />
+    </Style>
+
+    <Style TargetType="DataGridRow">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Theme.Fill.Hover.Brush}" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Primary.Third.Brush}" />
+                <Setter Property="Foreground" Value="{DynamicResource Primary.First.Brush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="ProgressBar">
+        <Setter Property="Background" Value="{DynamicResource Theme.Fill.2.Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Primary.First.Brush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+    </Style>
+
+    <Style x:Key="ThemeNormalTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ThemeNativeTextBlockStyle}" />
 </ResourceDictionary>
