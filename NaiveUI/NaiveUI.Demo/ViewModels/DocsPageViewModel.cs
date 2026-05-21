@@ -29,7 +29,8 @@ public sealed class DocsPageViewModel : ViewModelBase
             ["icon"] = static () => new IconDocsPage(),
             ["page-header"] = static () => new PageHeaderDocsPage(),
             ["tag"] = static () => new TagDocsPage(),
-            ["typography"] = static () => new TypographyDocsPage()
+            ["typography"] = static () => new TypographyDocsPage(),
+            ["watermark"] = static () => new WatermarkDocsPage()
         };
 
         SidebarCategories = ComponentSidebarViewModelFactory.Create(initialComponentKey);

@@ -1,0 +1,805 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Pages.WatermarkDocsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:NaiveUI.NControls.Converters;assembly=NaiveUI.NControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:WatermarkDocsPageViewModel}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+
+        <Style
+            x:Key="SectionCardHeaderTitleStyle"
+            BasedOn="{StaticResource DocSectionTitleStyle}"
+            TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+        <Style x:Key="InlineSwitchStyle" TargetType="ToggleButton">
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="22" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid>
+                            <Border
+                                x:Name="SwitchTrack"
+                                Background="{DynamicResource Primary.First.Brush}"
+                                BorderBrush="{DynamicResource Primary.First.Brush}"
+                                BorderThickness="1"
+                                CornerRadius="11" />
+                            <Border
+                                x:Name="SwitchThumb"
+                                Width="18"
+                                Height="18"
+                                Margin="20,2,2,2"
+                                HorizontalAlignment="Left"
+                                Background="{DynamicResource Theme.Surface.0.Brush}"
+                                CornerRadius="9" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter TargetName="SwitchTrack" Property="Background" Value="{DynamicResource Theme.Border.Strong.Brush}" />
+                                <Setter TargetName="SwitchTrack" Property="BorderBrush" Value="{DynamicResource Theme.Border.Strong.Brush}" />
+                                <Setter TargetName="SwitchThumb" Property="Margin" Value="2,2,20,2" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DemoTableBorderStyle" TargetType="Border">
+            <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+            <Setter Property="BorderThickness" Value="0,0,1,1" />
+            <Setter Property="Padding" Value="12,10" />
+            <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
+        </Style>
+
+        <Style
+            x:Key="DemoTableHeaderBorderStyle"
+            BasedOn="{StaticResource DemoTableBorderStyle}"
+            TargetType="Border">
+            <Setter Property="Background" Value="{DynamicResource Theme.Surface.1.Brush}" />
+        </Style>
+
+        <Style x:Key="FormLabelStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,0,0,8" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Secondary.Brush}" />
+        </Style>
+
+        <Style x:Key="EditorTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Padding" Value="10,6" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
+            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        </Style>
+
+        <Style x:Key="EditorComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Padding" Value="8,4" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
+            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="68,34,18,34">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="48"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                        Text="水印 Watermark" />
+                </StackPanel>
+
+                <TextBlock
+                    Margin="0,26,0,0"
+                    FontSize="18"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="出现在钱上的时候比较可爱。" />
+
+                <TextBlock
+                    Margin="0,52,0,28"
+                    FontSize="36"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="演示" />
+
+                <StackPanel>
+                    <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="基本用法" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <nc:NWatermark
+                                    Cross="True"
+                                    FontSize="16"
+                                    LineHeight="16"
+                                    MarkHeight="128"
+                                    MarkWidth="192"
+                                    Rotate="-15"
+                                    Selectable="True"
+                                    Text="核心机密"
+                                    XOffset="12"
+                                    YOffset="28">
+                                    <Border
+                                        Padding="0"
+                                        BorderBrush="{DynamicResource Theme.Border.Brush}"
+                                        BorderThickness="1"
+                                        CornerRadius="6">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid Grid.Row="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Border Grid.Column="0" Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                    <TextBlock Text="复盘" />
+                                                </Border>
+                                                <Border Grid.Column="1" Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                    <TextBlock Text="赋能" />
+                                                </Border>
+                                                <Border Grid.Column="2" Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                    <TextBlock Text="协同" />
+                                                </Border>
+                                                <Border Grid.Column="3" Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                    <TextBlock Text="..." />
+                                                </Border>
+                                                <Border
+                                                    Grid.Column="4"
+                                                    BorderThickness="0,0,0,1"
+                                                    Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                    <TextBlock Text="串联" />
+                                                </Border>
+                                            </Grid>
+                                            <Grid Grid.Row="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Border Grid.Column="0" Style="{StaticResource DemoTableBorderStyle}">
+                                                    <TextBlock Text="拉通" />
+                                                </Border>
+                                                <Border Grid.Column="1" Style="{StaticResource DemoTableBorderStyle}">
+                                                    <TextBlock Text="打通" />
+                                                </Border>
+                                                <Border Grid.Column="2" Style="{StaticResource DemoTableBorderStyle}">
+                                                    <TextBlock Text="树立" />
+                                                </Border>
+                                                <Border Grid.Column="3" Style="{StaticResource DemoTableBorderStyle}">
+                                                    <TextBlock Text="..." />
+                                                </Border>
+                                                <Border
+                                                    Grid.Column="4"
+                                                    BorderThickness="0,0,0,1"
+                                                    Style="{StaticResource DemoTableBorderStyle}">
+                                                    <TextBlock Text="履约" />
+                                                </Border>
+                                            </Grid>
+                                            <Grid Grid.Row="2">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Border
+                                                    Grid.Column="0"
+                                                    BorderThickness="0,0,1,0"
+                                                    Style="{StaticResource DemoTableBorderStyle}">
+                                                    <TextBlock Text="..." />
+                                                </Border>
+                                                <Border
+                                                    Grid.Column="1"
+                                                    BorderThickness="0,0,1,0"
+                                                    Style="{StaticResource DemoTableBorderStyle}">
+                                                    <TextBlock Text="..." />
+                                                </Border>
+                                                <Border
+                                                    Grid.Column="2"
+                                                    BorderThickness="0,0,1,0"
+                                                    Style="{StaticResource DemoTableBorderStyle}">
+                                                    <TextBlock Text="..." />
+                                                </Border>
+                                                <Border
+                                                    Grid.Column="3"
+                                                    BorderThickness="0,0,1,0"
+                                                    Style="{StaticResource DemoTableBorderStyle}">
+                                                    <TextBlock Text="..." />
+                                                </Border>
+                                                <Border
+                                                    Grid.Column="4"
+                                                    BorderThickness="0"
+                                                    Style="{StaticResource DemoTableBorderStyle}">
+                                                    <TextBlock Text="..." />
+                                                </Border>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                </nc:NWatermark>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionFullscreen" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="全屏幕" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,16"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="可以打开全屏，这样显得很专业。" />
+                                <StackPanel Orientation="Horizontal">
+                                    <ToggleButton IsChecked="{Binding ShowFullscreenWatermark, Mode=TwoWay}" Style="{StaticResource InlineSwitchStyle}" />
+                                    <TextBlock
+                                        Margin="12,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Foreground="{DynamicResource Theme.Text.Secondary.Brush}"
+                                        Text="显示全屏文字水印" />
+                                </StackPanel>
+                                <nc:NWatermark
+                                    Cross="True"
+                                    FontColor="Red"
+                                    FontSize="12"
+                                    Fullscreen="True"
+                                    LineHeight="16"
+                                    MarkHeight="384"
+                                    MarkWidth="384"
+                                    Rotate="-15"
+                                    Text="大家艰苦一下，一切都会有的"
+                                    Visibility="{Binding ShowFullscreenWatermark, Converter={StaticResource BoolToVisibilityConverter}}"
+                                    XGap="0"
+                                    XOffset="12"
+                                    YGap="0"
+                                    YOffset="70" />
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionImage" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="图片" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,16"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="放点图。WPF 版示例这里使用本地 pack URI，避免运行时依赖外网。" />
+                                <StackPanel Orientation="Horizontal">
+                                    <ToggleButton IsChecked="{Binding ShowImageWatermark, Mode=TwoWay}" Style="{StaticResource InlineSwitchStyle}" />
+                                    <TextBlock
+                                        Margin="12,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Foreground="{DynamicResource Theme.Text.Secondary.Brush}"
+                                        Text="显示全屏图片水印" />
+                                </StackPanel>
+                                <nc:NWatermark
+                                    Cross="True"
+                                    FontSize="16"
+                                    Fullscreen="True"
+                                    GlobalRotate="30"
+                                    Image="{Binding WatermarkImageUri}"
+                                    ImageOpacity="0.24"
+                                    ImageWidth="64"
+                                    LineHeight="16"
+                                    MarkHeight="384"
+                                    MarkWidth="384"
+                                    Visibility="{Binding ShowImageWatermark, Converter={StaticResource BoolToVisibilityConverter}}"
+                                    XGap="0"
+                                    XOffset="12"
+                                    YOffset="0" />
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionMultiline" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="多行文本" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <StackPanel Margin="30,24,30,24">
+                                <TextBlock
+                                    Margin="0,0,0,16"
+                                    Style="{StaticResource DocBodyTextStyle}"
+                                    Text="支持由 \n 分割的多行文本。" />
+                                <nc:NWatermark
+                                    Cross="True"
+                                    FontSize="16"
+                                    LineHeight="16"
+                                    MarkHeight="128"
+                                    MarkWidth="192"
+                                    Rotate="-15"
+                                    Selectable="True"
+                                    Text="{Binding MultilineText}"
+                                    XOffset="12"
+                                    YOffset="28">
+                                    <Border
+                                        Padding="0"
+                                        BorderBrush="{DynamicResource Theme.Border.Brush}"
+                                        BorderThickness="1"
+                                        CornerRadius="6">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid Grid.Row="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Border Grid.Column="0" Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                    <TextBlock Text="复盘" />
+                                                </Border>
+                                                <Border Grid.Column="1" Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                    <TextBlock Text="赋能" />
+                                                </Border>
+                                                <Border Grid.Column="2" Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                    <TextBlock Text="协同" />
+                                                </Border>
+                                                <Border Grid.Column="3" Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                    <TextBlock Text="..." />
+                                                </Border>
+                                                <Border
+                                                    Grid.Column="4"
+                                                    BorderThickness="0,0,0,1"
+                                                    Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                    <TextBlock Text="串联" />
+                                                </Border>
+                                            </Grid>
+                                            <Grid Grid.Row="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Border Grid.Column="0" Style="{StaticResource DemoTableBorderStyle}">
+                                                    <TextBlock Text="拉通" />
+                                                </Border>
+                                                <Border Grid.Column="1" Style="{StaticResource DemoTableBorderStyle}">
+                                                    <TextBlock Text="打通" />
+                                                </Border>
+                                                <Border Grid.Column="2" Style="{StaticResource DemoTableBorderStyle}">
+                                                    <TextBlock Text="树立" />
+                                                </Border>
+                                                <Border Grid.Column="3" Style="{StaticResource DemoTableBorderStyle}">
+                                                    <TextBlock Text="..." />
+                                                </Border>
+                                                <Border
+                                                    Grid.Column="4"
+                                                    BorderThickness="0,0,0,1"
+                                                    Style="{StaticResource DemoTableBorderStyle}">
+                                                    <TextBlock Text="履约" />
+                                                </Border>
+                                            </Grid>
+                                            <Grid Grid.Row="2">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Border
+                                                    Grid.Column="0"
+                                                    BorderThickness="0,0,1,0"
+                                                    Style="{StaticResource DemoTableBorderStyle}">
+                                                    <TextBlock Text="..." />
+                                                </Border>
+                                                <Border
+                                                    Grid.Column="1"
+                                                    BorderThickness="0,0,1,0"
+                                                    Style="{StaticResource DemoTableBorderStyle}">
+                                                    <TextBlock Text="..." />
+                                                </Border>
+                                                <Border
+                                                    Grid.Column="2"
+                                                    BorderThickness="0,0,1,0"
+                                                    Style="{StaticResource DemoTableBorderStyle}">
+                                                    <TextBlock Text="..." />
+                                                </Border>
+                                                <Border
+                                                    Grid.Column="3"
+                                                    BorderThickness="0,0,1,0"
+                                                    Style="{StaticResource DemoTableBorderStyle}">
+                                                    <TextBlock Text="..." />
+                                                </Border>
+                                                <Border
+                                                    Grid.Column="4"
+                                                    BorderThickness="0"
+                                                    Style="{StaticResource DemoTableBorderStyle}">
+                                                    <TextBlock Text="..." />
+                                                </Border>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                </nc:NWatermark>
+                            </StackPanel>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionCustom" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="自定义水印" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <Grid Margin="30,24,30,24">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="34" />
+                                    <ColumnDefinition Width="360" />
+                                </Grid.ColumnDefinitions>
+
+                                <nc:NWatermark
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Cross="{Binding CustomCross}"
+                                    FontColor="{Binding CustomFontColorBrush}"
+                                    FontFamily="Segoe UI"
+                                    FontSize="{Binding CustomFontSize}"
+                                    FontStyle="{Binding CustomFontStyle}"
+                                    FontWeight="{Binding CustomFontWeight}"
+                                    GlobalRotate="{Binding CustomGlobalRotate}"
+                                    LineHeight="{Binding CustomLineHeight}"
+                                    MarkHeight="{Binding CustomMarkHeight}"
+                                    MarkWidth="{Binding CustomMarkWidth}"
+                                    Rotate="{Binding CustomRotate}"
+                                    Selectable="True"
+                                    Text="{Binding CustomText}"
+                                    TextAlign="{Binding CustomTextAlign}"
+                                    XGap="{Binding CustomXGap}"
+                                    XOffset="{Binding CustomXOffset}"
+                                    YGap="{Binding CustomYGap}"
+                                    YOffset="{Binding CustomYOffset}"
+                                    ZIndex="{Binding CustomZIndex}">
+                                    <Border
+                                        MinHeight="560"
+                                        Padding="24"
+                                        Background="{DynamicResource Theme.Surface.0.Brush}"
+                                        BorderBrush="{DynamicResource Theme.Border.Brush}"
+                                        BorderThickness="1"
+                                        CornerRadius="6">
+                                        <StackPanel>
+                                            <nc:NH4 Prefix="Bar">底层逻辑是打通信息屏障，创建行业新生态。</nc:NH4>
+                                            <TextBlock
+                                                Margin="0,0,0,18"
+                                                Foreground="{DynamicResource Theme.Text.Secondary.Brush}"
+                                                TextWrapping="Wrap">
+                                                顶层设计时聚焦用户感知赛道，通过差异化和颗粒度达到引爆点。交付价值是在垂直领域采取复用打法达成持久收益。
+                                            </TextBlock>
+                                            <Grid Margin="0,0,0,18">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                <Grid Grid.Row="0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Border Grid.Column="0" Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                        <TextBlock Text="复盘" />
+                                                    </Border>
+                                                    <Border Grid.Column="1" Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                        <TextBlock Text="赋能" />
+                                                    </Border>
+                                                    <Border Grid.Column="2" Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                        <TextBlock Text="协同" />
+                                                    </Border>
+                                                    <Border Grid.Column="3" Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                        <TextBlock Text="..." />
+                                                    </Border>
+                                                    <Border
+                                                        Grid.Column="4"
+                                                        BorderThickness="0,0,0,1"
+                                                        Style="{StaticResource DemoTableHeaderBorderStyle}">
+                                                        <TextBlock Text="串联" />
+                                                    </Border>
+                                                </Grid>
+                                                <Grid Grid.Row="1">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Border
+                                                        Grid.Column="0"
+                                                        BorderThickness="0,0,1,0"
+                                                        Style="{StaticResource DemoTableBorderStyle}">
+                                                        <TextBlock Text="拉通" />
+                                                    </Border>
+                                                    <Border
+                                                        Grid.Column="1"
+                                                        BorderThickness="0,0,1,0"
+                                                        Style="{StaticResource DemoTableBorderStyle}">
+                                                        <TextBlock Text="打通" />
+                                                    </Border>
+                                                    <Border
+                                                        Grid.Column="2"
+                                                        BorderThickness="0,0,1,0"
+                                                        Style="{StaticResource DemoTableBorderStyle}">
+                                                        <TextBlock Text="树立" />
+                                                    </Border>
+                                                    <Border
+                                                        Grid.Column="3"
+                                                        BorderThickness="0,0,1,0"
+                                                        Style="{StaticResource DemoTableBorderStyle}">
+                                                        <TextBlock Text="..." />
+                                                    </Border>
+                                                    <Border
+                                                        Grid.Column="4"
+                                                        BorderThickness="0"
+                                                        Style="{StaticResource DemoTableBorderStyle}">
+                                                        <TextBlock Text="履约" />
+                                                    </Border>
+                                                </Grid>
+                                            </Grid>
+                                            <Image
+                                                Height="220"
+                                                Source="{Binding WatermarkImageUri}"
+                                                Stretch="UniformToFill" />
+                                        </StackPanel>
+                                    </Border>
+                                </nc:NWatermark>
+
+                                <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
+                                    <StackPanel>
+                                        <TextBlock Style="{StaticResource FormLabelStyle}" Text="水印内容" />
+                                        <TextBox
+                                            Height="72"
+                                            Margin="0,0,0,16"
+                                            AcceptsReturn="True"
+                                            Style="{StaticResource EditorTextBoxStyle}"
+                                            Text="{Binding CustomText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            TextWrapping="Wrap" />
+
+                                        <UniformGrid Columns="2" Rows="8">
+                                            <StackPanel Margin="0,0,12,16">
+                                                <TextBlock Style="{StaticResource FormLabelStyle}" Text="字体大小" />
+                                                <Slider
+                                                    Maximum="32"
+                                                    Minimum="8"
+                                                    Value="{Binding CustomFontSize, Mode=TwoWay}" />
+                                                <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomFontSize, StringFormat=F0}" />
+                                            </StackPanel>
+                                            <StackPanel Margin="0,0,0,16">
+                                                <TextBlock Style="{StaticResource FormLabelStyle}" Text="字体颜色" />
+                                                <TextBox Style="{StaticResource EditorTextBoxStyle}" Text="{Binding CustomFontColorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            </StackPanel>
+
+                                            <StackPanel Margin="0,0,12,16">
+                                                <TextBlock Style="{StaticResource FormLabelStyle}" Text="字体风格" />
+                                                <ComboBox
+                                                    SelectedValue="{Binding CustomFontStyleKey, Mode=TwoWay}"
+                                                    SelectedValuePath="Tag"
+                                                    Style="{StaticResource EditorComboBoxStyle}">
+                                                    <ComboBoxItem Content="正常" Tag="Normal" />
+                                                    <ComboBoxItem Content="斜体" Tag="Italic" />
+                                                    <ComboBoxItem Content="倾斜" Tag="Oblique" />
+                                                </ComboBox>
+                                            </StackPanel>
+                                            <StackPanel Margin="0,0,0,16">
+                                                <TextBlock Style="{StaticResource FormLabelStyle}" Text="字重" />
+                                                <Slider
+                                                    IsSnapToTickEnabled="True"
+                                                    Maximum="900"
+                                                    Minimum="100"
+                                                    TickFrequency="100"
+                                                    Value="{Binding CustomFontWeightValue, Mode=TwoWay}" />
+                                                <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomFontWeightValue}" />
+                                            </StackPanel>
+
+                                            <StackPanel Margin="0,0,12,16">
+                                                <TextBlock Style="{StaticResource FormLabelStyle}" Text="是否跨越边界" />
+                                                <ToggleButton IsChecked="{Binding CustomCross, Mode=TwoWay}" Style="{StaticResource InlineSwitchStyle}" />
+                                            </StackPanel>
+                                            <StackPanel Margin="0,0,0,16">
+                                                <TextBlock Style="{StaticResource FormLabelStyle}" Text="旋转角度" />
+                                                <Slider
+                                                    Maximum="90"
+                                                    Minimum="-90"
+                                                    Value="{Binding CustomRotate, Mode=TwoWay}" />
+                                                <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomRotate, StringFormat=F0}" />
+                                            </StackPanel>
+
+                                            <StackPanel Margin="0,0,12,16">
+                                                <TextBlock Style="{StaticResource FormLabelStyle}" Text="整体旋转" />
+                                                <Slider
+                                                    Maximum="180"
+                                                    Minimum="-180"
+                                                    Value="{Binding CustomGlobalRotate, Mode=TwoWay}" />
+                                                <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomGlobalRotate, StringFormat=F0}" />
+                                            </StackPanel>
+                                            <StackPanel Margin="0,0,0,16">
+                                                <TextBlock Style="{StaticResource FormLabelStyle}" Text="行高" />
+                                                <Slider
+                                                    Maximum="48"
+                                                    Minimum="8"
+                                                    Value="{Binding CustomLineHeight, Mode=TwoWay}" />
+                                                <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomLineHeight, StringFormat=F0}" />
+                                            </StackPanel>
+
+                                            <StackPanel Margin="0,0,12,16">
+                                                <TextBlock Style="{StaticResource FormLabelStyle}" Text="高度" />
+                                                <Slider
+                                                    Maximum="256"
+                                                    Minimum="32"
+                                                    Value="{Binding CustomMarkHeight, Mode=TwoWay}" />
+                                                <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomMarkHeight, StringFormat=F0}" />
+                                            </StackPanel>
+                                            <StackPanel Margin="0,0,0,16">
+                                                <TextBlock Style="{StaticResource FormLabelStyle}" Text="宽度" />
+                                                <Slider
+                                                    Maximum="320"
+                                                    Minimum="64"
+                                                    Value="{Binding CustomMarkWidth, Mode=TwoWay}" />
+                                                <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomMarkWidth, StringFormat=F0}" />
+                                            </StackPanel>
+
+                                            <StackPanel Margin="0,0,12,16">
+                                                <TextBlock Style="{StaticResource FormLabelStyle}" Text="X轴间隔" />
+                                                <Slider
+                                                    Maximum="160"
+                                                    Minimum="0"
+                                                    Value="{Binding CustomXGap, Mode=TwoWay}" />
+                                                <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomXGap, StringFormat=F0}" />
+                                            </StackPanel>
+                                            <StackPanel Margin="0,0,0,16">
+                                                <TextBlock Style="{StaticResource FormLabelStyle}" Text="Y轴间隔" />
+                                                <Slider
+                                                    Maximum="160"
+                                                    Minimum="0"
+                                                    Value="{Binding CustomYGap, Mode=TwoWay}" />
+                                                <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomYGap, StringFormat=F0}" />
+                                            </StackPanel>
+
+                                            <StackPanel Margin="0,0,12,16">
+                                                <TextBlock Style="{StaticResource FormLabelStyle}" Text="X轴偏移" />
+                                                <Slider
+                                                    Maximum="96"
+                                                    Minimum="0"
+                                                    Value="{Binding CustomXOffset, Mode=TwoWay}" />
+                                                <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomXOffset, StringFormat=F0}" />
+                                            </StackPanel>
+                                            <StackPanel Margin="0,0,0,16">
+                                                <TextBlock Style="{StaticResource FormLabelStyle}" Text="Y轴偏移" />
+                                                <Slider
+                                                    Maximum="96"
+                                                    Minimum="0"
+                                                    Value="{Binding CustomYOffset, Mode=TwoWay}" />
+                                                <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomYOffset, StringFormat=F0}" />
+                                            </StackPanel>
+
+                                            <StackPanel Margin="0,0,12,16">
+                                                <TextBlock Style="{StaticResource FormLabelStyle}" Text="Z轴高度" />
+                                                <Slider
+                                                    IsSnapToTickEnabled="True"
+                                                    Maximum="40"
+                                                    Minimum="0"
+                                                    TickFrequency="1"
+                                                    Value="{Binding CustomZIndex, Mode=TwoWay}" />
+                                                <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="{Binding CustomZIndex}" />
+                                            </StackPanel>
+                                            <StackPanel Margin="0,0,0,16">
+                                                <TextBlock Style="{StaticResource FormLabelStyle}" Text="文本对齐" />
+                                                <ComboBox
+                                                    SelectedValue="{Binding CustomTextAlignKey, Mode=TwoWay}"
+                                                    SelectedValuePath="Tag"
+                                                    Style="{StaticResource EditorComboBoxStyle}">
+                                                    <ComboBoxItem Content="左对齐" Tag="Left" />
+                                                    <ComboBoxItem Content="居中" Tag="Center" />
+                                                    <ComboBoxItem Content="右对齐" Tag="Right" />
+                                                </ComboBox>
+                                            </StackPanel>
+                                        </UniformGrid>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </Grid>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionApi" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="API" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <TextBlock
+                                Margin="30,24,30,24"
+                                Style="{StaticResource DocBodyTextStyle}"
+                                Text="下面的 API 表以 Naive UI Watermark 为基准，同时标注了 WPF 版与原始 props 的命名映射。" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionWatermarkProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Watermark Props" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding WatermarkPropsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionWatermarkSlots" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Watermark Slots" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding WatermarkSlotsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="1" Background="{DynamicResource Theme.Surface.0.Brush}">
+            <nc:NMenu
+                Margin="20,36,20,20"
+                DisplayMemberPath="Label"
+                ItemInvoked="HandleOutlineItemInvoked"
+                ItemsSource="{Binding OutlineItems}"
+                SelectedValuePath="TargetName" />
+        </Border>
+    </Grid>
+</UserControl>
