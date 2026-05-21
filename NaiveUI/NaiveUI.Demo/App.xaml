@@ -151,7 +151,7 @@
                                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
 
-                                    <Grid Grid.Row="1" Margin="0,12,0,0">
+                                    <Grid Grid.Row="1" Margin="0,0,0,0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
@@ -165,18 +165,20 @@
 
                                     <Border
                                         Grid.Row="2"
-                                        Margin="0,12,0,0"
+                                        Margin="0,5,0,0"
                                         BorderBrush="Transparent"
                                         BorderThickness="1"
                                         CornerRadius="8"
                                         Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(con:EditViewShowAttach.IsEditViewShow), Converter={StaticResource BoolToVisibility}}">
                                         <avalonedit:TextEditor
                                             Height="auto"
+                                            MaxHeight="300"
                                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                             Document="{Binding Xaml, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TextDocumentValueConverter}}"
                                             FontSize="18"
                                             ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                            ScrollViewer.VerticalScrollBarVisibility="Auto"
                                             Style="{StaticResource AvalonTextEditorXamlDisplay}" />
                                     </Border>
                                 </Grid>

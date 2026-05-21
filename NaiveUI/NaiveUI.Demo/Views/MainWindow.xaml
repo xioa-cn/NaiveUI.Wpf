@@ -16,7 +16,6 @@
     ResizeMode="CanResize"
     WindowStartupLocation="CenterScreen"
     WindowState="Maximized"
-    WindowStyle="None"
     mc:Ignorable="d">
     <Window.DataContext>
         <viewModels:DemoShellViewModel />

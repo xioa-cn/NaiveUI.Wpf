@@ -19,7 +19,7 @@
                 BorderBrush="{DynamicResource Theme.Border.Brush}"
                 BorderThickness="0,0,1,0">
                 <nc:NNavMenu
-                    Margin="10,18,10,18"
+                    Margin="10,10,10,10"
                     ItemInvoked="HandleSidebarItemInvoked"
                     ItemsSource="{Binding SidebarCategories, ElementName=Root}" />
             </Border>

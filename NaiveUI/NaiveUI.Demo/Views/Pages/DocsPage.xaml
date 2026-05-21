@@ -19,6 +19,9 @@
             SidebarCategories="{Binding SidebarCategories}"
             SidebarItemInvoked="HandleSidebarItemInvoked" />
 
-        <ContentControl Grid.Column="1" Content="{Binding CurrentContentView}" />
+        <ContentControl
+            Grid.Column="1"
+            Margin="15"
+            Content="{Binding CurrentContentView}" />
     </Grid>
 </UserControl>
