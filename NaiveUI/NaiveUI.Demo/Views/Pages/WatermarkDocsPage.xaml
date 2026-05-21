@@ -165,22 +165,22 @@
                                                         <ColumnDefinition Width="*" />
                                                     </Grid.ColumnDefinitions>
                                                     <Border Grid.Column="0" Style="{StaticResource DemoTableHeaderBorderStyle}">
-                                                        <TextBlock Text="复盘" />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="复盘" />
                                                     </Border>
                                                     <Border Grid.Column="1" Style="{StaticResource DemoTableHeaderBorderStyle}">
-                                                        <TextBlock Text="赋能" />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="赋能" />
                                                     </Border>
                                                     <Border Grid.Column="2" Style="{StaticResource DemoTableHeaderBorderStyle}">
-                                                        <TextBlock Text="协同" />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="协同" />
                                                     </Border>
                                                     <Border Grid.Column="3" Style="{StaticResource DemoTableHeaderBorderStyle}">
-                                                        <TextBlock Text="..." />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="..." />
                                                     </Border>
                                                     <Border
                                                         Grid.Column="4"
                                                         BorderThickness="0,0,0,1"
                                                         Style="{StaticResource DemoTableHeaderBorderStyle}">
-                                                        <TextBlock Text="串联" />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="串联" />
                                                     </Border>
                                                 </Grid>
                                                 <Grid Grid.Row="1">
@@ -192,22 +192,22 @@
                                                         <ColumnDefinition Width="*" />
                                                     </Grid.ColumnDefinitions>
                                                     <Border Grid.Column="0" Style="{StaticResource DemoTableBorderStyle}">
-                                                        <TextBlock Text="拉通" />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="拉通" />
                                                     </Border>
                                                     <Border Grid.Column="1" Style="{StaticResource DemoTableBorderStyle}">
-                                                        <TextBlock Text="打通" />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="打通" />
                                                     </Border>
                                                     <Border Grid.Column="2" Style="{StaticResource DemoTableBorderStyle}">
-                                                        <TextBlock Text="树立" />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="树立" />
                                                     </Border>
                                                     <Border Grid.Column="3" Style="{StaticResource DemoTableBorderStyle}">
-                                                        <TextBlock Text="..." />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="..." />
                                                     </Border>
                                                     <Border
                                                         Grid.Column="4"
                                                         BorderThickness="0,0,0,1"
                                                         Style="{StaticResource DemoTableBorderStyle}">
-                                                        <TextBlock Text="履约" />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="履约" />
                                                     </Border>
                                                 </Grid>
                                                 <Grid Grid.Row="2">
@@ -222,31 +222,31 @@
                                                         Grid.Column="0"
                                                         BorderThickness="0,0,1,0"
                                                         Style="{StaticResource DemoTableBorderStyle}">
-                                                        <TextBlock Text="..." />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="..." />
                                                     </Border>
                                                     <Border
                                                         Grid.Column="1"
                                                         BorderThickness="0,0,1,0"
                                                         Style="{StaticResource DemoTableBorderStyle}">
-                                                        <TextBlock Text="..." />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="..." />
                                                     </Border>
                                                     <Border
                                                         Grid.Column="2"
                                                         BorderThickness="0,0,1,0"
                                                         Style="{StaticResource DemoTableBorderStyle}">
-                                                        <TextBlock Text="..." />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="..." />
                                                     </Border>
                                                     <Border
                                                         Grid.Column="3"
                                                         BorderThickness="0,0,1,0"
                                                         Style="{StaticResource DemoTableBorderStyle}">
-                                                        <TextBlock Text="..." />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="..." />
                                                     </Border>
                                                     <Border
                                                         Grid.Column="4"
                                                         BorderThickness="0"
                                                         Style="{StaticResource DemoTableBorderStyle}">
-                                                        <TextBlock Text="..." />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="..." />
                                                     </Border>
                                                 </Grid>
                                             </Grid>
@@ -383,22 +383,22 @@
                                                         <ColumnDefinition Width="*" />
                                                     </Grid.ColumnDefinitions>
                                                     <Border Grid.Column="0" Style="{StaticResource DemoTableHeaderBorderStyle}">
-                                                        <TextBlock Text="复盘" />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="复盘" />
                                                     </Border>
                                                     <Border Grid.Column="1" Style="{StaticResource DemoTableHeaderBorderStyle}">
-                                                        <TextBlock Text="赋能" />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="赋能" />
                                                     </Border>
                                                     <Border Grid.Column="2" Style="{StaticResource DemoTableHeaderBorderStyle}">
-                                                        <TextBlock Text="协同" />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="协同" />
                                                     </Border>
                                                     <Border Grid.Column="3" Style="{StaticResource DemoTableHeaderBorderStyle}">
-                                                        <TextBlock Text="..." />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="..." />
                                                     </Border>
                                                     <Border
                                                         Grid.Column="4"
                                                         BorderThickness="0,0,0,1"
                                                         Style="{StaticResource DemoTableHeaderBorderStyle}">
-                                                        <TextBlock Text="串联" />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="串联" />
                                                     </Border>
                                                 </Grid>
                                                 <Grid Grid.Row="1">
@@ -410,22 +410,22 @@
                                                         <ColumnDefinition Width="*" />
                                                     </Grid.ColumnDefinitions>
                                                     <Border Grid.Column="0" Style="{StaticResource DemoTableBorderStyle}">
-                                                        <TextBlock Text="拉通" />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="拉通" />
                                                     </Border>
                                                     <Border Grid.Column="1" Style="{StaticResource DemoTableBorderStyle}">
-                                                        <TextBlock Text="打通" />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="打通" />
                                                     </Border>
                                                     <Border Grid.Column="2" Style="{StaticResource DemoTableBorderStyle}">
-                                                        <TextBlock Text="树立" />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="树立" />
                                                     </Border>
                                                     <Border Grid.Column="3" Style="{StaticResource DemoTableBorderStyle}">
-                                                        <TextBlock Text="..." />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="..." />
                                                     </Border>
                                                     <Border
                                                         Grid.Column="4"
                                                         BorderThickness="0,0,0,1"
                                                         Style="{StaticResource DemoTableBorderStyle}">
-                                                        <TextBlock Text="履约" />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="履约" />
                                                     </Border>
                                                 </Grid>
                                                 <Grid Grid.Row="2">
@@ -440,31 +440,31 @@
                                                         Grid.Column="0"
                                                         BorderThickness="0,0,1,0"
                                                         Style="{StaticResource DemoTableBorderStyle}">
-                                                        <TextBlock Text="..." />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="..." />
                                                     </Border>
                                                     <Border
                                                         Grid.Column="1"
                                                         BorderThickness="0,0,1,0"
                                                         Style="{StaticResource DemoTableBorderStyle}">
-                                                        <TextBlock Text="..." />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="..." />
                                                     </Border>
                                                     <Border
                                                         Grid.Column="2"
                                                         BorderThickness="0,0,1,0"
                                                         Style="{StaticResource DemoTableBorderStyle}">
-                                                        <TextBlock Text="..." />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="..." />
                                                     </Border>
                                                     <Border
                                                         Grid.Column="3"
                                                         BorderThickness="0,0,1,0"
                                                         Style="{StaticResource DemoTableBorderStyle}">
-                                                        <TextBlock Text="..." />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="..." />
                                                     </Border>
                                                     <Border
                                                         Grid.Column="4"
                                                         BorderThickness="0"
                                                         Style="{StaticResource DemoTableBorderStyle}">
-                                                        <TextBlock Text="..." />
+                                                        <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="..." />
                                                     </Border>
                                                 </Grid>
                                             </Grid>
@@ -542,22 +542,22 @@
                                                             <ColumnDefinition Width="*" />
                                                         </Grid.ColumnDefinitions>
                                                         <Border Grid.Column="0" Style="{StaticResource DemoTableHeaderBorderStyle}">
-                                                            <TextBlock Text="复盘" />
+                                                            <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="复盘" />
                                                         </Border>
                                                         <Border Grid.Column="1" Style="{StaticResource DemoTableHeaderBorderStyle}">
-                                                            <TextBlock Text="赋能" />
+                                                            <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="赋能" />
                                                         </Border>
                                                         <Border Grid.Column="2" Style="{StaticResource DemoTableHeaderBorderStyle}">
-                                                            <TextBlock Text="协同" />
+                                                            <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="协同" />
                                                         </Border>
                                                         <Border Grid.Column="3" Style="{StaticResource DemoTableHeaderBorderStyle}">
-                                                            <TextBlock Text="..." />
+                                                            <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="..." />
                                                         </Border>
                                                         <Border
                                                             Grid.Column="4"
                                                             BorderThickness="0,0,0,1"
                                                             Style="{StaticResource DemoTableHeaderBorderStyle}">
-                                                            <TextBlock Text="串联" />
+                                                            <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="串联" />
                                                         </Border>
                                                     </Grid>
                                                     <Grid Grid.Row="1">
@@ -572,31 +572,31 @@
                                                             Grid.Column="0"
                                                             BorderThickness="0,0,1,0"
                                                             Style="{StaticResource DemoTableBorderStyle}">
-                                                            <TextBlock Text="拉通" />
+                                                            <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="拉通" />
                                                         </Border>
                                                         <Border
                                                             Grid.Column="1"
                                                             BorderThickness="0,0,1,0"
                                                             Style="{StaticResource DemoTableBorderStyle}">
-                                                            <TextBlock Text="打通" />
+                                                            <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="打通" />
                                                         </Border>
                                                         <Border
                                                             Grid.Column="2"
                                                             BorderThickness="0,0,1,0"
                                                             Style="{StaticResource DemoTableBorderStyle}">
-                                                            <TextBlock Text="树立" />
+                                                            <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="树立" />
                                                         </Border>
                                                         <Border
                                                             Grid.Column="3"
                                                             BorderThickness="0,0,1,0"
                                                             Style="{StaticResource DemoTableBorderStyle}">
-                                                            <TextBlock Text="..." />
+                                                            <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="..." />
                                                         </Border>
                                                         <Border
                                                             Grid.Column="4"
                                                             BorderThickness="0"
                                                             Style="{StaticResource DemoTableBorderStyle}">
-                                                            <TextBlock Text="履约" />
+                                                            <TextBlock Style="{StaticResource ThemeNormalTextBlock}" Text="履约" />
                                                         </Border>
                                                     </Grid>
                                                 </Grid>
