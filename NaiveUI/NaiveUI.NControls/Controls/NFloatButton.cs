@@ -4,7 +4,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
+using NaiveUI.NControls.Themes;
 using NaiveUI.NControls.Tools;
 
 namespace NaiveUI.NControls.Controls;
@@ -18,7 +20,12 @@ public enum NFloatButtonShape
 public enum NFloatButtonType
 {
     Default,
-    Primary
+    Primary,
+    Info,
+    Success,
+    Warning,
+    Error,
+    Customize
 }
 
 public enum NFloatButtonPosition
@@ -35,10 +42,19 @@ public enum NFloatButtonMenuTrigger
     Click
 }
 
+public enum NFloatButtonMenuPlacement
+{
+    Top,
+    Right,
+    Bottom,
+    Left
+}
+
 public class NFloatButton : Button
 {
     private const string MenuPopupPartName = "PART_MenuPopup";
     private const string MenuContentHostPartName = "PART_MenuContentHost";
+    private const double MenuPopupGap = 8d;
     private static readonly CornerRadius CircleCornerRadius = new(999d);
     private static readonly CornerRadius SquareCornerRadius = new(8d);
     private readonly DispatcherTimer hoverCloseTimer;
@@ -51,6 +67,7 @@ public class NFloatButton : Button
     private VerticalAlignment userVerticalAlignment;
     private bool isGrouped;
     private NFloatButtonShape groupedShape;
+    private Orientation groupedOrientation;
     private bool isLastGroupedItem;
 
     static NFloatButton()
@@ -74,6 +91,7 @@ public class NFloatButton : Button
         userVerticalAlignment = VerticalAlignment;
 
         UpdateResolvedState();
+        UpdateResolvedBrushes();
     }
 
     public object? Left
@@ -137,7 +155,7 @@ public class NFloatButton : Button
     }
 
     public static readonly DependencyProperty TypeProperty =
-        ElementBase.Property<NFloatButton, NFloatButtonType>(nameof(TypeProperty), NFloatButtonType.Default);
+        ElementBase.Property<NFloatButton, NFloatButtonType>(nameof(TypeProperty), NFloatButtonType.Default, OnAppearancePropertyChanged);
 
     public NFloatButtonMenuTrigger MenuTrigger
     {
@@ -147,6 +165,24 @@ public class NFloatButton : Button
 
     public static readonly DependencyProperty MenuTriggerProperty =
         ElementBase.Property<NFloatButton, NFloatButtonMenuTrigger>(nameof(MenuTriggerProperty), NFloatButtonMenuTrigger.None, OnMenuPropertyChanged);
+
+    public NFloatButtonMenuPlacement MenuPlacement
+    {
+        get => (NFloatButtonMenuPlacement)GetValue(MenuPlacementProperty);
+        set => SetValue(MenuPlacementProperty, value);
+    }
+
+    public static readonly DependencyProperty MenuPlacementProperty =
+        ElementBase.Property<NFloatButton, NFloatButtonMenuPlacement>(nameof(MenuPlacementProperty), NFloatButtonMenuPlacement.Top, OnMenuPlacementPropertyChanged);
+
+    public Orientation MenuOrientation
+    {
+        get => (Orientation)GetValue(MenuOrientationProperty);
+        set => SetValue(MenuOrientationProperty, value);
+    }
+
+    public static readonly DependencyProperty MenuOrientationProperty =
+        ElementBase.Property<NFloatButton, Orientation>(nameof(MenuOrientationProperty), Orientation.Vertical, OnMenuLayoutPropertyChanged);
 
     public bool ShowMenu
     {
@@ -232,6 +268,123 @@ public class NFloatButton : Button
 
     public static readonly DependencyProperty ShowGroupSeparatorProperty =
         ElementBase.Property<NFloatButton, bool>(nameof(ShowGroupSeparatorProperty), false);
+
+    public Orientation ResolvedGroupOrientation
+    {
+        get => (Orientation)GetValue(ResolvedGroupOrientationProperty);
+        private set => SetValue(ResolvedGroupOrientationProperty, value);
+    }
+
+    public static readonly DependencyProperty ResolvedGroupOrientationProperty =
+        ElementBase.Property<NFloatButton, Orientation>(nameof(ResolvedGroupOrientationProperty), Orientation.Vertical);
+
+    public Brush? CustomBackgroundBrush
+    {
+        get => (Brush?)GetValue(CustomBackgroundBrushProperty);
+        set => SetValue(CustomBackgroundBrushProperty, value);
+    }
+
+    public static readonly DependencyProperty CustomBackgroundBrushProperty =
+        ElementBase.Property<NFloatButton, Brush?>(nameof(CustomBackgroundBrushProperty), null, OnAppearancePropertyChanged);
+
+    public Brush? CustomForegroundBrush
+    {
+        get => (Brush?)GetValue(CustomForegroundBrushProperty);
+        set => SetValue(CustomForegroundBrushProperty, value);
+    }
+
+    public static readonly DependencyProperty CustomForegroundBrushProperty =
+        ElementBase.Property<NFloatButton, Brush?>(nameof(CustomForegroundBrushProperty), null, OnAppearancePropertyChanged);
+
+    public Brush? CustomHoverBackgroundBrush
+    {
+        get => (Brush?)GetValue(CustomHoverBackgroundBrushProperty);
+        set => SetValue(CustomHoverBackgroundBrushProperty, value);
+    }
+
+    public static readonly DependencyProperty CustomHoverBackgroundBrushProperty =
+        ElementBase.Property<NFloatButton, Brush?>(nameof(CustomHoverBackgroundBrushProperty), null, OnAppearancePropertyChanged);
+
+    public Brush? CustomHoverForegroundBrush
+    {
+        get => (Brush?)GetValue(CustomHoverForegroundBrushProperty);
+        set => SetValue(CustomHoverForegroundBrushProperty, value);
+    }
+
+    public static readonly DependencyProperty CustomHoverForegroundBrushProperty =
+        ElementBase.Property<NFloatButton, Brush?>(nameof(CustomHoverForegroundBrushProperty), null, OnAppearancePropertyChanged);
+
+    public Brush? CustomPressedBackgroundBrush
+    {
+        get => (Brush?)GetValue(CustomPressedBackgroundBrushProperty);
+        set => SetValue(CustomPressedBackgroundBrushProperty, value);
+    }
+
+    public static readonly DependencyProperty CustomPressedBackgroundBrushProperty =
+        ElementBase.Property<NFloatButton, Brush?>(nameof(CustomPressedBackgroundBrushProperty), null, OnAppearancePropertyChanged);
+
+    public Brush? CustomPressedForegroundBrush
+    {
+        get => (Brush?)GetValue(CustomPressedForegroundBrushProperty);
+        set => SetValue(CustomPressedForegroundBrushProperty, value);
+    }
+
+    public static readonly DependencyProperty CustomPressedForegroundBrushProperty =
+        ElementBase.Property<NFloatButton, Brush?>(nameof(CustomPressedForegroundBrushProperty), null, OnAppearancePropertyChanged);
+
+    public Brush ResolvedBackground
+    {
+        get => (Brush)GetValue(ResolvedBackgroundProperty);
+        private set => SetValue(ResolvedBackgroundProperty, value);
+    }
+
+    public static readonly DependencyProperty ResolvedBackgroundProperty =
+        ElementBase.Property<NFloatButton, Brush>(nameof(ResolvedBackgroundProperty), Brushes.Transparent);
+
+    public Brush ResolvedForeground
+    {
+        get => (Brush)GetValue(ResolvedForegroundProperty);
+        private set => SetValue(ResolvedForegroundProperty, value);
+    }
+
+    public static readonly DependencyProperty ResolvedForegroundProperty =
+        ElementBase.Property<NFloatButton, Brush>(nameof(ResolvedForegroundProperty), Brushes.Black);
+
+    public Brush ResolvedHoverBackground
+    {
+        get => (Brush)GetValue(ResolvedHoverBackgroundProperty);
+        private set => SetValue(ResolvedHoverBackgroundProperty, value);
+    }
+
+    public static readonly DependencyProperty ResolvedHoverBackgroundProperty =
+        ElementBase.Property<NFloatButton, Brush>(nameof(ResolvedHoverBackgroundProperty), Brushes.Transparent);
+
+    public Brush ResolvedHoverForeground
+    {
+        get => (Brush)GetValue(ResolvedHoverForegroundProperty);
+        private set => SetValue(ResolvedHoverForegroundProperty, value);
+    }
+
+    public static readonly DependencyProperty ResolvedHoverForegroundProperty =
+        ElementBase.Property<NFloatButton, Brush>(nameof(ResolvedHoverForegroundProperty), Brushes.Black);
+
+    public Brush ResolvedPressedBackground
+    {
+        get => (Brush)GetValue(ResolvedPressedBackgroundProperty);
+        private set => SetValue(ResolvedPressedBackgroundProperty, value);
+    }
+
+    public static readonly DependencyProperty ResolvedPressedBackgroundProperty =
+        ElementBase.Property<NFloatButton, Brush>(nameof(ResolvedPressedBackgroundProperty), Brushes.Transparent);
+
+    public Brush ResolvedPressedForeground
+    {
+        get => (Brush)GetValue(ResolvedPressedForegroundProperty);
+        private set => SetValue(ResolvedPressedForegroundProperty, value);
+    }
+
+    public static readonly DependencyProperty ResolvedPressedForegroundProperty =
+        ElementBase.Property<NFloatButton, Brush>(nameof(ResolvedPressedForegroundProperty), Brushes.Black);
 
     public override void OnApplyTemplate()
     {
@@ -319,12 +472,17 @@ public class NFloatButton : Button
         {
             userVerticalAlignment = (VerticalAlignment)e.NewValue;
         }
+        else if (e.Property == IsMouseOverProperty || e.Property == IsPressedProperty || e.Property == IsEnabledProperty)
+        {
+            UpdateVisualState();
+        }
     }
 
-    internal void SetGroupContext(bool grouped, NFloatButtonShape shape, bool isLastItem)
+    internal void SetGroupContext(bool grouped, NFloatButtonShape shape, Orientation orientation, bool isLastItem)
     {
         isGrouped = grouped;
         groupedShape = shape;
+        groupedOrientation = orientation;
         isLastGroupedItem = isLastItem;
 
         UpdateResolvedState();
@@ -339,6 +497,7 @@ public class NFloatButton : Button
         }
 
         button.UpdateResolvedState();
+        button.UpdateResolvedBrushes();
     }
 
     private static void OnLayoutPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -363,6 +522,26 @@ public class NFloatButton : Button
         button.SyncPopupState();
     }
 
+    private static void OnMenuPlacementPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is not NFloatButton button)
+        {
+            return;
+        }
+
+        button.SyncPopupState();
+    }
+
+    private static void OnMenuLayoutPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is not NFloatButton button)
+        {
+            return;
+        }
+
+        button.ApplyMenuLayout();
+    }
+
     private static void OnShowMenuPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         if (d is not NFloatButton button)
@@ -375,11 +554,13 @@ public class NFloatButton : Button
 
     private void HandleLoaded(object sender, RoutedEventArgs e)
     {
+        ThemeManager.ThemeChanged += HandleThemeChanged;
         userMargin = Margin;
         userHorizontalAlignment = HorizontalAlignment;
         userVerticalAlignment = VerticalAlignment;
 
         UpdateResolvedState();
+        UpdateResolvedBrushes();
         UpdateLayoutState();
     }
 
@@ -387,6 +568,12 @@ public class NFloatButton : Button
     {
         hoverCloseTimer.Stop();
         DetachPopupHandlers();
+        ThemeManager.ThemeChanged -= HandleThemeChanged;
+    }
+
+    private void HandleThemeChanged(ThemeMode mode)
+    {
+        UpdateResolvedBrushes();
     }
 
     private void HandlePopupClosed(object? sender, EventArgs e)
@@ -431,6 +618,7 @@ public class NFloatButton : Button
         HasDescription = Description is not null;
         HasMenu = Menu is not null && MenuTrigger != NFloatButtonMenuTrigger.None;
         ResolvedShape = isGrouped ? groupedShape : Shape;
+        ResolvedGroupOrientation = isGrouped ? groupedOrientation : Orientation.Vertical;
         ResolvedCornerRadius = ResolvedShape == NFloatButtonShape.Circle ? CircleCornerRadius : SquareCornerRadius;
         UseSquareGroupChrome = isGrouped && ResolvedShape == NFloatButtonShape.Square;
         ShowGroupSeparator = UseSquareGroupChrome && !isLastGroupedItem;
@@ -439,6 +627,55 @@ public class NFloatButton : Button
         {
             SetCurrentValue(ShowMenuProperty, false);
         }
+    }
+
+    private void UpdateResolvedBrushes()
+    {
+        if (HasCustomAppearance())
+        {
+            SetResolved(
+                CustomBackgroundBrush ?? GetBrush("Theme.Surface.0.Brush"),
+                CustomForegroundBrush ?? GetBrush("Theme.Text.Primary.Brush"),
+                CustomHoverBackgroundBrush ?? CustomBackgroundBrush ?? GetBrush("Theme.Fill.2Hover.Brush"),
+                CustomHoverForegroundBrush ?? CustomForegroundBrush ?? GetBrush("Theme.Text.Primary.Brush"),
+                CustomPressedBackgroundBrush ?? CustomHoverBackgroundBrush ?? CustomBackgroundBrush ?? GetBrush("Theme.Fill.2Pressed.Brush"),
+                CustomPressedForegroundBrush ?? CustomHoverForegroundBrush ?? CustomForegroundBrush ?? GetBrush("Theme.Text.Primary.Brush"));
+            UpdateVisualState();
+            return;
+        }
+
+        var tonePrefix = Type switch
+        {
+            NFloatButtonType.Primary => "Primary",
+            NFloatButtonType.Info => "Info",
+            NFloatButtonType.Success => "Success",
+            NFloatButtonType.Warning => "Warning",
+            NFloatButtonType.Error => "Error",
+            _ => "Default"
+        };
+
+        if (Type == NFloatButtonType.Default)
+        {
+            SetResolved(
+                "Theme.Surface.0.Brush",
+                "Theme.Text.Primary.Brush",
+                "Theme.Fill.2Hover.Brush",
+                "Theme.Text.Primary.Brush",
+                "Theme.Fill.2Pressed.Brush",
+                "Theme.Text.Primary.Brush");
+        }
+        else
+        {
+            SetResolved(
+                $"{tonePrefix}.First.Brush",
+                "Theme.Text.Inverse.Brush",
+                $"{tonePrefix}.Hover.Brush",
+                "Theme.Text.Inverse.Brush",
+                $"{tonePrefix}.Pressed.Brush",
+                "Theme.Text.Inverse.Brush");
+        }
+
+        UpdateVisualState();
     }
 
     private void UpdateLayoutState()
@@ -539,7 +776,8 @@ public class NFloatButton : Button
         }
 
         menuPopupPart.PlacementTarget = this;
-        menuPopupPart.VerticalOffset = -8d;
+        menuPopupPart.Placement = PlacementMode.Custom;
+        menuPopupPart.CustomPopupPlacementCallback = HandleMenuPopupPlacement;
         menuPopupPart.StaysOpen = MenuTrigger != NFloatButtonMenuTrigger.Click;
         menuPopupPart.IsOpen = HasMenu && ShowMenu;
     }
@@ -552,6 +790,7 @@ public class NFloatButton : Button
         }
 
         menuContentHostPart.Content = Menu;
+        ApplyMenuLayout();
     }
 
     internal static bool TryResolveOffset(object? value, out double offset)
@@ -592,5 +831,137 @@ public class NFloatButton : Button
 
         offset = 0d;
         return false;
+    }
+
+    private CustomPopupPlacement[] HandleMenuPopupPlacement(Size popupSize, Size targetSize, Point offset)
+    {
+        return MenuPlacement switch
+        {
+            NFloatButtonMenuPlacement.Top => [new CustomPopupPlacement(new Point((targetSize.Width - popupSize.Width) / 2d, -popupSize.Height - MenuPopupGap), PopupPrimaryAxis.Vertical)],
+            NFloatButtonMenuPlacement.Right => [new CustomPopupPlacement(new Point(targetSize.Width + MenuPopupGap, (targetSize.Height - popupSize.Height) / 2d), PopupPrimaryAxis.Horizontal)],
+            NFloatButtonMenuPlacement.Bottom => [new CustomPopupPlacement(new Point((targetSize.Width - popupSize.Width) / 2d, targetSize.Height + MenuPopupGap), PopupPrimaryAxis.Vertical)],
+            NFloatButtonMenuPlacement.Left => [new CustomPopupPlacement(new Point(-popupSize.Width - MenuPopupGap, (targetSize.Height - popupSize.Height) / 2d), PopupPrimaryAxis.Horizontal)],
+            _ => [new CustomPopupPlacement(new Point((targetSize.Width - popupSize.Width) / 2d, -popupSize.Height - MenuPopupGap), PopupPrimaryAxis.Vertical)]
+        };
+    }
+
+    private void ApplyMenuLayout()
+    {
+        ApplyMenuLayoutToContent(Menu);
+    }
+
+    private void ApplyMenuLayoutToContent(object? content)
+    {
+        switch (content)
+        {
+            case NFloatButtonGroup group:
+                TryApplyOrientation(group, NFloatButtonGroup.OrientationProperty);
+                break;
+            case NFloatButtonStackPanel floatPanel:
+                TryApplyOrientation(floatPanel, NFloatButtonStackPanel.OrientationProperty);
+                break;
+            case StackPanel stackPanel:
+                TryApplyOrientation(stackPanel, StackPanel.OrientationProperty);
+                break;
+            case WrapPanel wrapPanel:
+                TryApplyOrientation(wrapPanel, WrapPanel.OrientationProperty);
+                break;
+        }
+    }
+
+    private void TryApplyOrientation(DependencyObject target, DependencyProperty property)
+    {
+        if (target.ReadLocalValue(property) != DependencyProperty.UnsetValue)
+        {
+            return;
+        }
+
+        target.SetValue(property, MenuOrientation);
+    }
+
+    private bool HasCustomAppearance()
+    {
+        return Type == NFloatButtonType.Customize
+               || CustomBackgroundBrush is not null
+               || CustomForegroundBrush is not null
+               || CustomHoverBackgroundBrush is not null
+               || CustomHoverForegroundBrush is not null
+               || CustomPressedBackgroundBrush is not null
+               || CustomPressedForegroundBrush is not null;
+    }
+
+    private void SetResolved(
+        string backgroundKey,
+        string foregroundKey,
+        string hoverBackgroundKey,
+        string hoverForegroundKey,
+        string pressedBackgroundKey,
+        string pressedForegroundKey)
+    {
+        SetResolved(
+            GetBrush(backgroundKey),
+            GetBrush(foregroundKey),
+            GetBrush(hoverBackgroundKey),
+            GetBrush(hoverForegroundKey),
+            GetBrush(pressedBackgroundKey),
+            GetBrush(pressedForegroundKey));
+    }
+
+    private void SetResolved(
+        Brush background,
+        Brush foreground,
+        Brush hoverBackground,
+        Brush hoverForeground,
+        Brush pressedBackground,
+        Brush pressedForeground)
+    {
+        ResolvedBackground = background;
+        ResolvedForeground = foreground;
+        ResolvedHoverBackground = hoverBackground;
+        ResolvedHoverForeground = hoverForeground;
+        ResolvedPressedBackground = pressedBackground;
+        ResolvedPressedForeground = pressedForeground;
+    }
+
+    private void UpdateVisualState()
+    {
+        if (!IsEnabled)
+        {
+            Background = ResolvedBackground;
+            Foreground = ResolvedForeground;
+            return;
+        }
+
+        if (IsPressed)
+        {
+            Background = ResolvedPressedBackground;
+            Foreground = ResolvedPressedForeground;
+            return;
+        }
+
+        if (IsMouseOver)
+        {
+            Background = ResolvedHoverBackground;
+            Foreground = ResolvedHoverForeground;
+            return;
+        }
+
+        Background = ResolvedBackground;
+        Foreground = ResolvedForeground;
+    }
+
+    private static Brush GetBrush(string key)
+    {
+        if (string.Equals(key, "Transparent", StringComparison.Ordinal))
+        {
+            return Brushes.Transparent;
+        }
+
+        if (Application.Current?.TryFindResource(key) is Brush brush)
+        {
+            return brush;
+        }
+
+        return Brushes.Transparent;
     }
 }

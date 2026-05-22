@@ -13,6 +13,7 @@ public class NFloatButtonGroup : ItemsControl
     private Thickness userMargin;
     private HorizontalAlignment userHorizontalAlignment;
     private VerticalAlignment userVerticalAlignment;
+    private static readonly CornerRadius DefaultCornerRadius = new(8d);
 
     static NFloatButtonGroup()
     {
@@ -83,6 +84,24 @@ public class NFloatButtonGroup : ItemsControl
     public static readonly DependencyProperty PositionProperty =
         ElementBase.Property<NFloatButtonGroup, NFloatButtonPosition>(nameof(PositionProperty), NFloatButtonPosition.Fixed, OnLayoutPropertyChanged);
 
+    public Orientation Orientation
+    {
+        get => (Orientation)GetValue(OrientationProperty);
+        set => SetValue(OrientationProperty, value);
+    }
+
+    public static readonly DependencyProperty OrientationProperty =
+        ElementBase.Property<NFloatButtonGroup, Orientation>(nameof(OrientationProperty), Orientation.Vertical, OnOrientationPropertyChanged);
+
+    public CornerRadius CornerRadius
+    {
+        get => (CornerRadius)GetValue(CornerRadiusProperty);
+        set => SetValue(CornerRadiusProperty, value);
+    }
+
+    public static readonly DependencyProperty CornerRadiusProperty =
+        ElementBase.Property<NFloatButtonGroup, CornerRadius>(nameof(CornerRadiusProperty), DefaultCornerRadius);
+
     protected override void OnItemsChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
     {
         base.OnItemsChanged(e);
@@ -133,6 +152,18 @@ public class NFloatButtonGroup : ItemsControl
         group.UpdateLayoutState();
     }
 
+    private static void OnOrientationPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is not NFloatButtonGroup group)
+        {
+            return;
+        }
+
+        group.RefreshButtonStates();
+        group.InvalidateMeasure();
+        group.InvalidateArrange();
+    }
+
     private void HandleLoaded(object sender, RoutedEventArgs e)
     {
         userMargin = Margin;
@@ -147,7 +178,7 @@ public class NFloatButtonGroup : ItemsControl
     {
         foreach (var button in attachedButtons)
         {
-            button.SetGroupContext(false, NFloatButtonShape.Circle, true);
+            button.SetGroupContext(false, NFloatButtonShape.Circle, Orientation.Vertical, true);
         }
 
         attachedButtons.Clear();
@@ -164,14 +195,14 @@ public class NFloatButtonGroup : ItemsControl
 
         foreach (var removedButton in attachedButtons.Except(buttons).ToArray())
         {
-            removedButton.SetGroupContext(false, NFloatButtonShape.Circle, true);
+            removedButton.SetGroupContext(false, NFloatButtonShape.Circle, Orientation.Vertical, true);
             attachedButtons.Remove(removedButton);
         }
 
         for (var index = 0; index < buttons.Count; index++)
         {
             var button = buttons[index];
-            button.SetGroupContext(true, Shape, index == buttons.Count - 1);
+            button.SetGroupContext(true, Shape, Orientation, index == buttons.Count - 1);
             attachedButtons.Add(button);
         }
     }

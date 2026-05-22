@@ -120,7 +120,8 @@
                                             Bottom="0"
                                             Position="Absolute"
                                             Right="0"
-                                            Shape="Square">
+                                            Shape="Square"
+                                            Type="Success">
                                             <nc:NIcon Data="{StaticResource Starting}" Size="15" />
                                         </nc:NFloatButton>
                                         <nc:NFloatButton
@@ -134,14 +135,15 @@
                                         <nc:NFloatButton
                                             Position="Absolute"
                                             Right="0"
-                                            Top="0">
+                                            Top="0"
+                                            Type="Info">
                                             <nc:NIcon Data="{StaticResource Starting}" Size="15" />
                                         </nc:NFloatButton>
                                         <nc:NFloatButton
                                             Left="0"
                                             Position="Absolute"
                                             Top="0"
-                                            Type="Primary">
+                                            Type="Default">
                                             <nc:NIcon Data="{StaticResource Starting}" Size="15" />
                                         </nc:NFloatButton>
                                     </Grid>
@@ -296,38 +298,136 @@
                                     <TextBlock
                                         Margin="0,0,0,18"
                                         Style="{StaticResource DocBodyTextStyle}"
-                                        Text="可以任意组合元素，实现更多的功能。" />
-                                    <WrapPanel>
+                                        Text="可以任意组合元素，实现更多的功能。组内每个按钮都可以单独设置 Type 或自定义颜色。" />
+                                    <TextBlock
+                                        Margin="0,0,0,10"
+                                        FontWeight="SemiBold"
+                                        Text="Background" />
+                                    <WrapPanel Margin="0,0,0,16">
                                         <nc:NFloatButtonGroup
-                                            Margin="0,0,24,0"
-                                            VerticalAlignment="Top"
+                                            Margin="0,0,18,0"
+                                            Background="#E0F2FE"
                                             Position="Relative"
                                             Shape="Square">
-                                            <nc:NFloatButton Position="Relative">
+                                            <nc:NFloatButton Position="Relative" Type="Primary">
                                                 <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
                                             </nc:NFloatButton>
-                                            <nc:NFloatButton Position="Relative">
+                                            <nc:NFloatButton Position="Relative" Type="Info">
                                                 <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
                                             </nc:NFloatButton>
-                                            <nc:NFloatButton Position="Relative">
-                                                <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
-                                            </nc:NFloatButton>
-                                            <nc:NFloatButton Position="Relative">
+                                            <nc:NFloatButton Position="Relative" Type="Warning">
                                                 <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
                                             </nc:NFloatButton>
                                         </nc:NFloatButtonGroup>
+                                    </WrapPanel>
 
-                                        <nc:NFloatButtonGroup Position="Relative">
-                                            <nc:NFloatButton Position="Relative">
+                                    <TextBlock
+                                        Margin="0,0,0,10"
+                                        FontWeight="SemiBold"
+                                        Text="Padding" />
+                                    <WrapPanel Margin="0,0,0,16">
+                                        <nc:NFloatButtonGroup
+                                            Margin="0,0,18,0"
+                                            Padding="10"
+                                            Background="#ECFCCB"
+                                            Orientation="Horizontal"
+                                            Position="Relative"
+                                            Shape="Square">
+                                            <nc:NFloatButton Position="Relative" Type="Success">
                                                 <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
                                             </nc:NFloatButton>
-                                            <nc:NFloatButton Position="Relative">
+                                            <nc:NFloatButton Position="Relative" Type="Warning">
                                                 <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
                                             </nc:NFloatButton>
-                                            <nc:NFloatButton Position="Relative">
+                                        </nc:NFloatButtonGroup>
+                                    </WrapPanel>
+
+                                    <TextBlock
+                                        Margin="0,0,0,10"
+                                        FontWeight="SemiBold"
+                                        Text="CornerRadius" />
+                                    <WrapPanel Margin="0,0,0,16">
+                                        <nc:NFloatButtonGroup
+                                            Margin="0,0,18,0"
+                                            Padding="20"
+                                            Background="#F3E8FF"
+                                            CornerRadius="40"
+                                            Orientation="Horizontal"
+                                            Position="Relative">
+                                            <nc:NFloatButton Position="Relative" Type="Info">
                                                 <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
                                             </nc:NFloatButton>
-                                            <nc:NFloatButton Position="Relative">
+                                            <nc:NFloatButton
+                                                CustomBackgroundBrush="#0F766E"
+                                                CustomForegroundBrush="White"
+                                                CustomPressedBackgroundBrush="#115E59"
+                                                CustomPressedForegroundBrush="White"
+                                                Position="Relative"
+                                                Type="Customize">
+                                                <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
+                                            </nc:NFloatButton>
+                                            <nc:NFloatButton Position="Relative" Type="Primary">
+                                                <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
+                                            </nc:NFloatButton>
+                                        </nc:NFloatButtonGroup>
+                                    </WrapPanel>
+
+                                    <TextBlock
+                                        Margin="0,0,0,10"
+                                        FontWeight="SemiBold"
+                                        Text="BorderBrush + BorderThickness" />
+                                    <WrapPanel Margin="0,0,0,16">
+                                        <nc:NFloatButtonGroup
+                                            Margin="0,0,18,0"
+                                            Background="#FFF7ED"
+                                            BorderBrush="#EA580C"
+                                            BorderThickness="2"
+                                            Orientation="Horizontal"
+                                            Position="Relative"
+                                            Shape="Square">
+                                            <nc:NFloatButton Position="Relative" Type="Warning">
+                                                <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
+                                            </nc:NFloatButton>
+                                            <nc:NFloatButton Position="Relative" Type="Error">
+                                                <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
+                                            </nc:NFloatButton>
+                                            <nc:NFloatButton Position="Relative" Type="Default">
+                                                <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
+                                            </nc:NFloatButton>
+                                        </nc:NFloatButtonGroup>
+                                    </WrapPanel>
+
+                                    <TextBlock
+                                        Margin="0,0,0,10"
+                                        FontWeight="SemiBold"
+                                        Text="Combined" />
+                                    <WrapPanel>
+                                        <nc:NFloatButtonGroup
+                                            Padding="8"
+                                            VerticalAlignment="Top"
+                                            Background="#111827"
+                                            BorderBrush="#374151"
+                                            BorderThickness="1"
+                                            CornerRadius="18"
+                                            Orientation="Horizontal"
+                                            Position="Relative"
+                                            Shape="Square">
+                                            <nc:NFloatButton Position="Relative" Type="Success">
+                                                <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
+                                            </nc:NFloatButton>
+                                            <nc:NFloatButton Position="Relative" Type="Error">
+                                                <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
+                                            </nc:NFloatButton>
+                                            <nc:NFloatButton
+                                                CustomBackgroundBrush="#1D4ED8"
+                                                CustomForegroundBrush="White"
+                                                CustomPressedBackgroundBrush="#1E40AF"
+                                                CustomPressedForegroundBrush="White"
+                                                Position="Relative"
+                                                Type="Customize">
+                                                <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
+                                            </nc:NFloatButton>
+                                            <nc:NFloatButton Position="Relative" Type="Default">
                                                 <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
                                             </nc:NFloatButton>
                                         </nc:NFloatButtonGroup>
@@ -349,54 +449,108 @@
                                     <TextBlock
                                         Margin="0,0,0,18"
                                         Style="{StaticResource DocBodyTextStyle}"
-                                        Text="设定 MenuTrigger 后，更多的 NFloatButton 可被折叠于一个 NFloatButton 中。" />
+                                        Text="设定 MenuTrigger、MenuPlacement 和 MenuOrientation 后，更多的 NFloatButton 可被折叠于一个 NFloatButton 中，并按上右下左不同方向、横向或纵向方式弹出。" />
                                     <WrapPanel>
                                         <nc:NFloatButton
                                             Margin="0,0,24,0"
+                                            MenuPlacement="Top"
                                             MenuTrigger="Hover"
                                             Position="Relative"
                                             Type="Primary">
                                             <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
                                             <nc:NFloatButton.Menu>
-                                                <StackPanel>
+                                                <nc:NFloatButtonStackPanel Orientation="Horizontal" Spacing="16">
                                                     <nc:NFloatButton
-                                                        Margin="0,0,0,16"
                                                         Position="Relative"
                                                         Shape="Square"
                                                         Type="Primary">
                                                         <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
                                                     </nc:NFloatButton>
-                                                    <nc:NFloatButton Margin="0,0,0,16" Position="Relative">
+                                                    <nc:NFloatButton Position="Relative">
                                                         <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
                                                     </nc:NFloatButton>
                                                     <nc:NFloatButton Position="Relative">
                                                         <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
                                                     </nc:NFloatButton>
-                                                </StackPanel>
+                                                </nc:NFloatButtonStackPanel>
                                             </nc:NFloatButton.Menu>
                                         </nc:NFloatButton>
 
                                         <nc:NFloatButton
+                                            Margin="0,0,24,0"
+                                            MenuPlacement="Right"
                                             MenuTrigger="Click"
                                             Position="Relative"
-                                            Type="Primary">
+                                            Type="Info">
                                             <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
                                             <nc:NFloatButton.Menu>
-                                                <StackPanel>
+                                                <nc:NFloatButtonStackPanel Orientation="Horizontal" Spacing="16">
                                                     <nc:NFloatButton
-                                                        Margin="0,0,0,16"
                                                         Position="Relative"
                                                         Shape="Square"
-                                                        Type="Primary">
-                                                        <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
-                                                    </nc:NFloatButton>
-                                                    <nc:NFloatButton Margin="0,0,0,16" Position="Relative">
+                                                        Type="Info">
                                                         <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
                                                     </nc:NFloatButton>
                                                     <nc:NFloatButton Position="Relative">
                                                         <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
                                                     </nc:NFloatButton>
-                                                </StackPanel>
+                                                    <nc:NFloatButton Position="Relative">
+                                                        <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
+                                                    </nc:NFloatButton>
+                                                </nc:NFloatButtonStackPanel>
+                                            </nc:NFloatButton.Menu>
+                                        </nc:NFloatButton>
+
+                                        <nc:NFloatButton
+                                            Margin="0,0,24,0"
+                                            MenuPlacement="Bottom"
+                                            MenuTrigger="Click"
+                                            Position="Relative"
+                                            Type="Success">
+                                            <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
+                                            <nc:NFloatButton.Menu>
+                                                <nc:NFloatButtonStackPanel Orientation="Vertical" Spacing="16">
+                                                    <nc:NFloatButton Position="Relative" Type="Success">
+                                                        <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
+                                                    </nc:NFloatButton>
+                                                    <nc:NFloatButton Position="Relative" Type="Warning">
+                                                        <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
+                                                    </nc:NFloatButton>
+                                                    <nc:NFloatButton Position="Relative" Type="Error">
+                                                        <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
+                                                    </nc:NFloatButton>
+                                                </nc:NFloatButtonStackPanel>
+                                            </nc:NFloatButton.Menu>
+                                        </nc:NFloatButton>
+
+                                        <nc:NFloatButton
+                                            CustomBackgroundBrush="#DB2777"
+                                            CustomForegroundBrush="White"
+                                            CustomPressedBackgroundBrush="#BE185D"
+                                            CustomPressedForegroundBrush="White"
+                                            MenuPlacement="Left"
+                                            MenuTrigger="Click"
+                                            Position="Relative"
+                                            Type="Customize">
+                                            <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
+                                            <nc:NFloatButton.Menu>
+                                                <nc:NFloatButtonStackPanel Orientation="Horizontal" Spacing="16">
+                                                    <nc:NFloatButton
+                                                        CustomBackgroundBrush="#DB2777"
+                                                        CustomForegroundBrush="White"
+                                                        CustomPressedBackgroundBrush="#BE185D"
+                                                        CustomPressedForegroundBrush="White"
+                                                        Position="Relative"
+                                                        Type="Customize">
+                                                        <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
+                                                    </nc:NFloatButton>
+                                                    <nc:NFloatButton Position="Relative" Type="Default">
+                                                        <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
+                                                    </nc:NFloatButton>
+                                                    <nc:NFloatButton Position="Relative" Type="Primary">
+                                                        <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
+                                                    </nc:NFloatButton>
+                                                </nc:NFloatButtonStackPanel>
                                             </nc:NFloatButton.Menu>
                                         </nc:NFloatButton>
                                     </WrapPanel>

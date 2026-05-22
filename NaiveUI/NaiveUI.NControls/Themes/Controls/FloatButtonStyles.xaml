@@ -66,7 +66,7 @@
                             <Grid>
                                 <Border
                                     x:Name="FillBorder"
-                                    Background="Transparent"
+                                    Background="{TemplateBinding Background}"
                                     CornerRadius="{TemplateBinding ResolvedCornerRadius}" />
 
                                 <Border
@@ -138,11 +138,6 @@
                             <Setter TargetName="CloseHost" Property="Visibility" Value="Visible" />
                         </Trigger>
 
-                        <Trigger Property="Type" Value="Primary">
-                            <Setter Property="Background" Value="{DynamicResource Primary.First.Brush}" />
-                            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Inverse.Brush}" />
-                        </Trigger>
-
                         <Trigger Property="UseSquareGroupChrome" Value="True">
                             <Setter TargetName="ChromeBorder" Property="Background" Value="Transparent" />
                             <Setter TargetName="ChromeBorder" Property="Effect" Value="{x:Null}" />
@@ -153,8 +148,18 @@
                             <Setter TargetName="GroupSeparator" Property="Visibility" Value="Visible" />
                         </Trigger>
 
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="ShowGroupSeparator" Value="True" />
+                                <Condition Property="ResolvedGroupOrientation" Value="Horizontal" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="GroupSeparator" Property="Margin" Value="0,0,-1,0" />
+                            <Setter TargetName="GroupSeparator" Property="HorizontalAlignment" Value="Right" />
+                            <Setter TargetName="GroupSeparator" Property="VerticalAlignment" Value="Stretch" />
+                            <Setter TargetName="GroupSeparator" Property="BorderThickness" Value="0,0,1,0" />
+                        </MultiTrigger>
+
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="FillBorder" Property="Background" Value="{DynamicResource Theme.Fill.2Hover.Brush}" />
                             <Setter TargetName="ChromeBorder" Property="Effect">
                                 <Setter.Value>
                                     <DropShadowEffect
@@ -168,7 +173,6 @@
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="FillBorder" Property="Background" Value="{DynamicResource Theme.Fill.2Pressed.Brush}" />
                             <Setter TargetName="ChromeBorder" Property="Effect">
                                 <Setter.Value>
                                     <DropShadowEffect
@@ -180,22 +184,6 @@
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
-
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="Type" Value="Primary" />
-                                <Condition Property="IsMouseOver" Value="True" />
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="FillBorder" Property="Background" Value="{DynamicResource Primary.Second.Brush}" />
-                        </MultiTrigger>
-
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="Type" Value="Primary" />
-                                <Condition Property="IsPressed" Value="True" />
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="FillBorder" Property="Background" Value="{DynamicResource Primary.Second.Brush}" />
-                        </MultiTrigger>
 
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -238,24 +226,39 @@
         </Setter>
     </Style>
 
-    <ItemsPanelTemplate x:Key="FloatButtonGroupCircleItemsPanelTemplate">
-        <controls:NFloatButtonStackPanel Spacing="16" />
+    <ItemsPanelTemplate x:Key="FloatButtonGroupCircleVerticalItemsPanelTemplate">
+        <controls:NFloatButtonStackPanel Orientation="Vertical" Spacing="16" />
     </ItemsPanelTemplate>
 
-    <ItemsPanelTemplate x:Key="FloatButtonGroupSquareItemsPanelTemplate">
-        <controls:NFloatButtonStackPanel Spacing="0" />
+    <ItemsPanelTemplate x:Key="FloatButtonGroupCircleHorizontalItemsPanelTemplate">
+        <controls:NFloatButtonStackPanel Orientation="Horizontal" Spacing="16" />
+    </ItemsPanelTemplate>
+
+    <ItemsPanelTemplate x:Key="FloatButtonGroupSquareVerticalItemsPanelTemplate">
+        <controls:NFloatButtonStackPanel Orientation="Vertical" Spacing="0" />
+    </ItemsPanelTemplate>
+
+    <ItemsPanelTemplate x:Key="FloatButtonGroupSquareHorizontalItemsPanelTemplate">
+        <controls:NFloatButtonStackPanel Orientation="Horizontal" Spacing="0" />
     </ItemsPanelTemplate>
 
     <Style TargetType="{x:Type controls:NFloatButtonGroup}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="0" />
         <Setter Property="Focusable" Value="False" />
-        <Setter Property="ItemsPanel" Value="{StaticResource FloatButtonGroupCircleItemsPanelTemplate}" />
+        <Setter Property="ItemsPanel" Value="{StaticResource FloatButtonGroupCircleVerticalItemsPanelTemplate}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:NFloatButtonGroup}">
                     <Border
                         x:Name="RootBorder"
-                        Background="Transparent"
-                        CornerRadius="{StaticResource Radius.Small}">
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Padding="{TemplateBinding Padding}">
                         <Border.Effect>
                             <DropShadowEffect
                                 BlurRadius="12"
@@ -269,9 +272,13 @@
                     </Border>
 
                     <ControlTemplate.Triggers>
+                        <Trigger Property="Orientation" Value="Horizontal">
+                            <Setter Property="ItemsPanel" Value="{StaticResource FloatButtonGroupCircleHorizontalItemsPanelTemplate}" />
+                        </Trigger>
+
                         <Trigger Property="Shape" Value="Square">
-                            <Setter Property="ItemsPanel" Value="{StaticResource FloatButtonGroupSquareItemsPanelTemplate}" />
-                            <Setter TargetName="RootBorder" Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
+                            <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
+                            <Setter Property="ItemsPanel" Value="{StaticResource FloatButtonGroupSquareVerticalItemsPanelTemplate}" />
                             <Setter TargetName="RootBorder" Property="Effect">
                                 <Setter.Value>
                                     <DropShadowEffect
@@ -283,6 +290,14 @@
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Shape" Value="Square" />
+                                <Condition Property="Orientation" Value="Horizontal" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="ItemsPanel" Value="{StaticResource FloatButtonGroupSquareHorizontalItemsPanelTemplate}" />
+                        </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
