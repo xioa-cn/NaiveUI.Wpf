@@ -1,0 +1,545 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Pages.BadgeDocsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:BadgeDocsPageViewModel}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style
+            x:Key="SectionCardHeaderTitleStyle"
+            BasedOn="{StaticResource DocSectionTitleStyle}"
+            TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+        <Style x:Key="BadgeDemoAvatarStyle" TargetType="{x:Type nc:NAvatar}">
+            <Setter Property="Shape" Value="Round" />
+            <Setter Property="Size" Value="48" />
+            <Setter Property="Src" Value="/NaiveUI.Demo;component/Assets/Header.jpg" />
+        </Style>
+
+        <Style x:Key="BadgeCaptionStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,10,0,0" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Secondary.Brush}" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="25,34,18,34">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="48"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                        Text="标记 Badge" />
+                </StackPanel>
+
+                <TextBlock
+                    Margin="0,26,0,0"
+                    FontSize="18"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="在内容右上角展示需要被关注的信息数量或状态。WPF 版对齐 Naive UI 的胶囊尺寸、dot 模式、processing 波纹、offset 和 raw 用法。" />
+
+                <TextBlock
+                    Margin="0,52,0,28"
+                    FontSize="36"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="演示" />
+
+                <StackPanel>
+                    <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="基础" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="BadgeDocsPage1">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="最常见的用法是在内容右上角叠加数量标记，dot 模式则只表达“有状态变化”而不展示具体数值。" />
+                                    <WrapPanel Margin="0,0,0,18">
+                                        <nc:NBadge
+                                            Margin="0,0,18,18"
+                                            Max="15"
+                                            Value="{Binding BasicValue}">
+                                            <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        </nc:NBadge>
+                                        <nc:NBadge Margin="0,0,18,18" Dot="True">
+                                            <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        </nc:NBadge>
+                                    </WrapPanel>
+                                    <WrapPanel>
+                                        <nc:NButton
+                                            Margin="0,0,12,0"
+                                            Command="{Binding BadgeActionCommand}"
+                                            CommandParameter="basic:-"
+                                            Kind="Secondary">
+                                            -
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Command="{Binding BadgeActionCommand}"
+                                            CommandParameter="basic:+"
+                                            Kind="Secondary">
+                                            +
+                                        </nc:NButton>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionOverflow" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="数值溢出" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="BadgeDocsPage2">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="使用 Max 控制溢出上限，超过阈值后会像 Naive UI 一样显示为 Max+。" />
+                                    <WrapPanel Margin="0,0,0,18">
+                                        <nc:NBadge
+                                            Margin="0,0,18,18"
+                                            Max="99"
+                                            Value="{Binding OverflowValue}">
+                                            <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        </nc:NBadge>
+                                        <nc:NBadge
+                                            Margin="0,0,18,18"
+                                            Max="10"
+                                            Value="{Binding OverflowValue}">
+                                            <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        </nc:NBadge>
+                                        <nc:NBadge
+                                            Margin="0,0,18,18"
+                                            Max="100"
+                                            Value="{Binding OverflowValue}">
+                                            <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        </nc:NBadge>
+                                    </WrapPanel>
+                                    <WrapPanel>
+                                        <nc:NButton
+                                            Margin="0,0,12,0"
+                                            Command="{Binding BadgeActionCommand}"
+                                            CommandParameter="overflow:-"
+                                            Kind="Secondary">
+                                            -
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Command="{Binding BadgeActionCommand}"
+                                            CommandParameter="overflow:+"
+                                            Kind="Secondary">
+                                            +
+                                        </nc:NButton>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionProcessing" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="处理中" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="BadgeDocsPage3">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="processing 会为标记附加一层扩散波纹，视觉上对齐 Naive UI 的实时状态反馈。" />
+                                    <WrapPanel>
+                                        <nc:NBadge
+                                            Margin="0,0,18,18"
+                                            Dot="True"
+                                            Processing="True"
+                                            Type="Info">
+                                            <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        </nc:NBadge>
+                                        <nc:NBadge
+                                            Margin="0,0,18,18"
+                                            Processing="True"
+                                            Value="8">
+                                            <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        </nc:NBadge>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionShowZero" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="显示零值" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="BadgeDocsPage4">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="Value 为 0 时默认隐藏，开启 ShowZero 后会继续显示 0。" />
+                                    <WrapPanel Margin="0,0,0,18">
+                                        <nc:NBadge Margin="0,0,18,18" Value="{Binding ShowZeroValue}">
+                                            <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        </nc:NBadge>
+                                        <nc:NBadge
+                                            Margin="0,0,18,18"
+                                            ShowZero="True"
+                                            Value="{Binding ShowZeroValue}">
+                                            <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        </nc:NBadge>
+                                    </WrapPanel>
+                                    <WrapPanel>
+                                        <nc:NButton
+                                            Margin="0,0,12,0"
+                                            Command="{Binding BadgeActionCommand}"
+                                            CommandParameter="show-zero:-"
+                                            Kind="Secondary">
+                                            -
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Command="{Binding BadgeActionCommand}"
+                                            CommandParameter="show-zero:+"
+                                            Kind="Secondary">
+                                            +
+                                        </nc:NButton>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionOffset" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="偏移" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="BadgeDocsPage5">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="Offset 会在默认右上角锚点的基础上继续偏移，用法与 Naive UI 的 [x, y] 保持一致。" />
+                                    <WrapPanel>
+                                        <StackPanel Margin="0,0,24,18">
+                                            <nc:NBadge Value="12">
+                                                <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                            </nc:NBadge>
+                                            <TextBlock Style="{StaticResource BadgeCaptionStyle}" Text="0, 0" />
+                                        </StackPanel>
+                                        <StackPanel Margin="0,0,24,18">
+                                            <nc:NBadge Offset="10,10" Value="12">
+                                                <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                            </nc:NBadge>
+                                            <TextBlock Style="{StaticResource BadgeCaptionStyle}" Text="10, 10" />
+                                        </StackPanel>
+                                        <StackPanel Margin="0,0,24,18">
+                                            <nc:NBadge Dot="True" Offset="-8,16">
+                                                <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                            </nc:NBadge>
+                                            <TextBlock Style="{StaticResource BadgeCaptionStyle}" Text="-8, 16" />
+                                        </StackPanel>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionType" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="类型" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="BadgeDocsPage6">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="内置的语义类型会切换标记背景色，默认色与 Naive UI 一样采用 error 语义。" />
+                                    <WrapPanel>
+                                        <nc:NBadge
+                                            Margin="0,0,18,18"
+                                            Type="Default"
+                                            Value="7">
+                                            <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        </nc:NBadge>
+                                        <nc:NBadge
+                                            Margin="0,0,18,18"
+                                            Type="Info"
+                                            Value="7">
+                                            <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        </nc:NBadge>
+                                        <nc:NBadge
+                                            Margin="0,0,18,18"
+                                            Type="Success"
+                                            Value="7">
+                                            <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        </nc:NBadge>
+                                        <nc:NBadge
+                                            Margin="0,0,18,18"
+                                            Type="Warning"
+                                            Value="7">
+                                            <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        </nc:NBadge>
+                                        <nc:NBadge
+                                            Margin="0,0,18,18"
+                                            Type="Error"
+                                            Value="7">
+                                            <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        </nc:NBadge>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionColor" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="颜色" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="BadgeDocsPage7">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="通过 Color 直接覆写背景色，可快速做出与业务语义一致的标记。" />
+                                    <WrapPanel>
+                                        <nc:NBadge
+                                            Margin="0,0,18,18"
+                                            Color="#2080F0"
+                                            Value="12">
+                                            <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        </nc:NBadge>
+                                        <nc:NBadge
+                                            Margin="0,0,18,18"
+                                            Color="#18A058"
+                                            Value="24">
+                                            <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        </nc:NBadge>
+                                        <nc:NBadge
+                                            Margin="0,0,18,18"
+                                            Color="#C97C10"
+                                            Value="NEW">
+                                            <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        </nc:NBadge>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionCustomContent" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="自定义内容" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="BadgeDocsPage8">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="Value 不止能放字符串，也可以像官方的 value slot 一样放任意视觉内容。" />
+                                    <WrapPanel>
+                                        <nc:NBadge Margin="0,0,18,18" Color="#0F172A">
+                                            <nc:NBadge.Value>
+                                                <TextBlock
+                                                    FontSize="9"
+                                                    FontWeight="Bold"
+                                                    Foreground="White"
+                                                    Text="NEW" />
+                                            </nc:NBadge.Value>
+                                            <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        </nc:NBadge>
+
+                                        <nc:NBadge Margin="0,0,18,18" Color="#D03050">
+                                            <nc:NBadge.Value>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Ellipse
+                                                        Width="4"
+                                                        Height="4"
+                                                        Margin="0,0,4,0"
+                                                        VerticalAlignment="Center"
+                                                        Fill="White" />
+                                                    <TextBlock
+                                                        FontSize="9"
+                                                        FontWeight="Bold"
+                                                        Foreground="White"
+                                                        Text="LIVE" />
+                                                </StackPanel>
+                                            </nc:NBadge.Value>
+                                            <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        </nc:NBadge>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionRaw" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="独立使用" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="BadgeDocsPage9">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="当不包裹内容时，Badge 会进入 raw 模式，直接像一个独立胶囊或小圆点那样参与布局。" />
+                                    <WrapPanel>
+                                        <nc:NBadge Margin="0,0,18,18" Value="5" />
+                                        <nc:NBadge
+                                            Margin="0,0,18,18"
+                                            Type="Info"
+                                            Value="99+" />
+                                        <nc:NBadge Margin="0,0,18,18" Dot="True" />
+                                        <nc:NBadge
+                                            Margin="0,0,18,18"
+                                            Dot="True"
+                                            Processing="True" />
+                                        <nc:NBadge
+                                            Margin="0,0,18,18"
+                                            Color="#18A058"
+                                            Value="NEW" />
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionManual" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="手动控制" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="BadgeDocsPage10">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="通过 Show 可以像官方 manual demo 一样完全接管显示状态。" />
+                                    <WrapPanel Margin="0,0,0,18">
+                                        <nc:NButton
+                                            Margin="0,0,12,0"
+                                            Command="{Binding BadgeActionCommand}"
+                                            CommandParameter="manual:show"
+                                            Kind="Secondary">
+                                            Show
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Command="{Binding BadgeActionCommand}"
+                                            CommandParameter="manual:hide"
+                                            Kind="Secondary">
+                                            Hide
+                                        </nc:NButton>
+                                    </WrapPanel>
+                                    <WrapPanel Margin="0,0,0,12">
+                                        <nc:NBadge
+                                            Margin="0,0,18,18"
+                                            Show="{Binding ManualBadgeVisible}"
+                                            Value="8">
+                                            <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        </nc:NBadge>
+                                        <nc:NBadge
+                                            Margin="0,0,18,18"
+                                            Dot="True"
+                                            Show="{Binding ManualBadgeVisible}">
+                                            <nc:NAvatar Src="/NaiveUI.Demo;component/Assets/Header.jpg" />
+                                        </nc:NBadge>
+                                    </WrapPanel>
+                                    <TextBlock Style="{StaticResource DocBodyTextStyle}" Text="{Binding ManualVisibilityText}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionApi" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="API" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <TextBlock
+                                Margin="30,24,30,24"
+                                Style="{StaticResource DocBodyTextStyle}"
+                                Text="WPF 版 Badge 以 Naive UI 的视觉和行为语义为基线，额外复用 WPF 原生的 Content、Brush、Padding 和文本排版能力，方便在桌面端直接组合复杂内容。" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionBadgeProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Badge Props" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding BadgePropsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionBadgeSlots" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Badge Slots" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding BadgeSlotsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="1" Background="{DynamicResource Theme.Surface.0.Brush}">
+            <nc:NMenu
+                Margin="20,36,20,20"
+                DisplayMemberPath="Label"
+                ItemInvoked="HandleOutlineItemInvoked"
+                ItemsSource="{Binding OutlineItems}"
+                SelectedValuePath="TargetName" />
+        </Border>
+    </Grid>
+</UserControl>
