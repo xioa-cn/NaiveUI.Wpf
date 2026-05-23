@@ -1,0 +1,417 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Pages.TooltipDocsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:TooltipDocsPageViewModel}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style
+            x:Key="SectionCardHeaderTitleStyle"
+            BasedOn="{StaticResource DocSectionTitleStyle}"
+            TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+        <Style x:Key="TooltipDemoChipStyle" TargetType="Border">
+            <Setter Property="Padding" Value="12,8" />
+            <Setter Property="Background" Value="{DynamicResource Theme.Surface.1.Brush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="25,34,18,34">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="48"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                        Text="弹出提示 Tooltip" />
+                </StackPanel>
+
+                <TextBlock
+                    Margin="0,26,0,0"
+                    FontSize="18"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="围绕 Naive UI 的 Tooltip 语义实现轻量浮层，支持多触发方式、可控显示、箭头、位置偏移和自定义内容。" />
+
+                <TextBlock
+                    Margin="0,52,0,28"
+                    FontSize="36"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="演示" />
+
+                <StackPanel>
+                    <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="基础" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="TooltipDocsPage1">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="最基础的 Tooltip 用法。默认是 Hover 触发，默认位置为 Top，默认气泡使用主题中的 Tooltip 色板。" />
+                                    <WrapPanel>
+                                        <nc:NTooltip Margin="0,0,16,16" TooltipContent="把复杂信息收在轻量浮层里，页面会更干净。">
+                                            <nc:NButton>把鼠标移过来</nc:NButton>
+                                        </nc:NTooltip>
+                                        <nc:NTooltip
+                                            Margin="0,0,16,16"
+                                            Placement="Bottom"
+                                            TooltipContent="这里演示了 Bottom 方向。">
+                                            <Border Style="{StaticResource TooltipDemoChipStyle}">
+                                                <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}" Text="卡片、图标、文本都能作为触发器" />
+                                            </Border>
+                                        </nc:NTooltip>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionTrigger" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="触发方式" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="TooltipDocsPage2">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="支持 Hover、Click、Focus 和 Manual 四种触发方式。对于需要按钮、链接之类交互内容的场景，推荐使用 Click 或 Manual。" />
+                                    <WrapPanel Margin="0,0,0,18">
+                                        <nc:NTooltip Margin="0,0,14,14" TooltipContent="Hover 是最常见的提示方式。">
+                                            <nc:NButton>Hover</nc:NButton>
+                                        </nc:NTooltip>
+
+                                        <nc:NTooltip
+                                            Margin="0,0,14,14"
+                                            Trigger="Click"
+                                            TooltipContent="Click 触发更适合放可操作内容。">
+                                            <nc:NButton Kind="Secondary">Click</nc:NButton>
+                                        </nc:NTooltip>
+
+                                        <nc:NTooltip
+                                            Margin="0,0,14,14"
+                                            Placement="Right"
+                                            Trigger="Focus"
+                                            TooltipContent="聚焦输入框时也能显示提示。">
+                                            <TextBox Width="180" Text="点我或用 Tab 聚焦" />
+                                        </nc:NTooltip>
+                                    </WrapPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <ToggleButton
+                                            Margin="0,0,14,0"
+                                            IsChecked="{Binding ManualTooltipVisible, Mode=TwoWay}"
+                                            Style="{StaticResource ThemeNativeToggleButtonStyle}">
+                                            手动 Show
+                                        </ToggleButton>
+
+                                        <nc:NTooltip
+                                            Placement="Right"
+                                            Show="{Binding ManualTooltipVisible, Mode=TwoWay}"
+                                            Trigger="Manual"
+                                            TooltipContent="Manual 模式下只认 Show 属性，适合接管全部显示状态。">
+                                            <Border Style="{StaticResource TooltipDemoChipStyle}">
+                                                <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}" Text="这个触发器不再自己决定开关" />
+                                            </Border>
+                                        </nc:NTooltip>
+                                    </StackPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionPlacement" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="弹出位置" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="TooltipDocsPage3">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="位置模型与 Dropdown 保持一致，支持中心、Start 和 End 对齐。Start / End 配合 ArrowPointToCenter 可以让箭头更贴近触发器中心。" />
+                                    <WrapPanel>
+                                        <nc:NTooltip
+                                            Margin="0,0,12,12"
+                                            Placement="Top"
+                                            TooltipContent="Top">
+                                            <nc:NButton>Top</nc:NButton>
+                                        </nc:NTooltip>
+
+                                        <nc:NTooltip
+                                            Margin="0,0,12,12"
+                                            Placement="TopStart"
+                                            TooltipContent="TopStart"
+                                            ArrowPointToCenter="True">
+                                            <nc:NButton>TopStart</nc:NButton>
+                                        </nc:NTooltip>
+
+                                        <nc:NTooltip
+                                            Margin="0,0,12,12"
+                                            Placement="TopEnd"
+                                            TooltipContent="TopEnd"
+                                            ArrowPointToCenter="True">
+                                            <nc:NButton>TopEnd</nc:NButton>
+                                        </nc:NTooltip>
+
+                                        <nc:NTooltip
+                                            Margin="0,0,12,12"
+                                            Placement="Right"
+                                            TooltipContent="Right">
+                                            <nc:NButton>Right</nc:NButton>
+                                        </nc:NTooltip>
+
+                                        <nc:NTooltip
+                                            Margin="0,0,12,12"
+                                            Placement="BottomStart"
+                                            TooltipContent="BottomStart">
+                                            <nc:NButton>BottomStart</nc:NButton>
+                                        </nc:NTooltip>
+
+                                        <nc:NTooltip
+                                            Margin="0,0,12,12"
+                                            Placement="LeftEnd"
+                                            TooltipContent="LeftEnd"
+                                            ArrowPointToCenter="True">
+                                            <nc:NButton>LeftEnd</nc:NButton>
+                                        </nc:NTooltip>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionInteractive" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="交互内容" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="TooltipDocsPage4">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,18"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="Tooltip 不一定只能放一句纯文本。配合 Click 触发和 KeepAliveOnHover，可以承载轻量操作区。" />
+                                    <Border
+                                        Margin="0,0,0,18"
+                                        Padding="12,10"
+                                        Background="{DynamicResource Theme.Surface.1.Brush}"
+                                        BorderBrush="{DynamicResource Theme.Border.Brush}"
+                                        BorderThickness="1"
+                                        CornerRadius="10">
+                                        <TextBlock Foreground="{DynamicResource Theme.Text.Secondary.Brush}" Text="{Binding InteractiveStatusText}" />
+                                    </Border>
+                                    <nc:NTooltip
+                                        KeepAliveOnHover="True"
+                                        Placement="Right"
+                                        PopupMaxWidth="260"
+                                        Trigger="Click">
+                                        <nc:NTooltip.TooltipContent>
+                                            <StackPanel Width="220">
+                                                <TextBlock
+                                                    FontSize="14"
+                                                    FontWeight="SemiBold"
+                                                    Foreground="{DynamicResource Theme.Tooltip.Foreground.Brush}"
+                                                    Text="快速操作" />
+                                                <TextBlock
+                                                    Margin="0,6,0,12"
+                                                    Foreground="{DynamicResource Theme.Tooltip.Foreground.Brush}"
+                                                    Opacity="0.85"
+                                                    Text="这里更像 Naive UI 里常见的轻量交互浮层，适合复制、收藏、提醒自己稍后处理。" />
+                                                <WrapPanel>
+                                                    <nc:NButton
+                                                        Margin="0,0,8,8"
+                                                        Command="{Binding InteractiveActionCommand}"
+                                                        CommandParameter="已复制当前链接"
+                                                        Kind="Secondary">
+                                                        复制链接
+                                                    </nc:NButton>
+                                                    <nc:NButton
+                                                        Margin="0,0,8,8"
+                                                        Command="{Binding InteractiveActionCommand}"
+                                                        CommandParameter="已加入稍后处理"
+                                                        Kind="Secondary">
+                                                        稍后处理
+                                                    </nc:NButton>
+                                                    <nc:NButton
+                                                        Margin="0,0,8,8"
+                                                        Command="{Binding InteractiveActionCommand}"
+                                                        CommandParameter="已标记为收藏"
+                                                        Grade="Primary">
+                                                        收藏
+                                                    </nc:NButton>
+                                                </WrapPanel>
+                                            </StackPanel>
+                                        </nc:NTooltip.TooltipContent>
+                                        <nc:NButton Grade="Primary">点击展开交互 Tooltip</nc:NButton>
+                                    </nc:NTooltip>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionAppearance" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="外观与尺寸" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="TooltipDocsPage5">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="除了背景、前景、边框和内边距这些继承属性以外，还可以直接控制箭头、宽度和 Raw 模式。" />
+                                    <WrapPanel Margin="0,0,0,18">
+                                        <nc:NTooltip
+                                            Margin="0,0,14,14"
+                                            ShowArrow="False"
+                                            TooltipContent="关闭箭头后更像一块紧凑的提示卡片。">
+                                            <nc:NButton Kind="Secondary">不显示箭头</nc:NButton>
+                                        </nc:NTooltip>
+
+                                        <nc:NTooltip
+                                            Margin="0,0,14,14"
+                                            PopupMaxWidth="420"
+                                            PopupMinWidth="220"
+                                            StretchToTriggerWidth="True"
+                                            TooltipContent="当你希望提示块和触发器等宽时，打开 StretchToTriggerWidth 就可以了。">
+                                            <nc:NButton Width="220">同步浮层宽度</nc:NButton>
+                                        </nc:NTooltip>
+                                    </WrapPanel>
+
+                                    <nc:NTooltip
+                                        ArrowPointToCenter="True"
+                                        Distance="12"
+                                        Placement="BottomStart"
+                                        Raw="True">
+                                        <nc:NTooltip.TooltipContent>
+                                            <Border
+                                                Padding="14,12"
+                                                Background="#0F172A"
+                                                BorderBrush="#1E293B"
+                                                BorderThickness="1"
+                                                CornerRadius="14">
+                                                <StackPanel Width="220">
+                                                    <TextBlock
+                                                        FontSize="14"
+                                                        FontWeight="SemiBold"
+                                                        Foreground="White"
+                                                        Text="Raw 模式" />
+                                                    <TextBlock
+                                                        Margin="0,6,0,0"
+                                                        Foreground="#CBD5E1"
+                                                        Text="内建气泡壳层被关闭了，你可以完全用自己的 Border、渐变、阴影和排版系统来描述浮层。" />
+                                                </StackPanel>
+                                            </Border>
+                                        </nc:NTooltip.TooltipContent>
+                                        <nc:NButton Kind="Tertiary">完全自定义外观</nc:NButton>
+                                    </nc:NTooltip>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionApi" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="API" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <TextBlock
+                                Margin="30,24,30,24"
+                                Style="{StaticResource DocBodyTextStyle}"
+                                Text="WPF 版把 Naive UI Tooltip 常见能力映射为一组更贴近桌面端的依赖属性。核心目标是让默认用法足够简单，同时保留自定义弹层的空间。" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionTooltipProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Tooltip Props" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding TooltipPropsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionTooltipEvents" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Tooltip Events" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding TooltipEventsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionTooltipMethods" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Tooltip Methods" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding TooltipMethodsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionTooltipSlots" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Tooltip Slots" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding TooltipSlotsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="1" Background="{DynamicResource Theme.Surface.0.Brush}">
+            <nc:NMenu
+                Margin="20,36,20,20"
+                DisplayMemberPath="Label"
+                ItemInvoked="HandleOutlineItemInvoked"
+                ItemsSource="{Binding OutlineItems}"
+                SelectedValuePath="TargetName" />
+        </Border>
+    </Grid>
+</UserControl>

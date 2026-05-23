@@ -228,14 +228,15 @@
                                     <TextBlock
                                         Margin="0,0,0,18"
                                         Style="{StaticResource DocBodyTextStyle}"
-                                        Text="当前仓库还没有单独的 NTooltip，所以这里先复用 WPF ToolTip，把官方交互对齐出来。" />
-                                    <nc:NFloatButton
+                                        Text="现在可以直接用 NTooltip 包住任意触发器。这里把 Float Button 和 Tooltip 组合起来，交互方式更接近 Naive UI。" />
+                                    <nc:NTooltip
                                         HorizontalAlignment="Left"
-                                        Position="Relative"
-                                        ToolTip="这个故事还没有完结"
-                                        ToolTipService.Placement="Right">
-                                        <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
-                                    </nc:NFloatButton>
+                                        Placement="Right"
+                                        TooltipContent="这个故事还没有完结">
+                                        <nc:NFloatButton Position="Relative">
+                                            <nc:NIcon Data="{StaticResource CheckmarkCircle}" Size="15" />
+                                        </nc:NFloatButton>
+                                    </nc:NTooltip>
                                 </StackPanel>
                             </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
