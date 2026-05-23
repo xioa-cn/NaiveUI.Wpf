@@ -103,7 +103,7 @@
         { "key": "dialog", "title": "对话框", "subtitle": "Dialog" },
         { "key": "drawer", "title": "抽屉", "subtitle": "Drawer" },
         { "key": "marquee", "title": "跑马灯", "subtitle": "Marquee" },
-        { "key": "message", "title": "信息", "subtitle": "Message" },
+        { "key": "message", "title": "信息", "subtitle": "Message", "badgeText": "新" },
         { "key": "modal", "title": "模态框", "subtitle": "Modal" },
         { "key": "notification", "title": "通知", "subtitle": "Notification" },
         { "key": "popconfirm", "title": "弹出确认", "subtitle": "Popconfirm" },

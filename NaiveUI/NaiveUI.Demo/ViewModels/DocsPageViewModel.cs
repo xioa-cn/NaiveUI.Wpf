@@ -28,6 +28,7 @@ public sealed class DocsPageViewModel : ViewModelBase
             ["gradient-text"] = static () => new GradientTextDocsPage(),
             ["icon"] = static () => new IconDocsPage(),
             ["float-button"] = static () => new FloatButtonDocsPage(),
+            ["message"] = static () => new MessageDocsPage(),
             ["badge"] = static () => new BadgeDocsPage(),
             ["tooltip"] = static () => new TooltipDocsPage(),
             ["page-header"] = static () => new PageHeaderDocsPage(),
