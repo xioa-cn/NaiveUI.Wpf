@@ -657,7 +657,8 @@
 
                                                 <StackPanel Margin="0,0,12,16">
                                                     <TextBlock Style="{StaticResource FormLabelStyle}" Text="是否跨越边界" />
-                                                    <ToggleButton IsChecked="{Binding CustomCross, Mode=TwoWay}" Style="{StaticResource InlineSwitchStyle}" />
+                                                    <nc:NSwitch Width="50" IsChecked="{Binding CustomCross, Mode=TwoWay}" />
+
                                                 </StackPanel>
                                                 <StackPanel Margin="0,0,0,16">
                                                     <TextBlock Style="{StaticResource FormLabelStyle}" Text="旋转角度" />
