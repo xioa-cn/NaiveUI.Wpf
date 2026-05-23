@@ -1,0 +1,478 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Pages.SwitchDocsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:SwitchDocsPageViewModel}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style
+            x:Key="SectionCardHeaderTitleStyle"
+            BasedOn="{StaticResource DocSectionTitleStyle}"
+            TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+        <Style x:Key="SwitchDemoItemStyle" TargetType="StackPanel">
+            <Setter Property="Margin" Value="0,0,28,18" />
+        </Style>
+
+        <Style x:Key="SwitchDemoCaptionStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,10,0,0" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Secondary.Brush}" />
+        </Style>
+
+        <Style
+            x:Key="SwitchDemoStatusStyle"
+            BasedOn="{StaticResource DocBodyTextStyle}"
+            TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,12,0,0" />
+        </Style>
+
+        <Geometry x:Key="SwitchCheckGeometry">M9.54996 15.6L4.59996 10.65C4.20814 10.2582 4.20814 9.62293 4.59996 9.23111C4.99179 8.83929 5.62704 8.83929 6.01887 9.23111L9.54996 12.7622L17.9811 4.33111C18.3729 3.93929 19.0081 3.93929 19.4 4.33111C19.7918 4.72293 19.7918 5.35818 19.4 5.75L9.54996 15.6Z</Geometry>
+        <Geometry x:Key="SwitchCloseGeometry">M7.75736 6.34315C8.14788 5.95262 8.78105 5.95262 9.17157 6.34315L12 9.17157L14.8284 6.34315C15.2189 5.95262 15.8521 5.95262 16.2426 6.34315C16.6332 6.73367 16.6332 7.36684 16.2426 7.75736L13.4142 10.5858L16.2426 13.4142C16.6332 13.8047 16.6332 14.4379 16.2426 14.8284C15.8521 15.219 15.2189 15.219 14.8284 14.8284L12 12L9.17157 14.8284C8.78105 15.219 8.14788 15.219 7.75736 14.8284C7.36684 14.4379 7.36684 13.8047 7.75736 13.4142L10.5858 10.5858L7.75736 7.75736C7.36684 7.36684 7.36684 6.73367 7.75736 6.34315Z</Geometry>
+
+        <Style x:Key="SwitchThumbIconStyle" TargetType="{x:Type nc:NIcon}">
+            <Setter Property="Size" Value="10" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="25,34,18,34">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="48"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                        Text="开关 Switch" />
+                </StackPanel>
+
+                <TextBlock
+                    Margin="0,26,0,0"
+                    FontSize="18"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="我有一个 Switch，不过没时间玩。每每这个时候，我都会回忆起童年玩 NDS 的快乐时光。" />
+
+                <TextBlock
+                    Margin="0,52,0,28"
+                    FontSize="36"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="演示" />
+
+                <StackPanel>
+                    <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="基础用法" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SwitchDocsPage1">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="最基础的开关用法。默认情况下它就是一个接近 Naive UI 视觉和交互的双状态切换器，也可以直接进入禁用态。它同时继承了 ButtonBase 的 Command、CommandParameter 和 CommandTarget，可直接用于 MVVM 命令绑定。" />
+                                    <WrapPanel>
+                                        <StackPanel Style="{StaticResource SwitchDemoItemStyle}">
+                                            <nc:NSwitch Value="{Binding BasicValue, Mode=TwoWay}" />
+                                            <TextBlock Style="{StaticResource SwitchDemoCaptionStyle}" Text="默认" />
+                                        </StackPanel>
+                                        <StackPanel Style="{StaticResource SwitchDemoItemStyle}">
+                                            <nc:NSwitch Disabled="True" IsChecked="True" />
+                                            <TextBlock Style="{StaticResource SwitchDemoCaptionStyle}" Text="禁用（开）" />
+                                        </StackPanel>
+                                        <StackPanel Style="{StaticResource SwitchDemoItemStyle}">
+                                            <nc:NSwitch Disabled="True" IsChecked="False" />
+                                            <TextBlock Style="{StaticResource SwitchDemoCaptionStyle}" Text="禁用（关）" />
+                                        </StackPanel>
+                                    </WrapPanel>
+                                    <TextBlock Style="{StaticResource SwitchDemoStatusStyle}" Text="{Binding BasicStatusText}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionSize" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="尺寸" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SwitchDocsPage2">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="和官方一样支持四档尺寸：Tiny、Small、Medium、Large。轨道高度、按钮尺寸和文案间距会一起缩放。" />
+                                    <WrapPanel>
+                                        <StackPanel Style="{StaticResource SwitchDemoItemStyle}">
+                                            <nc:NSwitch IsChecked="True" Size="Tiny" />
+                                            <TextBlock Style="{StaticResource SwitchDemoCaptionStyle}" Text="Tiny" />
+                                        </StackPanel>
+                                        <StackPanel Style="{StaticResource SwitchDemoItemStyle}">
+                                            <nc:NSwitch IsChecked="True" Size="Small" />
+                                            <TextBlock Style="{StaticResource SwitchDemoCaptionStyle}" Text="Small" />
+                                        </StackPanel>
+                                        <StackPanel Style="{StaticResource SwitchDemoItemStyle}">
+                                            <nc:NSwitch IsChecked="True" Size="Medium" />
+                                            <TextBlock Style="{StaticResource SwitchDemoCaptionStyle}" Text="Medium" />
+                                        </StackPanel>
+                                        <StackPanel Style="{StaticResource SwitchDemoItemStyle}">
+                                            <nc:NSwitch IsChecked="True" Size="Large" />
+                                            <TextBlock Style="{StaticResource SwitchDemoCaptionStyle}" Text="Large" />
+                                        </StackPanel>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionContent" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="内容" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SwitchDocsPage3">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="通过 CheckedContent 和 UncheckedContent，可以像 Naive UI 的 checked / unchecked 插槽一样在轨道中放入不同内容。" />
+                                    <WrapPanel>
+                                        <StackPanel Style="{StaticResource SwitchDemoItemStyle}">
+                                            <nc:NSwitch
+                                                CheckedContent="开"
+                                                UncheckedContent="关"
+                                                Value="{Binding ContentValue, Mode=TwoWay}" />
+                                            <TextBlock Style="{StaticResource SwitchDemoCaptionStyle}" Text="短文案" />
+                                        </StackPanel>
+                                        <StackPanel Style="{StaticResource SwitchDemoItemStyle}">
+                                            <nc:NSwitch
+                                                CheckedContent="启用"
+                                                Size="Large"
+                                                UncheckedContent="停用"
+                                                Value="{Binding ContentValue, Mode=TwoWay}" />
+                                            <TextBlock Style="{StaticResource SwitchDemoCaptionStyle}" Text="较长文案" />
+                                        </StackPanel>
+                                    </WrapPanel>
+                                    <TextBlock Style="{StaticResource SwitchDemoStatusStyle}" Text="{Binding ContentStatusText}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionLoading" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="加载中" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SwitchDocsPage4">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="Loading 会在按钮中心显示旋转指示器，并阻止重复切换。下面第三个示例模拟异步请求，先进入 loading，再在 1.8 秒后真正切换状态。" />
+                                    <WrapPanel Margin="0,0,0,8">
+                                        <StackPanel Style="{StaticResource SwitchDemoItemStyle}">
+                                            <nc:NSwitch IsChecked="True" Loading="True" />
+                                            <TextBlock Style="{StaticResource SwitchDemoCaptionStyle}" Text="静态加载（开）" />
+                                        </StackPanel>
+                                        <StackPanel Style="{StaticResource SwitchDemoItemStyle}">
+                                            <nc:NSwitch IsChecked="False" Loading="True" />
+                                            <TextBlock Style="{StaticResource SwitchDemoCaptionStyle}" Text="静态加载（关）" />
+                                        </StackPanel>
+                                        <StackPanel Style="{StaticResource SwitchDemoItemStyle}">
+                                            <nc:NSwitch
+                                                Loading="{Binding AsyncLoading, Mode=TwoWay}"
+                                                ValueChanged="HandleAsyncLoadingSwitchValueChanged"
+                                                Value="{Binding AsyncLoadingValue, Mode=TwoWay}" />
+                                            <TextBlock Style="{StaticResource SwitchDemoCaptionStyle}" Text="模拟异步更新" />
+                                        </StackPanel>
+                                    </WrapPanel>
+                                    <TextBlock Style="{StaticResource SwitchDemoStatusStyle}" Text="{Binding AsyncLoadingStatusText}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionEvent" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="事件" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SwitchDocsPage5">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="ValueChanged 会提供旧值和新值，适合作为 WPF 版对齐 Naive UI on-update:value 的主要事件入口。" />
+                                    <nc:NSwitch
+                                        HorizontalAlignment="Left"
+                                        ValueChanged="HandleEventSwitchValueChanged"
+                                        Value="{Binding EventValue, Mode=TwoWay}" />
+                                    <TextBlock Style="{StaticResource SwitchDemoStatusStyle}" Text="{Binding EventStatusText}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionCustomValue" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="自定义选中值" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SwitchDocsPage6">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="通过 CheckedValue 和 UncheckedValue，开关可以直接写回任意对象，而不局限于 bool。这一点与 Naive UI 的 value / checked-value / unchecked-value 语义保持一致。" />
+                                    <nc:NSwitch
+                                        HorizontalAlignment="Left"
+                                        CheckedContent="开"
+                                        CheckedValue="开启"
+                                        UncheckedContent="关"
+                                        UncheckedValue="关闭"
+                                        Value="{Binding CustomValue, Mode=TwoWay}" />
+                                    <TextBlock Style="{StaticResource SwitchDemoStatusStyle}" Text="{Binding CustomValueStatusText}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionShape" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="形状" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SwitchDocsPage7">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="Round 用于切换圆角与方形轨道。这里额外展示 RubberBand 的关闭效果，方便按需做更克制的桌面端交互。" />
+                                    <WrapPanel>
+                                        <StackPanel Style="{StaticResource SwitchDemoItemStyle}">
+                                            <nc:NSwitch
+                                                CheckedContent="圆"
+                                                Round="True"
+                                                UncheckedContent="圆"
+                                                Value="{Binding RoundValue, Mode=TwoWay}" />
+                                            <TextBlock Style="{StaticResource SwitchDemoCaptionStyle}" Text="圆角" />
+                                        </StackPanel>
+                                        <StackPanel Style="{StaticResource SwitchDemoItemStyle}">
+                                            <nc:NSwitch
+                                                Width="50"
+                                                CheckedContent="方"
+                                                Round="False"
+                                                RubberBand="False"
+                                                UncheckedContent="方"
+                                                Value="{Binding SquareValue, Mode=TwoWay}" />
+                                            <TextBlock Style="{StaticResource SwitchDemoCaptionStyle}" Text="方形（关闭弹性反馈）" />
+                                        </StackPanel>
+                                        <StackPanel Style="{StaticResource SwitchDemoItemStyle}">
+                                            <nc:NSwitch
+                                                Width="88"
+                                                CheckedContent="启动"
+                                                CheckedContentBrush="White"
+                                                CheckedRailBrush="#0F172A"
+                                                ContentFontSize="13"
+                                                ContentFontWeight="Bold"
+                                                RailRadius="10"
+                                                ThumbRadius="10"
+                                                ThumbSize="28"
+                                                TrackHeight="34"
+                                                TrackWidth="88"
+                                                UncheckedContent="停止"
+                                                UncheckedContentBrush="#64748B"
+                                                UncheckedRailBrush="#E2E8F0" />
+                                            <TextBlock Style="{StaticResource SwitchDemoCaptionStyle}" Text="自定义宽高、圆角和字体" />
+                                        </StackPanel>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionColor" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="颜色" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SwitchDocsPage8">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="开放轨道、按钮、文案和图标的颜色属性后，可以比较细地还原业务品牌色或不同语义状态。" />
+                                    <WrapPanel>
+                                        <StackPanel Style="{StaticResource SwitchDemoItemStyle}">
+                                            <nc:NSwitch
+                                                CheckedContent="开"
+                                                CheckedIconBrush="#18A058"
+                                                CheckedRailBrush="#18A058"
+                                                CheckedRailHoverBrush="#36AD6A"
+                                                CheckedRailPressedBrush="#0C7A43"
+                                                CheckedThumbBrush="#F8FAFC"
+                                                UncheckedContent="关"
+                                                UncheckedRailBrush="#D1D5DB"
+                                                UncheckedThumbBrush="#FFFFFF"
+                                                Value="{Binding ColorValue, Mode=TwoWay}" />
+                                            <TextBlock Style="{StaticResource SwitchDemoCaptionStyle}" Text="品牌绿 + 自定义滑块背景" />
+                                        </StackPanel>
+                                        <StackPanel Style="{StaticResource SwitchDemoItemStyle}">
+                                            <nc:NSwitch
+                                                CheckedContent="夜"
+                                                CheckedContentBrush="White"
+                                                CheckedIconBrush="#FFF7ED"
+                                                CheckedRailBrush="#111827"
+                                                CheckedRailHoverBrush="#1F2937"
+                                                CheckedRailPressedBrush="#030712"
+                                                CheckedThumbBrush="#F97316"
+                                                UncheckedContent="日"
+                                                UncheckedContentBrush="#475569"
+                                                UncheckedIconBrush="#E2E8F0"
+                                                UncheckedRailBrush="#E2E8F0"
+                                                UncheckedThumbBrush="#0F172A"
+                                                Value="{Binding ColorValue, Mode=TwoWay}" />
+                                            <TextBlock Style="{StaticResource SwitchDemoCaptionStyle}" Text="深色轨道 + 橙色滑块" />
+                                        </StackPanel>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionIcon" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="图标" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SwitchDocsPage9">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="按钮内支持默认图标、选中图标和未选中图标。这里直接使用 NIcon + Geometry path，不再用字符硬写，用户也可以按同样方式替换成自己的路径图标。" />
+                                    <WrapPanel>
+                                        <StackPanel Style="{StaticResource SwitchDemoItemStyle}">
+                                            <nc:NSwitch
+                                                CheckedContent="开"
+                                                UncheckedContent="关"
+                                                Value="{Binding IconValue, Mode=TwoWay}">
+                                                <nc:NSwitch.CheckedIconContent>
+                                                    <nc:NIcon Data="{StaticResource SwitchCheckGeometry}" Size="10" />
+                                                </nc:NSwitch.CheckedIconContent>
+                                                <nc:NSwitch.UncheckedIconContent>
+                                                    <nc:NIcon Data="{StaticResource SwitchCloseGeometry}" Size="10" />
+                                                </nc:NSwitch.UncheckedIconContent>
+                                            </nc:NSwitch>
+                                            <TextBlock Style="{StaticResource SwitchDemoCaptionStyle}" Text="文案 + 图标" />
+                                        </StackPanel>
+                                        <StackPanel Style="{StaticResource SwitchDemoItemStyle}">
+                                            <nc:NSwitch Width="46" Value="{Binding IconOnlyValue, Mode=TwoWay}">
+                                                <nc:NSwitch.CheckedIconContent>
+                                                    <nc:NIcon Data="{StaticResource SwitchCheckGeometry}" Size="10" />
+                                                </nc:NSwitch.CheckedIconContent>
+                                                <nc:NSwitch.UncheckedIconContent>
+                                                    <nc:NIcon Data="{StaticResource SwitchCloseGeometry}" Size="10" />
+                                                </nc:NSwitch.UncheckedIconContent>
+                                            </nc:NSwitch>
+                                            <TextBlock Style="{StaticResource SwitchDemoCaptionStyle}" Text="仅图标" />
+                                        </StackPanel>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionApi" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="API" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <TextBlock
+                                Margin="30,24,30,24"
+                                Style="{StaticResource DocBodyTextStyle}"
+                                Text="当前 WPF 版 Switch 优先对齐 Naive UI 的核心能力：尺寸、文案、图标、自定义值、加载态与事件模型。同时保留 WPF 控件本身的 IsChecked、Command、Width、Brush、FontSize 等原生可组合性。" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionSwitchProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Switch 属性" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding SwitchPropsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionSwitchEvents" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Switch 事件" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding SwitchEventRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionSwitchContentProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Switch 内容属性" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding SwitchContentPropRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="1" Background="{DynamicResource Theme.Surface.0.Brush}">
+            <nc:NMenu
+                Margin="20,36,20,20"
+                DisplayMemberPath="Label"
+                ItemInvoked="HandleOutlineItemInvoked"
+                ItemsSource="{Binding OutlineItems}"
+                SelectedValuePath="TargetName" />
+        </Border>
+    </Grid>
+</UserControl>

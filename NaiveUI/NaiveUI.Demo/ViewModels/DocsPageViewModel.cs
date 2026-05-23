@@ -30,6 +30,7 @@ public sealed class DocsPageViewModel : ViewModelBase
             ["float-button"] = static () => new FloatButtonDocsPage(),
             ["message"] = static () => new MessageDocsPage(),
             ["badge"] = static () => new BadgeDocsPage(),
+            ["switch"] = static () => new SwitchDocsPage(),
             ["tooltip"] = static () => new TooltipDocsPage(),
             ["page-header"] = static () => new PageHeaderDocsPage(),
             ["tag"] = static () => new TagDocsPage(),
