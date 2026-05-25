@@ -1,0 +1,482 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:NaiveUI.NControls.Controls">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/ThemeTokens.xaml" />
+        <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/PathResources.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <controls:NSelectValueEqualityConverter x:Key="NSelectValueEqualityConverter" />
+    <controls:NSelectValueInListConverter x:Key="NSelectValueInListConverter" />
+
+    <Geometry x:Key="SelectChevronGeometry">M6.25 8.75C6.66421 8.33579 7.33579 8.33579 7.75 8.75L12 13L16.25 8.75C16.6642 8.33579 17.3358 8.33579 17.75 8.75C18.1642 9.16421 18.1642 9.83579 17.75 10.25L12.75 15.25C12.3358 15.6642 11.6642 15.6642 11.25 15.25L6.25 10.25C5.83579 9.83579 5.83579 9.16421 6.25 8.75Z</Geometry>
+    <Geometry x:Key="SelectCheckGeometry">M9.54996 15.6L4.59996 10.65C4.20814 10.2582 4.20814 9.62293 4.59996 9.23111C4.99179 8.83929 5.62704 8.83929 6.01887 9.23111L9.54996 12.7622L17.9811 4.33111C18.3729 3.93929 19.0081 3.93929 19.4 4.33111C19.7918 4.72293 19.7918 5.35818 19.4 5.75L9.54996 15.6Z</Geometry>
+
+    <Style x:Key="Naive.Select.ClearButtonStyle" TargetType="Button">
+        <Setter Property="Width" Value="22" />
+        <Setter Property="Height" Value="22" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Command" Value="{x:Static controls:NSelect.ClearSelectionCommand}" />
+        <Setter Property="CommandTarget" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NSelect}}}" />
+        <Setter Property="Tag" Value="Clear" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="Root"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        Background="Transparent"
+                        CornerRadius="11">
+                        <controls:NIcon
+                            Data="{StaticResource Close}"
+                            Size="12"
+                            Color="{DynamicResource Theme.Text.Tertiary.Brush}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Root" Property="Background" Value="{DynamicResource Theme.Fill.Hover.Brush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Root" Property="Background" Value="{DynamicResource Theme.Fill.2Pressed.Brush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Naive.Select.SearchBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="CaretBrush" Value="{DynamicResource Primary.First.Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <ScrollViewer x:Name="PART_ContentHost" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Naive.Select.TagCloseButtonStyle" TargetType="Button">
+        <Setter Property="Width" Value="16" />
+        <Setter Property="Height" Value="16" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="Root"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        Background="Transparent"
+                        CornerRadius="8">
+                        <controls:NIcon
+                            Data="{StaticResource Close}"
+                            Size="10"
+                            Color="{DynamicResource Theme.Text.Tertiary.Brush}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Root" Property="Background" Value="{DynamicResource Theme.Fill.2Hover.Brush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Root" Property="Background" Value="{DynamicResource Theme.Fill.2Pressed.Brush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Naive.Select.OptionItemStyle" TargetType="ListBoxItem">
+        <Setter Property="MinHeight" Value="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=Tag.ResolvedOptionHeight}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Secondary.Brush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Grid Margin="4,1">
+                        <Border
+                            x:Name="OptionBackground"
+                            Background="Transparent"
+                            CornerRadius="6" />
+                        <Grid MinHeight="{TemplateBinding MinHeight}" Margin="10,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="20" />
+                            </Grid.ColumnDefinitions>
+
+                            <ContentPresenter
+                                Grid.Column="0"
+                                Margin="0,0,8,0"
+                                VerticalAlignment="Center"
+                                Content="{Binding Icon}"
+                                Visibility="{Binding Icon, Converter={StaticResource NullToVisibilityConverter}}" />
+
+                            <ContentPresenter
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Content="{Binding Source}"
+                                ContentTemplate="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=Tag.OptionTemplate}">
+                                <ContentPresenter.Style>
+                                    <Style TargetType="ContentPresenter">
+                                        <Setter Property="ContentStringFormat" Value="" />
+                                    </Style>
+                                </ContentPresenter.Style>
+                            </ContentPresenter>
+
+                            <ContentPresenter
+                                Grid.Column="2"
+                                Margin="10,0,4,0"
+                                VerticalAlignment="Center"
+                                Content="{Binding Suffix}"
+                                TextElement.Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                Visibility="{Binding Suffix, Converter={StaticResource NullToVisibilityConverter}}" />
+
+                            <controls:NIcon
+                                x:Name="CheckIcon"
+                                Grid.Column="3"
+                                Data="{StaticResource SelectCheckGeometry}"
+                                Size="14"
+                                Color="{DynamicResource Primary.First.Brush}"
+                                Visibility="Collapsed" />
+                        </Grid>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="OptionBackground" Property="Background" Value="{DynamicResource Theme.Fill.Hover.Brush}" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="OptionBackground" Property="Background" Value="{DynamicResource Primary.Third.Brush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource Primary.First.Brush}" />
+                            <Setter TargetName="CheckIcon" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <DataTemplate x:Key="Naive.Select.DefaultOptionTemplate" DataType="{x:Type controls:NSelectOption}">
+        <ContentPresenter
+            Content="{Binding Label}"
+            RecognizesAccessKey="False"
+            TextElement.FontSize="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=Tag.ResolvedFontSize}"
+            TextElement.Foreground="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=Foreground}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="Naive.Select.DefaultSelectedItemTemplate">
+        <ContentPresenter Content="{Binding Label}" />
+    </DataTemplate>
+
+    <Style TargetType="{x:Type controls:NSelect}">
+        <Setter Property="MinWidth" Value="220" />
+        <Setter Property="Focusable" Value="True" />
+        <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="OptionTemplate" Value="{StaticResource Naive.Select.DefaultOptionTemplate}" />
+        <Setter Property="SelectedItemTemplate" Value="{StaticResource Naive.Select.DefaultSelectedItemTemplate}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:NSelect}">
+                    <Grid SnapsToDevicePixels="True">
+                        <Border
+                            x:Name="TriggerBorder"
+                            MinHeight="{TemplateBinding ResolvedHeight}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{StaticResource Radius.Medium}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <ContentPresenter
+                                    Grid.Column="0"
+                                    Margin="12,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding PrefixContent}"
+                                    Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PrefixContent, Converter={StaticResource NullToVisibilityConverter}}" />
+
+                                <Grid Grid.Column="1" Margin="{TemplateBinding ResolvedPadding}">
+                                    <TextBlock
+                                        x:Name="PlaceholderText"
+                                        VerticalAlignment="Center"
+                                        Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                        IsHitTestVisible="False"
+                                        Text="{TemplateBinding Placeholder}"
+                                        Visibility="Collapsed" />
+
+                                    <ContentPresenter
+                                        x:Name="SingleValuePresenter"
+                                        VerticalAlignment="Center"
+                                        Content="{TemplateBinding DisplayContent}"
+                                        ContentTemplate="{TemplateBinding SelectedItemTemplate}"
+                                        TextElement.FontSize="{TemplateBinding ResolvedFontSize}"
+                                        TextElement.Foreground="{TemplateBinding Foreground}" />
+
+                                    <ItemsControl
+                                        x:Name="TagItems"
+                                        ItemsSource="{TemplateBinding SelectedOptionLabels}"
+                                        Visibility="Collapsed">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel VerticalAlignment="Center" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border
+                                                    Margin="0,2,6,2"
+                                                    Padding="7,2,3,2"
+                                                    Background="{DynamicResource Theme.Fill.2.Brush}"
+                                                    BorderBrush="{DynamicResource Theme.Border.Brush}"
+                                                    BorderThickness="1"
+                                                    CornerRadius="4">
+                                                    <DockPanel LastChildFill="True">
+                                                        <Button
+                                                            Margin="5,0,0,0"
+                                                            Command="{x:Static controls:NSelect.RemoveSelectedValueCommand}"
+                                                            CommandParameter="{Binding}"
+                                                            CommandTarget="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NSelect}}}"
+                                                            DockPanel.Dock="Right"
+                                                            Style="{StaticResource Naive.Select.TagCloseButtonStyle}" />
+                                                        <ContentPresenter
+                                                            VerticalAlignment="Center"
+                                                            Content="{Binding Label}"
+                                                            ContentTemplate="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NSelect}}, Path=TagTemplate}"
+                                                            TextElement.FontSize="12"
+                                                            TextElement.Foreground="{DynamicResource Theme.Text.Secondary.Brush}" />
+                                                    </DockPanel>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                    <TextBox
+                                        x:Name="PART_SearchBox"
+                                        MinWidth="40"
+                                        VerticalAlignment="Center"
+                                        FontSize="{TemplateBinding ResolvedFontSize}"
+                                        Style="{StaticResource Naive.Select.SearchBoxStyle}"
+                                        Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        Visibility="Collapsed" />
+                                </Grid>
+
+                                <ContentPresenter
+                                    Grid.Column="2"
+                                    Margin="0,0,4,0"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding SuffixContent}"
+                                    Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SuffixContent, Converter={StaticResource NullToVisibilityConverter}}" />
+
+                                <Grid Grid.Column="3" Width="34" Margin="0,0,4,0">
+                                    <Button
+                                        x:Name="ClearButton"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource Naive.Select.ClearButtonStyle}"
+                                        Visibility="Collapsed" />
+                                    <controls:NIcon
+                                        x:Name="ArrowIcon"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Data="{StaticResource SelectChevronGeometry}"
+                                        Size="15"
+                                        Color="{DynamicResource Theme.Text.Tertiary.Brush}" />
+                                    <Grid
+                                        x:Name="LoadingGlyph"
+                                        Width="16"
+                                        Height="16"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        RenderTransformOrigin="0.5,0.5"
+                                        Visibility="Collapsed">
+                                        <Grid.RenderTransform>
+                                            <RotateTransform Angle="0" />
+                                        </Grid.RenderTransform>
+                                        <Ellipse
+                                            Width="16"
+                                            Height="16"
+                                            Stroke="{DynamicResource Theme.Border.Strong.Brush}"
+                                            StrokeThickness="2"
+                                            Opacity="0.45" />
+                                        <Path
+                                            Width="16"
+                                            Height="16"
+                                            Data="M 8,1 A 7,7 0 0 1 15,8"
+                                            Stroke="{DynamicResource Primary.First.Brush}"
+                                            StrokeEndLineCap="Round"
+                                            StrokeStartLineCap="Round"
+                                            StrokeThickness="2"
+                                            Stretch="None" />
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Border>
+
+                        <Popup
+                            x:Name="PART_Popup"
+                            AllowsTransparency="True"
+                            Focusable="False"
+                            IsOpen="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsDropDownOpen, Mode=TwoWay}"
+                            Placement="{TemplateBinding ResolvedPopupPlacement}"
+                            PlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                            PopupAnimation="None"
+                            StaysOpen="True">
+                            <Border
+                                Width="{TemplateBinding ResolvedDropDownWidth}"
+                                MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                Margin="0,6,0,0"
+                                Background="{DynamicResource Theme.Surface.0.Brush}"
+                                BorderBrush="{DynamicResource Theme.Border.Brush}"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Tag="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+                                <Border.Effect>
+                                    <DropShadowEffect
+                                        BlurRadius="24"
+                                        Opacity="0.14"
+                                        ShadowDepth="6"
+                                        Color="#1F2937" />
+                                </Border.Effect>
+                                <Grid>
+                                    <ListBox
+                                        x:Name="PART_ListBox"
+                                        MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                        Padding="0,4"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        ItemContainerStyle="{StaticResource Naive.Select.OptionItemStyle}"
+                                        ItemsSource="{TemplateBinding FilteredOptions}"
+                                        KeyboardNavigation.DirectionalNavigation="Cycle"
+                                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                        Tag="{Binding RelativeSource={RelativeSource TemplatedParent}}" />
+
+                                    <ContentPresenter
+                                        x:Name="EmptyPresenter"
+                                        Margin="18,18"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Content="{TemplateBinding NoDataContent}"
+                                        TextElement.Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                        Visibility="Collapsed" />
+
+                                    <ContentPresenter
+                                        x:Name="LoadingPresenter"
+                                        Margin="18,18"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Content="{TemplateBinding LoadingContent}"
+                                        TextElement.Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                        Visibility="Collapsed" />
+                                </Grid>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ShowPlaceholder" Value="True">
+                            <Setter TargetName="PlaceholderText" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="Multiple" Value="True">
+                            <Setter TargetName="SingleValuePresenter" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="TagItems" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="Filterable" Value="True">
+                            <Setter TargetName="PART_SearchBox" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="SingleValuePresenter" Property="Opacity" Value="0.45" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="TriggerBorder" Property="BorderBrush" Value="{DynamicResource Theme.Border.Strong.Brush}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter TargetName="TriggerBorder" Property="BorderBrush" Value="{DynamicResource Primary.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="IsDropDownOpen" Value="True">
+                            <Setter TargetName="TriggerBorder" Property="BorderBrush" Value="{DynamicResource Primary.First.Brush}" />
+                            <Setter TargetName="ArrowIcon" Property="RenderTransform">
+                                <Setter.Value>
+                                    <RotateTransform Angle="180" CenterX="7.5" CenterY="7.5" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="CanClear" Value="True">
+                            <Setter TargetName="ClearButton" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="ArrowIcon" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="ShowArrow" Value="False">
+                            <Setter TargetName="ArrowIcon" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="Loading" Value="True">
+                            <Setter TargetName="LoadingGlyph" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="ArrowIcon" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="ClearButton" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="LoadingPresenter" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="PART_ListBox" Property="Visibility" Value="Collapsed" />
+                            <Trigger.EnterActions>
+                                <BeginStoryboard x:Name="SelectLoadingStoryboard">
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="LoadingGlyph"
+                                            Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                                            From="0"
+                                            To="360"
+                                            Duration="0:0:0.9" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <StopStoryboard BeginStoryboardName="SelectLoadingStoryboard" />
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        <Trigger Property="HasFilteredOptions" Value="False">
+                            <Setter TargetName="EmptyPresenter" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="PART_ListBox" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="Status" Value="{x:Static controls:NSelectStatus.Success}">
+                            <Setter TargetName="TriggerBorder" Property="BorderBrush" Value="{DynamicResource Success.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="Status" Value="{x:Static controls:NSelectStatus.Warning}">
+                            <Setter TargetName="TriggerBorder" Property="BorderBrush" Value="{DynamicResource Warning.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="Status" Value="{x:Static controls:NSelectStatus.Error}">
+                            <Setter TargetName="TriggerBorder" Property="BorderBrush" Value="{DynamicResource Error.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="IsInvalid" Value="True">
+                            <Setter TargetName="TriggerBorder" Property="BorderBrush" Value="{DynamicResource Error.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.55" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

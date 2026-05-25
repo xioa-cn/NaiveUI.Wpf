@@ -43,7 +43,7 @@
         { "key": "mention", "title": "提及", "subtitle": "Mention" },
         { "key": "radio", "title": "单选", "subtitle": "Radio" },
         { "key": "rate", "title": "评分", "subtitle": "Rate" },
-        { "key": "select", "title": "选择器", "subtitle": "Select" },
+        { "key": "select", "title": "选择器", "subtitle": "Select", "badgeText": "新" },
         { "key": "slider", "title": "滑动选择", "subtitle": "Slider" },
         { "key": "switch", "title": "开关", "subtitle": "Switch", "badgeText": "新"  },
         { "key": "time-picker", "title": "时间选择器", "subtitle": "Time Picker" },

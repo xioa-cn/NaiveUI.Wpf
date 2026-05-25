@@ -10,24 +10,24 @@
         <ApplicationIcon>5xrn1-dv6v5-001.ico</ApplicationIcon>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <OutputPath>\bin\Debug\</OutputPath>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <Optimize>False</Optimize>
     </PropertyGroup>
 
     <ItemGroup>
-        <None Remove="Assets\Header.jpg"/>
+        <None Remove="Assets\Header.jpg" />
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="5xrn1-dv6v5-001.ico"/>
+        <Content Include="5xrn1-dv6v5-001.ico" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\NaiveUI.NControls\NaiveUI.NControls.csproj"/>
+        <ProjectReference Include="..\NaiveUI.NControls\NaiveUI.NControls.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <Resource Include="Assets\Header.jpg"/>
+        <Resource Include="Assets\Header.jpg" />
     </ItemGroup>
 
     <ItemGroup>
@@ -37,10 +37,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2"/>
-        <PackageReference Include="ShowMeTheXAML" Version="2.1.1"/>
-        <PackageReference Include="ShowMeTheXAML.AvalonEdit" Version="2.1.1"/>
-        <PackageReference Include="ShowMeTheXAML.MSBuild" Version="2.1.1"/>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+        <PackageReference Include="ShowMeTheXAML" Version="2.1.1" />
+        <PackageReference Include="ShowMeTheXAML.AvalonEdit" Version="2.1.1" />
+        <PackageReference Include="ShowMeTheXAML.MSBuild" Version="2.1.1" />
     </ItemGroup>
     
 
