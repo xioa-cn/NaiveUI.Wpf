@@ -369,6 +369,33 @@ public class NSelect : Control
     public static readonly DependencyProperty ArrowContentProperty =
         ElementBase.Property<NSelect, object?>(nameof(ArrowContentProperty), null, OnVisualPropertyChanged);
 
+    public object? ClosedArrowContent
+    {
+        get => GetValue(ClosedArrowContentProperty);
+        set => SetValue(ClosedArrowContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ClosedArrowContentProperty =
+        ElementBase.Property<NSelect, object?>(nameof(ClosedArrowContentProperty), null, OnVisualPropertyChanged);
+
+    public object? OpenArrowContent
+    {
+        get => GetValue(OpenArrowContentProperty);
+        set => SetValue(OpenArrowContentProperty, value);
+    }
+
+    public static readonly DependencyProperty OpenArrowContentProperty =
+        ElementBase.Property<NSelect, object?>(nameof(OpenArrowContentProperty), null, OnVisualPropertyChanged);
+
+    public object? ClearIconContent
+    {
+        get => GetValue(ClearIconContentProperty);
+        set => SetValue(ClearIconContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ClearIconContentProperty =
+        ElementBase.Property<NSelect, object?>(nameof(ClearIconContentProperty), null, OnVisualPropertyChanged);
+
     public object? HeaderContent
     {
         get => GetValue(HeaderContentProperty);
@@ -497,6 +524,61 @@ public class NSelect : Control
         DependencyProperty.RegisterReadOnly(nameof(HasArrowContent), typeof(bool), typeof(NSelect), new PropertyMetadata(false));
 
     public static readonly DependencyProperty HasArrowContentProperty = HasArrowContentPropertyKey.DependencyProperty;
+
+    public object? ResolvedClosedArrowContent
+    {
+        get => GetValue(ResolvedClosedArrowContentProperty);
+        private set => SetValue(ResolvedClosedArrowContentPropertyKey, value);
+    }
+
+    private static readonly DependencyPropertyKey ResolvedClosedArrowContentPropertyKey =
+        DependencyProperty.RegisterReadOnly(nameof(ResolvedClosedArrowContent), typeof(object), typeof(NSelect), new PropertyMetadata(null));
+
+    public static readonly DependencyProperty ResolvedClosedArrowContentProperty = ResolvedClosedArrowContentPropertyKey.DependencyProperty;
+
+    public object? ResolvedOpenArrowContent
+    {
+        get => GetValue(ResolvedOpenArrowContentProperty);
+        private set => SetValue(ResolvedOpenArrowContentPropertyKey, value);
+    }
+
+    private static readonly DependencyPropertyKey ResolvedOpenArrowContentPropertyKey =
+        DependencyProperty.RegisterReadOnly(nameof(ResolvedOpenArrowContent), typeof(object), typeof(NSelect), new PropertyMetadata(null));
+
+    public static readonly DependencyProperty ResolvedOpenArrowContentProperty = ResolvedOpenArrowContentPropertyKey.DependencyProperty;
+
+    public bool HasResolvedClosedArrowContent
+    {
+        get => (bool)GetValue(HasResolvedClosedArrowContentProperty);
+        private set => SetValue(HasResolvedClosedArrowContentPropertyKey, value);
+    }
+
+    private static readonly DependencyPropertyKey HasResolvedClosedArrowContentPropertyKey =
+        DependencyProperty.RegisterReadOnly(nameof(HasResolvedClosedArrowContent), typeof(bool), typeof(NSelect), new PropertyMetadata(false));
+
+    public static readonly DependencyProperty HasResolvedClosedArrowContentProperty = HasResolvedClosedArrowContentPropertyKey.DependencyProperty;
+
+    public bool HasResolvedOpenArrowContent
+    {
+        get => (bool)GetValue(HasResolvedOpenArrowContentProperty);
+        private set => SetValue(HasResolvedOpenArrowContentPropertyKey, value);
+    }
+
+    private static readonly DependencyPropertyKey HasResolvedOpenArrowContentPropertyKey =
+        DependencyProperty.RegisterReadOnly(nameof(HasResolvedOpenArrowContent), typeof(bool), typeof(NSelect), new PropertyMetadata(false));
+
+    public static readonly DependencyProperty HasResolvedOpenArrowContentProperty = HasResolvedOpenArrowContentPropertyKey.DependencyProperty;
+
+    public bool HasClearIconContent
+    {
+        get => (bool)GetValue(HasClearIconContentProperty);
+        private set => SetValue(HasClearIconContentPropertyKey, value);
+    }
+
+    private static readonly DependencyPropertyKey HasClearIconContentPropertyKey =
+        DependencyProperty.RegisterReadOnly(nameof(HasClearIconContent), typeof(bool), typeof(NSelect), new PropertyMetadata(false));
+
+    public static readonly DependencyProperty HasClearIconContentProperty = HasClearIconContentPropertyKey.DependencyProperty;
 
     public bool HasHeaderContent
     {
@@ -1275,7 +1357,12 @@ public class NSelect : Control
     private void UpdateSelectionState()
     {
         SelectedOptionLabels.Clear();
-        HasArrowContent = ArrowContent is not null;
+        ResolvedClosedArrowContent = ClosedArrowContent ?? ArrowContent;
+        ResolvedOpenArrowContent = OpenArrowContent ?? ArrowContent;
+        HasResolvedClosedArrowContent = ResolvedClosedArrowContent is not null;
+        HasResolvedOpenArrowContent = ResolvedOpenArrowContent is not null;
+        HasClearIconContent = ClearIconContent is not null;
+        HasArrowContent = HasResolvedClosedArrowContent || HasResolvedOpenArrowContent;
         HasHeaderContent = HeaderContent is not null;
         HasActionContent = ActionContent is not null;
 

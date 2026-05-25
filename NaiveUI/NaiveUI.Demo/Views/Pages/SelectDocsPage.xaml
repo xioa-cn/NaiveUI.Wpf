@@ -56,6 +56,9 @@
         </DataTemplate>
 
         <Geometry x:Key="SelectDocsCustomArrowGeometry">M2 3L8 9L14 3M2 8L8 14L14 8</Geometry>
+        <Geometry x:Key="SelectDocsClosedArrowGeometry">M2 4.5L8 10.5L14 4.5M3 1.5H13</Geometry>
+        <Geometry x:Key="SelectDocsOpenArrowGeometry">M2 10.5L8 4.5L14 10.5M3 13.5H13</Geometry>
+        <Geometry x:Key="SelectDocsClearIconGeometry">M3 3L13 13M13 3L3 13</Geometry>
 
         <DataTemplate x:Key="SongTagTemplate">
             <StackPanel Orientation="Horizontal">
@@ -212,35 +215,187 @@
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
                             <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SelectDocsPage10">
-                                <StackPanel Margin="30,24,30,24">
-                                    <TextBlock
-                                        Margin="0,0,0,20"
-                                        Style="{StaticResource DocBodyTextStyle}"
-                                        Text="ArrowContent 用于自定义右侧箭头内容，未设置时回退到默认箭头。" />
-                                    <nc:NSelect
-                                        Width="300"
-                                        HorizontalAlignment="Left"
-                                        SelectedValue="{Binding CustomArrowValue, Mode=TwoWay}">
-                                        <nc:NSelect.ArrowContent>
-                                            <Path
-                                                Width="14"
-                                                Height="14"
-                                                Data="{StaticResource SelectDocsCustomArrowGeometry}"
-                                                Stretch="Fill"
-                                                Stroke="{DynamicResource Primary.First.Brush}"
-                                                StrokeEndLineCap="Round"
-                                                StrokeLineJoin="Round"
-                                                StrokeStartLineCap="Round"
-                                                StrokeThickness="2" />
-                                        </nc:NSelect.ArrowContent>
-                                        <nc:NSelectOption Label="Drive My Car" Value="song0" />
-                                        <nc:NSelectOption Label="Norwegian Wood" Value="song1" />
-                                        <nc:NSelectOption Label="You Won't See Me" Value="song2" />
-                                    </nc:NSelect>
-                                </StackPanel>
+                                <WrapPanel>
+                                    <StackPanel Style="{StaticResource SelectDemoItemStyle}">
+
+                                        <nc:NSelect
+                                            Width="300"
+                                            HorizontalAlignment="Left"
+                                            SelectedValue="{Binding CustomArrowValue, Mode=TwoWay}">
+                                            <nc:NSelect.ArrowContent>
+                                                <Path
+                                                    Width="14"
+                                                    Height="14"
+                                                    Data="{StaticResource SelectDocsCustomArrowGeometry}"
+                                                    Stretch="Fill"
+                                                    Stroke="{DynamicResource Primary.First.Brush}"
+                                                    StrokeEndLineCap="Round"
+                                                    StrokeLineJoin="Round"
+                                                    StrokeStartLineCap="Round"
+                                                    StrokeThickness="2" />
+                                            </nc:NSelect.ArrowContent>
+                                            <nc:NSelectOption Label="Drive My Car" Value="song0" />
+                                            <nc:NSelectOption Label="Norwegian Wood" Value="song1" />
+                                            <nc:NSelectOption Label="You Won't See Me" Value="song2" />
+                                        </nc:NSelect>
+                                        <TextBlock Style="{StaticResource SelectDemoCaptionStyle}" Text="ArrowContent" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource SelectDemoItemStyle}">
+                                        <nc:NSelect
+                                            Width="300"
+                                            HorizontalAlignment="Left"
+                                            SelectedValue="{Binding CustomArrowValue, Mode=TwoWay}">
+                                            <nc:NSelect.ArrowContent>
+                                                <Path
+                                                    Width="14"
+                                                    Height="14"
+                                                    Data="{StaticResource SelectDocsCustomArrowGeometry}"
+                                                    Stretch="Fill"
+                                                    Stroke="{DynamicResource Primary.First.Brush}"
+                                                    StrokeEndLineCap="Round"
+                                                    StrokeLineJoin="Round"
+                                                    StrokeStartLineCap="Round"
+                                                    StrokeThickness="2" />
+                                            </nc:NSelect.ArrowContent>
+                                            <nc:NSelectOption Label="Drive My Car" Value="song0" />
+                                            <nc:NSelectOption Label="Norwegian Wood" Value="song1" />
+                                            <nc:NSelectOption Label="You Won't See Me" Value="song2" />
+                                        </nc:NSelect>
+                                        <TextBlock Style="{StaticResource SelectDemoCaptionStyle}" Text="ArrowContent" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource SelectDemoItemStyle}">
+                                        <nc:NSelect
+                                            Width="300"
+                                            HorizontalAlignment="Left"
+                                            SelectedValue="{Binding CustomArrowValue, Mode=TwoWay}">
+                                            <nc:NSelect.ClosedArrowContent>
+                                                <Path
+                                                    Width="14"
+                                                    Height="14"
+                                                    Data="{StaticResource SelectDocsClosedArrowGeometry}"
+                                                    Stretch="Fill"
+                                                    Stroke="{DynamicResource Primary.First.Brush}"
+                                                    StrokeEndLineCap="Round"
+                                                    StrokeLineJoin="Round"
+                                                    StrokeStartLineCap="Round"
+                                                    StrokeThickness="2" />
+                                            </nc:NSelect.ClosedArrowContent>
+                                            <nc:NSelect.OpenArrowContent>
+                                                <Path
+                                                    Width="14"
+                                                    Height="14"
+                                                    Data="{StaticResource SelectDocsOpenArrowGeometry}"
+                                                    Stretch="Fill"
+                                                    Stroke="{DynamicResource Success.First.Brush}"
+                                                    StrokeEndLineCap="Round"
+                                                    StrokeLineJoin="Round"
+                                                    StrokeStartLineCap="Round"
+                                                    StrokeThickness="2" />
+                                            </nc:NSelect.OpenArrowContent>
+                                            <nc:NSelectOption Label="Drive My Car" Value="song0" />
+                                            <nc:NSelectOption Label="Norwegian Wood" Value="song1" />
+                                            <nc:NSelectOption Label="You Won't See Me" Value="song2" />
+                                        </nc:NSelect>
+                                        <TextBlock Style="{StaticResource SelectDemoCaptionStyle}" Text="Closed / Open Arrow" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource SelectDemoItemStyle}">
+                                        <nc:NSelect
+                                            Width="300"
+                                            HorizontalAlignment="Left"
+                                            Clearable="True"
+                                            SelectedValue="{Binding CustomArrowValue, Mode=TwoWay}">
+                                            <nc:NSelect.ClearIconContent>
+                                                <Path
+                                                    Width="12"
+                                                    Height="12"
+                                                    Data="{StaticResource SelectDocsClearIconGeometry}"
+                                                    Stretch="Fill"
+                                                    Stroke="{DynamicResource Error.First.Brush}"
+                                                    StrokeEndLineCap="Round"
+                                                    StrokeLineJoin="Round"
+                                                    StrokeStartLineCap="Round"
+                                                    StrokeThickness="2" />
+                                            </nc:NSelect.ClearIconContent>
+                                            <nc:NSelectOption Label="Drive My Car" Value="song0" />
+                                            <nc:NSelectOption Label="Norwegian Wood" Value="song1" />
+                                            <nc:NSelectOption Label="You Won't See Me" Value="song2" />
+                                        </nc:NSelect>
+                                        <TextBlock Style="{StaticResource SelectDemoCaptionStyle}" Text="Clear Icon" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource SelectDemoItemStyle}">
+                                        <nc:NSelect
+                                            Width="320"
+                                            HorizontalAlignment="Left"
+                                            SelectedValue="{Binding CustomArrowValue, Mode=TwoWay}">
+                                            <nc:NSelect.PrefixContent>
+                                                <nc:NIcon
+                                                    Data="{StaticResource SelectDocsClosedArrowGeometry}"
+                                                    IconBrush="{DynamicResource Warning.First.Brush}"
+                                                    Size="16"
+                                                    StrokeThickness="1.8"
+                                                    UseStroke="True" />
+                                            </nc:NSelect.PrefixContent>
+                                            <nc:NSelect.SuffixContent>
+                                                <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="⌘K" />
+                                            </nc:NSelect.SuffixContent>
+                                            <nc:NSelectOption Label="Drive My Car" Value="song0" />
+                                            <nc:NSelectOption Label="Norwegian Wood" Value="song1" />
+                                            <nc:NSelectOption Label="You Won't See Me" Value="song2" />
+                                        </nc:NSelect>
+                                        <TextBlock Style="{StaticResource SelectDemoCaptionStyle}" Text="Prefix / Suffix" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource SelectDemoItemStyle}">
+                                        <nc:NSelect
+                                            Width="340"
+                                            HorizontalAlignment="Left"
+                                            SelectedValue="{Binding CustomArrowValue, Mode=TwoWay}">
+                                            <nc:NSelectOption
+                                                Label="Drive My Car"
+                                                Suffix="1965"
+                                                Value="song0">
+                                                <nc:NSelectOption.Icon>
+                                                    <nc:NIcon
+                                                        Data="{StaticResource SelectDocsClosedArrowGeometry}"
+                                                        IconBrush="{DynamicResource Primary.First.Brush}"
+                                                        Size="14"
+                                                        StrokeThickness="1.8"
+                                                        UseStroke="True" />
+                                                </nc:NSelectOption.Icon>
+                                            </nc:NSelectOption>
+                                            <nc:NSelectOption
+                                                Label="Norwegian Wood"
+                                                Suffix="1965"
+                                                Value="song1">
+                                                <nc:NSelectOption.Icon>
+                                                    <nc:NIcon
+                                                        Data="{StaticResource SelectDocsOpenArrowGeometry}"
+                                                        IconBrush="{DynamicResource Success.First.Brush}"
+                                                        Size="14"
+                                                        StrokeThickness="1.8"
+                                                        UseStroke="True" />
+                                                </nc:NSelectOption.Icon>
+                                            </nc:NSelectOption>
+                                            <nc:NSelectOption
+                                                Label="You Won't See Me"
+                                                Suffix="1965"
+                                                Value="song2">
+                                                <nc:NSelectOption.Icon>
+                                                    <nc:NIcon
+                                                        Data="{StaticResource SelectDocsCustomArrowGeometry}"
+                                                        IconBrush="{DynamicResource Warning.First.Brush}"
+                                                        Size="14"
+                                                        StrokeThickness="1.8"
+                                                        UseStroke="True" />
+                                                </nc:NSelectOption.Icon>
+                                            </nc:NSelectOption>
+                                        </nc:NSelect>
+                                        <TextBlock Style="{StaticResource SelectDemoCaptionStyle}" Text="Option Icon / Suffix" />
+                                    </StackPanel>
+                                </WrapPanel>
                             </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
+
 
                     <nu:CardElement x:Name="SectionMultiple" Margin="0,0,0,20">
                         <nu:CardElement.HeaderElement>

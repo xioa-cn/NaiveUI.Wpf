@@ -34,12 +34,25 @@
                         Height="{TemplateBinding Height}"
                         Background="Transparent"
                         CornerRadius="11">
-                        <controls:NIcon
-                            Data="{StaticResource Close}"
-                            Size="12"
-                            Color="{DynamicResource Theme.Text.Tertiary.Brush}" />
+                        <Grid>
+                            <ContentPresenter
+                                x:Name="ClearButtonCustomIconPresenter"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NSelect}}, Path=ClearIconContent}"
+                                Visibility="Collapsed" />
+                            <controls:NIcon
+                                x:Name="ClearButtonDefaultIconPresenter"
+                                Data="{StaticResource Close}"
+                                Size="12"
+                                Color="{DynamicResource Theme.Text.Tertiary.Brush}" />
+                        </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NSelect}}, Path=HasClearIconContent}" Value="True">
+                            <Setter TargetName="ClearButtonCustomIconPresenter" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="ClearButtonDefaultIconPresenter" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="Root" Property="Background" Value="{DynamicResource Theme.Fill.Hover.Brush}" />
                         </Trigger>
@@ -193,7 +206,7 @@
         <ContentPresenter Content="{Binding Label}" />
     </DataTemplate>
 
-    <Style TargetType="{x:Type controls:NSelect}">
+    <Style x:Key="NSelectBaseStyle" TargetType="{x:Type controls:NSelect}">
         <Setter Property="MinWidth" Value="220" />
         <Setter Property="Focusable" Value="True" />
         <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
@@ -316,40 +329,53 @@
                                         x:Name="ClearButton"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
+                                        Opacity="0"
+                                        IsHitTestVisible="False"
                                         Style="{StaticResource Naive.Select.ClearButtonStyle}"
-                                        Visibility="Collapsed" />
+                                        Visibility="Visible" />
                                     <Grid
                                         x:Name="ArrowPresenter"
                                         Width="16"
                                         Height="16"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
+                                        IsHitTestVisible="False"
+                                        Opacity="1"
                                         RenderTransformOrigin="0.5,0.5">
-                                        <ContentPresenter
-                                            x:Name="ArrowContentPresenter"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Content="{TemplateBinding ArrowContent}"
-                                            Visibility="Collapsed" />
-                                        <controls:NIcon
-                                            x:Name="ArrowIcon"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Data="{StaticResource SelectChevronGeometry}"
-                                            Size="16"
-                                            Color="{DynamicResource Theme.Text.Tertiary.Brush}"
-                                            StrokeThickness="1.35"
-                                            UseStroke="True" />
-                                        <controls:NIcon
-                                            x:Name="ArrowIconOpen"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Data="{StaticResource SelectChevronUpGeometry}"
-                                            Size="16"
-                                            Color="{DynamicResource Theme.Text.Tertiary.Brush}"
-                                            StrokeThickness="1.35"
-                                            UseStroke="True"
-                                            Visibility="Collapsed" />
+                                        <Grid x:Name="ClosedArrowLayer" Opacity="1">
+                                            <ContentPresenter
+                                                x:Name="ClosedArrowContentPresenter"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Content="{TemplateBinding ResolvedClosedArrowContent}"
+                                                Visibility="Collapsed" />
+                                            <controls:NIcon
+                                                x:Name="ArrowIcon"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Data="{StaticResource SelectChevronGeometry}"
+                                                Size="16"
+                                                Color="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                                StrokeThickness="1.35"
+                                                UseStroke="True" />
+                                        </Grid>
+                                        <Grid x:Name="OpenArrowLayer" Opacity="0">
+                                            <ContentPresenter
+                                                x:Name="OpenArrowContentPresenter"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Content="{TemplateBinding ResolvedOpenArrowContent}"
+                                                Visibility="Collapsed" />
+                                            <controls:NIcon
+                                                x:Name="ArrowIconOpen"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Data="{StaticResource SelectChevronUpGeometry}"
+                                                Size="16"
+                                                Color="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                                StrokeThickness="1.35"
+                                                UseStroke="True" />
+                                        </Grid>
                                     </Grid>
                                     <Grid
                                         x:Name="LoadingGlyph"
@@ -490,9 +516,12 @@
                             <Setter TargetName="TagItems" Property="Visibility" Value="Visible" />
                             <Setter TargetName="PART_SearchBox" Property="MinWidth" Value="18" />
                         </Trigger>
-                        <Trigger Property="HasArrowContent" Value="True">
-                            <Setter TargetName="ArrowContentPresenter" Property="Visibility" Value="Visible" />
+                        <Trigger Property="HasResolvedClosedArrowContent" Value="True">
+                            <Setter TargetName="ClosedArrowContentPresenter" Property="Visibility" Value="Visible" />
                             <Setter TargetName="ArrowIcon" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="HasResolvedOpenArrowContent" Value="True">
+                            <Setter TargetName="OpenArrowContentPresenter" Property="Visibility" Value="Visible" />
                             <Setter TargetName="ArrowIconOpen" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                         <Trigger Property="HasHeaderContent" Value="True">
@@ -521,24 +550,101 @@
                         <Trigger Property="IsKeyboardFocusWithin" Value="True">
                             <Setter TargetName="TriggerBorder" Property="BorderBrush" Value="{DynamicResource Primary.First.Brush}" />
                         </Trigger>
+                        <Trigger Property="IsDropDownOpen" Value="False">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard FillBehavior="Stop">
+                                        <DoubleAnimation Storyboard.TargetName="ClosedArrowLayer"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         Duration="0:0:0.16" />
+                                        <DoubleAnimation Storyboard.TargetName="OpenArrowLayer"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         Duration="0:0:0.16" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                        </Trigger>
                         <Trigger Property="IsDropDownOpen" Value="True">
                             <Setter TargetName="TriggerBorder" Property="BorderBrush" Value="{DynamicResource Primary.First.Brush}" />
+                            <Setter TargetName="ClosedArrowLayer" Property="Opacity" Value="0" />
+                            <Setter TargetName="OpenArrowLayer" Property="Opacity" Value="1" />
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard FillBehavior="Stop">
+                                        <DoubleAnimation Storyboard.TargetName="ClosedArrowLayer"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         From="1"
+                                                         To="0"
+                                                         Duration="0:0:0.16" />
+                                        <DoubleAnimation Storyboard.TargetName="OpenArrowLayer"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         From="0"
+                                                         To="1"
+                                                         Duration="0:0:0.16" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard FillBehavior="Stop">
+                                        <DoubleAnimation Storyboard.TargetName="ClosedArrowLayer"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         From="0"
+                                                         To="1"
+                                                         Duration="0:0:0.16" />
+                                        <DoubleAnimation Storyboard.TargetName="OpenArrowLayer"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         From="1"
+                                                         To="0"
+                                                         Duration="0:0:0.16" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="IsDropDownOpen" Value="True" />
-                                <Condition Property="HasArrowContent" Value="False" />
+                                <Condition Property="CanClear" Value="True" />
+                                <Condition Property="IsMouseOver" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="ArrowIcon" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="ArrowIconOpen" Property="Visibility" Value="Visible" />
+                            <MultiTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard FillBehavior="HoldEnd">
+                                        <DoubleAnimation Storyboard.TargetName="ArrowPresenter"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         From="1"
+                                                         To="0"
+                                                         Duration="0:0:0.14" />
+                                        <DoubleAnimation Storyboard.TargetName="ClearButton"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         From="0"
+                                                         To="1"
+                                                         Duration="0:0:0.14" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.EnterActions>
+                            <MultiTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard FillBehavior="HoldEnd">
+                                        <DoubleAnimation Storyboard.TargetName="ArrowPresenter"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         From="0"
+                                                         To="1"
+                                                         Duration="0:0:0.14" />
+                                        <DoubleAnimation Storyboard.TargetName="ClearButton"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         From="1"
+                                                         To="0"
+                                                         Duration="0:0:0.14" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.ExitActions>
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="CanClear" Value="True" />
                                 <Condition Property="IsMouseOver" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="ClearButton" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="ArrowPresenter" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="ClearButton" Property="IsHitTestVisible" Value="True" />
                         </MultiTrigger>
                         <Trigger Property="ShowArrow" Value="False">
                             <Setter TargetName="ArrowPresenter" Property="Visibility" Value="Collapsed" />
@@ -546,7 +652,8 @@
                         <Trigger Property="Loading" Value="True">
                             <Setter TargetName="LoadingGlyph" Property="Visibility" Value="Visible" />
                             <Setter TargetName="ArrowPresenter" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="ClearButton" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="ClearButton" Property="Opacity" Value="0" />
+                            <Setter TargetName="ClearButton" Property="IsHitTestVisible" Value="False" />
                             <Setter TargetName="LoadingPresenter" Property="Visibility" Value="Visible" />
                             <Setter TargetName="PART_ListBox" Property="Visibility" Value="Collapsed" />
                             <Trigger.EnterActions>
@@ -589,4 +696,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style TargetType="{x:Type controls:NSelect}" BasedOn="{StaticResource NSelectBaseStyle}"></Style>
+    
 </ResourceDictionary>
