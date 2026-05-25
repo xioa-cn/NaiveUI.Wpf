@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Input;
 using NaiveUI.Demo.ViewModels;
+using NaiveUI.NControls.Tools;
 
 namespace NaiveUI.Demo.Views;
 
@@ -11,6 +12,9 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        NLoadingBar.SetGlobalProvider(GlobalLoadingBarProvider);
+        Loaded += (_, _) => NLoadingBar.SetGlobalProvider(GlobalLoadingBarProvider);
+        Closed += (_, _) => NLoadingBar.SetGlobalProvider(null);
         StateChanged += (_, _) => ViewModel.SyncWindowState(WindowState);
         ViewModel.SyncWindowState(WindowState);
     }

@@ -31,33 +31,38 @@
     </shell:WindowChrome.WindowChrome>
 
     <AdornerDecorator>
-        <nc:NMessageProvider>
-            <Border Background="{DynamicResource Theme.Surface.0.Brush}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="100" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
+        <nc:NLoadingBarProvider
+            x:Name="GlobalLoadingBarProvider"
+            BarHeight="10"
+            IsGlobalProvider="True">
+            <nc:NMessageProvider>
+                <Border Background="{DynamicResource Theme.Surface.0.Brush}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
 
-                    <views:TopNavBar
-                        x:Name="TopNavBar"
-                        Grid.Row="0"
-                        CloseRequested="HandleCloseRequested"
-                        ComponentsRequested="HandleComponentsRequested"
-                        DragRequested="HandleDragRequested"
-                        HomeRequested="HandleHomeRequested"
-                        IsComponentsSelected="{Binding IsComponentsSelected}"
-                        IsHomeSelected="{Binding IsHomeSelected}"
-                        MaximizeGlyph="{Binding MaximizeGlyph}"
-                        MaximizeRestoreRequested="HandleMaximizeRestoreRequested"
-                        MinimizeRequested="HandleMinimizeRequested"
-                        ThemeToggleRequested="HandleThemeToggleRequested"
-                        ThemeToggleText="{Binding ThemeToggleText}"
-                        VersionText="{Binding VersionText}" />
+                        <views:TopNavBar
+                            x:Name="TopNavBar"
+                            Grid.Row="0"
+                            CloseRequested="HandleCloseRequested"
+                            ComponentsRequested="HandleComponentsRequested"
+                            DragRequested="HandleDragRequested"
+                            HomeRequested="HandleHomeRequested"
+                            IsComponentsSelected="{Binding IsComponentsSelected}"
+                            IsHomeSelected="{Binding IsHomeSelected}"
+                            MaximizeGlyph="{Binding MaximizeGlyph}"
+                            MaximizeRestoreRequested="HandleMaximizeRestoreRequested"
+                            MinimizeRequested="HandleMinimizeRequested"
+                            ThemeToggleRequested="HandleThemeToggleRequested"
+                            ThemeToggleText="{Binding ThemeToggleText}"
+                            VersionText="{Binding VersionText}" />
 
-                    <ContentControl Grid.Row="1" Content="{Binding CurrentPageView}" />
-                </Grid>
-            </Border>
-        </nc:NMessageProvider>
+                        <ContentControl Grid.Row="1" Content="{Binding CurrentPageView}" />
+                    </Grid>
+                </Border>
+            </nc:NMessageProvider>
+        </nc:NLoadingBarProvider>
     </AdornerDecorator>
 </Window>

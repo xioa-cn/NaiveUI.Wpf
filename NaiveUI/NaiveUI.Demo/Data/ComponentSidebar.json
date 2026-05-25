@@ -87,7 +87,7 @@
         { "key": "anchor", "title": "侧边导航", "subtitle": "Anchor" },
         { "key": "back-top", "title": "回到顶部", "subtitle": "Back Top" },
         { "key": "breadcrumb", "title": "面包屑", "subtitle": "Breadcrumb", "badgeText": "新"  },
-        { "key": "loading-bar", "title": "加载条", "subtitle": "Loading Bar" },
+        { "key": "loading-bar", "title": "加载条", "subtitle": "Loading Bar", "badgeText": "新"  },
         { "key": "menu", "title": "菜单", "subtitle": "Menu" },
         { "key": "pagination", "title": "分页", "subtitle": "Pagination" },
         { "key": "steps", "title": "步骤", "subtitle": "Steps" },

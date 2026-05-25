@@ -29,6 +29,7 @@ public sealed class DocsPageViewModel : ViewModelBase
             ["icon"] = static () => new IconDocsPage(),
             ["float-button"] = static () => new FloatButtonDocsPage(),
             ["message"] = static () => new MessageDocsPage(),
+            ["loading-bar"] = static () => new LoadingBarDocsPage(),
             ["badge"] = static () => new BadgeDocsPage(),
             ["select"] = static () => new SelectDocsPage(),
             ["switch"] = static () => new SwitchDocsPage(),
