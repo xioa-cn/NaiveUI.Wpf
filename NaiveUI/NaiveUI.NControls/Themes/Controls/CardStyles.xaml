@@ -26,7 +26,7 @@
             Duration="0:0:0.9" />
     </Storyboard>
 
-    <Style TargetType="{x:Type controls:NCard}">
+    <Style x:Key="NCardBaseStyle" TargetType="{x:Type controls:NCard}">
         <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
         <Setter Property="BorderThickness" Value="1" />
@@ -257,8 +257,10 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style BasedOn="{StaticResource NCardBaseStyle}" TargetType="{x:Type controls:NCard}"/>
 
-    <Style TargetType="{x:Type card:CardElement}">
+    <Style x:Key="CardElementBaseStyle" TargetType="{x:Type card:CardElement}">
         <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BoderColor" Value="{DynamicResource Theme.Border.Color}" />
@@ -372,4 +374,6 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style BasedOn="{StaticResource CardElementBaseStyle}" TargetType="{x:Type card:CardElement}"/>
 </ResourceDictionary>

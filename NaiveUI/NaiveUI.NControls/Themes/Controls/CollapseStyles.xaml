@@ -16,7 +16,7 @@
         <Setter Property="CornerRadius" Value="3" />
     </Style>
 
-    <Style TargetType="{x:Type controls:NCollapse}">
+    <Style x:Key="NCollapseBaseStyle" TargetType="{x:Type controls:NCollapse}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
         <Setter Property="BorderThickness" Value="0" />
@@ -34,8 +34,10 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style BasedOn="{StaticResource NCollapseBaseStyle}" TargetType="{x:Type controls:NCollapse}"/>
 
-    <Style TargetType="{x:Type controls:NCollapseItem}">
+    <Style x:Key="NCollapseItemBaseStyle" TargetType="{x:Type controls:NCollapseItem}">
         <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -189,4 +191,5 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style BasedOn="{StaticResource NCollapseItemBaseStyle}" TargetType="{x:Type controls:NCollapseItem}"/>
 </ResourceDictionary>

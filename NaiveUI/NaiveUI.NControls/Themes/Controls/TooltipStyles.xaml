@@ -7,7 +7,7 @@
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/ThemeTokens.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style TargetType="{x:Type controls:NTooltip}">
+    <Style x:Key="NTooltipBaseStyle" TargetType="{x:Type controls:NTooltip}">
         <Setter Property="Background" Value="{DynamicResource Theme.Tooltip.Background.Brush}" />
         <Setter Property="Foreground" Value="{DynamicResource Theme.Tooltip.Foreground.Brush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Theme.Tooltip.Border.Brush}" />
@@ -24,8 +24,10 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style TargetType="{x:Type controls:NTooltip}" BasedOn="{StaticResource NTooltipBaseStyle}"></Style>
 
-    <Style TargetType="{x:Type controls:NTooltipPopup}">
+    <Style x:Key="NTooltipPopupBaseStyle" TargetType="{x:Type controls:NTooltipPopup}">
         <Setter Property="Background" Value="{DynamicResource Theme.Tooltip.Background.Brush}" />
         <Setter Property="Foreground" Value="{DynamicResource Theme.Tooltip.Foreground.Brush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Theme.Tooltip.Border.Brush}" />
@@ -92,4 +94,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style TargetType="{x:Type controls:NTooltipPopup}" BasedOn="{StaticResource NTooltipPopupBaseStyle}"/>
+    
 </ResourceDictionary>

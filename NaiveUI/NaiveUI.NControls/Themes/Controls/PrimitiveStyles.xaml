@@ -7,7 +7,7 @@
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/ThemeTokens.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style TargetType="{x:Type controls:NLayout}">
+    <Style x:Key="NLayoutBaseStyle" TargetType="{x:Type controls:NLayout}">
         <Setter Property="Background" Value="{DynamicResource Theme.Window.Background.Brush}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -19,8 +19,10 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style TargetType="{x:Type controls:NLayout}" BasedOn="{StaticResource NLayoutBaseStyle}"/>
 
-    <Style TargetType="{x:Type controls:NLayoutHeader}">
+    <Style x:Key="NLayoutHeaderBaseStyle" TargetType="{x:Type controls:NLayoutHeader}">
         <Setter Property="Padding" Value="24,16" />
         <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
         <Setter Property="Template">
@@ -33,8 +35,10 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style BasedOn="{StaticResource NLayoutHeaderBaseStyle}" TargetType="{x:Type controls:NLayoutHeader}"/>
 
-    <Style TargetType="{x:Type controls:NLayoutContent}">
+    <Style x:Key="NLayoutContentBaseStyle" TargetType="{x:Type controls:NLayoutContent}">
         <Setter Property="Padding" Value="24" />
         <Setter Property="Template">
             <Setter.Value>
@@ -46,8 +50,10 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style BasedOn="{StaticResource NLayoutContentBaseStyle}" TargetType="{x:Type controls:NLayoutContent}"/>
 
-    <Style TargetType="{x:Type controls:NLayoutFooter}">
+    <Style x:Key="NLayoutFooterBaseStyle" TargetType="{x:Type controls:NLayoutFooter}">
         <Setter Property="Padding" Value="24,16" />
         <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
         <Setter Property="Template">
@@ -60,6 +66,8 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style BasedOn="{StaticResource NLayoutFooterBaseStyle}" TargetType="{x:Type controls:NLayoutFooter}"/>
 
     <Style x:Key="PrimitiveScrollBarRepeatButtonStyle" TargetType="RepeatButton">
         <Setter Property="Focusable" Value="False" />

@@ -7,7 +7,7 @@
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/PathResources.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/ThemeTokens.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
-    <Style TargetType="{x:Type controls:NFloatButton}">
+    <Style x:Key="NFloatButtonBaseStyle" TargetType="{x:Type controls:NFloatButton}">
         <Setter Property="Width" Value="40" />
         <Setter Property="MinWidth" Value="40" />
         <Setter Property="MinHeight" Value="40" />
@@ -54,12 +54,12 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="{TemplateBinding ResolvedCornerRadius}">
-                        <Border.Effect>
-                            <DropShadowEffect
-                                BlurRadius="12"
-                                Color="#29000000"
-                                Direction="270"
-                                Opacity="1"
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="12"
+                                    Color="#29000000"
+                                    Direction="270"
+                                    Opacity="1"
                                     ShadowDepth="2" />
                             </Border.Effect>
 
@@ -225,6 +225,8 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style BasedOn="{StaticResource NFloatButtonBaseStyle}" TargetType="{x:Type controls:NFloatButton}"/>
 
     <ItemsPanelTemplate x:Key="FloatButtonGroupCircleVerticalItemsPanelTemplate">
         <controls:NFloatButtonStackPanel Orientation="Vertical" Spacing="16" />
@@ -242,7 +244,7 @@
         <controls:NFloatButtonStackPanel Orientation="Horizontal" Spacing="0" />
     </ItemsPanelTemplate>
 
-    <Style TargetType="{x:Type controls:NFloatButtonGroup}">
+    <Style x:Key="NFloatButtonGroupBaseStyle" TargetType="{x:Type controls:NFloatButtonGroup}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
@@ -273,12 +275,14 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="Orientation" Value="Horizontal">
-                            <Setter Property="ItemsPanel" Value="{StaticResource FloatButtonGroupCircleHorizontalItemsPanelTemplate}" />
+                            <Setter Property="ItemsPanel"
+                                    Value="{StaticResource FloatButtonGroupCircleHorizontalItemsPanelTemplate}" />
                         </Trigger>
 
                         <Trigger Property="Shape" Value="Square">
                             <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
-                            <Setter Property="ItemsPanel" Value="{StaticResource FloatButtonGroupSquareVerticalItemsPanelTemplate}" />
+                            <Setter Property="ItemsPanel"
+                                    Value="{StaticResource FloatButtonGroupSquareVerticalItemsPanelTemplate}" />
                             <Setter TargetName="RootBorder" Property="Effect">
                                 <Setter.Value>
                                     <DropShadowEffect
@@ -296,11 +300,13 @@
                                 <Condition Property="Shape" Value="Square" />
                                 <Condition Property="Orientation" Value="Horizontal" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="ItemsPanel" Value="{StaticResource FloatButtonGroupSquareHorizontalItemsPanelTemplate}" />
+                            <Setter Property="ItemsPanel"
+                                    Value="{StaticResource FloatButtonGroupSquareHorizontalItemsPanelTemplate}" />
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
+    <Style BasedOn="{StaticResource NFloatButtonGroupBaseStyle}" TargetType="{x:Type controls:NFloatButtonGroup}"/>
 </ResourceDictionary>

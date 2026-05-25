@@ -39,7 +39,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type controls:NButton}">
+    <Style x:Key="NButtonBaseStyle" TargetType="{x:Type controls:NButton}">
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="MinWidth" Value="0" />
         <Setter Property="Height" Value="34" />
@@ -181,4 +181,5 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style BasedOn="{StaticResource NButtonBaseStyle}" TargetType="{x:Type controls:NButton}"/>
 </ResourceDictionary>

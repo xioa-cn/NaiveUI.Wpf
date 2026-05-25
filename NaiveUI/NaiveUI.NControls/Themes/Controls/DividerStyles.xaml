@@ -7,7 +7,7 @@
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/ThemeTokens.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style TargetType="{x:Type controls:NDivider}">
+    <Style x:Key="NDividerBaseStyle" TargetType="{x:Type controls:NDivider}">
         <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
         <Setter Property="Background" Value="Transparent" />
@@ -107,4 +107,5 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    <Style BasedOn="{StaticResource NDividerBaseStyle}" TargetType="{x:Type controls:NDivider}"/>
 </ResourceDictionary>

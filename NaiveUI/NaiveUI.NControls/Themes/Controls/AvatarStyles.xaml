@@ -12,7 +12,7 @@
     <sys:Double x:Key="Avatar.Badge.MinSize">18</sys:Double>
     <sys:Double x:Key="Avatar.Content.MinFontSize">12</sys:Double>
 
-    <Style TargetType="{x:Type controls:NAvatar}">
+    <Style x:Key="NAvatarBaseStyle" TargetType="{x:Type controls:NAvatar}">
         <Setter Property="Width" Value="{Binding Size, RelativeSource={RelativeSource Self}}" />
         <Setter Property="Height" Value="{Binding Size, RelativeSource={RelativeSource Self}}" />
         <Setter Property="Background" Value="{DynamicResource Theme.Fill.2.Brush}" />
@@ -132,4 +132,5 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style BasedOn="{StaticResource NAvatarBaseStyle}" TargetType="{x:Type controls:NAvatar}"/>
 </ResourceDictionary>

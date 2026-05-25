@@ -82,7 +82,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="{x:Type controls:NCarousel}">
+    <Style x:Key="NCarouselBaseStyle" TargetType="{x:Type controls:NCarousel}">
         <Setter Property="Background" Value="{DynamicResource Theme.Surface.1.Brush}" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
@@ -197,5 +197,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style BasedOn="{StaticResource NCarouselBaseStyle}" TargetType="{x:Type controls:NCarousel}"/>
 </ResourceDictionary>
 

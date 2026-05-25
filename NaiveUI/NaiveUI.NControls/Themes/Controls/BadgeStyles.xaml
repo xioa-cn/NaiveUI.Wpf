@@ -6,7 +6,7 @@
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/ThemeTokens.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style TargetType="{x:Type controls:NBadge}">
+    <Style x:Key="NBadgeBaseStyle" TargetType="{x:Type controls:NBadge}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -141,4 +141,5 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style BasedOn="{StaticResource NBadgeBaseStyle}" TargetType="{x:Type controls:NBadge}"/>
 </ResourceDictionary>

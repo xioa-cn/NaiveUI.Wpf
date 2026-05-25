@@ -39,7 +39,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type controls:NPageHeader}">
+    <Style x:Key="NPageHeaderBaseStyle" TargetType="{x:Type controls:NPageHeader}">
         <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="Template">
@@ -157,4 +157,6 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style BasedOn="{StaticResource NPageHeaderBaseStyle}" TargetType="{x:Type controls:NPageHeader}"/>
 </ResourceDictionary>

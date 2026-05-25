@@ -5,7 +5,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/ThemeTokens.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    <Style TargetType="{x:Type controls:NInput}">
+    <Style x:Key="NInputBaseStyle" TargetType="{x:Type controls:NInput}">
         <Setter Property="Padding" Value="16,11" />
         <Setter Property="MinWidth" Value="220" />
         <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
@@ -58,4 +58,5 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style BasedOn="{StaticResource NInputBaseStyle}" TargetType="{x:Type controls:NInput}"/>
 </ResourceDictionary>

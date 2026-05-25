@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:NaiveUI.NControls.Controls">
 
-    <Style TargetType="{x:Type controls:NBreadcrumb}">
+    <Style x:Key="NBreadcrumbBaseStyle" TargetType="{x:Type controls:NBreadcrumb}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
@@ -22,8 +22,10 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style BasedOn="{StaticResource NBreadcrumbBaseStyle}" TargetType="{x:Type controls:NBreadcrumb}"/>
 
-    <Style TargetType="{x:Type controls:NBreadcrumbItem}">
+    <Style x:Key="NBreadcrumbItemBaseStyle" TargetType="{x:Type controls:NBreadcrumbItem}">
         <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Tertiary.Brush}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -85,4 +87,6 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style BasedOn="{StaticResource NBreadcrumbItemBaseStyle}" TargetType="{x:Type controls:NBreadcrumbItem}"/>
 </ResourceDictionary>

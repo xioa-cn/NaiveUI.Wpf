@@ -6,7 +6,7 @@
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/ThemeTokens.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style TargetType="{x:Type controls:NIcon}">
+    <Style x:Key="NIconBaseStyle" TargetType="{x:Type controls:NIcon}">
         <Setter Property="Size" Value="20" />
         <Setter Property="Width" Value="{Binding ResolvedSize, RelativeSource={RelativeSource Self}}" />
         <Setter Property="Height" Value="{Binding ResolvedSize, RelativeSource={RelativeSource Self}}" />
@@ -66,8 +66,10 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style BasedOn="{StaticResource NIconBaseStyle}" TargetType="{x:Type controls:NIcon}"/>
 
-    <Style TargetType="{x:Type controls:NIconWrapper}">
+    <Style x:Key="NIconWrapperBaseStyle" TargetType="{x:Type controls:NIconWrapper}">
         <Setter Property="Size" Value="24" />
         <Setter Property="Color" Value="{DynamicResource Primary.First.Brush}" />
         <Setter Property="Width" Value="{Binding ResolvedSize, RelativeSource={RelativeSource Self}}" />
@@ -96,4 +98,6 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style BasedOn="{StaticResource NIconWrapperBaseStyle}" TargetType="{x:Type controls:NIconWrapper}"/>
 </ResourceDictionary>

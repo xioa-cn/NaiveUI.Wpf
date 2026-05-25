@@ -35,10 +35,11 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type controls:NEllipsis}">
+    <Style x:Key="NEllipsisBaseStyle" TargetType="{x:Type controls:NEllipsis}">
         <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="UseLayoutRounding" Value="True" />
     </Style>
+    <Style BasedOn="{StaticResource NEllipsisBaseStyle}" TargetType="{x:Type controls:NEllipsis}"/>
 </ResourceDictionary>

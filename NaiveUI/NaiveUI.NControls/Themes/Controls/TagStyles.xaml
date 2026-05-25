@@ -48,7 +48,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type controls:NTag}">
+    <Style x:Key="NTagBaseStyle" TargetType="{x:Type controls:NTag}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="UseLayoutRounding" Value="True" />
@@ -121,4 +121,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style TargetType="{x:Type controls:NTag}" BasedOn="{StaticResource NTagBaseStyle}"/>
+    
 </ResourceDictionary>
