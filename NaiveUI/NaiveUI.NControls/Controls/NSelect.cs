@@ -50,8 +50,11 @@ public class NSelect : Control
     private TextBox? searchBoxPart;
     private ListBox? listBoxPart;
     private Window? ownerWindow;
+    private INotifyCollectionChanged? selectedValuesNotifier;
     private bool syncingSelection;
     private bool handlingPointerSelection;
+    private bool suppressSelectedValuesCollectionSync;
+    private bool pendingOpenOnMouseUp;
 
     static NSelect()
     {
@@ -65,6 +68,7 @@ public class NSelect : Control
         Options.CollectionChanged += HandleOptionsCollectionChanged;
         FilteredOptions = [];
         SelectedOptionLabels = [];
+        AttachSelectedValuesCollectionChanged(SelectedValues);
         UpdateResolvedMetrics();
         UpdatePopupMetrics();
         RefreshOptions();
@@ -356,6 +360,33 @@ public class NSelect : Control
     public static readonly DependencyProperty SuffixContentProperty =
         ElementBase.Property<NSelect, object?>(nameof(SuffixContentProperty), null);
 
+    public object? ArrowContent
+    {
+        get => GetValue(ArrowContentProperty);
+        set => SetValue(ArrowContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ArrowContentProperty =
+        ElementBase.Property<NSelect, object?>(nameof(ArrowContentProperty), null, OnVisualPropertyChanged);
+
+    public object? HeaderContent
+    {
+        get => GetValue(HeaderContentProperty);
+        set => SetValue(HeaderContentProperty, value);
+    }
+
+    public static readonly DependencyProperty HeaderContentProperty =
+        ElementBase.Property<NSelect, object?>(nameof(HeaderContentProperty), null, OnVisualPropertyChanged);
+
+    public object? ActionContent
+    {
+        get => GetValue(ActionContentProperty);
+        set => SetValue(ActionContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ActionContentProperty =
+        ElementBase.Property<NSelect, object?>(nameof(ActionContentProperty), null, OnVisualPropertyChanged);
+
     public DataTemplate? OptionTemplate
     {
         get => (DataTemplate?)GetValue(OptionTemplateProperty);
@@ -456,6 +487,39 @@ public class NSelect : Control
 
     public static readonly DependencyProperty HasSelectionProperty = HasSelectionPropertyKey.DependencyProperty;
 
+    public bool HasArrowContent
+    {
+        get => (bool)GetValue(HasArrowContentProperty);
+        private set => SetValue(HasArrowContentPropertyKey, value);
+    }
+
+    private static readonly DependencyPropertyKey HasArrowContentPropertyKey =
+        DependencyProperty.RegisterReadOnly(nameof(HasArrowContent), typeof(bool), typeof(NSelect), new PropertyMetadata(false));
+
+    public static readonly DependencyProperty HasArrowContentProperty = HasArrowContentPropertyKey.DependencyProperty;
+
+    public bool HasHeaderContent
+    {
+        get => (bool)GetValue(HasHeaderContentProperty);
+        private set => SetValue(HasHeaderContentPropertyKey, value);
+    }
+
+    private static readonly DependencyPropertyKey HasHeaderContentPropertyKey =
+        DependencyProperty.RegisterReadOnly(nameof(HasHeaderContent), typeof(bool), typeof(NSelect), new PropertyMetadata(false));
+
+    public static readonly DependencyProperty HasHeaderContentProperty = HasHeaderContentPropertyKey.DependencyProperty;
+
+    public bool HasActionContent
+    {
+        get => (bool)GetValue(HasActionContentProperty);
+        private set => SetValue(HasActionContentPropertyKey, value);
+    }
+
+    private static readonly DependencyPropertyKey HasActionContentPropertyKey =
+        DependencyProperty.RegisterReadOnly(nameof(HasActionContent), typeof(bool), typeof(NSelect), new PropertyMetadata(false));
+
+    public static readonly DependencyProperty HasActionContentProperty = HasActionContentPropertyKey.DependencyProperty;
+
     public bool ShowPlaceholder
     {
         get => (bool)GetValue(ShowPlaceholderProperty);
@@ -551,7 +615,13 @@ public class NSelect : Control
         if (listBoxPart is not null)
         {
             listBoxPart.SelectionChanged -= HandleListBoxSelectionChanged;
-            listBoxPart.PreviewMouseLeftButtonUp -= HandleListBoxPreviewMouseLeftButtonUp;
+            listBoxPart.PreviewMouseLeftButtonDown -= HandleListBoxPreviewMouseLeftButtonDown;
+            listBoxPart.PreviewMouseRightButtonDown -= HandlePartPreviewMouseRightButtonDown;
+        }
+
+        if (searchBoxPart is not null)
+        {
+            searchBoxPart.PreviewMouseRightButtonDown -= HandlePartPreviewMouseRightButtonDown;
         }
 
         base.OnApplyTemplate();
@@ -563,7 +633,13 @@ public class NSelect : Control
         if (listBoxPart is not null)
         {
             listBoxPart.SelectionChanged += HandleListBoxSelectionChanged;
-            listBoxPart.PreviewMouseLeftButtonUp += HandleListBoxPreviewMouseLeftButtonUp;
+            listBoxPart.PreviewMouseLeftButtonDown += HandleListBoxPreviewMouseLeftButtonDown;
+            listBoxPart.PreviewMouseRightButtonDown += HandlePartPreviewMouseRightButtonDown;
+        }
+
+        if (searchBoxPart is not null)
+        {
+            searchBoxPart.PreviewMouseRightButtonDown += HandlePartPreviewMouseRightButtonDown;
         }
 
         SyncListBoxSelection();
@@ -588,20 +664,57 @@ public class NSelect : Control
     {
         base.OnPreviewMouseLeftButtonDown(e);
 
-        if (!IsEnabled || Loading || IsClearSource(e.OriginalSource as DependencyObject))
+        if (!IsEnabled || Loading || IsSelectionActionSource(e.OriginalSource as DependencyObject))
         {
+            pendingOpenOnMouseUp = false;
             return;
         }
 
         if (!IsDropDownOpen)
         {
-            Dispatcher.BeginInvoke(() =>
-            {
-                if (IsEnabled && !Loading)
-                {
-                    SetCurrentValue(IsDropDownOpenProperty, true);
-                }
-            });
+            pendingOpenOnMouseUp = true;
+            return;
+        }
+
+        pendingOpenOnMouseUp = false;
+
+        if (Filterable && searchBoxPart is not null && !searchBoxPart.IsKeyboardFocusWithin)
+        {
+            Dispatcher.BeginInvoke(searchBoxPart.Focus);
+        }
+    }
+
+    protected override void OnPreviewMouseLeftButtonUp(MouseButtonEventArgs e)
+    {
+        base.OnPreviewMouseLeftButtonUp(e);
+
+        if (!pendingOpenOnMouseUp)
+        {
+            return;
+        }
+
+        pendingOpenOnMouseUp = false;
+
+        if (!IsEnabled || Loading || IsSelectionActionSource(e.OriginalSource as DependencyObject) || IsDropDownOpen)
+        {
+            return;
+        }
+
+        SetCurrentValue(IsDropDownOpenProperty, true);
+        e.Handled = true;
+    }
+
+    protected override void OnPreviewMouseRightButtonDown(MouseButtonEventArgs e)
+    {
+        base.OnPreviewMouseRightButtonDown(e);
+
+        if (!IsEnabled || Loading)
+        {
+            return;
+        }
+
+        if (IsSourceWithinSelect(e.OriginalSource as DependencyObject))
+        {
             e.Handled = true;
         }
     }
@@ -637,7 +750,15 @@ public class NSelect : Control
         {
             if (SelectedValues is not null)
             {
-                SelectedValues.Clear();
+                suppressSelectedValuesCollectionSync = true;
+                try
+                {
+                    SelectedValues.Clear();
+                }
+                finally
+                {
+                    suppressSelectedValuesCollectionSync = false;
+                }
             }
         }
         else
@@ -650,6 +771,66 @@ public class NSelect : Control
         SyncListBoxSelection();
         RaiseEvent(new RoutedEventArgs(ClearEvent, this));
         RaiseSelectionChanged(oldValue, Multiple ? CloneList(SelectedValues) : SelectedValue);
+    }
+
+    public new bool Focus()
+    {
+        if (!IsEnabled)
+        {
+            return false;
+        }
+
+        if (!IsDropDownOpen)
+        {
+            SetCurrentValue(IsDropDownOpenProperty, true);
+        }
+
+        if (Filterable)
+        {
+            return FocusInput();
+        }
+
+        return base.Focus();
+    }
+
+    public bool FocusInput()
+    {
+        if (!IsEnabled)
+        {
+            return false;
+        }
+
+        if (!IsDropDownOpen)
+        {
+            SetCurrentValue(IsDropDownOpenProperty, true);
+        }
+
+        if (Filterable && searchBoxPart is not null)
+        {
+            searchBoxPart.Focus();
+            searchBoxPart.Select(searchBoxPart.Text.Length, 0);
+            return searchBoxPart.IsKeyboardFocused || searchBoxPart.IsKeyboardFocusWithin;
+        }
+
+        return base.Focus();
+    }
+
+    public void Blur()
+    {
+        BlurInput();
+    }
+
+    public void BlurInput()
+    {
+        SetCurrentValue(IsDropDownOpenProperty, false);
+        SetCurrentValue(SearchTextProperty, string.Empty);
+
+        if (searchBoxPart is not null)
+        {
+            searchBoxPart.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+        }
+
+        MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
     }
 
     private void CanExecuteClearSelectionCommand(object sender, CanExecuteRoutedEventArgs e)
@@ -666,7 +847,7 @@ public class NSelect : Control
 
     private void CanExecuteRemoveSelectedValueCommand(object sender, CanExecuteRoutedEventArgs e)
     {
-        e.CanExecute = Multiple && e.Parameter is NSelectTagItem;
+        e.CanExecute = Multiple && e.Parameter is NSelectTagItem { CanClose: true };
         e.Handled = true;
     }
 
@@ -688,7 +869,16 @@ public class NSelect : Control
         }
 
         var oldValue = CloneList(SelectedValues);
-        RemoveValue(SelectedValues, value);
+        suppressSelectedValuesCollectionSync = true;
+        try
+        {
+            RemoveValue(SelectedValues, value);
+        }
+        finally
+        {
+            suppressSelectedValuesCollectionSync = false;
+        }
+
         UpdateSelectionState();
         SyncListBoxSelection();
         RaiseSelectionChanged(oldValue, CloneList(SelectedValues));
@@ -726,6 +916,7 @@ public class NSelect : Control
     {
         if (d is NSelect select && !select.syncingSelection)
         {
+            select.AttachSelectedValuesCollectionChanged(e.NewValue as IList);
             select.UpdateSelectionState();
             select.SyncListBoxSelection();
             select.RaiseSelectionChanged(e.OldValue, e.NewValue);
@@ -756,10 +947,19 @@ public class NSelect : Control
             return;
         }
 
-        select.RefreshOptions();
-        select.SyncListBoxSelection();
         select.UpdatePopupMetrics();
-        select.FocusSearchBoxIfNeeded();
+
+        if ((bool)e.NewValue)
+        {
+            select.SyncListBoxSelection();
+            select.FocusSearchBoxIfNeeded();
+            return;
+        }
+
+        if (!string.IsNullOrEmpty(select.SearchText))
+        {
+            select.SetCurrentValue(SearchTextProperty, string.Empty);
+        }
     }
 
     private void HandleLoaded(object sender, RoutedEventArgs e)
@@ -767,7 +967,6 @@ public class NSelect : Control
         ownerWindow = Window.GetWindow(this);
         if (ownerWindow is not null)
         {
-            ownerWindow.PreviewMouseDown += HandleOwnerWindowPreviewMouseDown;
             ownerWindow.Deactivated += HandleOwnerWindowDeactivated;
         }
     }
@@ -776,25 +975,9 @@ public class NSelect : Control
     {
         if (ownerWindow is not null)
         {
-            ownerWindow.PreviewMouseDown -= HandleOwnerWindowPreviewMouseDown;
             ownerWindow.Deactivated -= HandleOwnerWindowDeactivated;
             ownerWindow = null;
         }
-    }
-
-    private void HandleOwnerWindowPreviewMouseDown(object sender, MouseButtonEventArgs e)
-    {
-        if (!IsDropDownOpen)
-        {
-            return;
-        }
-
-        if (IsSourceWithinSelect(e.OriginalSource as DependencyObject))
-        {
-            return;
-        }
-
-        SetCurrentValue(IsDropDownOpenProperty, false);
     }
 
     private void HandleOwnerWindowDeactivated(object? sender, EventArgs e)
@@ -825,6 +1008,17 @@ public class NSelect : Control
         RefreshOptions();
     }
 
+    private void HandleSelectedValuesCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (syncingSelection || suppressSelectedValuesCollectionSync)
+        {
+            return;
+        }
+
+        UpdateSelectionState();
+        SyncListBoxSelection();
+    }
+
     private void HandleListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (syncingSelection || listBoxPart is null)
@@ -839,7 +1033,8 @@ public class NSelect : Control
                 return;
             }
 
-            if (e.AddedItems.OfType<NSelectOption>().LastOrDefault(option => !option.Disabled) is NSelectOption selectedOption)
+            if ((e.AddedItems.OfType<NSelectOption>().LastOrDefault(option => !option.Disabled)
+                ?? e.RemovedItems.OfType<NSelectOption>().LastOrDefault(option => !option.Disabled)) is NSelectOption selectedOption)
             {
                 SelectOption(selectedOption);
             }
@@ -855,8 +1050,13 @@ public class NSelect : Control
         }
     }
 
-    private void HandleListBoxPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+    private void HandleListBoxPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
+        if (!Multiple)
+        {
+            return;
+        }
+
         var item = FindAncestor<ListBoxItem>(e.OriginalSource as DependencyObject);
         if (item?.DataContext is not NSelectOption option || option.Disabled)
         {
@@ -875,6 +1075,11 @@ public class NSelect : Control
         }
     }
 
+    private void HandlePartPreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        e.Handled = true;
+    }
+
     private void SelectOption(NSelectOption option)
     {
         if (Multiple)
@@ -882,13 +1087,21 @@ public class NSelect : Control
             var selectedValues = EnsureSelectedValues();
             var oldValue = CloneList(selectedValues);
 
-            if (ContainsValue(selectedValues, option.Value))
+            suppressSelectedValuesCollectionSync = true;
+            try
             {
-                RemoveValue(selectedValues, option.Value);
+                if (ContainsValue(selectedValues, option.Value))
+                {
+                    RemoveValue(selectedValues, option.Value);
+                }
+                else
+                {
+                    selectedValues.Add(option.Value);
+                }
             }
-            else
+            finally
             {
-                selectedValues.Add(option.Value);
+                suppressSelectedValuesCollectionSync = false;
             }
 
             SetCurrentValue(SearchTextProperty, string.Empty);
@@ -1039,43 +1252,64 @@ public class NSelect : Control
         return collection;
     }
 
+    private void AttachSelectedValuesCollectionChanged(IList? selectedValues)
+    {
+        if (ReferenceEquals(selectedValuesNotifier, selectedValues))
+        {
+            return;
+        }
+
+        if (selectedValuesNotifier is not null)
+        {
+            selectedValuesNotifier.CollectionChanged -= HandleSelectedValuesCollectionChanged;
+            selectedValuesNotifier = null;
+        }
+
+        if (selectedValues is INotifyCollectionChanged notifier)
+        {
+            selectedValuesNotifier = notifier;
+            selectedValuesNotifier.CollectionChanged += HandleSelectedValuesCollectionChanged;
+        }
+    }
+
     private void UpdateSelectionState()
     {
         SelectedOptionLabels.Clear();
+        HasArrowContent = ArrowContent is not null;
+        HasHeaderContent = HeaderContent is not null;
+        HasActionContent = ActionContent is not null;
 
         var options = BuildOptions();
         object? selectedItem = null;
+        var selectedCount = 0;
 
         if (Multiple)
         {
             var selectedValues = SelectedValues;
-            foreach (var option in options)
+            if (selectedValues is not null)
             {
-                if (!ContainsValue(selectedValues, option.Value))
+                foreach (var value in selectedValues)
                 {
-                    continue;
-                }
+                    selectedCount++;
+                    var option = options.FirstOrDefault(item => Equals(item.Value, value));
+                    selectedItem ??= option;
 
-                selectedItem ??= option;
-                if (MaxTagCount <= 0 || SelectedOptionLabels.Count < MaxTagCount)
-                {
-                    SelectedOptionLabels.Add(new NSelectTagItem(option.Label ?? option.Value ?? string.Empty, option.Value));
+                    if (MaxTagCount > 0 && selectedCount > MaxTagCount)
+                    {
+                        continue;
+                    }
+
+                    SelectedOptionLabels.Add(new NSelectTagItem(
+                        option?.Label ?? value ?? string.Empty,
+                        value,
+                        option));
                 }
             }
 
-            if (MaxTagCount > 0 && selectedValues is not null)
+            var overflow = MaxTagCount > 0 ? selectedCount - Math.Min(selectedCount, MaxTagCount) : 0;
+            if (overflow > 0)
             {
-                var selectedCount = 0;
-                foreach (var _ in selectedValues)
-                {
-                    selectedCount++;
-                }
-
-                var overflow = selectedCount - SelectedOptionLabels.Count;
-                if (overflow > 0)
-                {
-                    SelectedOptionLabels.Add(new NSelectTagItem($"+{overflow}", null));
-                }
+                SelectedOptionLabels.Add(new NSelectTagItem($"+{overflow}", null, canClose: false, isOverflow: true));
             }
         }
         else
@@ -1093,7 +1327,7 @@ public class NSelect : Control
         }
 
         SelectedItem = selectedItem;
-        HasSelection = Multiple ? SelectedOptionLabels.Count > 0 : SelectedValue is not null;
+        HasSelection = Multiple ? selectedCount > 0 : SelectedValue is not null;
         ShowPlaceholder = !HasSelection && string.IsNullOrWhiteSpace(SearchText);
         CanClear = Clearable && HasSelection && IsEnabled && !Loading;
     }
@@ -1225,11 +1459,14 @@ public class NSelect : Control
         RaiseEvent(new NSelectSelectionChangedEventArgs(SelectionChangedEvent, this, oldValue, newValue));
     }
 
-    private bool IsClearSource(DependencyObject? source)
+    private bool IsSelectionActionSource(DependencyObject? source)
     {
         while (source is not null)
         {
-            if (source is Button button && Equals(button.Tag, "Clear"))
+            if (source is ButtonBase button
+                && (ReferenceEquals(button.Command, ClearSelectionCommand)
+                    || ReferenceEquals(button.Command, RemoveSelectedValueCommand)
+                    || Equals(button.Tag, "Clear")))
             {
                 return true;
             }

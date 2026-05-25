@@ -84,13 +84,22 @@ public sealed class NSelectSelectionChangedEventArgs : RoutedEventArgs
 
 public sealed class NSelectTagItem
 {
-    public NSelectTagItem(object? label, object? value)
+    public NSelectTagItem(object? label, object? value, NSelectOption? option = null, bool canClose = true, bool isOverflow = false)
     {
         Label = label;
         Value = value;
+        Option = option;
+        CanClose = canClose;
+        IsOverflow = isOverflow;
     }
 
     public object? Label { get; }
 
     public object? Value { get; }
+
+    public NSelectOption? Option { get; }
+
+    public bool CanClose { get; }
+
+    public bool IsOverflow { get; }
 }

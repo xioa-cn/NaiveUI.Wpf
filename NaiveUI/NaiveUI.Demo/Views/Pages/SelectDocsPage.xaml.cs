@@ -33,4 +33,30 @@ public partial class SelectDocsPage : UserControl
             viewModel.RecordSelection(e.OldValue, e.NewValue);
         }
     }
+
+    private void HandleHeaderActionClick(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is SelectDocsPageViewModel viewModel)
+        {
+            viewModel.RecordHeaderAction();
+        }
+    }
+
+    private void HandleFocusClick(object sender, RoutedEventArgs e)
+    {
+        DemoFocusSelect.Focus();
+        if (DataContext is SelectDocsPageViewModel viewModel)
+        {
+            viewModel.RecordFocusAction("Focus()");
+        }
+    }
+
+    private void HandleBlurClick(object sender, RoutedEventArgs e)
+    {
+        DemoFocusSelect.Blur();
+        if (DataContext is SelectDocsPageViewModel viewModel)
+        {
+            viewModel.RecordFocusAction("Blur()");
+        }
+    }
 }

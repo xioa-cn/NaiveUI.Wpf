@@ -54,6 +54,22 @@
                     Text="{Binding Suffix}" />
             </Grid>
         </DataTemplate>
+
+        <Geometry x:Key="SelectDocsCustomArrowGeometry">M2 3L8 9L14 3M2 8L8 14L14 8</Geometry>
+
+        <DataTemplate x:Key="SongTagTemplate">
+            <StackPanel Orientation="Horizontal">
+                <Ellipse
+                    Width="8"
+                    Height="8"
+                    VerticalAlignment="Center"
+                    Fill="{DynamicResource Success.First.Brush}" />
+                <TextBlock
+                    Margin="6,0,0,0"
+                    VerticalAlignment="Center"
+                    Text="{Binding Option.Label}" />
+            </StackPanel>
+        </DataTemplate>
     </UserControl.Resources>
 
     <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
@@ -74,7 +90,7 @@
                     Margin="0,26,0,0"
                     FontSize="18"
                     Foreground="{DynamicResource Theme.Text.Primary.Brush}"
-                    Text="用来从一组候选项里选择一个或多个值。WPF 版保留 Naive UI 的输入框视觉、浮层、选中态、搜索、多选标签和清除交互。" />
+                    Text="用于从一组选项中选择一个或多个值。WPF 版尽量对齐 Naive UI 的输入框视觉、多选标签、搜索、清空、头部插槽和手动控制能力。" />
 
                 <TextBlock
                     Margin="0,52,0,28"
@@ -164,7 +180,7 @@
                     <nu:CardElement x:Name="SectionClearable" Margin="0,0,0,20">
                         <nu:CardElement.HeaderElement>
                             <Grid Margin="30,28,30,0">
-                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="可清除" />
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="可清空" />
                             </Grid>
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
@@ -173,12 +189,50 @@
                                     <TextBlock
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
-                                        Text="Clearable 会在有值时显示清除按钮，行为对应 Naive UI 的 clearable。" />
+                                        Text="Clearable 现在与 Naive UI 一致，只在鼠标移入或键盘 focus 进入时显示清空按钮，不再始终占位。" />
                                     <nc:NSelect
                                         Width="280"
                                         HorizontalAlignment="Left"
                                         Clearable="True"
                                         SelectedValue="{Binding ClearableValue, Mode=TwoWay}">
+                                        <nc:NSelectOption Label="Drive My Car" Value="song0" />
+                                        <nc:NSelectOption Label="Norwegian Wood" Value="song1" />
+                                        <nc:NSelectOption Label="You Won't See Me" Value="song2" />
+                                    </nc:NSelect>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionCustomArrow" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="自定义箭头" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SelectDocsPage10">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="ArrowContent 用于自定义右侧箭头内容，未设置时回退到默认箭头。" />
+                                    <nc:NSelect
+                                        Width="300"
+                                        HorizontalAlignment="Left"
+                                        SelectedValue="{Binding CustomArrowValue, Mode=TwoWay}">
+                                        <nc:NSelect.ArrowContent>
+                                            <Path
+                                                Width="14"
+                                                Height="14"
+                                                Data="{StaticResource SelectDocsCustomArrowGeometry}"
+                                                Stretch="Fill"
+                                                Stroke="{DynamicResource Primary.First.Brush}"
+                                                StrokeEndLineCap="Round"
+                                                StrokeLineJoin="Round"
+                                                StrokeStartLineCap="Round"
+                                                StrokeThickness="2" />
+                                        </nc:NSelect.ArrowContent>
                                         <nc:NSelectOption Label="Drive My Car" Value="song0" />
                                         <nc:NSelectOption Label="Norwegian Wood" Value="song1" />
                                         <nc:NSelectOption Label="You Won't See Me" Value="song2" />
@@ -200,7 +254,7 @@
                                     <TextBlock
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
-                                        Text="Multiple 开启后会使用标签展示已选项，并保持弹层打开以便连续选择。" />
+                                        Text="Multiple 开启后会用标签展示已选项，并保持弹层打开以便连续选择。单个标签现在可以直接删除，不依赖换行。" />
                                     <nc:NSelect
                                         Width="420"
                                         HorizontalAlignment="Left"
@@ -216,6 +270,71 @@
                                         <nc:NSelectOption Label="Think For Yourself" Value="song4" />
                                     </nc:NSelect>
                                     <ItemsControl Margin="5" ItemsSource="{Binding MultipleValues}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionMaxTagCount" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="最大标签数量" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SelectDocsPage11">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="MaxTagCount 用于限制多选标签显示数量，超出的选项折叠为 +N 标签，且不会出现可关闭按钮。" />
+                                    <nc:NSelect
+                                        Width="420"
+                                        HorizontalAlignment="Left"
+                                        Clearable="True"
+                                        Filterable="True"
+                                        MaxTagCount="2"
+                                        Multiple="True"
+                                        Placeholder="最多只展示两个标签"
+                                        SelectedValues="{Binding MaxTagCountValues, Mode=TwoWay}">
+                                        <nc:NSelectOption Label="Drive My Car" Value="song0" />
+                                        <nc:NSelectOption Label="Norwegian Wood" Value="song1" />
+                                        <nc:NSelectOption Label="You Won't See Me" Value="song2" />
+                                        <nc:NSelectOption Label="Nowhere Man" Value="song3" />
+                                        <nc:NSelectOption Label="Think For Yourself" Value="song4" />
+                                    </nc:NSelect>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionTagTemplate" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="自定义标签" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SelectDocsPage12">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="TagTemplate 对应多选标签的自定义渲染，上下文为 NSelectTagItem，可访问 Label、Value、Option、CanClose 和 IsOverflow。" />
+                                    <nc:NSelect
+                                        Width="420"
+                                        HorizontalAlignment="Left"
+                                        Clearable="True"
+                                        Filterable="True"
+                                        Multiple="True"
+                                        SelectedValues="{Binding CustomTagValues, Mode=TwoWay}"
+                                        TagTemplate="{StaticResource SongTagTemplate}">
+                                        <nc:NSelectOption Label="Drive My Car" Value="song0" />
+                                        <nc:NSelectOption Label="Norwegian Wood" Value="song1" />
+                                        <nc:NSelectOption Label="You Won't See Me" Value="song2" />
+                                        <nc:NSelectOption Label="Nowhere Man" Value="song3" />
+                                        <nc:NSelectOption Label="Think For Yourself" Value="song4" />
+                                    </nc:NSelect>
                                 </StackPanel>
                             </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
@@ -252,6 +371,54 @@
                                         Margin="0,14,0,0"
                                         Style="{StaticResource DocBodyTextStyle}"
                                         Text="{Binding SearchText, StringFormat=当前搜索：{0}}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionHeaderAction" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="头部操作" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SelectDocsPage13">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="HeaderContent 和 ActionContent 用于还原下拉顶部插槽，可放说明文案和操作按钮。" />
+                                    <nc:NSelect
+                                        Width="360"
+                                        HorizontalAlignment="Left"
+                                        Clearable="True"
+                                        Filterable="True"
+                                        Placeholder="打开看看顶部操作区"
+                                        SelectedValue="{Binding HeaderActionValue, Mode=TwoWay}">
+                                        <nc:NSelect.HeaderContent>
+                                            <TextBlock
+                                                FontWeight="SemiBold"
+                                                Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                                                Text="推荐歌曲" />
+                                        </nc:NSelect.HeaderContent>
+                                        <nc:NSelect.ActionContent>
+                                            <nc:NButton
+                                                Click="HandleHeaderActionClick"
+                                                Grade="Primary"
+                                                Kind="Text">
+                                                刷新
+                                            </nc:NButton>
+                                        </nc:NSelect.ActionContent>
+                                        <nc:NSelectOption Label="Drive My Car" Value="song0" />
+                                        <nc:NSelectOption Label="Norwegian Wood" Value="song1" />
+                                        <nc:NSelectOption Label="You Won't See Me" Value="song2" />
+                                        <nc:NSelectOption Label="Nowhere Man" Value="song3" />
+                                    </nc:NSelect>
+                                    <TextBlock
+                                        Margin="0,14,0,0"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="{Binding HeaderActionResultText}" />
                                 </StackPanel>
                             </showMeTheXaml:XamlDisplay>
                         </nu:CardElement.ContentElement>
@@ -340,7 +507,7 @@
                                     <TextBlock
                                         Margin="0,0,0,20"
                                         Style="{StaticResource DocBodyTextStyle}"
-                                        Text="OptionTemplate 和 SelectedItemTemplate 对应 Naive UI render-option / render-label 的 WPF 化扩展点。" />
+                                        Text="OptionTemplate 和 SelectedItemTemplate 对应 Naive UI render-option / render-label 的 WPF 扩展点。" />
                                     <nc:NSelect
                                         Width="360"
                                         HorizontalAlignment="Left"
@@ -389,6 +556,55 @@
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
 
+                    <nu:CardElement x:Name="SectionFocusBlur" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="手动 Focus / Blur" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SelectDocsPage14">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="NSelect 提供 Focus、FocusInput、Blur、BlurInput，方便在表单场景中手动接管焦点与弹层开关。" />
+                                    <nc:NSelect
+                                        x:Name="DemoFocusSelect"
+                                        Width="320"
+                                        HorizontalAlignment="Left"
+                                        Clearable="True"
+                                        Filterable="True"
+                                        Placeholder="点击下方按钮试试"
+                                        SelectedValue="{Binding FocusValue, Mode=TwoWay}">
+                                        <nc:NSelectOption Label="Drive My Car" Value="song0" />
+                                        <nc:NSelectOption Label="Norwegian Wood" Value="song1" />
+                                        <nc:NSelectOption Label="You Won't See Me" Value="song2" />
+                                        <nc:NSelectOption Label="Nowhere Man" Value="song3" />
+                                    </nc:NSelect>
+                                    <WrapPanel Margin="0,16,0,0">
+                                        <nc:NButton
+                                            Margin="0,0,12,12"
+                                            Click="HandleFocusClick"
+                                            Grade="Primary">
+                                            Focus
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,12,12"
+                                            Click="HandleBlurClick"
+                                            Kind="Secondary">
+                                            Blur
+                                        </nc:NButton>
+                                    </WrapPanel>
+                                    <TextBlock
+                                        Margin="0,4,0,0"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="{Binding FocusStatusText}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
                     <nu:CardElement x:Name="SectionApi" Margin="0,0,0,20">
                         <nu:CardElement.HeaderElement>
                             <Grid Margin="30,28,30,0">
@@ -399,7 +615,7 @@
                             <TextBlock
                                 Margin="30,24,30,24"
                                 Style="{StaticResource DocBodyTextStyle}"
-                                Text="当前 WPF 版 Select 优先对齐 Naive UI 的核心能力：单选、多选、可搜索、可清除、加载态、状态、模板渲染和 ItemsSource 绑定。" />
+                                Text="当前 WPF 版 Select 重点对齐 Naive UI 的核心能力：单选、多选、可搜索、可清空、加载态、状态、渲染模板、头部插槽、手动焦点控制和 ItemsSource 绑定。" />
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
 
@@ -422,6 +638,17 @@
                         </nu:CardElement.HeaderElement>
                         <nu:CardElement.ContentElement>
                             <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding OptionPropsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionMethods" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Select 方法" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding MethodRows}" />
                         </nu:CardElement.ContentElement>
                     </nu:CardElement>
 

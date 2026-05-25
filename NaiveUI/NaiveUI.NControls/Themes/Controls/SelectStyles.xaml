@@ -10,7 +10,8 @@
     <controls:NSelectValueEqualityConverter x:Key="NSelectValueEqualityConverter" />
     <controls:NSelectValueInListConverter x:Key="NSelectValueInListConverter" />
 
-    <Geometry x:Key="SelectChevronGeometry">M6.25 8.75C6.66421 8.33579 7.33579 8.33579 7.75 8.75L12 13L16.25 8.75C16.6642 8.33579 17.3358 8.33579 17.75 8.75C18.1642 9.16421 18.1642 9.83579 17.75 10.25L12.75 15.25C12.3358 15.6642 11.6642 15.6642 11.25 15.25L6.25 10.25C5.83579 9.83579 5.83579 9.16421 6.25 8.75Z</Geometry>
+    <Geometry x:Key="SelectChevronGeometry">M4.5 6.25L8 9.75L11.5 6.25</Geometry>
+    <Geometry x:Key="SelectChevronUpGeometry">M4.5 9.75L8 6.25L11.5 9.75</Geometry>
     <Geometry x:Key="SelectCheckGeometry">M9.54996 15.6L4.59996 10.65C4.20814 10.2582 4.20814 9.62293 4.59996 9.23111C4.99179 8.83929 5.62704 8.83929 6.01887 9.23111L9.54996 12.7622L17.9811 4.33111C18.3729 3.93929 19.0081 3.93929 19.4 4.33111C19.7918 4.72293 19.7918 5.35818 19.4 5.75L9.54996 15.6Z</Geometry>
 
     <Style x:Key="Naive.Select.ClearButtonStyle" TargetType="Button">
@@ -188,6 +189,10 @@
         <ContentPresenter Content="{Binding Label}" />
     </DataTemplate>
 
+    <DataTemplate x:Key="Naive.Select.DefaultTagTemplate">
+        <ContentPresenter Content="{Binding Label}" />
+    </DataTemplate>
+
     <Style TargetType="{x:Type controls:NSelect}">
         <Setter Property="MinWidth" Value="220" />
         <Setter Property="Focusable" Value="True" />
@@ -197,6 +202,7 @@
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="OptionTemplate" Value="{StaticResource Naive.Select.DefaultOptionTemplate}" />
         <Setter Property="SelectedItemTemplate" Value="{StaticResource Naive.Select.DefaultSelectedItemTemplate}" />
+        <Setter Property="TagTemplate" Value="{StaticResource Naive.Select.DefaultTagTemplate}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:NSelect}">
@@ -242,24 +248,26 @@
 
                                     <ItemsControl
                                         x:Name="TagItems"
+                                        Panel.ZIndex="1"
                                         ItemsSource="{TemplateBinding SelectedOptionLabels}"
                                         Visibility="Collapsed">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
-                                                <WrapPanel VerticalAlignment="Center" />
+                                                <WrapPanel VerticalAlignment="Center" IsItemsHost="True" />
                                             </ItemsPanelTemplate>
                                         </ItemsControl.ItemsPanel>
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <Border
-                                                    Margin="0,2,6,2"
-                                                    Padding="7,2,3,2"
+                                                    Margin="0,3,6,3"
+                                                    Padding="8,2,4,2"
                                                     Background="{DynamicResource Theme.Fill.2.Brush}"
                                                     BorderBrush="{DynamicResource Theme.Border.Brush}"
                                                     BorderThickness="1"
                                                     CornerRadius="4">
                                                     <DockPanel LastChildFill="True">
                                                         <Button
+                                                            x:Name="TagCloseButton"
                                                             Margin="5,0,0,0"
                                                             Command="{x:Static controls:NSelect.RemoveSelectedValueCommand}"
                                                             CommandParameter="{Binding}"
@@ -268,19 +276,27 @@
                                                             Style="{StaticResource Naive.Select.TagCloseButtonStyle}" />
                                                         <ContentPresenter
                                                             VerticalAlignment="Center"
-                                                            Content="{Binding Label}"
+                                                            Content="{Binding}"
                                                             ContentTemplate="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NSelect}}, Path=TagTemplate}"
-                                                            TextElement.FontSize="12"
+                                                            TextElement.FontSize="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NSelect}}, Path=ResolvedFontSize}"
                                                             TextElement.Foreground="{DynamicResource Theme.Text.Secondary.Brush}" />
                                                     </DockPanel>
                                                 </Border>
+                                                <DataTemplate.Triggers>
+                                                    <DataTrigger Binding="{Binding CanClose}" Value="False">
+                                                        <Setter TargetName="TagCloseButton" Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </DataTemplate.Triggers>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
 
                                     <TextBox
                                         x:Name="PART_SearchBox"
-                                        MinWidth="40"
+                                        Panel.ZIndex="0"
+                                        MinWidth="28"
+                                        Margin="0,2,0,2"
+                                        HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
                                         FontSize="{TemplateBinding ResolvedFontSize}"
                                         Style="{StaticResource Naive.Select.SearchBoxStyle}"
@@ -295,20 +311,46 @@
                                     Content="{TemplateBinding SuffixContent}"
                                     Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SuffixContent, Converter={StaticResource NullToVisibilityConverter}}" />
 
-                                <Grid Grid.Column="3" Width="34" Margin="0,0,4,0">
+                                <Grid Grid.Column="3" Width="16" Margin="0,0,12,0">
                                     <Button
                                         x:Name="ClearButton"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         Style="{StaticResource Naive.Select.ClearButtonStyle}"
                                         Visibility="Collapsed" />
-                                    <controls:NIcon
-                                        x:Name="ArrowIcon"
+                                    <Grid
+                                        x:Name="ArrowPresenter"
+                                        Width="16"
+                                        Height="16"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        Data="{StaticResource SelectChevronGeometry}"
-                                        Size="15"
-                                        Color="{DynamicResource Theme.Text.Tertiary.Brush}" />
+                                        RenderTransformOrigin="0.5,0.5">
+                                        <ContentPresenter
+                                            x:Name="ArrowContentPresenter"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Content="{TemplateBinding ArrowContent}"
+                                            Visibility="Collapsed" />
+                                        <controls:NIcon
+                                            x:Name="ArrowIcon"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Data="{StaticResource SelectChevronGeometry}"
+                                            Size="16"
+                                            Color="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                            StrokeThickness="1.35"
+                                            UseStroke="True" />
+                                        <controls:NIcon
+                                            x:Name="ArrowIconOpen"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Data="{StaticResource SelectChevronUpGeometry}"
+                                            Size="16"
+                                            Color="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                            StrokeThickness="1.35"
+                                            UseStroke="True"
+                                            Visibility="Collapsed" />
+                                    </Grid>
                                     <Grid
                                         x:Name="LoadingGlyph"
                                         Width="16"
@@ -348,7 +390,7 @@
                             Placement="{TemplateBinding ResolvedPopupPlacement}"
                             PlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                             PopupAnimation="None"
-                            StaysOpen="True">
+                            StaysOpen="False">
                             <Border
                                 Width="{TemplateBinding ResolvedDropDownWidth}"
                                 MaxHeight="{TemplateBinding MaxDropDownHeight}"
@@ -366,8 +408,45 @@
                                         Color="#1F2937" />
                                 </Border.Effect>
                                 <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <Border
+                                        x:Name="PopupHeader"
+                                        Grid.Row="0"
+                                        Padding="14,10"
+                                        Background="{DynamicResource Theme.Surface.0.Brush}"
+                                        BorderBrush="{DynamicResource Theme.Border.Brush}"
+                                        BorderThickness="0,0,0,1"
+                                        Visibility="Collapsed">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <ContentPresenter
+                                                x:Name="HeaderContentPresenter"
+                                                Grid.Column="0"
+                                                VerticalAlignment="Center"
+                                                Content="{TemplateBinding HeaderContent}"
+                                                Visibility="Collapsed" />
+
+                                            <ContentPresenter
+                                                x:Name="ActionContentPresenter"
+                                                Grid.Column="1"
+                                                Margin="12,0,0,0"
+                                                VerticalAlignment="Center"
+                                                Content="{TemplateBinding ActionContent}"
+                                                Visibility="Collapsed" />
+                                        </Grid>
+                                    </Border>
+
                                     <ListBox
                                         x:Name="PART_ListBox"
+                                        Grid.Row="1"
                                         MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                         Padding="0,4"
                                         Background="Transparent"
@@ -381,6 +460,7 @@
 
                                     <ContentPresenter
                                         x:Name="EmptyPresenter"
+                                        Grid.Row="1"
                                         Margin="18,18"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
@@ -390,6 +470,7 @@
 
                                     <ContentPresenter
                                         x:Name="LoadingPresenter"
+                                        Grid.Row="1"
                                         Margin="18,18"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
@@ -407,11 +488,33 @@
                         <Trigger Property="Multiple" Value="True">
                             <Setter TargetName="SingleValuePresenter" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="TagItems" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="PART_SearchBox" Property="MinWidth" Value="18" />
+                        </Trigger>
+                        <Trigger Property="HasArrowContent" Value="True">
+                            <Setter TargetName="ArrowContentPresenter" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="ArrowIcon" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="ArrowIconOpen" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="HasHeaderContent" Value="True">
+                            <Setter TargetName="PopupHeader" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="HeaderContentPresenter" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="HasActionContent" Value="True">
+                            <Setter TargetName="PopupHeader" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="ActionContentPresenter" Property="Visibility" Value="Visible" />
                         </Trigger>
                         <Trigger Property="Filterable" Value="True">
                             <Setter TargetName="PART_SearchBox" Property="Visibility" Value="Visible" />
                             <Setter TargetName="SingleValuePresenter" Property="Opacity" Value="0.45" />
                         </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Filterable" Value="True" />
+                                <Condition Property="Multiple" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="PART_SearchBox" Property="IsHitTestVisible" Value="True" />
+                            <Setter TargetName="PART_SearchBox" Property="Margin" Value="0,3,0,3" />
+                        </MultiTrigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="TriggerBorder" Property="BorderBrush" Value="{DynamicResource Theme.Border.Strong.Brush}" />
                         </Trigger>
@@ -420,22 +523,29 @@
                         </Trigger>
                         <Trigger Property="IsDropDownOpen" Value="True">
                             <Setter TargetName="TriggerBorder" Property="BorderBrush" Value="{DynamicResource Primary.First.Brush}" />
-                            <Setter TargetName="ArrowIcon" Property="RenderTransform">
-                                <Setter.Value>
-                                    <RotateTransform Angle="180" CenterX="7.5" CenterY="7.5" />
-                                </Setter.Value>
-                            </Setter>
                         </Trigger>
-                        <Trigger Property="CanClear" Value="True">
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsDropDownOpen" Value="True" />
+                                <Condition Property="HasArrowContent" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="ArrowIcon" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="ArrowIconOpen" Property="Visibility" Value="Visible" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="CanClear" Value="True" />
+                                <Condition Property="IsMouseOver" Value="True" />
+                            </MultiTrigger.Conditions>
                             <Setter TargetName="ClearButton" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="ArrowIcon" Property="Visibility" Value="Collapsed" />
-                        </Trigger>
+                            <Setter TargetName="ArrowPresenter" Property="Visibility" Value="Collapsed" />
+                        </MultiTrigger>
                         <Trigger Property="ShowArrow" Value="False">
-                            <Setter TargetName="ArrowIcon" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="ArrowPresenter" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                         <Trigger Property="Loading" Value="True">
                             <Setter TargetName="LoadingGlyph" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="ArrowIcon" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="ArrowPresenter" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="ClearButton" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="LoadingPresenter" Property="Visibility" Value="Visible" />
                             <Setter TargetName="PART_ListBox" Property="Visibility" Value="Collapsed" />

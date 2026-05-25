@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using NaiveUI.Demo.Models;
@@ -11,12 +14,17 @@ public sealed class SelectDocsPageViewModel : ViewModelBase
     private object? clearableValue = "song2";
     private object? searchableValue;
     private object? sizeValue = "medium";
-    private object? statusValue;
     private object? templatedValue = "tokyo";
+    private object? customArrowValue = "song1";
+    private object? headerActionValue = "song2";
+    private object? focusValue = "song0";
     private string eventText = "当前尚未触发选择。";
     private string searchText = string.Empty;
+    private string headerActionResultText = "尚未触发头部操作";
+    private string focusStatusText = "当前未执行 Focus / Blur";
     private ObservableCollection<object?> multipleValues = ["song0", "song3"];
-    private ObservableCollection<object?> tagValues = ["vue", "wpf"];
+    private ObservableCollection<object?> maxTagCountValues = ["song0", "song1", "song2", "song3"];
+    private ObservableCollection<object?> customTagValues = ["song0", "song4"];
 
     public SelectDocsPageViewModel(string selectedKey = "select")
     {
@@ -24,16 +32,22 @@ public sealed class SelectDocsPageViewModel : ViewModelBase
         OutlineItems = DocOutlineItem.Create(
             ("基础用法", "SectionBasic"),
             ("尺寸", "SectionSize"),
-            ("可清除", "SectionClearable"),
+            ("可清空", "SectionClearable"),
+            ("自定义箭头", "SectionCustomArrow"),
             ("多选", "SectionMultiple"),
+            ("最大标签数量", "SectionMaxTagCount"),
+            ("自定义标签", "SectionTagTemplate"),
             ("可搜索", "SectionFilterable"),
+            ("头部操作", "SectionHeaderAction"),
             ("禁用与加载", "SectionState"),
             ("状态", "SectionStatus"),
             ("自定义渲染", "SectionTemplate"),
             ("ItemsSource", "SectionItemsSource"),
+            ("手动 Focus / Blur", "SectionFocusBlur"),
             ("接口说明", "SectionApi"),
             ("Select 属性", "SectionSelectProps"),
             ("Option 属性", "SectionOptionProps"),
+            ("Select 方法", "SectionMethods"),
             ("事件", "SectionEvents"));
 
         SongOptions =
@@ -62,21 +76,26 @@ public sealed class SelectDocsPageViewModel : ViewModelBase
             new ApiDocRow { Name = "SelectedValues", Type = "IList", DefaultValue = "null", Description = "多选值集合，Multiple 为 true 时使用。" },
             new ApiDocRow { Name = "Multiple", Type = "bool", DefaultValue = "false", Description = "是否启用多选模式。" },
             new ApiDocRow { Name = "Filterable", Type = "bool", DefaultValue = "false", Description = "是否显示搜索输入并按标签和值过滤。" },
-            new ApiDocRow { Name = "Clearable", Type = "bool", DefaultValue = "false", Description = "是否在有值时显示清除按钮。" },
+            new ApiDocRow { Name = "Clearable", Type = "bool", DefaultValue = "false", Description = "是否启用清空；当前行为与 Naive UI 一致，仅在 hover 或 focus 进入时显示清空按钮。" },
             new ApiDocRow { Name = "Loading", Type = "bool", DefaultValue = "false", Description = "是否进入加载态。" },
-            new ApiDocRow { Name = "Remote", Type = "bool", DefaultValue = "false", Description = "远程搜索标记，当前保留扩展语义，搜索文本可双向绑定后自行加载数据。" },
+            new ApiDocRow { Name = "Remote", Type = "bool", DefaultValue = "false", Description = "远程搜索语义标记，可结合 SearchText 自行拉取数据。" },
             new ApiDocRow { Name = "AllowCreate", Type = "bool", DefaultValue = "false", Description = "过滤无匹配时允许用搜索文本临时创建选项。" },
             new ApiDocRow { Name = "HideSelected", Type = "bool", DefaultValue = "false", Description = "是否在下拉列表中隐藏已选项。" },
             new ApiDocRow { Name = "CloseOnSelect", Type = "bool", DefaultValue = "true", Description = "单选选择后是否关闭弹层；多选默认保持弹层打开。" },
             new ApiDocRow { Name = "Placeholder", Type = "string", DefaultValue = "请选择", Description = "占位文本。" },
             new ApiDocRow { Name = "SearchText", Type = "string", DefaultValue = "string.Empty", Description = "搜索文本，支持双向绑定。" },
+            new ApiDocRow { Name = "ArrowContent", Type = "object", DefaultValue = "null", Description = "自定义右侧箭头内容，未设置时回退默认箭头。" },
+            new ApiDocRow { Name = "HeaderContent", Type = "object", DefaultValue = "null", Description = "下拉面板顶部左侧内容。" },
+            new ApiDocRow { Name = "ActionContent", Type = "object", DefaultValue = "null", Description = "下拉面板顶部右侧操作区内容。" },
+            new ApiDocRow { Name = "ShowArrow", Type = "bool", DefaultValue = "true", Description = "是否显示箭头；设置 ArrowContent 时可配合自定义开关。" },
+            new ApiDocRow { Name = "MaxTagCount", Type = "int", DefaultValue = "0", Description = "多选时最多显示多少个标签，超出部分折叠为 +N。" },
             new ApiDocRow { Name = "Size", Type = "NSelectSize", DefaultValue = "Medium", Description = "尺寸，可选 Tiny、Small、Medium、Large。" },
             new ApiDocRow { Name = "Status", Type = "NSelectStatus", DefaultValue = "Default", Description = "语义状态，可选 Default、Success、Warning、Error。" },
             new ApiDocRow { Name = "IsInvalid", Type = "bool", DefaultValue = "false", Description = "错误态快捷属性，会使用错误边框。" },
             new ApiDocRow { Name = "MaxDropDownHeight", Type = "double", DefaultValue = "280", Description = "下拉面板最大高度。" },
             new ApiDocRow { Name = "OptionTemplate", Type = "DataTemplate", DefaultValue = "null", Description = "选项渲染模板，对应 render-option / render-label 能力。" },
             new ApiDocRow { Name = "SelectedItemTemplate", Type = "DataTemplate", DefaultValue = "null", Description = "单选已选内容模板。" },
-            new ApiDocRow { Name = "TagTemplate", Type = "DataTemplate", DefaultValue = "null", Description = "多选标签文本模板。" }
+            new ApiDocRow { Name = "TagTemplate", Type = "DataTemplate", DefaultValue = "null", Description = "多选标签内容模板，模板上下文为 NSelectTagItem。" }
         ];
 
         OptionPropsRows =
@@ -92,7 +111,15 @@ public sealed class SelectDocsPageViewModel : ViewModelBase
         EventRows =
         [
             new ApiDocRow { Name = "SelectionChanged", Type = "RoutedEvent", DefaultValue = "-", Description = "选择变化事件，参数包含 OldValue 和 NewValue。" },
-            new ApiDocRow { Name = "Clear", Type = "RoutedEvent", DefaultValue = "-", Description = "清除按钮触发后抛出。" }
+            new ApiDocRow { Name = "Clear", Type = "RoutedEvent", DefaultValue = "-", Description = "清空按钮触发后抛出。" }
+        ];
+
+        MethodRows =
+        [
+            new ApiDocRow { Name = "Focus()", Type = "bool", DefaultValue = "-", Description = "打开下拉并聚焦控件；可搜索时会路由到输入框。" },
+            new ApiDocRow { Name = "FocusInput()", Type = "bool", DefaultValue = "-", Description = "显式聚焦内部搜索输入框。" },
+            new ApiDocRow { Name = "Blur()", Type = "void", DefaultValue = "-", Description = "关闭下拉并结束内部输入焦点。" },
+            new ApiDocRow { Name = "BlurInput()", Type = "void", DefaultValue = "-", Description = "仅结束内部输入焦点并关闭下拉。" }
         ];
     }
 
@@ -109,6 +136,8 @@ public sealed class SelectDocsPageViewModel : ViewModelBase
     public IReadOnlyList<ApiDocRow> OptionPropsRows { get; }
 
     public IReadOnlyList<ApiDocRow> EventRows { get; }
+
+    public IReadOnlyList<ApiDocRow> MethodRows { get; }
 
     public object? BasicValue
     {
@@ -134,16 +163,28 @@ public sealed class SelectDocsPageViewModel : ViewModelBase
         set => SetProperty(ref sizeValue, value);
     }
 
-    public object? StatusValue
-    {
-        get => statusValue;
-        set => SetProperty(ref statusValue, value);
-    }
-
     public object? TemplatedValue
     {
         get => templatedValue;
         set => SetProperty(ref templatedValue, value);
+    }
+
+    public object? CustomArrowValue
+    {
+        get => customArrowValue;
+        set => SetProperty(ref customArrowValue, value);
+    }
+
+    public object? HeaderActionValue
+    {
+        get => headerActionValue;
+        set => SetProperty(ref headerActionValue, value);
+    }
+
+    public object? FocusValue
+    {
+        get => focusValue;
+        set => SetProperty(ref focusValue, value);
     }
 
     public ObservableCollection<object?> MultipleValues
@@ -152,10 +193,16 @@ public sealed class SelectDocsPageViewModel : ViewModelBase
         set => SetProperty(ref multipleValues, value);
     }
 
-    public ObservableCollection<object?> TagValues
+    public ObservableCollection<object?> MaxTagCountValues
     {
-        get => tagValues;
-        set => SetProperty(ref tagValues, value);
+        get => maxTagCountValues;
+        set => SetProperty(ref maxTagCountValues, value);
+    }
+
+    public ObservableCollection<object?> CustomTagValues
+    {
+        get => customTagValues;
+        set => SetProperty(ref customTagValues, value);
     }
 
     public string SearchText
@@ -170,9 +217,31 @@ public sealed class SelectDocsPageViewModel : ViewModelBase
         set => SetProperty(ref eventText, value);
     }
 
+    public string HeaderActionResultText
+    {
+        get => headerActionResultText;
+        set => SetProperty(ref headerActionResultText, value);
+    }
+
+    public string FocusStatusText
+    {
+        get => focusStatusText;
+        set => SetProperty(ref focusStatusText, value);
+    }
+
     public void RecordSelection(object? oldValue, object? newValue)
     {
         EventText = $"选择变化：{FormatValue(oldValue)} -> {FormatValue(newValue)}";
+    }
+
+    public void RecordHeaderAction()
+    {
+        HeaderActionResultText = $"头部操作已触发：{DateTime.Now:HH:mm:ss}";
+    }
+
+    public void RecordFocusAction(string action)
+    {
+        FocusStatusText = $"最近操作：{action}（{DateTime.Now:HH:mm:ss}）";
     }
 
     private static string FormatValue(object? value)
@@ -182,7 +251,7 @@ public sealed class SelectDocsPageViewModel : ViewModelBase
             return "null";
         }
 
-        if (value is System.Collections.IEnumerable enumerable and not string)
+        if (value is IEnumerable enumerable && value is not string)
         {
             return string.Join(", ", enumerable.Cast<object?>().Select(item => item?.ToString() ?? "null"));
         }
