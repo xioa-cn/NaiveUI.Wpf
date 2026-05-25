@@ -84,7 +84,7 @@
         </TextBlock>
     </DataTemplate>
 
-    <Style TargetType="{x:Type controls:NText}">
+    <Style x:Key="NTextBaseStyle" TargetType="{x:Type controls:NText}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
         <Setter Property="Background" Value="Transparent" />
@@ -156,7 +156,9 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type controls:NP}">
+    <Style TargetType="{x:Type controls:NText}" BasedOn="{StaticResource NTextBaseStyle}"/>
+    
+    <Style x:Key="NPBaseStyle" TargetType="{x:Type controls:NP}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
         <Setter Property="FontSize" Value="16" />
@@ -183,6 +185,8 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style TargetType="{x:Type controls:NP}" BasedOn="{StaticResource NPBaseStyle}"/>
 
     <Style x:Key="TypographyHeaderBaseStyle" TargetType="{x:Type controls:NTypographyHeaderBase}">
         <Setter Property="Focusable" Value="False" />
@@ -247,6 +251,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
 
     <Style BasedOn="{StaticResource TypographyHeaderBaseStyle}" TargetType="{x:Type controls:NH1}">
         <Setter Property="FontSize" Value="30" />
@@ -284,7 +289,7 @@
         <Setter Property="Margin" Value="0,0,0,10" />
     </Style>
 
-    <Style TargetType="{x:Type controls:NBlockquote}">
+    <Style x:Key="NBlockquoteBaseStyle" TargetType="{x:Type controls:NBlockquote}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Secondary.Brush}" />
         <Setter Property="FontSize" Value="16" />
@@ -328,6 +333,8 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style TargetType="{x:Type controls:NBlockquote}" BasedOn="{StaticResource NBlockquoteBaseStyle}"></Style>
 
     <Style x:Key="TypographyListBaseStyle" TargetType="{x:Type controls:NTypographyListBase}">
         <Setter Property="Focusable" Value="False" />
