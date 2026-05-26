@@ -31,6 +31,7 @@ public sealed class DocsPageViewModel : ViewModelBase
             ["message"] = static () => new MessageDocsPage(),
             ["loading-bar"] = static () => new LoadingBarDocsPage(),
             ["badge"] = static () => new BadgeDocsPage(),
+            ["auto-complete"] = static () => new AutoCompleteDocsPage(),
             ["select"] = static () => new SelectDocsPage(),
             ["switch"] = static () => new SwitchDocsPage(),
             ["tooltip"] = static () => new TooltipDocsPage(),

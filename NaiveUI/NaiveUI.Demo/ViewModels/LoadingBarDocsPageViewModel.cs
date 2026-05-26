@@ -45,7 +45,7 @@ public sealed class LoadingBarDocsPageViewModel : ViewModelBase
 
     private static INLoadingBarApi ResolveLoadingBar()
     {
-        return NLoadingBar.UseLoadingBar(Application.Current?.MainWindow);
+        return NLoadingBar.UseLoadingBar();
     }
 
     public async Task RunSequenceAsync(bool error = false)

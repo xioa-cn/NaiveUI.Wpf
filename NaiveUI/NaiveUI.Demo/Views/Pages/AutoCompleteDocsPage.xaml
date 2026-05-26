@@ -1,0 +1,850 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Pages.AutoCompleteDocsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:AutoCompleteDocsPageViewModel}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style
+            x:Key="SectionCardHeaderTitleStyle"
+            BasedOn="{StaticResource DocSectionTitleStyle}"
+            TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+        <Style x:Key="DemoItemStyle" TargetType="StackPanel">
+            <Setter Property="Margin" Value="0,0,24,18" />
+        </Style>
+
+        <Style x:Key="DemoCaptionStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,8,0,0" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Secondary.Brush}" />
+        </Style>
+
+        <DataTemplate x:Key="CityOptionTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock
+                        FontWeight="SemiBold"
+                        Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                        Text="{Binding Label}" />
+                    <TextBlock
+                        Margin="0,2,0,0"
+                        FontSize="12"
+                        Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
+                        Text="{Binding Group}" />
+                </StackPanel>
+                <TextBlock
+                    Grid.Column="1"
+                    Margin="16,0,0,0"
+                    VerticalAlignment="Center"
+                    Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
+                    Text="{Binding Suffix}" />
+            </Grid>
+        </DataTemplate>
+
+        <Geometry x:Key="SearchGeometry">M11.5 11.5L15 15M13 7.5C13 10.5376 10.5376 13 7.5 13C4.46243 13 2 10.5376 2 7.5C2 4.46243 4.46243 2 7.5 2C10.5376 2 13 4.46243 13 7.5Z</Geometry>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="25,34,18,34">
+                <TextBlock
+                    FontSize="48"
+                    FontWeight="Bold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="自动填充" />
+
+                <TextBlock
+                    Margin="0,26,0,0"
+                    FontSize="18"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="以输入文本为主状态，由调用方根据 Text 生成候选项，贴近 Naive UI AutoComplete 的使用方式。" />
+
+                <TextBlock
+                    Margin="0,52,0,28"
+                    FontSize="36"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="演示" />
+
+                <StackPanel>
+                    <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="邮箱后缀" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AutoCompleteDocsPage1">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="经典自动补全：输入邮箱用户名后，候选项会追加 @qq.com、@163.com 等常用后缀。" />
+                                    <nc:NAutoComplete
+                                        x:Name="BasicAutoComplete"
+                                        Width="320"
+                                        HorizontalAlignment="Left"
+                                        Clearable="True"
+                                        DisplayMemberPath="Label"
+                                        FontFamily="Consolas"
+                                        FontSize="15"
+                                        ItemsSource="{Binding BasicOptions}"
+                                        OptionSelected="HandleOptionSelected"
+                                        Placeholder="请输入邮箱前缀"
+                                        Text="{Binding BasicText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        ValueChanged="HandleValueChanged"
+                                        ValueMemberPath="Value"
+                                        Value="{Binding BasicValue, Mode=TwoWay}" />
+                                    <TextBlock
+                                        Margin="0,14,0,0"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="{Binding ValueChangedText}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionCompletion" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="补全提示" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AutoCompleteDocsPageCompletion">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="聚焦后输入内容，输入框内的灰色尾巴是补全提示，按 Tab 可以接受当前补全。" />
+                                    <nc:NAutoComplete
+                                        x:Name="CompletionAutoComplete"
+                                        Width="340"
+                                        HorizontalAlignment="Left"
+                                        AcceptSuggestionOnTab="True"
+                                        Clearable="True"
+                                        DisplayMemberPath="Label"
+                                        FontFamily="Consolas"
+                                        FontSize="15"
+                                        ItemsSource="{Binding CompletionOptions}"
+                                        Placeholder="试试输入 xiaoming"
+                                        SelectFirstOptionOnOpen="True"
+                                        ShowCompletionHint="True"
+                                        Text="{Binding CompletionText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        ValueChanged="HandleValueChanged"
+                                        ValueMemberPath="Value"
+                                        Value="{Binding CompletionValue, Mode=TwoWay}" />
+                                    <TextBlock
+                                        Margin="0,12,0,0"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="提示：输入 xiaoming，然后按 Tab 接受完整邮箱地址。" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionSize" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="尺寸" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AutoCompleteDocsPage2">
+                                <WrapPanel Margin="30,24,30,6">
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="170"
+                                            Placeholder="极小尺寸"
+                                            Size="Tiny">
+                                            <nc:NSelectOption Label="demo@gmail.com" Value="demo@gmail.com" />
+                                            <nc:NSelectOption Label="demo@qq.com" Value="demo@qq.com" />
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="极小" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="180"
+                                            Placeholder="小尺寸"
+                                            Size="Small">
+                                            <nc:NSelectOption Label="demo@outlook.com" Value="demo@outlook.com" />
+                                            <nc:NSelectOption Label="demo@hotmail.com" Value="demo@hotmail.com" />
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="小" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="190"
+                                            Placeholder="中等尺寸"
+                                            Size="Medium">
+                                            <nc:NSelectOption Label="demo@163.com" Value="demo@163.com" />
+                                            <nc:NSelectOption Label="demo@icloud.com" Value="demo@icloud.com" />
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="中等" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="210"
+                                            Placeholder="大尺寸"
+                                            Size="Large">
+                                            <nc:NSelectOption Label="demo@gmail.com" Value="demo@gmail.com" />
+                                            <nc:NSelectOption Label="demo@outlook.com" Value="demo@outlook.com" />
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="大" />
+                                    </StackPanel>
+                                </WrapPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionState" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="状态" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AutoCompleteDocsPage3">
+                                <WrapPanel Margin="30,24,30,6">
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="220"
+                                            Clearable="True"
+                                            Placeholder="成功状态"
+                                            Status="Success"
+                                            Text="{Binding StatusText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                            <nc:NSelectOption Label="success@gmail.com" Value="success@gmail.com" />
+                                            <nc:NSelectOption Label="success@qq.com" Value="success@qq.com" />
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="成功" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="220"
+                                            Placeholder="警告状态"
+                                            Status="Warning">
+                                            <nc:NSelectOption Label="warn@outlook.com" Value="warn@outlook.com" />
+                                            <nc:NSelectOption Label="warn@hotmail.com" Value="warn@hotmail.com" />
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="警告" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="220"
+                                            IsInvalid="True"
+                                            Placeholder="错误状态">
+                                            <nc:NSelectOption Label="error@gmail.com" Value="error@gmail.com" />
+                                            <nc:NSelectOption Label="error@qq.com" Value="error@qq.com" />
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="错误" />
+                                    </StackPanel>
+                                </WrapPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionAffix" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="前后缀" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AutoCompleteDocsPage4">
+                                <WrapPanel Margin="30,24,30,6">
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            x:Name="PrefixAutoComplete"
+                                            Width="300"
+                                            Clearable="True"
+                                            FontSize="15"
+                                            ItemsSource="{Binding PrefixOptions}"
+                                            Placeholder="请输入城市名"
+                                            ShowArrow="True"
+                                            Text="{Binding PrefixText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            ValueChanged="HandleValueChanged"
+                                            Value="{Binding PrefixValue, Mode=TwoWay}">
+                                            <nc:NAutoComplete.PrefixContent>
+                                                <nc:NIcon
+                                                    Data="{StaticResource SearchGeometry}"
+                                                    Size="14"
+                                                    StrokeThickness="1.6"
+                                                    UseStroke="True" />
+                                            </nc:NAutoComplete.PrefixContent>
+                                            <nc:NAutoComplete.SuffixContent>
+                                                <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="CTRL+K" />
+                                            </nc:NAutoComplete.SuffixContent>
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="前缀 / 后缀 / 箭头" />
+                                    </StackPanel>
+                                </WrapPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionInternalFilter" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="内置过滤" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AutoCompleteDocsPageInternalFilter">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="默认模式由调用方生成候选项；如果确实需要控件内过滤，可以设置 EnableInternalFilter 为 true。" />
+                                    <nc:NAutoComplete
+                                        Width="320"
+                                        HorizontalAlignment="Left"
+                                        Clearable="True"
+                                        DisplayMemberPath="Label"
+                                        EnableInternalFilter="True"
+                                        ItemsSource="{Binding InternalFilterOptions}"
+                                        MatchMode="StartsWith"
+                                        Placeholder="请输入城市名"
+                                        Text="{Binding InternalFilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        ValueMemberPath="Value"
+                                        Value="{Binding InternalFilterValue, Mode=TwoWay}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionRemote" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="远程搜索" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AutoCompleteDocsPage5">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="模拟远程自动补全：文本变化触发异步候选项生成，搜索逻辑仍由调用方负责。" />
+                                    <nc:NAutoComplete
+                                        Width="340"
+                                        HorizontalAlignment="Left"
+                                        Clearable="True"
+                                        DisplayMemberPath="Label"
+                                        HeaderContent="远程搜索"
+                                        ItemsSource="{Binding RemoteOptions}"
+                                        Loading="{Binding RemoteLoading}"
+                                        Placeholder="输入 sun / love / remote"
+                                        Text="{Binding RemoteText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        ValueChanged="HandleRemoteValueChanged"
+                                        ValueMemberPath="Value"
+                                        Value="{Binding RemoteValue, Mode=TwoWay}">
+                                        <nc:NAutoComplete.ActionContent>
+                                            <TextBlock Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" Text="模拟延迟 280ms" />
+                                        </nc:NAutoComplete.ActionContent>
+                                    </nc:NAutoComplete>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionTemplate" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="自定义渲染" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AutoCompleteDocsPage6">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="通过 OptionTemplate 自定义候选项结构，等价于 Naive UI 的 render-option 思路。" />
+                                    <nc:NAutoComplete
+                                        x:Name="TemplateAutoComplete"
+                                        Width="320"
+                                        HorizontalAlignment="Left"
+                                        Clearable="True"
+                                        DisplayMemberPath="Label"
+                                        ItemsSource="{Binding TemplateOptions}"
+                                        OptionTemplate="{StaticResource CityOptionTemplate}"
+                                        Placeholder="请输入城市名"
+                                        Text="{Binding TemplateText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        ValueChanged="HandleValueChanged"
+                                        ValueMemberPath="Value"
+                                        Value="{Binding TemplateValue, Mode=TwoWay}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionEmpty" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="空状态" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AutoCompleteDocsPageEmpty">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="无候选项时可以自定义空状态内容，保持可读且不透明。" />
+                                    <nc:NAutoComplete
+                                        Width="320"
+                                        HorizontalAlignment="Left"
+                                        Clearable="True"
+                                        ItemsSource="{x:Null}"
+                                        NoDataContent="没有匹配的邮箱后缀"
+                                        Placeholder="请输入任意内容"
+                                        Text="{Binding NoDataText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionFocusBlur" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="焦点控制" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AutoCompleteDocsPage7">
+                                <StackPanel Margin="30,24,30,24">
+                                    <nc:NAutoComplete
+                                        x:Name="DemoFocusAutoComplete"
+                                        Width="320"
+                                        HorizontalAlignment="Left"
+                                        Clearable="True"
+                                        OpenOnFocus="True"
+                                        Placeholder="点击下方按钮"
+                                        Text="{Binding FocusText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        Trigger="Focus"
+                                        Value="{Binding FocusValue, Mode=TwoWay}">
+                                        <nc:NSelectOption Label="demo@gmail.com" Value="demo@gmail.com" />
+                                        <nc:NSelectOption Label="demo@outlook.com" Value="demo@outlook.com" />
+                                        <nc:NSelectOption Label="demo@qq.com" Value="demo@qq.com" />
+                                        <nc:NSelectOption Label="demo@163.com" Value="demo@163.com" />
+                                    </nc:NAutoComplete>
+                                    <WrapPanel Margin="0,16,0,0">
+                                        <nc:NButton
+                                            Margin="0,0,12,12"
+                                            Click="HandleFocusClick"
+                                            Grade="Primary">
+                                            聚焦
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,12,12"
+                                            Click="HandleBlurClick"
+                                            Kind="Secondary">
+                                            失焦
+                                        </nc:NButton>
+                                    </WrapPanel>
+                                    <TextBlock
+                                        Margin="0,4,0,0"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="{Binding FocusStatusText}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionPlacement" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="弹层位置与尺寸" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AutoCompleteDocsPagePlacement">
+                                <WrapPanel Margin="30,24,30,6">
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="180"
+                                            DropDownWidth="260"
+                                            MaxDropDownHeight="120"
+                                            OpenOnFocus="True"
+                                            Placeholder="BottomStart"
+                                            Placement="BottomStart">
+                                            <nc:NSelectOption Label="北京" Value="beijing" />
+                                            <nc:NSelectOption Label="上海" Value="shanghai" />
+                                            <nc:NSelectOption Label="广州" Value="guangzhou" />
+                                            <nc:NSelectOption Label="深圳" Value="shenzhen" />
+                                            <nc:NSelectOption Label="杭州" Value="hangzhou" />
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="BottomStart / 宽度 260 / 高度 120" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="180"
+                                            DropDownWidth="260"
+                                            OpenOnFocus="True"
+                                            Placeholder="Bottom"
+                                            Placement="Bottom">
+                                            <nc:NSelectOption Label="北京" Value="beijing" />
+                                            <nc:NSelectOption Label="上海" Value="shanghai" />
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="Bottom" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="180"
+                                            DropDownWidth="260"
+                                            OpenOnFocus="True"
+                                            Placeholder="BottomEnd"
+                                            Placement="BottomEnd">
+                                            <nc:NSelectOption Label="北京" Value="beijing" />
+                                            <nc:NSelectOption Label="上海" Value="shanghai" />
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="BottomEnd" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="180"
+                                            DropDownWidth="260"
+                                            OpenOnFocus="True"
+                                            Placeholder="TopStart"
+                                            Placement="TopStart">
+                                            <nc:NSelectOption Label="北京" Value="beijing" />
+                                            <nc:NSelectOption Label="上海" Value="shanghai" />
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="TopStart" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="180"
+                                            DropDownWidth="260"
+                                            OpenOnFocus="True"
+                                            Placeholder="Top"
+                                            Placement="Top">
+                                            <nc:NSelectOption Label="北京" Value="beijing" />
+                                            <nc:NSelectOption Label="上海" Value="shanghai" />
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="Top" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="180"
+                                            DropDownWidth="260"
+                                            OpenOnFocus="True"
+                                            Placeholder="TopEnd"
+                                            Placement="TopEnd">
+                                            <nc:NSelectOption Label="北京" Value="beijing" />
+                                            <nc:NSelectOption Label="上海" Value="shanghai" />
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="TopEnd" />
+                                    </StackPanel>
+                                </WrapPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionBehavior" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="选择行为" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AutoCompleteDocsPageBehavior">
+                                <WrapPanel Margin="30,24,30,6">
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="260"
+                                            CloseOnSelect="False"
+                                            OpenOnFocus="True"
+                                            Placeholder="选择后保持展开">
+                                            <nc:NSelectOption Label="北京" Value="beijing" />
+                                            <nc:NSelectOption Label="上海" Value="shanghai" />
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="CloseOnSelect=False" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="260"
+                                            BlurAfterSelect="True"
+                                            OpenOnFocus="True"
+                                            Placeholder="选择后失焦">
+                                            <nc:NSelectOption Label="北京" Value="beijing" />
+                                            <nc:NSelectOption Label="上海" Value="shanghai" />
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="BlurAfterSelect=True" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="260"
+                                            ClearAfterSelect="True"
+                                            OpenOnFocus="True"
+                                            Placeholder="选择后清空">
+                                            <nc:NSelectOption Label="北京" Value="beijing" />
+                                            <nc:NSelectOption Label="上海" Value="shanghai" />
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="ClearAfterSelect=True" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="260"
+                                            OpenOnFocus="True"
+                                            Placeholder="选择后不回填"
+                                            UpdateTextOnSelect="False">
+                                            <nc:NSelectOption Label="北京" Value="beijing" />
+                                            <nc:NSelectOption Label="上海" Value="shanghai" />
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="UpdateTextOnSelect=False" />
+                                    </StackPanel>
+                                </WrapPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionTrigger" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="触发方式" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AutoCompleteDocsPageTrigger">
+                                <WrapPanel Margin="30,24,30,6">
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="240"
+                                            Placeholder="输入时触发"
+                                            Trigger="Input">
+                                            <nc:NSelectOption Label="demo@qq.com" Value="demo@qq.com" />
+                                            <nc:NSelectOption Label="demo@163.com" Value="demo@163.com" />
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="Trigger=Input" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="240"
+                                            OpenOnFocus="True"
+                                            Placeholder="聚焦时触发"
+                                            Trigger="Focus">
+                                            <nc:NSelectOption Label="demo@qq.com" Value="demo@qq.com" />
+                                            <nc:NSelectOption Label="demo@163.com" Value="demo@163.com" />
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="Trigger=Focus" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="240"
+                                            Placeholder="手动展开"
+                                            ShowArrow="True"
+                                            Trigger="Manual">
+                                            <nc:NSelectOption Label="手动候选一" Value="manual-1" />
+                                            <nc:NSelectOption Label="手动候选二" Value="manual-2" />
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="Trigger=Manual / IsDropDownOpen=True" />
+                                    </StackPanel>
+                                </WrapPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionFilter" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="过滤细节" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AutoCompleteDocsPageFilter">
+                                <WrapPanel Margin="30,24,30,6">
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="260"
+                                            EnableInternalFilter="True"
+                                            ItemsSource="{Binding InternalFilterOptions}"
+                                            MatchMode="Contains"
+                                            Placeholder="包含匹配" />
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="MatchMode=Contains" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="260"
+                                            EnableInternalFilter="True"
+                                            IgnoreCase="False"
+                                            Placeholder="大小写敏感">
+                                            <nc:NSelectOption Label="Alpha" Value="Alpha" />
+                                            <nc:NSelectOption Label="alpha" Value="alpha" />
+                                            <nc:NSelectOption Label="Beta" Value="Beta" />
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="IgnoreCase=False" />
+                                    </StackPanel>
+                                </WrapPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionLoadingEmpty" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="加载与空态" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AutoCompleteDocsPageLoadingEmpty">
+                                <WrapPanel Margin="30,24,30,6">
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="260"
+                                            Loading="True"
+                                            LoadingContent="搜索中..."
+                                            Placeholder="自定义加载文案"
+                                            ShowArrow="True"
+                                            Trigger="Manual" />
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="LoadingContent" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="260"
+                                            NoDataContent="没有可显示的数据"
+                                            Placeholder="不显示空态"
+                                            ShowArrow="True"
+                                            Trigger="Manual" />
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="NoDataContent" />
+                                    </StackPanel>
+                                </WrapPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionCustomIcon" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="自定义图标" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AutoCompleteDocsPageCustomIcon">
+                                <WrapPanel Margin="30,24,30,6">
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NAutoComplete
+                                            Width="300"
+                                            Clearable="True"
+                                            Placeholder="自定义箭头和清除图标"
+                                            ShowArrow="True"
+                                            ArrowContent="⌄"
+                                            ClearIconContent="×"
+                                            Text="hover 后显示清除">
+                                            <nc:NSelectOption Label="北京" Value="beijing" />
+                                            <nc:NSelectOption Label="上海" Value="shanghai" />
+                                        </nc:NAutoComplete>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="ArrowContent / ClearIconContent" />
+                                    </StackPanel>
+                                </WrapPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionLongText" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="长文本输入" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="AutoCompleteDocsPageLongText">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="输入内容超过控件宽度后，左右方向键、Home/End、鼠标点击和拖拽选择都应使用 TextBox 原生横向滚动。" />
+                                    <nc:NAutoComplete
+                                        Width="320"
+                                        HorizontalAlignment="Left"
+                                        Clearable="True"
+                                        FontFamily="Consolas"
+                                        Placeholder="长文本滚动验证"
+                                        Text="very.long.email.address.for.autocomplete.horizontal.scroll@example.company.internal.cn">
+                                        <nc:NSelectOption Label="very.long.email.address.for.autocomplete.horizontal.scroll@qq.com" Value="long@qq.com" />
+                                        <nc:NSelectOption Label="very.long.email.address.for.autocomplete.horizontal.scroll@163.com" Value="long@163.com" />
+                                    </nc:NAutoComplete>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionApi" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="API" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <TextBlock
+                                Margin="30,24,30,24"
+                                Style="{StaticResource DocBodyTextStyle}"
+                                Text="当前控件聚焦真实自动补全语义：文本优先、调用方驱动候选项、灰色补全提示、Tab 接受、清除、状态、模板和手动焦点控制。" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="属性" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding PropsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionEvents" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="事件" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding EventRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionMethods" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="方法" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding MethodRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="1" Background="{DynamicResource Theme.Surface.0.Brush}">
+            <nc:NMenu
+                Margin="20,36,20,20"
+                DisplayMemberPath="Label"
+                ItemInvoked="HandleOutlineItemInvoked"
+                ItemsSource="{Binding OutlineItems}"
+                SelectedValuePath="TargetName" />
+        </Border>
+    </Grid>
+</UserControl>

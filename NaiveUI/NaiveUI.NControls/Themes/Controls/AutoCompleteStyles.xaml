@@ -1,0 +1,494 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:NaiveUI.NControls.Controls">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/ThemeTokens.xaml" />
+        <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/PathResources.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Geometry x:Key="AutoCompleteChevronGeometry">M4.5 6.25L8 9.75L11.5 6.25</Geometry>
+
+    <Style x:Key="Naive.AutoComplete.TextBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="CaretBrush" Value="{DynamicResource Primary.First.Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="TextWrapping" Value="NoWrap" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <ScrollViewer
+                        x:Name="PART_ContentHost"
+                        HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                        VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Naive.AutoComplete.ClearButtonStyle" TargetType="Button">
+        <Setter Property="Width" Value="22" />
+        <Setter Property="Height" Value="22" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="Root"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        Background="Transparent"
+                        CornerRadius="11">
+                        <Grid>
+                            <ContentPresenter
+                                x:Name="CustomIconPresenter"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NAutoComplete}}, Path=ClearIconContent}"
+                                Visibility="Collapsed" />
+                            <controls:NIcon
+                                x:Name="DefaultIconPresenter"
+                                Data="{StaticResource Close}"
+                                Size="12"
+                                Color="{DynamicResource Theme.Text.Tertiary.Brush}" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NAutoComplete}}, Path=HasClearIconContent}" Value="True">
+                            <Setter TargetName="CustomIconPresenter" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="DefaultIconPresenter" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Root" Property="Background" Value="{DynamicResource Theme.Fill.Hover.Brush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Root" Property="Background" Value="{DynamicResource Theme.Fill.2Pressed.Brush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Naive.AutoComplete.ArrowButtonStyle" TargetType="Button">
+        <Setter Property="Width" Value="22" />
+        <Setter Property="Height" Value="22" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="Root"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        Background="Transparent"
+                        CornerRadius="11">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Root" Property="Background" Value="{DynamicResource Theme.Fill.Hover.Brush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Root" Property="Background" Value="{DynamicResource Theme.Fill.2Pressed.Brush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Naive.AutoComplete.OptionItemStyle" TargetType="ListBoxItem">
+        <Setter Property="MinHeight" Value="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=Tag.ResolvedOptionHeight}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Secondary.Brush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Grid Margin="4,1">
+                        <Border
+                            x:Name="OptionBackground"
+                            Background="Transparent"
+                            CornerRadius="6" />
+                        <Grid MinHeight="{TemplateBinding MinHeight}" Margin="10,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <ContentPresenter
+                                Grid.Column="0"
+                                Margin="0,0,8,0"
+                                VerticalAlignment="Center"
+                                Content="{Binding Icon}"
+                                Visibility="{Binding Icon, Converter={StaticResource NullToVisibilityConverter}}" />
+
+                            <ContentPresenter
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Content="{Binding Source}"
+                                ContentTemplate="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=Tag.OptionTemplate}" />
+
+                            <ContentPresenter
+                                Grid.Column="2"
+                                Margin="10,0,4,0"
+                                VerticalAlignment="Center"
+                                Content="{Binding Suffix}"
+                                TextElement.Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                Visibility="{Binding Suffix, Converter={StaticResource NullToVisibilityConverter}}" />
+                        </Grid>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="OptionBackground" Property="Background" Value="{DynamicResource Theme.Fill.Hover.Brush}" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="OptionBackground" Property="Background" Value="{DynamicResource Theme.Fill.Hover.Brush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <DataTemplate x:Key="Naive.AutoComplete.DefaultOptionTemplate">
+        <ContentPresenter
+            Content="{Binding Label}"
+            RecognizesAccessKey="False"
+            TextElement.FontSize="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=Tag.ResolvedFontSize}"
+            TextElement.Foreground="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=Foreground}" />
+    </DataTemplate>
+
+    <Style x:Key="NAutoCompleteBaseStyle" TargetType="{x:Type controls:NAutoComplete}">
+        <Setter Property="MinWidth" Value="220" />
+        <Setter Property="Focusable" Value="True" />
+        <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="OptionTemplate" Value="{StaticResource Naive.AutoComplete.DefaultOptionTemplate}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:NAutoComplete}">
+                    <Grid SnapsToDevicePixels="True">
+                        <Border
+                            x:Name="OuterBorder"
+                            MinHeight="{TemplateBinding ResolvedHeight}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{StaticResource Radius.Medium}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <ContentPresenter
+                                    Grid.Column="0"
+                                    Margin="12,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding PrefixContent}"
+                                    Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HasPrefixContent, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+                                <Grid
+                                    x:Name="PART_InputHost"
+                                    Grid.Column="1"
+                                    Margin="{TemplateBinding ResolvedPadding}"
+                                    Background="Transparent">
+                                    <TextBlock
+                                        x:Name="PlaceholderText"
+                                        VerticalAlignment="Center"
+                                        Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                        IsHitTestVisible="False"
+                                        Text="{TemplateBinding Placeholder}"
+                                        Visibility="Collapsed" />
+
+                                    <TextBlock
+                                        x:Name="CompletionHintText"
+                                        VerticalAlignment="Center"
+                                        Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                        IsHitTestVisible="False"
+                                        Visibility="Collapsed">
+                                        <TextBlock.RenderTransform>
+                                            <TranslateTransform X="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CompletionSuffixOffset, Mode=OneWay}" />
+                                        </TextBlock.RenderTransform>
+                                        <Run Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CompletionSuffix, Mode=OneWay}" />
+                                    </TextBlock>
+
+                                    <TextBox
+                                        x:Name="PART_TextBox"
+                                        Margin="0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"
+                                        FontFamily="{TemplateBinding FontFamily}"
+                                        FontSize="{TemplateBinding EffectiveFontSize}"
+                                        FontStretch="{TemplateBinding FontStretch}"
+                                        FontStyle="{TemplateBinding FontStyle}"
+                                        FontWeight="{TemplateBinding FontWeight}"
+                                        Foreground="{TemplateBinding Foreground}"
+                                        Style="{StaticResource Naive.AutoComplete.TextBoxStyle}" />
+                                </Grid>
+
+                                <DockPanel
+                                    x:Name="TrailingPanel"
+                                    Grid.Column="2"
+                                    Margin="0,0,10,0"
+                                    LastChildFill="False"
+                                    Visibility="Collapsed">
+                                    <ContentPresenter
+                                        Margin="0,0,6,0"
+                                        VerticalAlignment="Center"
+                                        Content="{TemplateBinding SuffixContent}"
+                                        Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HasSuffixContent, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+                                    <Grid
+                                        Width="22"
+                                        Height="22"
+                                        VerticalAlignment="Center">
+                                        <Button
+                                            x:Name="PART_ClearButton"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            IsHitTestVisible="False"
+                                            Opacity="0"
+                                            Style="{StaticResource Naive.AutoComplete.ClearButtonStyle}" />
+
+                                        <Button
+                                            x:Name="PART_ArrowButton"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource Naive.AutoComplete.ArrowButtonStyle}"
+                                            Visibility="Collapsed">
+                                            <Grid Width="16" Height="16">
+                                                <ContentPresenter
+                                                    x:Name="CustomArrowPresenter"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Content="{TemplateBinding ArrowContent}"
+                                                    Visibility="Collapsed" />
+                                                <controls:NIcon
+                                                    x:Name="DefaultArrowPresenter"
+                                                    Data="{StaticResource AutoCompleteChevronGeometry}"
+                                                    Size="16"
+                                                    StrokeThickness="1.35"
+                                                    UseStroke="True"
+                                                    Color="{DynamicResource Theme.Text.Tertiary.Brush}" />
+                                            </Grid>
+                                        </Button>
+                                    </Grid>
+                                </DockPanel>
+                            </Grid>
+                        </Border>
+
+                        <Popup
+                            x:Name="PART_Popup"
+                            AllowsTransparency="True"
+                            Focusable="False"
+                            IsOpen="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsDropDownOpen, Mode=TwoWay}"
+                            Placement="{TemplateBinding ResolvedPopupPlacement}"
+                            PlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                            PopupAnimation="None"
+                            StaysOpen="False">
+                            <Border
+                                Width="{TemplateBinding ResolvedDropDownWidth}"
+                                MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                Background="{DynamicResource Theme.Surface.0.Brush}"
+                                BorderBrush="{DynamicResource Theme.Border.Brush}"
+                                BorderThickness="1"
+                                CornerRadius="8">
+                                <Border.Effect>
+                                    <DropShadowEffect
+                                        BlurRadius="24"
+                                        Opacity="0.14"
+                                        ShadowDepth="6"
+                                        Color="#1F2937" />
+                                </Border.Effect>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <Border
+                                        x:Name="HeaderPanel"
+                                        Grid.Row="0"
+                                        Padding="14,10"
+                                        Background="{DynamicResource Theme.Surface.0.Brush}"
+                                        BorderBrush="{DynamicResource Theme.Border.Brush}"
+                                        BorderThickness="0,0,0,1"
+                                        Visibility="Collapsed">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <ContentPresenter
+                                                Grid.Column="0"
+                                                VerticalAlignment="Center"
+                                                Content="{TemplateBinding HeaderContent}" />
+                                            <ContentPresenter
+                                                Grid.Column="1"
+                                                Margin="12,0,0,0"
+                                                VerticalAlignment="Center"
+                                                Content="{TemplateBinding ActionContent}"
+                                                Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HasActionContent, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                        </Grid>
+                                    </Border>
+
+                                    <Grid Grid.Row="1" Background="{DynamicResource Theme.Surface.0.Brush}">
+                                        <ListBox
+                                            x:Name="PART_ListBox"
+                                            MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                            Padding="0,4"
+                                            Background="{DynamicResource Theme.Surface.0.Brush}"
+                                            BorderThickness="0"
+                                            ItemContainerStyle="{StaticResource Naive.AutoComplete.OptionItemStyle}"
+                                            ItemsSource="{TemplateBinding FilteredOptions}"
+                                            KeyboardNavigation.DirectionalNavigation="Cycle"
+                                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                            ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                            Tag="{Binding RelativeSource={RelativeSource TemplatedParent}}" />
+
+                                        <Border
+                                            x:Name="EmptyPresenter"
+                                            Background="{DynamicResource Theme.Surface.0.Brush}"
+                                            Visibility="Collapsed">
+                                            <ContentPresenter
+                                                Margin="18,14"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Content="{TemplateBinding NoDataContent}"
+                                                TextElement.Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" />
+                                        </Border>
+
+                                        <Border
+                                            x:Name="LoadingPresenter"
+                                            Background="{DynamicResource Theme.Surface.0.Brush}"
+                                            Visibility="Collapsed">
+                                            <ContentPresenter
+                                                Margin="18,14"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Content="{TemplateBinding LoadingContent}"
+                                                TextElement.Foreground="{DynamicResource Theme.Text.Tertiary.Brush}" />
+                                        </Border>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ShowPlaceholder" Value="True">
+                            <Setter TargetName="PlaceholderText" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="HasCompletionSuffix" Value="True" />
+                                <Condition Property="IsKeyboardFocusWithin" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="CompletionHintText" Property="Visibility" Value="Visible" />
+                        </MultiTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource Theme.Border.Strong.Brush}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource Primary.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="IsInvalid" Value="True">
+                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource Error.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="Status" Value="{x:Static controls:NSelectStatus.Success}">
+                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource Success.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="Status" Value="{x:Static controls:NSelectStatus.Warning}">
+                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource Warning.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="Status" Value="{x:Static controls:NSelectStatus.Error}">
+                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource Error.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.55" />
+                        </Trigger>
+                        <Trigger Property="HasTrailingContent" Value="True">
+                            <Setter TargetName="TrailingPanel" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="CanClear" Value="True" />
+                                <Condition Property="IsMouseOver" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="PART_ClearButton" Property="Opacity" Value="1" />
+                            <Setter TargetName="PART_ClearButton" Property="IsHitTestVisible" Value="True" />
+                            <Setter TargetName="PART_ArrowButton" Property="Opacity" Value="0" />
+                            <Setter TargetName="PART_ArrowButton" Property="IsHitTestVisible" Value="False" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="CanClear" Value="True" />
+                                <Condition Property="IsKeyboardFocusWithin" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="PART_ClearButton" Property="Opacity" Value="1" />
+                            <Setter TargetName="PART_ClearButton" Property="IsHitTestVisible" Value="True" />
+                            <Setter TargetName="PART_ArrowButton" Property="Opacity" Value="0" />
+                            <Setter TargetName="PART_ArrowButton" Property="IsHitTestVisible" Value="False" />
+                        </MultiTrigger>
+                        <Trigger Property="ShowArrow" Value="True">
+                            <Setter TargetName="PART_ArrowButton" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HasArrowContent}" Value="True">
+                            <Setter TargetName="CustomArrowPresenter" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="DefaultArrowPresenter" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                        <Trigger Property="HasHeaderContent" Value="True">
+                            <Setter TargetName="HeaderPanel" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="Loading" Value="True">
+                            <Setter TargetName="LoadingPresenter" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="HasFilteredOptions" Value="False">
+                            <Setter TargetName="EmptyPresenter" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="HasFilteredOptions" Value="False" />
+                                <Condition Property="Loading" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="EmptyPresenter" Property="Visibility" Value="Collapsed" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="ShowEmptyWhenNoMatch" Value="False" />
+                                <Condition Property="HasFilteredOptions" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="EmptyPresenter" Property="Visibility" Value="Collapsed" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource NAutoCompleteBaseStyle}" TargetType="{x:Type controls:NAutoComplete}" />
+</ResourceDictionary>

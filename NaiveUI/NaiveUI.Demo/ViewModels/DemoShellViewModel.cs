@@ -16,7 +16,7 @@ public sealed class DemoShellViewModel : ViewModelBase
     {
         currentPageView = homePage;
         currentPage = DemoPage.Home;
-        VersionText = "1.0.1";
+        VersionText = "1.0.2";
         ThemeManager.ThemeChanged += HandleThemeChanged;
     }
 

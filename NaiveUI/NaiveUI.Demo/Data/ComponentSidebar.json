@@ -29,7 +29,7 @@
       "title": "数据录入组件",
       "count": 21,
       "items": [
-        { "key": "auto-complete", "title": "自动填充", "subtitle": "Auto Complete" },
+        { "key": "auto-complete", "title": "自动填充", "subtitle": "Auto Complete", "badgeText": "新" },
         { "key": "cascader", "title": "级联选择", "subtitle": "Cascader" },
         { "key": "color-picker", "title": "颜色选择器", "subtitle": "Color Picker" },
         { "key": "checkbox", "title": "复选框", "subtitle": "Checkbox" },
