@@ -17,6 +17,32 @@ NaiveUI.Wpf 是一个面向现代 Windows 桌面应用的 WPF 组件库。它以
 
 如果你喜欢 Naive UI 的干净边界、轻量阴影、清晰状态和紧凑布局，但项目技术栈是 WPF，这个库就是为你准备的。
 
+## 
+
+<center>
+<img src="./NaiveUI/NaiveUI.Demo/Assets/demo.png" alt="NaiveUI.Wpf 运行截图">
+</center>
+## 技术交流
+
+<p align="center">
+  <table>
+    <tr>
+      <td align="center" width="50%">
+        <img width="280" src="./NaiveUI/NaiveUI.Demo/Assets/交流群.png" alt="NaiveUI.Wpf 飞书交流群二维码" />
+        <br />
+        <b>NaiveUI.Wpf 交流群</b>
+      </td>
+      <td align="center" width="50%">
+        <img width="280" src="./NaiveUI/NaiveUI.Demo/Assets/话题群.png" alt="NaiveUI.Wpf 飞书话题群二维码" />
+        <br />
+        <b>NaiveUI.Wpf 话题群</b>
+      </td>
+    </tr>
+  </table>
+</p>
+
+欢迎加入飞书一起友好交流问题。你可以在这里反馈使用问题、提出组件需求、讨论视觉细节，也可以分享 WPF 项目落地经验。
+
 ## 特性
 
 - **Naive UI 风格还原**：按钮、选择器、自动完成、颜色选择器、标签、提示、消息、加载条等组件持续对齐 Naive UI 的视觉和 API 语义。
