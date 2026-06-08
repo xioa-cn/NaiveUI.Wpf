@@ -33,6 +33,7 @@ public sealed class DocsPageViewModel : ViewModelBase
             ["badge"] = static () => new BadgeDocsPage(),
             ["auto-complete"] = static () => new AutoCompleteDocsPage(),
             ["color-picker"] = static () => new ColorPickerDocsPage(),
+            ["input"] = static () => new InputDocsPage(),
             ["select"] = static () => new SelectDocsPage(),
             ["switch"] = static () => new SwitchDocsPage(),
             ["tooltip"] = static () => new TooltipDocsPage(),

@@ -1,4 +1,4 @@
-﻿{
+{
   "categories": [
     {
       "title": "通用组件",
@@ -37,7 +37,7 @@
         { "key": "dynamic-input", "title": "动态录入", "subtitle": "Dynamic Input" },
         { "key": "dynamic-tags", "title": "动态标签", "subtitle": "Dynamic Tags" },
         { "key": "form", "title": "表单", "subtitle": "Form" },
-        { "key": "input", "title": "文本输入", "subtitle": "Input" },
+        { "key": "input", "title": "文本输入", "subtitle": "Input", "badgeText": "新" },
         { "key": "input-number", "title": "数字输入", "subtitle": "Input Number" },
         { "key": "input-otp", "title": "验证码", "subtitle": "Input OTP" },
         { "key": "mention", "title": "提及", "subtitle": "Mention" },

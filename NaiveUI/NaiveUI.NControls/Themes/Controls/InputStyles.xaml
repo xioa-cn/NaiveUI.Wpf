@@ -4,59 +4,411 @@
     xmlns:controls="clr-namespace:NaiveUI.NControls.Controls">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/ThemeTokens.xaml" />
+        <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/PathResources.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    <Style x:Key="NInputBaseStyle" TargetType="{x:Type controls:NInput}">
-        <Setter Property="Padding" Value="16,11" />
-        <Setter Property="MinWidth" Value="220" />
-        <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
+
+    <Geometry x:Key="Naive.Input.EyeGeometry">M511.9488 209.408c174.592 0 335.9232 128.9728 457.984 290.9696a39.5776 39.5776 0 0 1 3.2256 41.1136l-3.328 5.4272-4.352 5.6832c-122.4704 160.1536-282.4192 285.184-453.4784 285.184-174.3872 0-335.1552-128.512-457.8816-290.9184a39.424 39.424 0 0 1-3.2768-41.216l3.3792-5.4272 4.4032-5.632c127.6928-163.84 282.368-285.184 453.2736-285.184zM512 284.3648c-134.144 0-265.3184 95.3344-375.7056 228.0448l-9.1136 11.0592 9.216 11.264c107.008 128.8192 230.912 220.8768 360.448 227.5328l15.0528 0.4096c133.9392 0 264.0384-94.4128 376.064-227.9424l9.216-11.264-9.216-11.1616c-107.8272-128.5632-232.448-220.8768-361.1136-227.584l-14.848-0.3584z m-1.536 82.688a138.7008 138.7008 0 0 1 93.44 36.9664l8.2944 8.192 7.5776 8.8064c22.3744 28.416 34.5088 63.488 34.3552 99.6352 0 84.8384-64.256 153.6512-143.7184 153.6512-79.3088 0-143.5648-68.8128-143.5648-153.6 0-81.408 59.1872-148.1216 134.144-153.344l9.472-0.3072z m-45.7728 91.9552l-5.7856 5.632-5.1712 6.144a83.2512 83.2512 0 0 0-13.824 71.7824l2.6624 8.0896 3.328 7.424c11.52 22.8864 32.768 38.0928 56.5248 40.9088l7.9872 0.4608 0.6144 0.6144 7.68-0.4608c13.9264-1.7408 26.9312-7.5776 37.4784-16.7424l6.1952-5.9904c14.08-15.36 21.7088-35.4304 21.4016-56.2176 0-31.8976-17.92-60.672-45.312-72.8064a69.4784 69.4784 0 0 0-73.7792 11.1616z</Geometry>
+    <Geometry x:Key="Naive.Input.EyeOffGeometry">M963.8912 289.28c16.2816 14.848 18.176 41.0624 4.3008 58.5216a629.7088 629.7088 0 0 1-110.08 107.776l84.0704 90.112a43.7248 43.7248 0 0 1-1.024 58.7776 36.8128 36.8128 0 0 1-53.76 0L790.3232 500.224c-44.032 24.9344-91.136 43.9296-140.0832 56.4736l44.9024 132.1984c7.2704 21.6064-3.072 45.4144-23.1424 53.248-20.1216 7.8848-42.3424-3.2256-49.664-24.832l-49.5616-146.3296a567.296 567.296 0 0 1-122.112 0.512l-49.5616 145.8176c-7.3216 21.5552-29.4912 32.7168-49.6128 24.832-20.0704-7.8336-30.4128-31.6416-23.1424-53.248l44.5952-131.0208a575.0272 575.0272 0 0 1-141.4144-55.9104l-95.5392 102.4a36.864 36.864 0 0 1-54.7328-1.024 43.776 43.776 0 0 1 0-57.7024L163.328 457.728a623.4624 623.4624 0 0 1-107.6224-103.6288 43.6736 43.6736 0 0 1 4.608-58.5216 36.864 36.864 0 0 1 53.5552 3.6864c99.7888 122.368 244.0192 192.512 395.5712 192.256 155.8016 0 300.544-73.0624 399.9744-197.632a36.864 36.864 0 0 1 54.528-4.608z</Geometry>
+
+    <Style x:Key="Naive.Input.InnerTextBoxStyle" TargetType="TextBox">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
-        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="CaretBrush" Value="{DynamicResource Primary.First.Brush}" />
+        <Setter Property="SelectionBrush" Value="{DynamicResource Primary.First.Brush}" />
+        <Setter Property="SelectionOpacity" Value="0.28" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="TextWrapping" Value="NoWrap" />
+        <Setter Property="AcceptsReturn" Value="False" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type controls:NInput}">
+                <ControlTemplate TargetType="TextBox">
+                    <ScrollViewer
+                        x:Name="PART_ContentHost"
+                        Focusable="False"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        HorizontalScrollBarVisibility="Auto"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}"
+                        Background="Transparent"
+                        CanContentScroll="False" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Naive.Input.InnerPasswordBoxStyle" TargetType="PasswordBox">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="CaretBrush" Value="{DynamicResource Primary.First.Brush}" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="PasswordBox">
+                    <ScrollViewer
+                        x:Name="PART_ContentHost"
+                        Focusable="False"
+                        HorizontalAlignment="Stretch"
+                        HorizontalScrollBarVisibility="Hidden"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        VerticalScrollBarVisibility="Hidden"
+                        Background="Transparent"
+                        CanContentScroll="False" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Naive.Input.IconButtonStyle" TargetType="Button">
+        <Setter Property="Width" Value="22" />
+        <Setter Property="Height" Value="22" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Tertiary.Brush}" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
                     <Border
-                        x:Name="OuterBorder"
+                        x:Name="Root"
                         Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{StaticResource Radius.Medium}">
-                        <Grid>
-                            <ScrollViewer
-                                x:Name="PART_ContentHost"
-                                Margin="{TemplateBinding Padding}"
-                                VerticalAlignment="Center" />
-                            <TextBlock
-                                x:Name="PlaceholderText"
-                                Margin="{TemplateBinding Padding}"
-                                VerticalAlignment="Center"
-                                Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
-                                IsHitTestVisible="False"
-                                Text="{TemplateBinding Placeholder}"
-                                Visibility="Collapsed" />
-                        </Grid>
+                        CornerRadius="11">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="Text" Value="">
-                            <Setter TargetName="PlaceholderText" Property="Visibility" Value="Visible" />
-                        </Trigger>
-                        <Trigger Property="IsKeyboardFocused" Value="True">
-                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource Primary.First.Brush}" />
-                        </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource Theme.Border.Strong.Brush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Secondary.Brush}" />
+                            <Setter TargetName="Root" Property="Background" Value="{DynamicResource Theme.Surface.2.Brush}" />
                         </Trigger>
-                        <Trigger Property="IsInvalid" Value="True">
-                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource Error.First.Brush}" />
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Opacity" Value="0.55" />
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-    <Style BasedOn="{StaticResource NInputBaseStyle}" TargetType="{x:Type controls:NInput}"/>
+
+    <Style x:Key="NInputBaseStyle" TargetType="{x:Type controls:NInput}">
+        <Setter Property="MinWidth" Value="220" />
+        <Setter Property="Height" Value="{Binding ResolvedHeight, RelativeSource={RelativeSource Self}}" />
+        <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:NInput}">
+                    <Border
+                        x:Name="OuterBorder"
+                        MinHeight="{TemplateBinding Height}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{Binding ResolvedCornerRadius, RelativeSource={RelativeSource TemplatedParent}}">
+                        <Grid x:Name="RootGrid" MinHeight="{TemplateBinding Height}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition x:Name="PrefixColumn" Width="0" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition x:Name="ActionColumn" Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <ContentPresenter
+                                x:Name="PrefixPresenter"
+                                Grid.Column="0"
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center"
+                                Content="{TemplateBinding PrefixContent}"
+                                Visibility="Collapsed" />
+
+                            <Grid
+                                x:Name="EditorLayer"
+                                Grid.Column="1"
+                                Margin="10,0,10,0"
+                                VerticalAlignment="Stretch">
+                                <TextBox
+                                    x:Name="PART_TextBox"
+                                    MaxLength="{TemplateBinding MaxLength}"
+                                    IsReadOnly="{Binding IsEditorReadOnly, RelativeSource={RelativeSource TemplatedParent}}"
+                                    FontFamily="{TemplateBinding FontFamily}"
+                                    FontSize="{TemplateBinding FontSize}"
+                                    FontStyle="{TemplateBinding FontStyle}"
+                                    FontWeight="{TemplateBinding FontWeight}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    Style="{StaticResource Naive.Input.InnerTextBoxStyle}"
+                                    Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    VerticalAlignment="Stretch" />
+
+                                <PasswordBox
+                                    x:Name="PART_PasswordBox"
+                                    MaxLength="{TemplateBinding MaxLength}"
+                                    FontFamily="{TemplateBinding FontFamily}"
+                                    FontSize="{TemplateBinding FontSize}"
+                                    FontStyle="{TemplateBinding FontStyle}"
+                                    FontWeight="{TemplateBinding FontWeight}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    Style="{StaticResource Naive.Input.InnerPasswordBoxStyle}"
+                                    VerticalAlignment="Stretch"
+                                    Visibility="Collapsed" />
+
+                                <TextBlock
+                                    x:Name="PlaceholderText"
+                                    VerticalAlignment="Center"
+                                    Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                    IsHitTestVisible="False"
+                                    Text="{TemplateBinding Placeholder}"
+                                    Visibility="Collapsed" />
+                            </Grid>
+
+                            <StackPanel
+                                x:Name="ActionPanel"
+                                Grid.Column="2"
+                                Margin="0,0,8,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <TextBlock
+                                    x:Name="CountText"
+                                    Margin="0,0,6,0"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                    Text="{Binding CountText, RelativeSource={RelativeSource TemplatedParent}}"
+                                    Visibility="Collapsed" />
+
+                                <ContentPresenter
+                                    x:Name="SuffixPresenter"
+                                    Margin="0,0,6,0"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding SuffixContent}"
+                                    Visibility="Collapsed" />
+
+                                <Grid
+                                    x:Name="LoadingGlyph"
+                                    Width="16"
+                                    Height="16"
+                                    Margin="0,0,2,0"
+                                    RenderTransformOrigin="0.5,0.5"
+                                    Visibility="Collapsed">
+                                    <Grid.RenderTransform>
+                                        <RotateTransform />
+                                    </Grid.RenderTransform>
+                                    <Ellipse
+                                        Width="16"
+                                        Height="16"
+                                        Opacity="0.45"
+                                        Stroke="{DynamicResource Theme.Border.Strong.Brush}"
+                                        StrokeThickness="2" />
+                                    <Path
+                                        Width="16"
+                                        Height="16"
+                                        Data="M 8,1 A 7,7 0 0 1 15,8"
+                                        Stroke="{DynamicResource Primary.First.Brush}"
+                                        StrokeEndLineCap="Round"
+                                        StrokeStartLineCap="Round"
+                                        StrokeThickness="2"
+                                        Stretch="None" />
+                                </Grid>
+
+                                <Button
+                                    x:Name="PART_PasswordToggleButton"
+                                    Command="{x:Static controls:NInput.TogglePasswordVisibilityCommand}"
+                                    CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                                    Style="{StaticResource Naive.Input.IconButtonStyle}"
+                                    Visibility="Collapsed">
+                                    <Grid Width="16" Height="16">
+                                        <Path
+                                            x:Name="PasswordToggleIcon"
+                                            Data="{StaticResource Naive.Input.EyeGeometry}"
+                                            Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
+                                            Stretch="Uniform" />
+                                        <ContentPresenter
+                                            x:Name="PasswordToggleCustomIcon"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Content="{Binding ResolvedPasswordIconContent, RelativeSource={RelativeSource TemplatedParent}}"
+                                            Visibility="Collapsed" />
+                                    </Grid>
+                                </Button>
+
+                                <Button
+                                    x:Name="ClearButton"
+                                    Command="{x:Static controls:NInput.ClearCommand}"
+                                    CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                                    Opacity="0"
+                                    IsHitTestVisible="False"
+                                    Style="{StaticResource Naive.Input.IconButtonStyle}"
+                                    Visibility="Collapsed">
+                                    <controls:NIcon
+                                        Color="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
+                                        Data="{StaticResource Close}"
+                                        Size="12" />
+                                </Button>
+                            </StackPanel>
+
+                            <Thumb
+                                x:Name="PART_ResizeThumb"
+                                Grid.Column="1"
+                                Width="14"
+                                Height="14"
+                                Margin="0,0,3,3"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Cursor="SizeNWSE"
+                                Opacity="0.72"
+                                Panel.ZIndex="3"
+                                Visibility="Collapsed">
+                                <Thumb.Template>
+                                    <ControlTemplate TargetType="Thumb">
+                                        <Grid Background="Transparent">
+                                            <Path
+                                                Data="M8 12L12 8M4 12L12 4"
+                                                Stroke="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                                StrokeEndLineCap="Round"
+                                                StrokeStartLineCap="Round"
+                                                StrokeThickness="1.2"
+                                                Stretch="None" />
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Thumb.Template>
+                            </Thumb>
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasText" Value="False">
+                            <Setter TargetName="PlaceholderText" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="HasPrefix" Value="True">
+                            <Setter TargetName="PrefixColumn" Property="Width" Value="Auto" />
+                            <Setter TargetName="PrefixPresenter" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="EditorLayer" Property="Margin" Value="8,0,10,0" />
+                        </Trigger>
+                        <Trigger Property="HasSuffix" Value="True">
+                            <Setter TargetName="SuffixPresenter" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="ShowCount" Value="True">
+                            <Setter TargetName="CountText" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="Type" Value="{x:Static controls:NInputType.Password}">
+                            <Setter TargetName="PART_TextBox" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="PART_PasswordBox" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="PART_PasswordToggleButton" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Type" Value="{x:Static controls:NInputType.Password}" />
+                                <Condition Property="IsPasswordVisible" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="PART_TextBox" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="PART_PasswordBox" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="PasswordToggleIcon" Property="Data" Value="{StaticResource Naive.Input.EyeOffGeometry}" />
+                        </MultiTrigger>
+                        <Trigger Property="HasCustomPasswordIcon" Value="True">
+                            <Setter TargetName="PasswordToggleIcon" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="PasswordToggleCustomIcon" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="ShowPasswordToggle" Value="False">
+                            <Setter TargetName="PART_PasswordToggleButton" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="Type" Value="{x:Static controls:NInputType.Textarea}">
+                            <Setter Property="Height" Value="Auto" />
+                            <Setter TargetName="OuterBorder" Property="MinHeight" Value="{Binding ResolvedTextareaMinHeight, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <Setter TargetName="RootGrid" Property="MinHeight" Value="{Binding ResolvedTextareaMinHeight, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <Setter TargetName="ActionColumn" Property="Width" Value="0" />
+                            <Setter TargetName="PrefixPresenter" Property="VerticalAlignment" Value="Top" />
+                            <Setter TargetName="PrefixPresenter" Property="Margin" Value="10,8,0,0" />
+                            <Setter TargetName="ActionPanel" Property="Grid.Column" Value="1" />
+                            <Setter TargetName="ActionPanel" Property="Panel.ZIndex" Value="2" />
+                            <Setter TargetName="ActionPanel" Property="HorizontalAlignment" Value="Right" />
+                            <Setter TargetName="ActionPanel" Property="VerticalAlignment" Value="Bottom" />
+                            <Setter TargetName="ActionPanel" Property="Margin" Value="0,0,10,7" />
+                            <Setter TargetName="EditorLayer" Property="Margin" Value="10,7,10,26" />
+                            <Setter TargetName="PART_TextBox" Property="VerticalContentAlignment" Value="Top" />
+                            <Setter TargetName="PART_TextBox" Property="Padding" Value="0,1,0,0" />
+                            <Setter TargetName="PART_TextBox" Property="AcceptsReturn" Value="True" />
+                            <Setter TargetName="PART_TextBox" Property="TextWrapping" Value="Wrap" />
+                            <Setter TargetName="PART_TextBox" Property="VerticalScrollBarVisibility" Value="Auto" />
+                            <Setter TargetName="PlaceholderText" Property="VerticalAlignment" Value="Top" />
+                            <Setter TargetName="PART_ResizeThumb" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="Resizable" Value="False">
+                            <Setter TargetName="PART_ResizeThumb" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource Theme.Border.Strong.Brush}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource Primary.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="Status" Value="{x:Static controls:NSelectStatus.Success}">
+                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource Success.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="Status" Value="{x:Static controls:NSelectStatus.Warning}">
+                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource Warning.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="Status" Value="{x:Static controls:NSelectStatus.Error}">
+                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource Error.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="IsInvalid" Value="True">
+                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource Error.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="Loading" Value="True">
+                            <Setter TargetName="LoadingGlyph" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="PART_TextBox" Property="IsHitTestVisible" Value="False" />
+                            <Setter TargetName="PART_PasswordBox" Property="IsHitTestVisible" Value="False" />
+                            <Setter TargetName="CountText" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="SuffixPresenter" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="ClearButton" Property="Opacity" Value="0" />
+                            <Setter TargetName="ClearButton" Property="IsHitTestVisible" Value="False" />
+                            <Setter TargetName="ClearButton" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="PART_PasswordToggleButton" Property="Visibility" Value="Collapsed" />
+                            <Trigger.EnterActions>
+                                <BeginStoryboard x:Name="InputLoadingStoryboard">
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="LoadingGlyph"
+                                            Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                                            From="0"
+                                            To="360"
+                                            Duration="0:0:0.9" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <StopStoryboard BeginStoryboardName="InputLoadingStoryboard" />
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="CanClear" Value="True" />
+                                <Condition Property="IsMouseOver" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="ClearButton" Property="Opacity" Value="1" />
+                            <Setter TargetName="ClearButton" Property="IsHitTestVisible" Value="True" />
+                            <Setter TargetName="ClearButton" Property="Visibility" Value="Visible" />
+                        </MultiTrigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.55" />
+                            <Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource Theme.Surface.1.Brush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource NInputBaseStyle}" TargetType="{x:Type controls:NInput}" />
 </ResourceDictionary>
