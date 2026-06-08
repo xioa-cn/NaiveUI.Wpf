@@ -26,7 +26,6 @@ public sealed class AutoCompleteDocsPageViewModel : ViewModelBase
     private string focusStatusText = "暂未触发焦点操作。";
     private string templateText = "北京";
     private object? templateValue = "beijing";
-    private string statusText = "成功状态";
     private string prefixText = string.Empty;
     private object? prefixValue;
     private string internalFilterText = string.Empty;
@@ -39,21 +38,14 @@ public sealed class AutoCompleteDocsPageViewModel : ViewModelBase
         OutlineItems = DocOutlineItem.Create(
             ("基础用法", "SectionBasic"),
             ("补全提示", "SectionCompletion"),
-            ("尺寸", "SectionSize"),
-            ("状态", "SectionState"),
+            ("尺寸与状态", "SectionSizeState"),
             ("前后缀", "SectionAffix"),
-            ("内置过滤", "SectionInternalFilter"),
+            ("过滤与禁用", "SectionFilter"),
             ("远程搜索", "SectionRemote"),
             ("自定义渲染", "SectionTemplate"),
-            ("空状态", "SectionEmpty"),
+            ("空状态与加载", "SectionLoadingEmpty"),
             ("焦点控制", "SectionFocusBlur"),
-            ("弹层位置", "SectionPlacement"),
-            ("选择行为", "SectionBehavior"),
-            ("触发方式", "SectionTrigger"),
-            ("过滤细节", "SectionFilter"),
-            ("加载与空态", "SectionLoadingEmpty"),
-            ("自定义图标", "SectionCustomIcon"),
-            ("长文本输入", "SectionLongText"),
+            ("触发与行为", "SectionBehavior"),
             ("API", "SectionApi"),
             ("属性", "SectionProps"),
             ("事件", "SectionEvents"),
@@ -107,41 +99,63 @@ public sealed class AutoCompleteDocsPageViewModel : ViewModelBase
 
         PropsRows =
         [
-            new ApiDocRow { Name = "Text", Type = "string", DefaultValue = "string.Empty", Description = "输入框文本，是自动补全的主状态。" },
-            new ApiDocRow { Name = "ItemsSource", Type = "IEnumerable", DefaultValue = "null", Description = "候选项来源；默认由调用方根据 Text 生成，贴近 Naive UI 的 options 用法。" },
-            new ApiDocRow { Name = "Value", Type = "object", DefaultValue = "null", Description = "选中候选项后提交的值。" },
-            new ApiDocRow { Name = "GetShow", Type = "Func<string, bool>", DefaultValue = "null", Description = "等价于 Naive UI get-show，用当前文本决定是否展示下拉面板。" },
-            new ApiDocRow { Name = "EnableInternalFilter", Type = "bool", DefaultValue = "false", Description = "可选内置过滤；默认关闭，避免把 AutoComplete 做成 Select。" },
-            new ApiDocRow { Name = "ShowCompletionHint", Type = "bool", DefaultValue = "true", Description = "聚焦时显示灰色补全尾巴。" },
-            new ApiDocRow { Name = "AcceptSuggestionOnTab", Type = "bool", DefaultValue = "true", Description = "按 Tab 接受当前补全或高亮候选项。" },
-            new ApiDocRow { Name = "OpenOnFocus", Type = "bool", DefaultValue = "false", Description = "输入框获得焦点时打开候选面板。" },
+            new ApiDocRow { Name = "Text", Type = "string", DefaultValue = "string.Empty", Description = "输入框文本，支持双向绑定。" },
+            new ApiDocRow { Name = "Value", Type = "object", DefaultValue = "null", Description = "选中候选项提交的值，支持双向绑定。" },
+            new ApiDocRow { Name = "SelectedItem", Type = "object", DefaultValue = "null", Description = "当前选中项，只读。" },
+            new ApiDocRow { Name = "Options", Type = "ObservableCollection<NSelectOption>", DefaultValue = "[]", Description = "XAML 内联候选项集合。" },
+            new ApiDocRow { Name = "ItemsSource", Type = "IEnumerable", DefaultValue = "null", Description = "候选项数据源，可绑定 NSelectOption 或普通对象。" },
+            new ApiDocRow { Name = "DisplayMemberPath", Type = "string", DefaultValue = "string.Empty", Description = "普通对象映射到 Label 的属性路径。" },
+            new ApiDocRow { Name = "ValueMemberPath", Type = "string", DefaultValue = "string.Empty", Description = "普通对象映射到 Value 的属性路径。" },
+            new ApiDocRow { Name = "DisabledMemberPath", Type = "string", DefaultValue = "string.Empty", Description = "普通对象映射到 Disabled 的属性路径。" },
+            new ApiDocRow { Name = "IconMemberPath", Type = "string", DefaultValue = "string.Empty", Description = "普通对象映射到 Icon 的属性路径。" },
+            new ApiDocRow { Name = "SuffixMemberPath", Type = "string", DefaultValue = "string.Empty", Description = "普通对象映射到 Suffix 的属性路径。" },
+            new ApiDocRow { Name = "Filter", Type = "Func<string, NSelectOption, bool>", DefaultValue = "null", Description = "自定义内部过滤逻辑。" },
+            new ApiDocRow { Name = "EnableInternalFilter", Type = "bool", DefaultValue = "false", Description = "启用控件内部过滤；默认由调用方根据 Text 生成候选项。" },
+            new ApiDocRow { Name = "MatchMode", Type = "NAutoCompleteMatchMode", DefaultValue = "Contains", Description = "内部过滤匹配方式：Contains 或 StartsWith。" },
+            new ApiDocRow { Name = "IgnoreCase", Type = "bool", DefaultValue = "true", Description = "内部过滤和补全提示是否忽略大小写。" },
+            new ApiDocRow { Name = "MinCharacters", Type = "int", DefaultValue = "0", Description = "达到最小输入长度后才显示面板。" },
+            new ApiDocRow { Name = "GetShow", Type = "Func<string, bool>", DefaultValue = "null", Description = "等价 Naive UI get-show，用当前文本决定是否展示面板。" },
+            new ApiDocRow { Name = "Trigger", Type = "NAutoCompleteTrigger", DefaultValue = "Input", Description = "Focus / Input / Manual 三种触发模式。" },
+            new ApiDocRow { Name = "IsDropDownOpen", Type = "bool", DefaultValue = "false", Description = "手动控制下拉面板开关，支持双向绑定。" },
+            new ApiDocRow { Name = "OpenOnFocus", Type = "bool", DefaultValue = "false", Description = "获得焦点时打开候选面板。" },
             new ApiDocRow { Name = "OpenOnInput", Type = "bool", DefaultValue = "true", Description = "输入时打开候选面板。" },
+            new ApiDocRow { Name = "SelectFirstOptionOnOpen", Type = "bool", DefaultValue = "false", Description = "面板打开时自动高亮第一个可用候选项。" },
             new ApiDocRow { Name = "SelectOnEnter", Type = "bool", DefaultValue = "true", Description = "按 Enter 提交高亮候选项。" },
-            new ApiDocRow { Name = "SelectFirstOptionOnOpen", Type = "bool", DefaultValue = "false", Description = "打开面板或候选项刷新后自动高亮第一个可用项。" },
+            new ApiDocRow { Name = "AcceptSuggestionOnTab", Type = "bool", DefaultValue = "true", Description = "按 Tab 接受当前补全提示。" },
             new ApiDocRow { Name = "CloseOnSelect", Type = "bool", DefaultValue = "true", Description = "选择后关闭下拉面板。" },
-            new ApiDocRow { Name = "BlurAfterSelect", Type = "bool", DefaultValue = "false", Description = "选择后让输入框失焦。" },
-            new ApiDocRow { Name = "ClearAfterSelect", Type = "bool", DefaultValue = "false", Description = "选择后清空输入框文本。" },
+            new ApiDocRow { Name = "BlurAfterSelect", Type = "bool", DefaultValue = "false", Description = "选择后移走焦点。" },
+            new ApiDocRow { Name = "ClearAfterSelect", Type = "bool", DefaultValue = "false", Description = "选择后清空输入文本。" },
             new ApiDocRow { Name = "UpdateTextOnSelect", Type = "bool", DefaultValue = "true", Description = "选择后用候选项标签回填 Text。" },
             new ApiDocRow { Name = "Clearable", Type = "bool", DefaultValue = "false", Description = "悬浮或聚焦时显示清除按钮。" },
+            new ApiDocRow { Name = "IsReadOnly", Type = "bool", DefaultValue = "false", Description = "只读状态，保留文本但禁止输入、清除和打开候选面板。" },
             new ApiDocRow { Name = "Loading", Type = "bool", DefaultValue = "false", Description = "候选面板显示加载状态。" },
             new ApiDocRow { Name = "Placeholder", Type = "string", DefaultValue = "string.Empty", Description = "输入框占位文本。" },
+            new ApiDocRow { Name = "ShowArrow", Type = "bool", DefaultValue = "false", Description = "显示下拉箭头按钮。" },
+            new ApiDocRow { Name = "ShowEmptyWhenNoMatch", Type = "bool", DefaultValue = "true", Description = "没有候选项时显示空状态。" },
+            new ApiDocRow { Name = "ShowCompletionHint", Type = "bool", DefaultValue = "true", Description = "聚焦时显示灰色补全尾巴。" },
             new ApiDocRow { Name = "PrefixContent", Type = "object", DefaultValue = "null", Description = "输入框前缀内容。" },
             new ApiDocRow { Name = "SuffixContent", Type = "object", DefaultValue = "null", Description = "输入框后缀内容。" },
+            new ApiDocRow { Name = "ArrowContent", Type = "object", DefaultValue = "null", Description = "自定义箭头内容。" },
+            new ApiDocRow { Name = "ClearIconContent", Type = "object", DefaultValue = "null", Description = "自定义清除图标内容。" },
             new ApiDocRow { Name = "HeaderContent", Type = "object", DefaultValue = "null", Description = "下拉面板头部内容。" },
             new ApiDocRow { Name = "ActionContent", Type = "object", DefaultValue = "null", Description = "下拉面板头部右侧操作内容。" },
-            new ApiDocRow { Name = "OptionTemplate", Type = "DataTemplate", DefaultValue = "null", Description = "候选项自定义模板。" },
             new ApiDocRow { Name = "NoDataContent", Type = "object", DefaultValue = "\"暂无匹配项\"", Description = "无候选项时显示的内容。" },
             new ApiDocRow { Name = "LoadingContent", Type = "object", DefaultValue = "\"加载中\"", Description = "Loading 为 true 时显示的内容。" },
+            new ApiDocRow { Name = "OptionTemplate", Type = "DataTemplate", DefaultValue = "null", Description = "候选项自定义模板。" },
+            new ApiDocRow { Name = "SelectionBoxTemplate", Type = "DataTemplate", DefaultValue = "null", Description = "预留的选中展示模板。" },
             new ApiDocRow { Name = "Size", Type = "NSelectSize", DefaultValue = "Medium", Description = "Tiny / Small / Medium / Large 四种尺寸。" },
             new ApiDocRow { Name = "Status", Type = "NSelectStatus", DefaultValue = "Default", Description = "Success / Warning / Error 语义状态。" },
-            new ApiDocRow { Name = "IsInvalid", Type = "bool", DefaultValue = "false", Description = "快速错误状态。" }
+            new ApiDocRow { Name = "IsInvalid", Type = "bool", DefaultValue = "false", Description = "快速错误状态。" },
+            new ApiDocRow { Name = "Placement", Type = "NSelectPlacement", DefaultValue = "BottomStart", Description = "下拉面板位置。" },
+            new ApiDocRow { Name = "MaxDropDownHeight", Type = "double", DefaultValue = "280", Description = "下拉面板最大高度。" },
+            new ApiDocRow { Name = "DropDownWidth", Type = "double", DefaultValue = "NaN", Description = "下拉面板宽度，默认跟随控件宽度。" }
         ];
 
         EventRows =
         [
-            new ApiDocRow { Name = "ValueChanged", Type = "RoutedEvent", DefaultValue = "-", Description = "文本变化或选择提交后触发。" },
+            new ApiDocRow { Name = "ValueChanged", Type = "RoutedEvent", DefaultValue = "-", Description = "文本变化或选择提交后触发，提供 OldValue/NewValue 与 OldText/NewText。" },
             new ApiDocRow { Name = "OptionSelected", Type = "RoutedEvent", DefaultValue = "-", Description = "候选项被选中后触发。" },
-            new ApiDocRow { Name = "Clear", Type = "RoutedEvent", DefaultValue = "-", Description = "点击清除按钮后触发。" }
+            new ApiDocRow { Name = "Clear", Type = "RoutedEvent", DefaultValue = "-", Description = "点击清除按钮或执行 ClearCommand 后触发。" }
         ];
 
         MethodRows =
@@ -156,35 +170,15 @@ public sealed class AutoCompleteDocsPageViewModel : ViewModelBase
 
     public IReadOnlyList<DocOutlineItem> OutlineItems { get; }
 
-    public ObservableCollection<NSelectOption> BasicOptions
-    {
-        get;
-        private set;
-    }
+    public ObservableCollection<NSelectOption> BasicOptions { get; private set; }
 
-    public ObservableCollection<NSelectOption> CompletionOptions
-    {
-        get;
-        private set;
-    }
+    public ObservableCollection<NSelectOption> CompletionOptions { get; private set; }
 
-    public ObservableCollection<NSelectOption> PrefixOptions
-    {
-        get;
-        private set;
-    }
+    public ObservableCollection<NSelectOption> PrefixOptions { get; private set; }
 
-    public ObservableCollection<NSelectOption> TemplateOptions
-    {
-        get;
-        private set;
-    }
+    public ObservableCollection<NSelectOption> TemplateOptions { get; private set; }
 
-    public ObservableCollection<NSelectOption> RemoteOptions
-    {
-        get;
-        private set;
-    }
+    public ObservableCollection<NSelectOption> RemoteOptions { get; private set; }
 
     public ObservableCollection<NSelectOption> InternalFilterOptions { get; }
 
@@ -282,12 +276,6 @@ public sealed class AutoCompleteDocsPageViewModel : ViewModelBase
     {
         get => templateValue;
         set => SetProperty(ref templateValue, value);
-    }
-
-    public string StatusText
-    {
-        get => statusText;
-        set => SetProperty(ref statusText, value);
     }
 
     public string PrefixText

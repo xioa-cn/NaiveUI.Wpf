@@ -165,6 +165,10 @@
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Opacity" Value="0.5" />
                         </Trigger>
+                        <DataTrigger Binding="{Binding Disabled}" Value="True">
+                            <Setter Property="IsEnabled" Value="False" />
+                            <Setter Property="Opacity" Value="0.5" />
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -248,6 +252,7 @@
                                         FontStyle="{TemplateBinding FontStyle}"
                                         FontWeight="{TemplateBinding FontWeight}"
                                         Foreground="{TemplateBinding Foreground}"
+                                        IsReadOnly="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsReadOnly}"
                                         Style="{StaticResource Naive.AutoComplete.TextBoxStyle}" />
                                 </Grid>
 
@@ -311,20 +316,20 @@
                             PlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                             PopupAnimation="None"
                             StaysOpen="False">
-                            <Border
+                            <controls:NClipBorder
                                 Width="{TemplateBinding ResolvedDropDownWidth}"
                                 MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                 Background="{DynamicResource Theme.Surface.0.Brush}"
-                                BorderBrush="{DynamicResource Theme.Border.Brush}"
+                                BorderBrush="{DynamicResource Theme.Border.Strong.Brush}"
                                 BorderThickness="1"
                                 CornerRadius="8">
-                                <Border.Effect>
+                                <controls:NClipBorder.Effect>
                                     <DropShadowEffect
-                                        BlurRadius="24"
-                                        Opacity="0.14"
-                                        ShadowDepth="6"
+                                        BlurRadius="20"
+                                        Opacity="0.18"
+                                        ShadowDepth="5"
                                         Color="#1F2937" />
-                                </Border.Effect>
+                                </controls:NClipBorder.Effect>
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
@@ -335,7 +340,7 @@
                                         x:Name="HeaderPanel"
                                         Grid.Row="0"
                                         Padding="14,10"
-                                        Background="{DynamicResource Theme.Surface.0.Brush}"
+                                        Background="Transparent"
                                         BorderBrush="{DynamicResource Theme.Border.Brush}"
                                         BorderThickness="0,0,0,1"
                                         Visibility="Collapsed">
@@ -357,12 +362,12 @@
                                         </Grid>
                                     </Border>
 
-                                    <Grid Grid.Row="1" Background="{DynamicResource Theme.Surface.0.Brush}">
+                                    <Grid Grid.Row="1" Background="Transparent">
                                         <ListBox
                                             x:Name="PART_ListBox"
                                             MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                             Padding="0,4"
-                                            Background="{DynamicResource Theme.Surface.0.Brush}"
+                                            Background="Transparent"
                                             BorderThickness="0"
                                             ItemContainerStyle="{StaticResource Naive.AutoComplete.OptionItemStyle}"
                                             ItemsSource="{TemplateBinding FilteredOptions}"
@@ -373,7 +378,7 @@
 
                                         <Border
                                             x:Name="EmptyPresenter"
-                                            Background="{DynamicResource Theme.Surface.0.Brush}"
+                                            Background="Transparent"
                                             Visibility="Collapsed">
                                             <ContentPresenter
                                                 Margin="18,14"
@@ -385,7 +390,7 @@
 
                                         <Border
                                             x:Name="LoadingPresenter"
-                                            Background="{DynamicResource Theme.Surface.0.Brush}"
+                                            Background="Transparent"
                                             Visibility="Collapsed">
                                             <ContentPresenter
                                                 Margin="18,14"
@@ -396,7 +401,7 @@
                                         </Border>
                                     </Grid>
                                 </Grid>
-                            </Border>
+                            </controls:NClipBorder>
                         </Popup>
                     </Grid>
                     <ControlTemplate.Triggers>

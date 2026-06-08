@@ -106,6 +106,51 @@ public class NAutoComplete : Control
     public static readonly DependencyProperty ValueMemberPathProperty =
         ElementBase.Property<NAutoComplete, string>(nameof(ValueMemberPathProperty), string.Empty, OnItemsChanged);
 
+    public string DisabledMemberPath
+    {
+        get => (string)GetValue(DisabledMemberPathProperty);
+        set => SetValue(DisabledMemberPathProperty, value);
+    }
+
+    public static readonly DependencyProperty DisabledMemberPathProperty =
+        ElementBase.Property<NAutoComplete, string>(nameof(DisabledMemberPathProperty), string.Empty, OnItemsChanged);
+
+    public string IconMemberPath
+    {
+        get => (string)GetValue(IconMemberPathProperty);
+        set => SetValue(IconMemberPathProperty, value);
+    }
+
+    public static readonly DependencyProperty IconMemberPathProperty =
+        ElementBase.Property<NAutoComplete, string>(nameof(IconMemberPathProperty), string.Empty, OnItemsChanged);
+
+    public string SuffixMemberPath
+    {
+        get => (string)GetValue(SuffixMemberPathProperty);
+        set => SetValue(SuffixMemberPathProperty, value);
+    }
+
+    public static readonly DependencyProperty SuffixMemberPathProperty =
+        ElementBase.Property<NAutoComplete, string>(nameof(SuffixMemberPathProperty), string.Empty, OnItemsChanged);
+
+    public Func<string, NSelectOption, bool>? Filter
+    {
+        get => (Func<string, NSelectOption, bool>?)GetValue(FilterProperty);
+        set => SetValue(FilterProperty, value);
+    }
+
+    public static readonly DependencyProperty FilterProperty =
+        ElementBase.Property<NAutoComplete, Func<string, NSelectOption, bool>?>(nameof(FilterProperty), null, OnItemsChanged);
+
+    public int MinCharacters
+    {
+        get => (int)GetValue(MinCharactersProperty);
+        set => SetValue(MinCharactersProperty, value);
+    }
+
+    public static readonly DependencyProperty MinCharactersProperty =
+        ElementBase.Property<NAutoComplete, int>(nameof(MinCharactersProperty), 0, OnVisualPropertyChanged);
+
     public string Text
     {
         get => (string)GetValue(TextProperty);
@@ -169,6 +214,15 @@ public class NAutoComplete : Control
 
     public static readonly DependencyProperty LoadingProperty =
         ElementBase.Property<NAutoComplete, bool>(nameof(LoadingProperty), false, OnVisualPropertyChanged);
+
+    public bool IsReadOnly
+    {
+        get => (bool)GetValue(IsReadOnlyProperty);
+        set => SetValue(IsReadOnlyProperty, value);
+    }
+
+    public static readonly DependencyProperty IsReadOnlyProperty =
+        ElementBase.Property<NAutoComplete, bool>(nameof(IsReadOnlyProperty), false, OnVisualPropertyChanged);
 
     public bool SelectOnEnter
     {
@@ -240,7 +294,7 @@ public class NAutoComplete : Control
     }
 
     public static readonly DependencyProperty ShowArrowProperty =
-        ElementBase.Property<NAutoComplete, bool>(nameof(ShowArrowProperty), false);
+        ElementBase.Property<NAutoComplete, bool>(nameof(ShowArrowProperty), false, OnVisualPropertyChanged);
 
     public bool ShowEmptyWhenNoMatch
     {
@@ -397,7 +451,7 @@ public class NAutoComplete : Control
     }
 
     public static readonly DependencyProperty PrefixContentProperty =
-        ElementBase.Property<NAutoComplete, object?>(nameof(PrefixContentProperty), null);
+        ElementBase.Property<NAutoComplete, object?>(nameof(PrefixContentProperty), null, OnVisualPropertyChanged);
 
     public object? SuffixContent
     {
@@ -406,7 +460,7 @@ public class NAutoComplete : Control
     }
 
     public static readonly DependencyProperty SuffixContentProperty =
-        ElementBase.Property<NAutoComplete, object?>(nameof(SuffixContentProperty), null);
+        ElementBase.Property<NAutoComplete, object?>(nameof(SuffixContentProperty), null, OnVisualPropertyChanged);
 
     public object? ArrowContent
     {
@@ -415,7 +469,7 @@ public class NAutoComplete : Control
     }
 
     public static readonly DependencyProperty ArrowContentProperty =
-        ElementBase.Property<NAutoComplete, object?>(nameof(ArrowContentProperty), null);
+        ElementBase.Property<NAutoComplete, object?>(nameof(ArrowContentProperty), null, OnVisualPropertyChanged);
 
     public object? ClearIconContent
     {
@@ -424,7 +478,7 @@ public class NAutoComplete : Control
     }
 
     public static readonly DependencyProperty ClearIconContentProperty =
-        ElementBase.Property<NAutoComplete, object?>(nameof(ClearIconContentProperty), null);
+        ElementBase.Property<NAutoComplete, object?>(nameof(ClearIconContentProperty), null, OnVisualPropertyChanged);
 
     public object? HeaderContent
     {
@@ -859,6 +913,11 @@ public class NAutoComplete : Control
     {
         base.OnPreviewKeyDown(e);
 
+        if (IsReadOnly)
+        {
+            return;
+        }
+
         if (e.Key == Key.Down)
         {
             EnsureDropDownOpenForKeyboard();
@@ -1173,7 +1232,7 @@ public class NAutoComplete : Control
 
     private void HandleArrowButtonClick(object sender, RoutedEventArgs e)
     {
-        if (!IsEnabled)
+        if (!IsEnabled || IsReadOnly)
         {
             return;
         }
@@ -1191,7 +1250,7 @@ public class NAutoComplete : Control
 
     private void HandleInnerTextBoxTextChanged(object sender, TextChangedEventArgs e)
     {
-        if (syncingTextBoxText || textBoxPart is null)
+        if (syncingTextBoxText || textBoxPart is null || IsReadOnly)
         {
             return;
         }
@@ -1323,10 +1382,16 @@ public class NAutoComplete : Control
 
             var label = ResolveMemberValue(item, DisplayMemberPath) ?? item;
             var value = string.IsNullOrWhiteSpace(ValueMemberPath) ? label : ResolveMemberValue(item, ValueMemberPath);
+            var disabled = ResolveBooleanMemberValue(item, DisabledMemberPath);
+            var icon = ResolveMemberValue(item, IconMemberPath);
+            var suffix = ResolveMemberValue(item, SuffixMemberPath);
             options.Add(new NSelectOption
             {
                 Label = label,
                 Value = value,
+                Disabled = disabled,
+                Icon = icon,
+                Suffix = suffix,
                 Source = item
             });
         }
@@ -1340,6 +1405,11 @@ public class NAutoComplete : Control
         if (string.IsNullOrWhiteSpace(search))
         {
             return options.ToList();
+        }
+
+        if (Filter is not null)
+        {
+            return options.Where(option => Filter(search, option)).ToList();
         }
 
         return options.Where(option => IsOptionMatched(option, search)).ToList();
@@ -1425,7 +1495,7 @@ public class NAutoComplete : Control
         HasArrowContent = ArrowContent is not null;
         HasClearIconContent = ClearIconContent is not null;
         ShowPlaceholder = string.IsNullOrWhiteSpace(Text);
-        CanClear = Clearable && !string.IsNullOrWhiteSpace(Text) && IsEnabled;
+        CanClear = Clearable && !IsReadOnly && !string.IsNullOrWhiteSpace(Text) && IsEnabled;
         HasTrailingContent = HasSuffixContent || ShowArrow || CanClear;
     }
 
@@ -1493,7 +1563,7 @@ public class NAutoComplete : Control
             return;
         }
 
-        var option = BuildOptions().FirstOrDefault(item => Equals(item.Value, Value));
+        var option = BuildOptions().FirstOrDefault(item => !item.Disabled && Equals(item.Value, Value));
         SelectedItem = option;
         SyncListBoxSelection();
 
@@ -1524,7 +1594,7 @@ public class NAutoComplete : Control
 
     private void UpdateDropDownState(bool forceOpen = false)
     {
-        if (Trigger == NAutoCompleteTrigger.Manual)
+        if (Trigger == NAutoCompleteTrigger.Manual || IsReadOnly)
         {
             return;
         }
@@ -1590,7 +1660,12 @@ public class NAutoComplete : Control
 
     private bool CanDisplayPopupContent()
     {
-        if (!IsEnabled)
+        if (!IsEnabled || IsReadOnly)
+        {
+            return false;
+        }
+
+        if ((Text?.Length ?? 0) < Math.Max(0, MinCharacters))
         {
             return false;
         }
@@ -1620,7 +1695,7 @@ public class NAutoComplete : Control
 
     private void EnsureDropDownOpenForKeyboard()
     {
-        if (Trigger == NAutoCompleteTrigger.Manual)
+        if (Trigger == NAutoCompleteTrigger.Manual || IsReadOnly)
         {
             return;
         }
@@ -1846,6 +1921,22 @@ public class NAutoComplete : Control
         }
 
         return current;
+    }
+
+    private static bool ResolveBooleanMemberValue(object? source, string path)
+    {
+        var value = ResolveMemberValue(source, path);
+        if (value is bool boolValue)
+        {
+            return boolValue;
+        }
+
+        if (value is null)
+        {
+            return false;
+        }
+
+        return bool.TryParse(Convert.ToString(value, CultureInfo.InvariantCulture), out var parsed) && parsed;
     }
 
     private string GetOptionText(NSelectOption option)
