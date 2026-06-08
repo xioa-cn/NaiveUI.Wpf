@@ -31,7 +31,7 @@
       "items": [
         { "key": "auto-complete", "title": "自动填充", "subtitle": "Auto Complete", "badgeText": "新" },
         { "key": "cascader", "title": "级联选择", "subtitle": "Cascader" },
-        { "key": "color-picker", "title": "颜色选择器", "subtitle": "Color Picker" },
+        { "key": "color-picker", "title": "颜色选择器", "subtitle": "Color Picker", "badgeText": "新" },
         { "key": "checkbox", "title": "复选框", "subtitle": "Checkbox" },
         { "key": "date-picker", "title": "日期选择器", "subtitle": "Date Picker" },
         { "key": "dynamic-input", "title": "动态录入", "subtitle": "Dynamic Input" },

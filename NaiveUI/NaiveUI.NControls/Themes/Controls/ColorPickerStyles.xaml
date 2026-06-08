@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:NaiveUI.NControls.Controls">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/ThemeTokens.xaml" />
+        <ResourceDictionary Source="/NaiveUI.NControls;component/Themes/Controls/PathResources.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <Geometry x:Key="ColorPickerChevronGeometry">M4.5 6.25L8 9.75L11.5 6.25</Geometry>
+    <DrawingBrush
+        x:Key="Naive.ColorPicker.CheckerBrush"
+        TileMode="Tile"
+        Viewbox="0,0,12,12"
+        ViewboxUnits="Absolute"
+        Viewport="0,0,12,12"
+        ViewportUnits="Absolute">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="#FFFFFFFF" Geometry="M0,0 L12,0 12,12 0,12Z" />
+                <GeometryDrawing Brush="#FFE5E7EB" Geometry="M0,0 L6,0 6,6 0,6Z M6,6 L12,6 12,12 6,12Z" />
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+    <Style x:Key="Naive.ColorPicker.IconButtonStyle" TargetType="Button">
+        <Setter Property="Width" Value="22" />
+        <Setter Property="Height" Value="22" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="Root"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        Background="Transparent"
+                        CornerRadius="11">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Root" Property="Background" Value="{DynamicResource Theme.Fill.Hover.Brush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Root" Property="Background" Value="{DynamicResource Theme.Fill.2Pressed.Brush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="Naive.ColorPicker.TextBoxStyle" TargetType="TextBox">
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Padding" Value="8,0" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="CaretBrush" Value="{DynamicResource Primary.First.Brush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border
+                        x:Name="Root"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="4">
+                        <ScrollViewer
+                            x:Name="PART_ContentHost"
+                            Margin="{TemplateBinding Padding}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter TargetName="Root" Property="BorderBrush" Value="{DynamicResource Primary.First.Brush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="Naive.ColorPicker.ComboBoxStyle" TargetType="ComboBox">
+        <Setter Property="Height" Value="30" />
+        <Setter Property="MinWidth" Value="72" />
+        <Setter Property="Padding" Value="8,0" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+
+    <DataTemplate x:Key="Naive.ColorPicker.ModeOptionTemplate">
+        <TextBlock
+            VerticalAlignment="Center"
+            FontSize="13"
+            Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+            Text="{Binding Label}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="Naive.ColorPicker.ModeSelectedTemplate">
+        <TextBlock
+            VerticalAlignment="Center"
+            FontSize="13"
+            Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+            Text="{Binding Label}" />
+    </DataTemplate>
+    <Style x:Key="Naive.ColorPicker.SliderStyle" TargetType="Slider">
+        <Setter Property="Height" Value="18" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Slider">
+                    <Grid>
+                        <Border
+                            Height="12"
+                            VerticalAlignment="Center"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="6" />
+                        <Track x:Name="PART_Track">
+                            <Track.Thumb>
+                                <Thumb Width="14" Height="14">
+                                    <Thumb.Template>
+                                        <ControlTemplate TargetType="Thumb">
+                                            <Border
+                                                Background="{DynamicResource Theme.Surface.0.Brush}"
+                                                BorderBrush="#FFFFFFFF"
+                                                BorderThickness="2"
+                                                CornerRadius="7">
+                                                <Border.Effect>
+                                                    <DropShadowEffect
+                                                        BlurRadius="4"
+                                                        Opacity="0.26"
+                                                        ShadowDepth="1"
+                                                        Color="#111827" />
+                                                </Border.Effect>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Thumb.Template>
+                                </Thumb>
+                            </Track.Thumb>
+                        </Track>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <LinearGradientBrush x:Key="Naive.ColorPicker.HueBrush" StartPoint="0,0.5" EndPoint="1,0.5">
+        <GradientStop Offset="0" Color="#FFFF0000" />
+        <GradientStop Offset="0.1667" Color="#FFFFFF00" />
+        <GradientStop Offset="0.3333" Color="#FF00FF00" />
+        <GradientStop Offset="0.5" Color="#FF00FFFF" />
+        <GradientStop Offset="0.6667" Color="#FF0000FF" />
+        <GradientStop Offset="0.8333" Color="#FFFF00FF" />
+        <GradientStop Offset="1" Color="#FFFF0000" />
+    </LinearGradientBrush>
+    <Style x:Key="NColorPickerBaseStyle" TargetType="{x:Type controls:NColorPicker}">
+        <Setter Property="MinWidth" Value="34" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Focusable" Value="True" />
+        <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:NColorPicker}">
+                    <Grid SnapsToDevicePixels="True">
+                        <controls:NButton
+                            x:Name="PART_TriggerButton"
+                            MinWidth="{TemplateBinding ResolvedHeight}"
+                            MinHeight="{TemplateBinding ResolvedHeight}"
+                            Padding="0"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Focusable="False">
+                            <Border
+                                x:Name="TriggerBorder"
+                                MinWidth="{TemplateBinding ResolvedHeight}"
+                                MinHeight="{TemplateBinding ResolvedHeight}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{StaticResource Radius.Medium}">
+                                <Grid x:Name="TriggerLayout" Margin="{TemplateBinding ResolvedPadding}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition x:Name="SwatchColumn" Width="*" />
+                                        <ColumnDefinition x:Name="TextColumn" Width="0" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border
+                                        x:Name="TriggerSwatch"
+                                        MinWidth="18"
+                                        MinHeight="18"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Background="{StaticResource Naive.ColorPicker.CheckerBrush}"
+                                        BorderBrush="{DynamicResource Theme.Border.Brush}"
+                                        BorderThickness="1"
+                                        CornerRadius="5">
+                                        <Border
+                                            Margin="1"
+                                            Background="{TemplateBinding SelectedBrush}"
+                                            CornerRadius="4" />
+                                    </Border>
+                                    <Grid
+                                        x:Name="TextHost"
+                                        Grid.Column="1"
+                                        Margin="8,0,8,0"
+                                        Visibility="Collapsed">
+                                        <TextBlock
+                                            x:Name="PlaceholderText"
+                                            VerticalAlignment="Center"
+                                            FontSize="{TemplateBinding ResolvedFontSize}"
+                                            Foreground="{DynamicResource Theme.Text.Tertiary.Brush}"
+                                            Text="{TemplateBinding Placeholder}"
+                                            Visibility="Collapsed" />
+                                        <TextBlock
+                                            x:Name="ValueText"
+                                            VerticalAlignment="Center"
+                                            FontSize="{TemplateBinding ResolvedFontSize}"
+                                            Foreground="{TemplateBinding Foreground}"
+                                            Text="{TemplateBinding DisplayValue}"
+                                            TextTrimming="CharacterEllipsis"
+                                            Visibility="Collapsed" />
+                                        <ContentPresenter
+                                            x:Name="TriggerContentPresenter"
+                                            VerticalAlignment="Center"
+                                            Content="{TemplateBinding TriggerContent}"
+                                            Visibility="Collapsed" />
+                                    </Grid>
+                                    <DockPanel
+                                        x:Name="TriggerIconHost"
+                                        Grid.Column="2"
+                                        LastChildFill="False"
+                                        Visibility="Collapsed">
+                                        <Button
+                                            x:Name="PART_ClearButton"
+                                            IsHitTestVisible="False"
+                                            Opacity="0"
+                                            Style="{StaticResource Naive.ColorPicker.IconButtonStyle}"
+                                            Visibility="Collapsed">
+                                            <controls:NIcon
+                                                Data="{StaticResource Close}"
+                                                Size="12"
+                                                Color="{DynamicResource Theme.Text.Tertiary.Brush}" />
+                                        </Button>
+                                        <controls:NIcon
+                                            x:Name="ArrowIcon"
+                                            Data="{StaticResource ColorPickerChevronGeometry}"
+                                            Size="16"
+                                            StrokeThickness="1.35"
+                                            UseStroke="True"
+                                            Visibility="Collapsed"
+                                            Color="{DynamicResource Theme.Text.Tertiary.Brush}" />
+                                    </DockPanel>
+                                </Grid>
+                            </Border>
+                        </controls:NButton>
+                        <Popup
+                            x:Name="PART_Popup"
+                            AllowsTransparency="True"
+                            Focusable="False"
+                            IsOpen="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsDropDownOpen, Mode=TwoWay}"
+                            Placement="{TemplateBinding ResolvedPopupPlacement}"
+                            PlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                            PopupAnimation="None"
+                            StaysOpen="False">
+                            <Border
+                                Width="{TemplateBinding PanelWidth}"
+                                Background="{DynamicResource Theme.Surface.0.Brush}"
+                                BorderBrush="{DynamicResource Theme.Border.Strong.Brush}"
+                                BorderThickness="1"
+                                CornerRadius="8">
+                                <Border.Effect>
+                                    <DropShadowEffect
+                                        BlurRadius="22"
+                                        Opacity="0.18"
+                                        ShadowDepth="5"
+                                        Color="#1F2937" />
+                                </Border.Effect>
+                                <StackPanel Margin="10">
+                                    <Border
+                                        Height="{TemplateBinding SaturationValueHeight}"
+                                        Background="{TemplateBinding HueColorBrush}"
+                                        ClipToBounds="True"
+                                        CornerRadius="6">
+                                        <Canvas
+                                            x:Name="PART_SaturationValueCanvas"
+                                            Background="Transparent"
+                                            Cursor="Cross">
+                                            <Rectangle Width="{Binding RelativeSource={RelativeSource AncestorType=Canvas}, Path=ActualWidth}" Height="{Binding RelativeSource={RelativeSource AncestorType=Canvas}, Path=ActualHeight}">
+                                                <Rectangle.Fill>
+                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                        <GradientStop Offset="0" Color="#FFFFFFFF" />
+                                                        <GradientStop Offset="1" Color="#00FFFFFF" />
+                                                    </LinearGradientBrush>
+                                                </Rectangle.Fill>
+                                            </Rectangle>
+                                            <Rectangle Width="{Binding RelativeSource={RelativeSource AncestorType=Canvas}, Path=ActualWidth}" Height="{Binding RelativeSource={RelativeSource AncestorType=Canvas}, Path=ActualHeight}">
+                                                <Rectangle.Fill>
+                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                        <GradientStop Offset="0" Color="#00000000" />
+                                                        <GradientStop Offset="1" Color="#FF000000" />
+                                                    </LinearGradientBrush>
+                                                </Rectangle.Fill>
+                                            </Rectangle>
+                                            <Ellipse
+                                                Canvas.Left="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SaturationValueThumbX}"
+                                                Canvas.Top="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SaturationValueThumbY}"
+                                                Width="12"
+                                                Height="12"
+                                                Fill="Transparent"
+                                                Stroke="White"
+                                                StrokeThickness="2">
+                                                <Ellipse.Effect>
+                                                    <DropShadowEffect
+                                                        BlurRadius="3"
+                                                        Opacity="0.45"
+                                                        ShadowDepth="0"
+                                                        Color="#111827" />
+                                                </Ellipse.Effect>
+                                            </Ellipse>
+                                        </Canvas>
+                                    </Border>
+                                    <Grid Margin="0,12,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel>
+                                            <Slider
+                                                x:Name="PART_HueSlider"
+                                                Background="{StaticResource Naive.ColorPicker.HueBrush}"
+                                                Maximum="360"
+                                                Minimum="0"
+                                                Style="{StaticResource Naive.ColorPicker.SliderStyle}" />
+                                            <Grid Margin="0,8,0,0">
+                                                <Border
+                                                    Height="12"
+                                                    VerticalAlignment="Center"
+                                                    Background="{StaticResource Naive.ColorPicker.CheckerBrush}"
+                                                    CornerRadius="6"
+                                                    Visibility="Collapsed" />
+                                                <Slider
+                                                    x:Name="PART_AlphaSlider"
+                                                    Background="{TemplateBinding AlphaTrackBrush}"
+                                                    Maximum="100"
+                                                    Minimum="0"
+                                                    Style="{StaticResource Naive.ColorPicker.SliderStyle}"
+                                                    Visibility="Collapsed" />
+                                            </Grid>
+                                        </StackPanel>
+                                        <Border
+                                            x:Name="PreviewBox"
+                                            Grid.Column="1"
+                                            Width="30"
+                                            Height="30"
+                                            Margin="10,0,0,0"
+                                            VerticalAlignment="Top"
+                                            Background="{StaticResource Naive.ColorPicker.CheckerBrush}"
+                                            BorderBrush="{DynamicResource Theme.Border.Brush}"
+                                            BorderThickness="1"
+                                            CornerRadius="6"
+                                            Visibility="Collapsed">
+                                            <Border
+                                                Margin="1"
+                                                Background="{TemplateBinding SelectedBrush}"
+                                                CornerRadius="5" />
+                                        </Border>
+                                    </Grid>
+                                    <WrapPanel
+                                        x:Name="SwatchesPanel"
+                                        Margin="0,12,0,0"
+                                        Visibility="Collapsed">
+                                        <ItemsControl ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Swatches}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel />
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Button
+                                                        Width="22"
+                                                        Height="22"
+                                                        Margin="0,0,8,8"
+                                                        Padding="0"
+                                                        Command="{x:Static controls:NColorPicker.SelectSwatchCommand}"
+                                                        CommandParameter="{Binding}"
+                                                        CommandTarget="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NColorPicker}}}"
+                                                        Focusable="False">
+                                                        <Button.Template>
+                                                            <ControlTemplate TargetType="Button">
+                                                                <Border
+                                                                    Background="{StaticResource Naive.ColorPicker.CheckerBrush}"
+                                                                    BorderBrush="{DynamicResource Theme.Border.Brush}"
+                                                                    BorderThickness="1"
+                                                                    CornerRadius="4">
+                                                                    <Border
+                                                                        Margin="1"
+                                                                        Background="{Binding}"
+                                                                        CornerRadius="3" />
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Button.Template>
+                                                    </Button>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </WrapPanel>
+                                    <Grid Margin="0,10,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <controls:NSelect
+                                            x:Name="PART_ModeSelector"
+                                            MinWidth="78"
+                                            Clearable="False"
+                                            DisplayMemberPath="Label"
+                                            DropDownWidth="100"
+                                            ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ModeOptions}"
+                                            MaxDropDownHeight="180"
+                                            OptionTemplate="{StaticResource Naive.ColorPicker.ModeOptionTemplate}"
+                                            Placement="TopStart"
+                                            SelectedItemTemplate="{StaticResource Naive.ColorPicker.ModeSelectedTemplate}"
+                                            SelectedValue="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Mode, Mode=TwoWay}"
+                                            Size="Small" />
+                                        <TextBox
+                                            x:Name="PART_ValueTextBox"
+                                            Grid.Column="1"
+                                            Margin="8,0,0,0"
+                                            FontFamily="Consolas"
+                                            FontSize="10"
+                                            Style="{StaticResource Naive.ColorPicker.TextBoxStyle}" />
+                                    </Grid>
+                                    <StackPanel
+                                        x:Name="ActionsPanel"
+                                        Margin="0,12,0,0"
+                                        HorizontalAlignment="Right"
+                                        Orientation="Horizontal"
+                                        Visibility="Collapsed">
+                                        <controls:NButton
+                                            x:Name="PART_ConfirmButton"
+                                            Command="{TemplateBinding ConfirmButtonCommand}"
+                                            CommandParameter="{TemplateBinding ConfirmButtonCommandParameter}"
+                                            CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                                            Content="确认"
+                                            Kind="Filled"
+                                            Size="Small" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsInputTrigger" Value="True">
+                            <Setter Property="Width" Value="Auto" />
+                            <Setter Property="MinWidth" Value="180" />
+                            <Setter TargetName="SwatchColumn" Property="Width" Value="Auto" />
+                            <Setter TargetName="TextColumn" Property="Width" Value="*" />
+                            <Setter TargetName="TriggerSwatch" Property="Width" Value="18" />
+                            <Setter TargetName="TriggerSwatch" Property="Height" Value="18" />
+                            <Setter TargetName="TriggerSwatch" Property="HorizontalAlignment" Value="Left" />
+                            <Setter TargetName="TextHost" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="ShouldShowValueText" Value="True">
+                            <Setter Property="Width" Value="Auto" />
+                            <Setter Property="MinWidth" Value="180" />
+                            <Setter TargetName="SwatchColumn" Property="Width" Value="Auto" />
+                            <Setter TargetName="TextColumn" Property="Width" Value="*" />
+                            <Setter TargetName="TriggerSwatch" Property="Width" Value="18" />
+                            <Setter TargetName="TriggerSwatch" Property="Height" Value="18" />
+                            <Setter TargetName="TriggerSwatch" Property="HorizontalAlignment" Value="Left" />
+                            <Setter TargetName="TextHost" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="HasValue" Value="False">
+                            <Setter TargetName="PlaceholderText" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="HasValue" Value="True">
+                            <Setter TargetName="ValueText" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsCustomTrigger" Value="True">
+                            <Setter Property="Width" Value="Auto" />
+                            <Setter Property="MinWidth" Value="0" />
+                            <Setter TargetName="TriggerLayout" Property="Margin" Value="0" />
+                            <Setter TargetName="TriggerSwatch" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="SwatchColumn" Property="Width" Value="0" />
+                            <Setter TargetName="TextColumn" Property="Width" Value="*" />
+                            <Setter TargetName="TriggerContentPresenter" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="TextHost" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="PlaceholderText" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="ValueText" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="ShowArrow" Value="True">
+                            <Setter TargetName="ArrowIcon" Property="Margin" Value="4,0,0,0" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="ShowArrow" Value="True" />
+                                <Condition Property="IsInputTrigger" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="TriggerIconHost" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="ArrowIcon" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="PART_ClearButton" Property="Visibility" Value="Visible" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="ShowArrow" Value="True" />
+                                <Condition Property="ShouldShowValueText" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="TriggerIconHost" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="ArrowIcon" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="PART_ClearButton" Property="Visibility" Value="Visible" />
+                        </MultiTrigger>
+                        <Trigger Property="ShowAlpha" Value="True">
+                            <Setter TargetName="PART_AlphaSlider" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="ShowPreview" Value="True">
+                            <Setter TargetName="PreviewBox" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="HasSwatches" Value="True">
+                            <Setter TargetName="SwatchesPanel" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="HasActions" Value="True">
+                            <Setter TargetName="ActionsPanel" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Clearable" Value="True" />
+                                <Condition Property="HasValue" Value="True" />
+                                <Condition Property="IsMouseOver" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="PART_ClearButton" Property="Opacity" Value="1" />
+                            <Setter TargetName="PART_ClearButton" Property="IsHitTestVisible" Value="True" />
+                            <Setter TargetName="TriggerIconHost" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="ArrowIcon" Property="Visibility" Value="Collapsed" />
+                        </MultiTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="TriggerBorder" Property="BorderBrush" Value="{DynamicResource Theme.Border.Strong.Brush}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter TargetName="TriggerBorder" Property="BorderBrush" Value="{DynamicResource Primary.First.Brush}" />
+                        </Trigger>
+                        <Trigger Property="Disabled" Value="True">
+                            <Setter Property="Opacity" Value="0.55" />
+                            <Setter TargetName="PART_TriggerButton" Property="IsHitTestVisible" Value="False" />
+                        </Trigger>
+                        <Trigger Property="IsReadOnly" Value="True">
+                            <Setter TargetName="PART_ValueTextBox" Property="IsReadOnly" Value="True" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style BasedOn="{StaticResource NColorPickerBaseStyle}" TargetType="{x:Type controls:NColorPicker}" />
+</ResourceDictionary>

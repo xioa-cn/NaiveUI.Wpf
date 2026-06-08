@@ -1,0 +1,424 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Pages.ColorPickerDocsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+    xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:ColorPickerDocsPageViewModel}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style
+            x:Key="SectionCardHeaderTitleStyle"
+            BasedOn="{StaticResource DocSectionTitleStyle}"
+            TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+        <Style x:Key="DemoItemStyle" TargetType="StackPanel">
+            <Setter Property="Margin" Value="0,0,28,18" />
+        </Style>
+
+        <Style x:Key="DemoCaptionStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,10,0,0" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Secondary.Brush}" />
+        </Style>
+
+        <Style x:Key="CustomTriggerTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="25,34,18,34">
+                <TextBlock
+                    FontSize="48"
+                    FontWeight="Bold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="颜色选择器" />
+
+                <TextBlock
+                    Margin="0,26,0,0"
+                    FontSize="18"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="选择、预览和输入颜色值，支持 RGB、HEX、HSL、HSV、透明度、色板和确认动作。" />
+
+                <TextBlock
+                    Margin="0,52,0,28"
+                    FontSize="36"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="演示" />
+
+                <StackPanel>
+                    <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="基础用法" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ColorPickerDocsPageBasic">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="默认触发器是紧凑色块按钮，点击后打开取色面板。" />
+                                    <nc:NColorPicker
+                                        Clearable="True"
+                                        ShowPreview="True"
+                                        Value="{Binding BasicValue, Mode=TwoWay}" />
+                                    <TextBlock
+                                        Margin="0,14,0,0"
+                                        FontFamily="Consolas"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="{Binding BasicValue}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionTrigger" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="触发器" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ColorPickerDocsPageTrigger">
+                                <WrapPanel Margin="30,24,30,6">
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NColorPicker Value="#18A058" />
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="默认色块按钮" />
+                                    </StackPanel>
+
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NColorPicker
+                                            Clearable="True"
+                                            ShowPreview="True"
+                                            TriggerStyle="Input"
+                                            Value="{Binding InputTriggerValue, Mode=TwoWay}" />
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="TriggerStyle=Input" />
+                                    </StackPanel>
+
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NColorPicker ShowValueText="True" Value="#2080F0" />
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="ShowValueText=True" />
+                                    </StackPanel>
+
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NColorPicker TriggerStyle="Custom" Value="#F0A020">
+                                            <nc:NColorPicker.TriggerContent>
+                                                <Border
+                                                    Height="34"
+                                                    MinWidth="132"
+                                                    Padding="10,0"
+                                                    Background="{DynamicResource Theme.Fill.1.Brush}"
+                                                    BorderBrush="{DynamicResource Theme.Border.Brush}"
+                                                    BorderThickness="0"
+                                                    CornerRadius="4">
+                                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                                        <Border
+                                                            Width="14"
+                                                            Height="14"
+                                                            Background="{Binding SelectedBrush, RelativeSource={RelativeSource AncestorType={x:Type nc:NColorPicker}}}"
+                                                            CornerRadius="7" />
+                                                        <TextBlock
+                                                            Margin="8,0,0,0"
+                                                            Style="{StaticResource CustomTriggerTextStyle}"
+                                                            Text="品牌色" />
+                                                    </StackPanel>
+                                                </Border>
+                                            </nc:NColorPicker.TriggerContent>
+                                        </nc:NColorPicker>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="自定义触发器" />
+                                    </StackPanel>
+                                </WrapPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionAlpha" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="透明度" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ColorPickerDocsPageAlpha">
+                                <WrapPanel Margin="30,24,30,6">
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NColorPicker
+                                            Width="260"
+                                            ShowAlpha="True"
+                                            ShowPreview="True"
+                                            TriggerStyle="Input"
+                                            Value="{Binding AlphaValue, Mode=TwoWay}" />
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="ShowAlpha=True" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NColorPicker
+                                            Width="260"
+                                            ShowAlpha="False"
+                                            TriggerStyle="Input"
+                                            Value="#2080F0" />
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="ShowAlpha=False" />
+                                    </StackPanel>
+                                </WrapPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionSize" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="尺寸" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ColorPickerDocsPageSize">
+                                <WrapPanel Margin="30,24,30,6">
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NColorPicker Size="Tiny" Value="#18A058" />
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="Tiny" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NColorPicker Size="Small" Value="#2080F0" />
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="Small" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NColorPicker Size="Medium" Value="#F0A020" />
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="Medium" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NColorPicker Size="Large" Value="#D03050" />
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="Large" />
+                                    </StackPanel>
+                                </WrapPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionModes" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="格式" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ColorPickerDocsPageModes">
+                                <WrapPanel Margin="30,24,30,6">
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NColorPicker
+                                            Width="280"
+                                            Mode="Hsl"
+                                            ShowPreview="True"
+                                            TriggerStyle="Input"
+                                            Value="{Binding ModeValue, Mode=TwoWay}">
+                                            <nc:NColorPicker.Modes>
+                                                <nc:NColorPickerMode>Hex</nc:NColorPickerMode>
+                                                <nc:NColorPickerMode>Rgb</nc:NColorPickerMode>
+                                                <nc:NColorPickerMode>Hsl</nc:NColorPickerMode>
+                                                <nc:NColorPickerMode>Hsv</nc:NColorPickerMode>
+                                            </nc:NColorPicker.Modes>
+                                        </nc:NColorPicker>
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="Hex / Rgb / Hsl / Hsv" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NColorPicker
+                                            Width="250"
+                                            Mode="Hex"
+                                            ShowValueText="True"
+                                            Value="#7C3AED" />
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="Mode=Hex" />
+                                    </StackPanel>
+                                </WrapPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionSwatches" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="色板" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ColorPickerDocsPageSwatches">
+                                <StackPanel Margin="30,24,30,24">
+                                    <nc:NColorPicker
+                                        Width="280"
+                                        Clearable="True"
+                                        ShowPreview="True"
+                                        TriggerStyle="Input"
+                                        Value="{Binding SwatchValue, Mode=TwoWay}">
+                                        <nc:NColorPicker.Swatches>
+                                            <sys:String>#18A058</sys:String>
+                                            <sys:String>#2080F0</sys:String>
+                                            <sys:String>#F0A020</sys:String>
+                                            <sys:String>#D03050</sys:String>
+                                            <sys:String>rgba(124, 58, 237, 0.7)</sys:String>
+                                            <sys:String>hsl(210, 90%, 52%)</sys:String>
+                                        </nc:NColorPicker.Swatches>
+                                    </nc:NColorPicker>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionActions" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="确认动作" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ColorPickerDocsPageActions">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="配置 Confirm 后，面板底部显示确认按钮；确认时触发 Complete 并关闭弹层。" />
+                                    <nc:NColorPicker
+                                        Width="280"
+                                        Complete="HandleComplete"
+                                        ConfirmButtonClick="NColorPicker_ConfirmButtonClick"
+                                        ConfirmButtonCommand="{Binding ConfirmButtonCommand}"
+                                        ShowPreview="True"
+                                        TriggerStyle="Input"
+                                        ValueChanged="HandleValueChanged"
+                                        Value="{Binding EventValue, Mode=TwoWay}">
+                                        <nc:NColorPicker.Actions>
+                                            <nc:NColorPickerAction>Confirm</nc:NColorPickerAction>
+                                        </nc:NColorPicker.Actions>
+                                    </nc:NColorPicker>
+                                    <TextBlock
+                                        Margin="0,14,0,0"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="{Binding EventStatusText}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionPreviewDisabled" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="预览与禁用" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ColorPickerDocsPagePreviewDisabled">
+                                <WrapPanel Margin="30,24,30,6">
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NColorPicker ShowPreview="True" Value="#18A058" />
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="ShowPreview" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NColorPicker Disabled="True" Value="#2080F0" />
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="Disabled" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource DemoItemStyle}">
+                                        <nc:NColorPicker IsReadOnly="True" Value="#F0A020" />
+                                        <TextBlock Style="{StaticResource DemoCaptionStyle}" Text="IsReadOnly" />
+                                    </StackPanel>
+                                </WrapPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionControlled" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="受控弹层" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="ColorPickerDocsPageControlled">
+                                <StackPanel Margin="30,24,30,24">
+                                    <nc:NColorPicker
+                                        Width="280"
+                                        DropDownOpenChanged="HandleDropDownOpenChanged"
+                                        Placement="BottomStart"
+                                        ShowPreview="True"
+                                        TriggerStyle="Input"
+                                        Value="#7C3AED" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionApi" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="API" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <TextBlock
+                                Margin="30,24,30,24"
+                                Style="{StaticResource DocBodyTextStyle}"
+                                Text="ColorPicker 对齐 Naive UI 的 value、show、show-alpha、show-preview、modes、swatches、actions、placement、size、complete 和 trigger 插槽语义；WPF 版本通过 TriggerStyle、TriggerContent 与 ShowValueText 控制触发器形态。" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="属性" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding PropsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionEvents" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="事件" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding EventRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionMethods" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="方法" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding MethodRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="1" Background="{DynamicResource Theme.Surface.0.Brush}">
+            <nc:NMenu
+                Margin="20,36,20,20"
+                DisplayMemberPath="Label"
+                ItemInvoked="HandleOutlineItemInvoked"
+                ItemsSource="{Binding OutlineItems}"
+                SelectedValuePath="TargetName" />
+        </Border>
+    </Grid>
+</UserControl>
