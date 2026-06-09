@@ -1,0 +1,162 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:NaiveUI.NControls.Controls">
+
+    <Style x:Key="Naive.Slider.ThumbStyle" TargetType="{x:Type Thumb}">
+        <Setter Property="Focusable" Value="True" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Grid>
+                        <Border
+                            x:Name="ThumbBorder"
+                            Background="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NSlider}}, Path=HandleBrush}"
+                            BorderBrush="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NSlider}}, Path=HandleBorderBrush}"
+                            BorderThickness="2"
+                            CornerRadius="999"
+                            Visibility="Visible">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="8"
+                                    Direction="270"
+                                    Opacity="0.22"
+                                    ShadowDepth="1" />
+                            </Border.Effect>
+                        </Border>
+                        <ContentPresenter
+                            x:Name="CustomThumbPresenter"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}"
+                            ContentTemplate="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NSlider}}, Path=ThumbTemplate}"
+                            Visibility="Collapsed" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NSlider}}, Path=ThumbTemplate}" Value="{x:Null}">
+                            <Setter TargetName="ThumbBorder" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="CustomThumbPresenter" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NSlider}}, Path=HasCustomThumbTemplate}" Value="True">
+                            <Setter TargetName="ThumbBorder" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="CustomThumbPresenter" Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ThumbBorder" Property="BorderThickness" Value="3" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="ThumbBorder" Property="BorderThickness" Value="3" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Cursor" Value="Arrow" />
+                            <Setter TargetName="ThumbBorder" Property="Background" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NSlider}}, Path=HandleDisabledBrush}" />
+                            <Setter TargetName="ThumbBorder" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:NSlider}}, Path=HandleDisabledBorderBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="NSliderBaseStyle" TargetType="{x:Type controls:NSlider}">
+        <Setter Property="MinWidth" Value="120" />
+        <Setter Property="MinHeight" Value="44" />
+        <Setter Property="RailSize" Value="4" />
+        <Setter Property="RailHeight" Value="4" />
+        <Setter Property="RailWidthVertical" Value="4" />
+        <Setter Property="HandleSize" Value="18" />
+        <Setter Property="DotWidth" Value="8" />
+        <Setter Property="DotHeight" Value="8" />
+        <Setter Property="DotBorderRadius" Value="4" />
+        <Setter Property="MarkFontSize" Value="12" />
+        <Setter Property="RailBrush" Value="{DynamicResource Theme.Fill.2.Brush}" />
+        <Setter Property="RailHoverBrush" Value="{DynamicResource Theme.Fill.2Hover.Brush}" />
+        <Setter Property="RailDisabledBrush" Value="{DynamicResource Theme.Fill.2.Brush}" />
+        <Setter Property="FillBrush" Value="{DynamicResource Primary.First.Brush}" />
+        <Setter Property="FillHoverBrush" Value="{DynamicResource Primary.Hover.Brush}" />
+        <Setter Property="FillDisabledBrush" Value="{DynamicResource Primary.First.Brush}" />
+        <Setter Property="HandleBrush" Value="{DynamicResource Theme.Surface.0.Brush}" />
+        <Setter Property="HandleBorderBrush" Value="{DynamicResource Primary.First.Brush}" />
+        <Setter Property="HandleDisabledBrush" Value="{DynamicResource Theme.Surface.0.Brush}" />
+        <Setter Property="HandleDisabledBorderBrush" Value="{DynamicResource Primary.First.Brush}" />
+        <Setter Property="DotBrush" Value="{DynamicResource Theme.Surface.0.Brush}" />
+        <Setter Property="DotActiveBrush" Value="{DynamicResource Primary.First.Brush}" />
+        <Setter Property="DotBorderBrush" Value="{DynamicResource Theme.Border.Strong.Brush}" />
+        <Setter Property="DotActiveBorderBrush" Value="{DynamicResource Primary.First.Brush}" />
+        <Setter Property="DotDisabledBrush" Value="{DynamicResource Theme.Surface.0.Brush}" />
+        <Setter Property="DotDisabledBorderBrush" Value="{DynamicResource Theme.Border.Strong.Brush}" />
+        <Setter Property="MarkForeground" Value="{DynamicResource Theme.Text.Secondary.Brush}" />
+        <Setter Property="MarkDisabledForeground" Value="{DynamicResource Theme.Text.Tertiary.Brush}" />
+        <Setter Property="IndicatorBrush" Value="{DynamicResource Theme.Tooltip.Background.Brush}" />
+        <Setter Property="IndicatorForeground" Value="{DynamicResource Theme.Tooltip.Foreground.Brush}" />
+        <Setter Property="IndicatorBorderRadius" Value="3" />
+        <Setter Property="DisabledOpacity" Value="0.5" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:NSlider}">
+                    <Grid
+                        MinWidth="{TemplateBinding MinWidth}"
+                        MinHeight="{TemplateBinding MinHeight}"
+                        Background="Transparent"
+                        ClipToBounds="False">
+                        <Canvas
+                            x:Name="PART_RailCanvas"
+                            Background="Transparent"
+                            ClipToBounds="False">
+                            <Border
+                                x:Name="PART_Rail"
+                                Background="{TemplateBinding RailBrush}" />
+                            <Border
+                                x:Name="PART_Fill"
+                                Background="{TemplateBinding FillBrush}" />
+                            <Border
+                                x:Name="PART_StartIndicator"
+                                Padding="8,4"
+                                Background="{TemplateBinding IndicatorBrush}"
+                                CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IndicatorBorderRadius}">
+                                <ContentPresenter
+                                    x:Name="PART_StartIndicatorContent"
+                                    ContentTemplate="{TemplateBinding IndicatorTemplate}"
+                                    TextElement.FontSize="12"
+                                    TextElement.Foreground="{TemplateBinding IndicatorForeground}" />
+                            </Border>
+                            <Border
+                                x:Name="PART_EndIndicator"
+                                Padding="8,4"
+                                Background="{TemplateBinding IndicatorBrush}"
+                                CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IndicatorBorderRadius}">
+                                <ContentPresenter
+                                    x:Name="PART_EndIndicatorContent"
+                                    ContentTemplate="{TemplateBinding IndicatorTemplate}"
+                                    TextElement.FontSize="12"
+                                    TextElement.Foreground="{TemplateBinding IndicatorForeground}" />
+                            </Border>
+                            <Thumb
+                                x:Name="PART_StartThumb"
+                                Style="{StaticResource Naive.Slider.ThumbStyle}" />
+                            <Thumb
+                                x:Name="PART_EndThumb"
+                                Style="{StaticResource Naive.Slider.ThumbStyle}" />
+                        </Canvas>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Vertical" Value="True">
+                            <Setter Property="MinWidth" Value="72" />
+                            <Setter Property="MinHeight" Value="180" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DisabledOpacity}" />
+                            <Setter Property="Cursor" Value="Arrow" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource NSliderBaseStyle}" TargetType="{x:Type controls:NSlider}" />
+</ResourceDictionary>

@@ -36,6 +36,7 @@ public sealed class DocsPageViewModel : ViewModelBase
             ["color-picker"] = static () => new ColorPickerDocsPage(),
             ["input"] = static () => new InputDocsPage(),
             ["select"] = static () => new SelectDocsPage(),
+            ["slider"] = static () => new SliderDocsPage(),
             ["switch"] = static () => new SwitchDocsPage(),
             ["tooltip"] = static () => new TooltipDocsPage(),
             ["page-header"] = static () => new PageHeaderDocsPage(),

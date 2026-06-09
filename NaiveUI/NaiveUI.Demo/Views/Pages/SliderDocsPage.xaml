@@ -1,0 +1,624 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Pages.SliderDocsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:SliderDocsPageViewModel}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style
+            x:Key="SectionCardHeaderTitleStyle"
+            BasedOn="{StaticResource DocSectionTitleStyle}"
+            TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+        <Style
+            x:Key="SliderDemoStatusStyle"
+            BasedOn="{StaticResource DocBodyTextStyle}"
+            TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,18,0,0" />
+        </Style>
+
+        <Style x:Key="SliderDemoLabelStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,0,0,10" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Secondary.Brush}" />
+        </Style>
+
+        <DataTemplate x:Key="SliderIndicatorTemplate">
+            <StackPanel Orientation="Horizontal">
+                <Ellipse
+                    Width="6"
+                    Height="6"
+                    Margin="0,0,6,0"
+                    VerticalAlignment="Center"
+                    Fill="{DynamicResource Success.First.Brush}" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Foreground="{DynamicResource Theme.Tooltip.Foreground.Brush}"
+                    Text="{Binding StringFormat={}{0:0} 分}" />
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="SliderMarkTemplate">
+            <nc:NTag
+                Bordered="False"
+                Size="Tiny"
+                Type="Info">
+                <TextBlock Text="{Binding Label}" />
+            </nc:NTag>
+        </DataTemplate>
+
+        <DataTemplate x:Key="SliderMarkDotTemplate">
+            <Border
+                Width="14"
+                Height="14"
+                Background="{DynamicResource Theme.Surface.0.Brush}"
+                BorderBrush="{DynamicResource Info.First.Brush}"
+                BorderThickness="2"
+                CornerRadius="7">
+                <Ellipse
+                    Width="4"
+                    Height="4"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{DynamicResource Info.First.Brush}" />
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="SliderThumbTemplate">
+            <Border
+                Width="28"
+                Height="28"
+                Background="{DynamicResource Warning.First.Brush}"
+                CornerRadius="14">
+                <Path
+                    Width="18"
+                    Height="18"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Data="M615.005917 647.451804l-23.650315-1.075015c-90.594388-3.811414-186.270662-46.225616-187.150219-46.616529l-25.018515-11.238786-8.306929 26.093529c-15.343386 48.082458-60.591716 102.712731-61.080359 103.201374l-6.841 8.2092 1.3682 10.652415c6.743272 51.014316 17.395686 95.187631 31.664058 131.640389h53.164344c-15.538843-32.934529-27.461729-76.814659-34.986829-127.731246 12.118343-15.538843 37.136858-49.841573 53.750716-86.587517 32.445887 12.509257 94.014888 33.129987 158.32029 39.580073 2.247757 48.962016 12.900172 115.026532 37.039129 174.73869h53.45753c-29.904944-62.741745-42.609658-143.856461-42.023287-197.216262l0.293186-23.650315z M872.813896 295.43348c-11.141057-12.118343-29.123115-20.425272-47.007444-25.898072-17.493415-34.98683-55.118916-57.56213-100.171789-57.562131-11.922886 0-23.259401 1.954571-33.911815 5.570529-1.172743-13.877458 1.954571-28.048101 9.479672-40.361901a24.481008 24.481008 0 0 0-41.82783-25.409429c-17.493415 28.829929-21.500286 63.425845-11.434243 95.089902-3.4205 4.006872-6.645543 8.111472-9.284215 12.509258-13.095629 20.913915-18.666158 46.61653-15.538843 72.807788 3.518229 29.123115 1.563657 41.82783-1.759115 50.916587-33.814087 45.834701-93.721703 31.566329-145.322389 18.959343-38.798244-9.479672-78.866959-19.154801-121.378889-5.4728-21.207101 6.841-38.211872 16.027486-51.893873 26.973086-2.540943 2.0523-4.7887 4.202329-7.231915 6.352358-4.397786 0-8.404657-0.781829-9.870586-1.075015l-2.247757-0.488642c-22.184386-3.322772-37.527772-24.236686-34.205001-46.421073 3.322772-22.184386 24.236686-37.527772 46.421073-34.205001 13.388815 2.0523 25.800344-7.134186 27.852643-20.523001s-7.134186-25.800344-20.523-27.852643c-48.864287-7.427372-94.60126 26.288986-102.028632 75.153273-6.743272 44.56423 20.718458 86.39206 62.644016 99.096774-17.493415 38.114144-16.907043 78.573774-16.4184 99.780875v1.759114c0.977286 40.752815-4.495514 54.337087-13.388815 76.814659-4.7887 11.922886-10.750143 26.777629-16.4184 47.789273-16.809315 62.448559-10.066043 134.474518-5.375072 168.386333h49.450659c-4.006872-25.995801-12.509257-97.435388 3.127314-155.681618 4.984157-18.275243 9.870586-30.491315 14.561558-42.414202 9.675129-24.334415 18.079786-45.346058 17.004772-95.969459v-1.856843c-0.977286-41.339187 3.4205-81.994274 34.791372-108.576446 9.968315-8.404657 22.575301-15.441115 38.700515-20.620729 29.318572-9.479672 61.178087-1.759114 94.796717 6.450086 46.61653 11.336515 102.908189 25.018515 160.665776-10.163772l1.270472 1.270471c2.7364 2.7364 17.7866 17.297958 41.241458 27.950373 19.252529 8.697843 37.625501 10.554686 49.646116 10.554686h4.202328c2.247757 77.010116-36.550487 150.11109-37.039129 150.892918l-3.518229 6.547814 0.6841 7.427372c0.586371 5.4728 12.411529 126.069861 53.066616 224.287078h53.359801c-38.602787-81.114717-53.750716-193.404848-57.073487-222.039321 11.922886-24.432144 44.661958-103.201374 34.107272-188.420691l0.781829-3.615957 2.150029-10.359229c0.6841-3.225043 1.661386-6.352357 2.7364-9.088757 3.4205 0.195457 6.841 0.293186 10.2615 0.293186 51.796144 0 93.330788-27.266272 106.035503-69.485017 3.322772-11.336515 12.3138-41.241458-14.170643-70.169116z m-27.950372 57.464401c-6.645543 22.086658-30.393587 38.211872-63.914488 38.211873-9.968315 0-20.816186-1.465929-32.348158-4.593243 0 0-17.395686 18.763886-23.650315 48.277915 0 0-2.931857 0.488643-7.720557 0.488643-7.427372 0-19.252529-1.075014-31.56633-6.645543-17.1025-7.818286-28.048101-18.861615-28.048101-18.861615 8.404657-17.688872 14.757015-35.768658 9.186486-82.776102-4.690972-38.993701 20.816186-71.048673 58.832602-71.048673s61.959916 20.913915 66.162245 50.330215c0 0 38.211872 7.5251 48.571101 18.861615 8.991029 9.772857 7.622829 17.395686 4.495515 27.754915z"
+                    Fill="{DynamicResource Theme.Text.Inverse.Brush}"
+                    Stretch="Uniform" />
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="25,34,18,34">
+                <TextBlock
+                    FontSize="48"
+                    FontWeight="Bold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="滑动选择 Slider" />
+
+                <TextBlock
+                    Margin="0,26,0,0"
+                    FontSize="18"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="通过拖动滑块在连续或离散区间内选择数值。" />
+
+                <TextBlock
+                    Margin="0,52,0,28"
+                    FontSize="36"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="演示" />
+
+                <StackPanel>
+                    <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="基础用法" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SliderDocsPageBasic">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="最基本的滑动选择器。Value 支持双向绑定，默认范围为 0 到 100。" />
+                                    <nc:NSlider
+                                        Width="360"
+                                        HorizontalAlignment="Left"
+                                        Value="{Binding BasicValue, Mode=TwoWay}" />
+                                    <TextBlock Style="{StaticResource SliderDemoStatusStyle}" Text="{Binding BasicStatusText}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionDisabled" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="禁用" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SliderDocsPageDisabled">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="Disabled 会同步到 IsEnabled，并保留轨道、填充和滑块的禁用态透明度。" />
+                                    <nc:NSlider
+                                        Width="360"
+                                        HorizontalAlignment="Left"
+                                        Disabled="True"
+                                        Value="45" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionStep" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="步长" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SliderDocsPageStep">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="Step 对齐 Naive UI 的 step。键盘方向键也会按相同步长推进。" />
+                                    <nc:NSlider
+                                        Width="360"
+                                        HorizontalAlignment="Left"
+                                        ShowTooltip="True"
+                                        Step="10"
+                                        TooltipSuffix="%"
+                                        Value="{Binding StepValue, Mode=TwoWay}" />
+                                    <TextBlock Style="{StaticResource SliderDemoStatusStyle}" Text="{Binding StepStatusText}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionRailSize" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="轨道粗度" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SliderDocsPageRailSize">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="RailSize 可以统一设置轨道粗度，轨道和填充条两端圆角会根据粗度自动计算。" />
+                                    <TextBlock Style="{StaticResource SliderDemoLabelStyle}" Text="较粗的水平轨道" />
+                                    <nc:NSlider
+                                        Width="380"
+                                        HorizontalAlignment="Left"
+                                        HandleSize="18"
+                                        RailSize="8"
+                                        ShowTooltip="True"
+                                        Value="58" />
+                                    <TextBlock
+                                        Margin="0,24,0,10"
+                                        Style="{StaticResource SliderDemoLabelStyle}"
+                                        Text="垂直轨道单独设置粗度" />
+                                    <nc:NSlider
+                                        Height="180"
+                                        HandleSize="18"
+                                        Placement="Right"
+                                        RailWidthVertical="10"
+                                        ShowTooltip="True"
+                                        Vertical="True"
+                                        Value="42" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionRange" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="范围选择" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SliderDocsPageRange">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="Range 开启后显示两个滑块。WPF 版使用 RangeStart 和 RangeEnd 代替数组值，便于直接双向绑定。" />
+                                    <nc:NSlider
+                                        Width="360"
+                                        HorizontalAlignment="Left"
+                                        Range="True"
+                                        RangeEnd="{Binding RangeEnd, Mode=TwoWay}"
+                                        RangeStart="{Binding RangeStart, Mode=TwoWay}"
+                                        ShowTooltip="True"
+                                        Step="2" />
+                                    <TextBlock Style="{StaticResource SliderDemoStatusStyle}" Text="{Binding RangeStatusText}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionMarks" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="标记" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SliderDocsPageMarks">
+                                <StackPanel Margin="30,24,30,38">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="Marks 用来在轨道上显示离散刻度和标签，激活区间内的标记点会使用主题主色。" />
+                                    <nc:NSlider
+                                        Width="420"
+                                        HorizontalAlignment="Left"
+                                        ShowTooltip="True"
+                                        Value="{Binding MarkValue, Mode=TwoWay}">
+                                        <nc:NSlider.Marks>
+                                            <nc:NSliderMarkCollection>
+                                                <nc:NSliderMark Label="0℃" Value="0" />
+                                                <nc:NSliderMark Label="20℃" Value="20" />
+                                                <nc:NSliderMark Label="体温" Value="37" />
+                                                <nc:NSliderMark Label="80℃" Value="80" />
+                                                <nc:NSliderMark Label="100℃" Value="100" />
+                                            </nc:NSliderMarkCollection>
+                                        </nc:NSlider.Marks>
+                                    </nc:NSlider>
+                                    <TextBlock Style="{StaticResource SliderDemoStatusStyle}" Text="{Binding MarkStatusText}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionStepMark" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="只在标记间选择" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SliderDocsPageStepMark">
+                                <StackPanel Margin="30,24,30,38">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="当 Step 写成 mark 时，拖动和键盘操作都会吸附到最近的标记点。" />
+                                    <nc:NSlider
+                                        Width="420"
+                                        HorizontalAlignment="Left"
+                                        ShowTooltip="True"
+                                        Step="mark"
+                                        Value="37">
+                                        <nc:NSlider.Marks>
+                                            <nc:NSliderMarkCollection>
+                                                <nc:NSliderMark Label="差" Value="0" />
+                                                <nc:NSliderMark Label="刚好" Value="37" />
+                                                <nc:NSliderMark Label="偏高" Value="72" />
+                                                <nc:NSliderMark Label="危险" Value="100" />
+                                            </nc:NSliderMarkCollection>
+                                        </nc:NSlider.Marks>
+                                    </nc:NSlider>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionCustomMark" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="自定义标识和标记" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SliderDocsPageCustomMark">
+                                <StackPanel Margin="30,24,30,44">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="IndicatorTemplate 用来自定义提示标识，MarkTemplate 和 MarkDotTemplate 用来自定义标记内容和标记点。" />
+                                    <nc:NSlider
+                                        Width="440"
+                                        HorizontalAlignment="Left"
+                                        IndicatorTemplate="{StaticResource SliderIndicatorTemplate}"
+                                        MarkDotTemplate="{StaticResource SliderMarkDotTemplate}"
+                                        MarkTemplate="{StaticResource SliderMarkTemplate}"
+                                        ShowTooltip="True"
+                                        Step="mark"
+                                        Value="40">
+                                        <nc:NSlider.Marks>
+                                            <nc:NSliderMarkCollection>
+                                                <nc:NSliderMark Label="低" Value="0" />
+                                                <nc:NSliderMark Label="推荐" Value="40" />
+                                                <nc:NSliderMark Label="偏高" Value="70" />
+                                                <nc:NSliderMark Label="上限" Value="100" />
+                                            </nc:NSliderMarkCollection>
+                                        </nc:NSlider.Marks>
+                                    </nc:NSlider>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionCustomThumb" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="自定义滑块按钮" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SliderDocsPageCustomThumb">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="ThumbTemplate 可以用 Path 图标替代默认圆形滑块按钮，模板的 DataContext 是当前滑块值。" />
+                                    <nc:NSlider
+                                        Width="420"
+                                        HorizontalAlignment="Left"
+                                        HandleSize="28"
+                                        RailSize="12"
+                                        ThumbTemplate="{StaticResource SliderThumbTemplate}"
+                                        Value="62" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionTooltip" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="提示" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SliderDocsPageTooltip">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="Tooltip 控制是否显示提示；ShowTooltip=True 时始终显示。FormatString、TooltipPrefix 和 TooltipSuffix 可快速格式化提示内容。" />
+                                    <StackPanel>
+                                        <TextBlock Style="{StaticResource SliderDemoLabelStyle}" Text="始终显示百分比" />
+                                        <nc:NSlider
+                                            Width="360"
+                                            HorizontalAlignment="Left"
+                                            FormatString="P0"
+                                            Max="1"
+                                            ShowTooltip="True"
+                                            Step="0.05"
+                                            Value="0.45" />
+                                        <TextBlock
+                                            Margin="0,22,0,10"
+                                            Style="{StaticResource SliderDemoLabelStyle}"
+                                            Text="不显示提示" />
+                                        <nc:NSlider
+                                            Width="360"
+                                            HorizontalAlignment="Left"
+                                            Tooltip="False"
+                                            Value="60" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionVerticalReverse" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="垂直和反向" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SliderDocsPageVerticalReverse">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="Vertical 和 Reverse 可以组合使用，键盘方向也会随方向修正。" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <StackPanel Margin="0,0,46,0">
+                                            <TextBlock Style="{StaticResource SliderDemoLabelStyle}" Text="垂直" />
+                                            <nc:NSlider
+                                                Height="180"
+                                                Placement="Right"
+                                                ShowTooltip="True"
+                                                Vertical="True"
+                                                Value="{Binding VerticalValue, Mode=TwoWay}" />
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <TextBlock Style="{StaticResource SliderDemoLabelStyle}" Text="水平反向" />
+                                            <nc:NSlider
+                                                Width="360"
+                                                Reverse="True"
+                                                ShowTooltip="True"
+                                                Value="{Binding ReverseValue, Mode=TwoWay}" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionControl" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="内部控件联动" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SliderDocsPageControl">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="组合使用 NButton、NSwitch 和 NInput，展示 Slider 在受控场景下的禁用、提示、反向和重置。" />
+                                    <WrapPanel Margin="0,0,0,18">
+                                        <StackPanel Margin="0,0,26,14">
+                                            <nc:NSwitch IsChecked="{Binding LinkedDisabled, Mode=TwoWay}" />
+                                            <TextBlock Style="{StaticResource SliderDemoLabelStyle}" Text="禁用" />
+                                        </StackPanel>
+                                        <StackPanel Margin="0,0,26,14">
+                                            <nc:NSwitch IsChecked="{Binding LinkedShowTooltip, Mode=TwoWay}" />
+                                            <TextBlock Style="{StaticResource SliderDemoLabelStyle}" Text="显示提示" />
+                                        </StackPanel>
+                                        <StackPanel Margin="0,0,26,14">
+                                            <nc:NSwitch IsChecked="{Binding LinkedReverse, Mode=TwoWay}" />
+                                            <TextBlock Style="{StaticResource SliderDemoLabelStyle}" Text="反向" />
+                                        </StackPanel>
+                                    </WrapPanel>
+                                    <StackPanel Margin="0,0,0,18" Orientation="Horizontal">
+                                        <nc:NButton
+                                            Margin="0,0,12,0"
+                                            Click="HandleResetLinkedSliderClick"
+                                            Kind="Secondary">
+                                            重置
+                                        </nc:NButton>
+                                        <nc:NInput
+                                            Width="160"
+                                            IsReadOnly="True"
+                                            Text="{Binding LinkedValue, Mode=TwoWay}" />
+                                    </StackPanel>
+                                    <nc:NSlider
+                                        x:Name="LinkedSlider"
+                                        Width="420"
+                                        HorizontalAlignment="Left"
+                                        DefaultValue="44"
+                                        Disabled="{Binding LinkedDisabled}"
+                                        Reverse="{Binding LinkedReverse}"
+                                        ShowTooltip="{Binding LinkedShowTooltip}"
+                                        Step="4"
+                                        TooltipSuffix="%"
+                                        Value="{Binding LinkedValue, Mode=TwoWay}" />
+                                    <TextBlock Style="{StaticResource SliderDemoStatusStyle}" Text="{Binding LinkedStatusText}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionEvent" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="事件" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="SliderDocsPageEvent">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="ValueChanged 对齐 on-update:value，DragStarted 和 DragCompleted 对齐 on-dragstart / on-dragend。" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <nc:NButton
+                                            Margin="0,0,18,0"
+                                            Click="HandleResetEventSliderClick"
+                                            Kind="Secondary">
+                                            重置
+                                        </nc:NButton>
+                                        <nc:NSlider
+                                            x:Name="EventSlider"
+                                            Width="360"
+                                            DefaultValue="30"
+                                            DragCompleted="HandleEventSliderDragCompleted"
+                                            DragStarted="HandleEventSliderDragStarted"
+                                            ShowTooltip="True"
+                                            ValueChanged="HandleEventSliderValueChanged"
+                                            Value="30" />
+                                    </StackPanel>
+                                    <TextBlock Style="{StaticResource SliderDemoStatusStyle}" Text="{Binding EventText}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionApi" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="API" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <TextBlock
+                                Margin="30,24,30,24"
+                                Style="{StaticResource DocBodyTextStyle}"
+                                Text="基础 Props 对齐 Naive UI Slider；WPF 版额外开放主题画刷、尺寸、事件和 Reset 方法。" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionSliderProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Slider Props" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding SliderPropsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionSliderEvents" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Slider Events" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding SliderEventRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionSliderMethods" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Slider Methods" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding SliderMethodRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionSliderMark" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Slider Mark" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding SliderMarkRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="1" Background="{DynamicResource Theme.Surface.0.Brush}">
+            <nc:NMenu
+                Margin="20,36,20,20"
+                DisplayMemberPath="Label"
+                ItemInvoked="HandleOutlineItemInvoked"
+                ItemsSource="{Binding OutlineItems}"
+                SelectedValuePath="TargetName" />
+        </Border>
+    </Grid>
+</UserControl>
