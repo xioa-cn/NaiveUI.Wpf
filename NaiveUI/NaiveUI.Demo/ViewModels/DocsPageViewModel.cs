@@ -26,6 +26,7 @@ public sealed class DocsPageViewModel : ViewModelBase
             ["dropdown"] = static () => new DropdownDocsPage(),
             ["ellipsis"] = static () => new EllipsisDocsPage(),
             ["gradient-text"] = static () => new GradientTextDocsPage(),
+            ["number-animation"] = static () => new NumberAnimationDocsPage(),
             ["icon"] = static () => new IconDocsPage(),
             ["float-button"] = static () => new FloatButtonDocsPage(),
             ["message"] = static () => new MessageDocsPage(),

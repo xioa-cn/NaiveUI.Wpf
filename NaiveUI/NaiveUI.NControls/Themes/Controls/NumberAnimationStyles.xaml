@@ -1,0 +1,16 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:NaiveUI.NControls.Controls">
+
+    <Style x:Key="NNumberAnimationBaseStyle" TargetType="{x:Type controls:NNumberAnimation}">
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="Regular" />
+        <Setter Property="TextWrapping" Value="NoWrap" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+    </Style>
+
+    <Style BasedOn="{StaticResource NNumberAnimationBaseStyle}" TargetType="{x:Type controls:NNumberAnimation}" />
+</ResourceDictionary>

@@ -1,0 +1,309 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Pages.NumberAnimationDocsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:NumberAnimationDocsPageViewModel}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style
+            x:Key="SectionCardHeaderTitleStyle"
+            BasedOn="{StaticResource DocSectionTitleStyle}"
+            TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+        <Style
+            x:Key="NumberAnimationDisplayStyle"
+            BasedOn="{StaticResource NNumberAnimationBaseStyle}"
+            TargetType="{x:Type nc:NNumberAnimation}">
+            <Setter Property="FontSize" Value="34" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="25,34,18,34">
+                <TextBlock
+                    FontSize="48"
+                    FontWeight="Bold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="数值动画 Number Animation" />
+
+                <TextBlock
+                    Margin="0,26,0,0"
+                    FontSize="18"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="让数字在变更时从起始值平滑过渡到目标值。" />
+
+                <TextBlock
+                    Margin="0,52,0,28"
+                    FontSize="36"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="演示" />
+
+                <StackPanel>
+                    <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="基础用法" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="NumberAnimationDocsPageBasic">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="默认 active 为 true，加载后从 From 动画到 To。" />
+                                    <nc:NNumberAnimation
+                                        Style="{StaticResource NumberAnimationDisplayStyle}"
+                                        From="0"
+                                        To="120000"
+                                        Duration="2000" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionPrecision" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="精度、分隔符与 locale" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="NumberAnimationDocsPagePrecision">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="Precision 对齐 Naive UI 的 precision，ShowSeparator 对齐 show-separator，Locale 控制小数点和千分位符号。" />
+                                    <WrapPanel>
+                                        <StackPanel Margin="0,0,46,0">
+                                            <TextBlock Style="{StaticResource DocBodyTextStyle}" Text="en-US" />
+                                            <nc:NNumberAnimation
+                                                Locale="en-US"
+                                                Precision="2"
+                                                ShowSeparator="True"
+                                                Style="{StaticResource NumberAnimationDisplayStyle}"
+                                                From="0"
+                                                To="1234567.89"
+                                                Duration="2400" />
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <TextBlock Style="{StaticResource DocBodyTextStyle}" Text="de-DE" />
+                                            <nc:NNumberAnimation
+                                                Locale="de-DE"
+                                                Precision="2"
+                                                ShowSeparator="True"
+                                                Style="{StaticResource NumberAnimationDisplayStyle}"
+                                                From="0"
+                                                To="1234567.89"
+                                                Duration="2400" />
+                                        </StackPanel>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionManual" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="手动播放" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="NumberAnimationDocsPageManual">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="Active 设为 false 时不会自动播放，可通过 Play() 或 Restart() 控制。" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <nc:NButton
+                                            Margin="0,0,10,0"
+                                            Click="HandleManualPlayClick"
+                                            Grade="Primary">
+                                            播放
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,24,0"
+                                            Click="HandleManualRestartClick"
+                                            Kind="Secondary">
+                                            重新播放
+                                        </nc:NButton>
+                                        <nc:NNumberAnimation
+                                            x:Name="ManualNumberAnimation"
+                                            Active="False"
+                                            Precision="0"
+                                            Prefix="$"
+                                            ShowSeparator="True"
+                                            Style="{StaticResource NumberAnimationDisplayStyle}"
+                                            From="100"
+                                            To="88888"
+                                            Duration="1800" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionDynamic" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="动态数值" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="NumberAnimationDocsPageDynamic">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="绑定 From 和 To 后，数值变化会重新播放动画；支持负数、反向和小数。" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <nc:NButton
+                                            Margin="0,0,24,0"
+                                            Click="HandleReplayButtonClick"
+                                            Command="{Binding ReplayDynamicCommand}"
+                                            Grade="Primary">
+                                            改变数值
+                                        </nc:NButton>
+                                        <nc:NNumberAnimation
+                                            x:Name="DynamicNumberAnimation"
+                                            Locale="en-US"
+                                            Precision="3"
+                                            ShowSeparator="True"
+                                            Style="{StaticResource NumberAnimationDisplayStyle}"
+                                            From="{Binding DynamicFrom}"
+                                            To="{Binding DynamicTo}"
+                                            Duration="1800" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionFormat" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="前后缀、格式串和事件" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="NumberAnimationDocsPageFormat">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="WPF 版本额外提供 Prefix、Suffix、FormatString、Started、Completed、ValueChanged 等能力。" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <nc:NButton
+                                            Margin="0,0,10,0"
+                                            Click="HandleFormatPlayClick"
+                                            Grade="Primary">
+                                            播放
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,24,0"
+                                            Click="HandleFormatRestartClick"
+                                            Kind="Secondary">
+                                            重新播放
+                                        </nc:NButton>
+                                        <nc:NNumberAnimation
+                                            x:Name="FormatNumberAnimation"
+                                            Margin="0,0,32,0"
+                                            Active="False"
+                                            Completed="HandleNumberAnimationCompleted"
+                                            FormatString="P2"
+                                            Started="HandleNumberAnimationStarted"
+                                            Style="{StaticResource NumberAnimationDisplayStyle}"
+                                            From="0"
+                                            To="0.785"
+                                            Duration="2200" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            Foreground="{DynamicResource Theme.Text.Secondary.Brush}"
+                                            Text="{Binding EventText}" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionApi" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="API" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <TextBlock
+                                Margin="30,24,30,24"
+                                Style="{StaticResource DocBodyTextStyle}"
+                                Text="基础 Props 对齐 Naive UI Number Animation；WPF 版本额外开放格式化、事件和动画控制属性。" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionNumberAnimationProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="NumberAnimation Props" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding NumberAnimationPropsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionNumberAnimationMethods" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="NumberAnimation Methods" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding NumberAnimationMethodsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionNumberAnimationEvents" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="NumberAnimation Events" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding NumberAnimationEventsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="1" Background="{DynamicResource Theme.Surface.0.Brush}">
+            <nc:NMenu
+                Margin="20,36,20,20"
+                DisplayMemberPath="Label"
+                ItemInvoked="HandleOutlineItemInvoked"
+                ItemsSource="{Binding OutlineItems}"
+                SelectedValuePath="TargetName" />
+        </Border>
+    </Grid>
+</UserControl>
