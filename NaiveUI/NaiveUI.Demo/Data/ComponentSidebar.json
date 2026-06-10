@@ -7,11 +7,7 @@
         { "key": "avatar", "title": "头像", "subtitle": "Avatar", "badgeText": "新"  },
         { "key": "button", "title": "按钮", "subtitle": "Button", "isSelected": true, "badgeText": "新"  },
         { "key": "card", "title": "卡片", "subtitle": "Card", "badgeText": "新"  },
-        {
-          "key": "carousel",
-          "title": "轮播图",
-          "subtitle": "Carousel", "badgeText": "新"
-        },
+        { "key": "carousel", "title": "轮播图", "subtitle": "Carousel", "badgeText": "新"},
         { "key": "collapse", "title": "折叠面板", "subtitle": "Collapse", "badgeText": "新"  },
         { "key": "divider", "title": "分割线", "subtitle": "Divider", "badgeText": "新"  },
         { "key": "dropdown", "title": "下拉菜单", "subtitle": "Dropdown", "badgeText": "新"  },
@@ -102,7 +98,7 @@
         { "key": "badge", "title": "标记", "subtitle": "Badge", "badgeText": "新"  },
         { "key": "dialog", "title": "对话框", "subtitle": "Dialog" },
         { "key": "drawer", "title": "抽屉", "subtitle": "Drawer" },
-        { "key": "marquee", "title": "跑马灯", "subtitle": "Marquee" },
+        { "key": "marquee", "title": "跑马灯", "subtitle": "Marquee", "badgeText": "新" },
         { "key": "message", "title": "信息", "subtitle": "Message", "badgeText": "新" },
         { "key": "modal", "title": "模态框", "subtitle": "Modal" },
         { "key": "notification", "title": "通知", "subtitle": "Notification" },

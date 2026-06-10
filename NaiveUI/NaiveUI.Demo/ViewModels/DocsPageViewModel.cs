@@ -31,6 +31,7 @@ public sealed class DocsPageViewModel : ViewModelBase
             ["float-button"] = static () => new FloatButtonDocsPage(),
             ["message"] = static () => new MessageDocsPage(),
             ["loading-bar"] = static () => new LoadingBarDocsPage(),
+            ["marquee"] = static () => new MarqueeDocsPage(),
             ["badge"] = static () => new BadgeDocsPage(),
             ["auto-complete"] = static () => new AutoCompleteDocsPage(),
             ["color-picker"] = static () => new ColorPickerDocsPage(),

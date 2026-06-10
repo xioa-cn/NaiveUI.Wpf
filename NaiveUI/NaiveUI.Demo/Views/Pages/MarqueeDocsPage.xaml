@@ -1,0 +1,402 @@
+<UserControl
+    x:Class="NaiveUI.Demo.Views.Pages.MarqueeDocsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nc="clr-namespace:NaiveUI.NControls.Controls;assembly=NaiveUI.NControls"
+    xmlns:nu="clr-namespace:NaiveUI.NControls.ControlsExample;assembly=NaiveUI.NControls"
+    xmlns:sections="clr-namespace:NaiveUI.Demo.Views.Sections"
+    xmlns:showMeTheXaml="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+    xmlns:viewModels="clr-namespace:NaiveUI.Demo.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:MarqueeDocsPageViewModel}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style
+            x:Key="SectionCardHeaderTitleStyle"
+            BasedOn="{StaticResource DocSectionTitleStyle}"
+            TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+        <Style
+            x:Key="MarqueeDemoBoxStyle"
+            BasedOn="{StaticResource NMarqueeBaseStyle}"
+            TargetType="nc:NMarquee">
+            <Setter Property="Height" Value="44" />
+            <Setter Property="Padding" Value="16,0" />
+            <Setter Property="Background" Value="{DynamicResource Theme.Surface.1.Brush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+        </Style>
+
+        <Style x:Key="MarqueeTextStyle" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="14" />
+
+            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        </Style>
+
+        <Style x:Key="BindingDemoTextBoxStyle" TargetType="TextBox">
+            <Setter Property="MinWidth" Value="320" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Padding" Value="10,5" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border.Brush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Background" Value="{DynamicResource Theme.Surface.0.Brush}" />
+            <Setter Property="Foreground" Value="{DynamicResource Theme.Text.Primary.Brush}" />
+        </Style>
+
+        <DataTemplate x:Key="MarqueeBindingDemoTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                    Width="auto"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource MarqueeTextStyle}"
+                    Text="{Binding Message}" />
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Theme.Surface.0.Brush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="25,34,18,34">
+                <TextBlock
+                    FontSize="48"
+                    FontWeight="Bold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="跑马灯 Marquee" />
+
+                <TextBlock
+                    Margin="0,26,0,0"
+                    FontSize="18"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="连续滚动展示一段文本或任意 WPF 内容，适合公告、状态提示和轻量动态信息。" />
+
+                <TextBlock
+                    Margin="0,52,0,28"
+                    FontSize="36"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource Theme.Text.Primary.Brush}"
+                    Text="演示" />
+
+                <StackPanel>
+                    <nu:CardElement x:Name="SectionBasic" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="基础用法" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="MarqueeDocsPageBasic">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="默认向左滚动，鼠标悬停时暂停，离开后继续。" />
+                                    <nc:NMarquee
+                                        Gap="48"
+                                        Speed="56"
+                                        Style="{StaticResource MarqueeDemoBoxStyle}">
+                                        <TextBlock Style="{StaticResource MarqueeTextStyle}" Text="Naive UI WPF 正在补齐 Marquee 组件，支持文本、标签和任意模板化内容。" />
+                                    </nc:NMarquee>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionImage" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="图片内容" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="MarqueeDocsPageImage">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="支持直接放入图片或图片组合内容，图片会作为真实 WPF 内容参与滚动。" />
+                                    <nc:NMarquee
+                                        Width="300"
+                                        Height="72"
+                                        Gap="48"
+                                        Speed="180"
+                                        Style="{StaticResource MarqueeDemoBoxStyle}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border
+                                                Width="72"
+                                                Height="60"
+                                                Margin="0,0,12,0"
+                                                ClipToBounds="True"
+                                                CornerRadius="6">
+                                                <Image Source="/NaiveUI.Demo;component/Assets/Header.jpg" Stretch="UniformToFill" />
+                                            </Border>
+                                            <TextBlock Style="{StaticResource MarqueeTextStyle}" Text="图片内容可以和文本一起参与跑马灯滚动" />
+                                        </StackPanel>
+                                    </nc:NMarquee>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionDirection" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="方向" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="MarqueeDocsPageDirection">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="支持水平和垂直方向滚动，垂直滚动时通常给出明确高度。" />
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="16" />
+                                            <ColumnDefinition Width="280" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel>
+                                            <nc:NMarquee
+                                                CornerRadius="20"
+                                                Direction="Right"
+                                                Gap="44"
+                                                Speed="54"
+                                                Style="{StaticResource MarqueeDemoBoxStyle}">
+                                                <TextBlock Style="{StaticResource MarqueeTextStyle}" Text="向右滚动 Direction=&quot;Right&quot;" />
+                                            </nc:NMarquee>
+                                            <nc:NMarquee
+                                                Margin="0,14,0,0"
+                                                Direction="Left"
+                                                Gap="44"
+                                                Speed="54"
+                                                Style="{StaticResource MarqueeDemoBoxStyle}">
+                                                <TextBlock Style="{StaticResource MarqueeTextStyle}" Text="向左滚动 Direction=&quot;Left&quot;" />
+                                            </nc:NMarquee>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="2">
+                                            <nc:NMarquee
+                                                Height="118"
+                                                Padding="12"
+                                                Direction="Up"
+                                                Gap="30"
+                                                Speed="32"
+                                                Style="{StaticResource MarqueeDemoBoxStyle}">
+                                                <TextBlock Style="{StaticResource MarqueeTextStyle}" Text="向上滚动&#x0a;Direction=&quot;Up&quot;" />
+                                            </nc:NMarquee>
+                                            <nc:NMarquee
+                                                Height="118"
+                                                Margin="0,14,0,0"
+                                                Padding="12"
+                                                Direction="Down"
+                                                Gap="30"
+                                                Speed="32"
+                                                Style="{StaticResource MarqueeDemoBoxStyle}">
+                                                <TextBlock Style="{StaticResource MarqueeTextStyle}" Text="向下滚动&#x0a;Direction=&quot;Down&quot;" />
+                                            </nc:NMarquee>
+                                        </StackPanel>
+                                    </Grid>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionControl" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="暂停与控制" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="MarqueeDocsPageControl">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="通过 Play、Pause、Resume、Restart 控制播放；Started、Stopped、CycleCompleted 事件可用于联动状态。" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <nc:NButton
+                                            Margin="0,0,10,0"
+                                            Click="HandlePlayClick"
+                                            Grade="Primary">
+                                            播放
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,10,0"
+                                            Click="HandlePauseClick"
+                                            Kind="Secondary">
+                                            暂停
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,10,0"
+                                            Click="HandleResumeClick"
+                                            Kind="Secondary">
+                                            继续
+                                        </nc:NButton>
+                                        <nc:NButton
+                                            Margin="0,0,20,0"
+                                            Click="HandleRestartClick"
+                                            Kind="Tertiary">
+                                            重播
+                                        </nc:NButton>
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            Foreground="{DynamicResource Theme.Text.Secondary.Brush}"
+                                            Text="{Binding EventText}" />
+                                    </StackPanel>
+                                    <nc:NMarquee
+                                        x:Name="ControlledMarquee"
+                                        Margin="0,18,0,0"
+                                        CycleCompleted="HandleCycleCompleted"
+                                        Delay="500"
+                                        Gap="52"
+                                        PauseOnHover="False"
+                                        Speed="64"
+                                        Started="HandleStarted"
+                                        Stopped="HandleStopped"
+                                        Style="{StaticResource MarqueeDemoBoxStyle}">
+                                        <TextBlock Style="{StaticResource MarqueeTextStyle}" Text="这段内容由按钮控制播放状态，Delay=500，PauseOnHover=False。" />
+                                    </nc:NMarquee>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionRichContent" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="复杂内容" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="MarqueeDocsPageRichContent">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="内容区域可以放置已有控件。这里使用 NTag 组合多段状态信息。" />
+                                    <nc:NMarquee
+                                        Gap="56"
+                                        Speed="46"
+                                        Style="{StaticResource MarqueeDemoBoxStyle}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <nc:NTag Margin="0,0,12,0" Type="Info">构建通过</nc:NTag>
+                                            <nc:NTag Margin="0,0,12,0" Type="Success">主题已同步</nc:NTag>
+                                            <nc:NTag Margin="0,0,12,0" Type="Warning">文档待复核</nc:NTag>
+                                            <TextBlock Style="{StaticResource MarqueeTextStyle}" Text="所有信息都作为同一个内容片段参与基础循环滚动。" />
+                                        </StackPanel>
+                                    </nc:NMarquee>
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionBinding" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="绑定与副本" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <showMeTheXaml:XamlDisplay Style="{StaticResource AvalonEditXamlDisplay}" UniqueKey="MarqueeDocsPageBinding">
+                                <StackPanel Margin="30,24,30,24">
+                                    <TextBlock
+                                        Margin="0,0,0,12"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="WPF 不能把同一个 UIElement 同时放到多个位置。直接把 TextBlock、StackPanel 或输入控件作为 Content 时，内部副本只作为展示镜像，不承诺事件和双向绑定。" />
+                                    <TextBlock
+                                        Margin="0,0,0,20"
+                                        Style="{StaticResource DocBodyTextStyle}"
+                                        Text="需要双向数据绑定时，推荐在跑马灯外部放置编辑控件，把数据对象放到 Content，并使用 ContentTemplate 在跑马灯内部做展示。不要把可编辑控件放进 ContentTemplate，否则 AutoFill 或 Repeat 会生成多个输入框。" />
+                                    <TextBox
+                                        Margin="0,0,0,14"
+                                        Style="{StaticResource BindingDemoTextBoxStyle}"
+                                        Text="{Binding BindingDemo.Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <nc:NMarquee
+                                        AutoFill="False"
+                                        Content="{Binding BindingDemo}"
+                                        ContentTemplate="{StaticResource MarqueeBindingDemoTemplate}"
+                                        Gap="40"
+                                        PauseOnHover="False"
+                                        Repeat="1"
+                                        Speed="36"
+                                        Style="{StaticResource MarqueeDemoBoxStyle}" />
+                                    <TextBlock
+                                        Margin="0,14,0,0"
+                                        Foreground="{DynamicResource Theme.Text.Secondary.Brush}"
+                                        Text="{Binding BindingDemo.Message, StringFormat=当前值：{0}}" />
+                                </StackPanel>
+                            </showMeTheXaml:XamlDisplay>
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionApi" Margin="0,20,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="API" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <TextBlock
+                                Margin="30,24,30,24"
+                                Style="{StaticResource DocBodyTextStyle}"
+                                Text="WPF 版本保留 Naive UI Marquee 的核心语义，并额外开放容器样式、播放控制、只读状态和事件，便于桌面场景联动。" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionMarqueeProps" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Marquee Props" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding MarqueePropsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionMarqueeMethods" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Marquee Methods" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding MarqueeMethodsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+
+                    <nu:CardElement x:Name="SectionMarqueeEvents" Margin="0,0,0,20">
+                        <nu:CardElement.HeaderElement>
+                            <Grid Margin="30,28,30,0">
+                                <TextBlock Style="{StaticResource SectionCardHeaderTitleStyle}" Text="Marquee Events" />
+                            </Grid>
+                        </nu:CardElement.HeaderElement>
+                        <nu:CardElement.ContentElement>
+                            <sections:ApiDocTable Margin="30,24,30,24" ItemsSource="{Binding MarqueeEventsRows}" />
+                        </nu:CardElement.ContentElement>
+                    </nu:CardElement>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Column="1" Background="{DynamicResource Theme.Surface.0.Brush}">
+            <nc:NMenu
+                Margin="20,36,20,20"
+                DisplayMemberPath="Label"
+                ItemInvoked="HandleOutlineItemInvoked"
+                ItemsSource="{Binding OutlineItems}"
+                SelectedValuePath="TargetName" />
+        </Border>
+    </Grid>
+</UserControl>

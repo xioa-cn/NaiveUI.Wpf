@@ -421,6 +421,7 @@
                         SnapsToDevicePixels="True">
                         <Grid Background="{TemplateBinding Background}">
                             <ScrollContentPresenter
+                                CanContentScroll="{TemplateBinding CanContentScroll}"
                                 Margin="{TemplateBinding Padding}"
                                 ContentTemplate="{TemplateBinding ContentTemplate}"
                                 Cursor="{TemplateBinding Cursor}" />
